@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Calculator</title>
+  <style>
+    :root {
+      --bg: #0f0f13;
+      --surface: #1a1a24;
+      --surface2: #24243a;
+      --border: #2e2e4a;
+      --text: #e4e4f0;
+      --text-dim: #8888aa;
+      --accent: #7c6ff7;
+      --accent-glow: #7c6ff740;
+      --green: #4ade80;
+      --amber: #fbbf24;
+      --red: #f87171;
+      --blue: #60a5fa;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      color: var(--text-dim);
+      font-size: 1rem;
+    }
+
+    /* --- Life Overview Panel --- */
+    .life-overview {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .life-overview h2 {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.2rem;
+    }
+
+    .life-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .input-group input, .input-group select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-group input:focus, .input-group select:focus {
+      border-color: var(--accent);
+    }
+
+    .life-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .stat-card .number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-card .label {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 0.2rem;
+    }
+
+    .stat-card.highlight .number { color: var(--green); }
+    .stat-card.warn .number { color: var(--amber); }
+
+    /* --- Weeks Grid --- */
+    .weeks-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .weeks-section h2 {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+    }
+
+    .weeks-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+    }
+
+    .weeks-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+
+    .week-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: var(--surface2);
+      transition: background 0.15s;
+    }
+
+    .week-dot.lived { background: var(--accent); opacity: 0.7; }
+    .week-dot.current { background: var(--green); box-shadow: 0 0 6px var(--green); }
+    .week-dot.future { background: var(--surface2); }
+
+    /* --- Interests / Commitments --- */
+    .commitments {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .commitments h2 {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.2rem;
+    }
+
+    .add-commitment {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .add-commitment input, .add-commitment select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .add-commitment input:focus { border-color: var(--accent); }
+
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .btn:hover { opacity: 0.9; }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-sm {
+      padding: 0.35rem 0.7rem;
+      font-size: 0.82rem;
+      border-radius: 6px;
+    }
+
+    .btn-danger {
+      background: var(--red);
+    }
+
+    .commitment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .commitment-item {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .commitment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .commitment-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .commitment-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    .commitment-bar-wrap {
+      background: var(--bg);
+      border-radius: 6px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .commitment-bar {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.4s ease;
+    }
+
+    .commitment-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .commitment-actions input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.5rem;
+      color: var(--text);
+      width: 70px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .commitment-projection {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .commitment-projection strong {
+      color: var(--green);
+    }
+
+    /* --- Time Budget --- */
+    .time-budget {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .time-budget h2 {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.2rem;
+    }
+
+    .budget-bar {
+      display: flex;
+      height: 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .budget-segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      transition: width 0.4s ease;
+      min-width: 2px;
+    }
+
+    .budget-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.5rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    .budget-summary {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .budget-summary .over { color: var(--red); font-weight: 600; }
+    .budget-summary .under { color: var(--green); font-weight: 600; }
+
+    /* --- Responsive --- */
+    @media (max-width: 600px) {
+      .app { padding: 1rem; }
+      header h1 { font-size: 1.6rem; }
+      .week-dot { width: 5px; height: 5px; }
+      .add-commitment { flex-direction: column; }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    .color-options {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .color-opt {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.1s;
+    }
+
+    .color-opt:hover { transform: scale(1.15); }
+    .color-opt.selected { border-color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Life Calculator</h1>
+      <p>Visualize your time. Commit to what matters.</p>
+    </header>
+
+    <!-- Life Overview -->
+    <div class="life-overview">
+      <h2>Your Life</h2>
+      <div class="life-inputs">
+        <div class="input-group">
+          <label>Date of Birth</label>
+          <input type="date" id="dob" />
+        </div>
+        <div class="input-group">
+          <label>Life Expectancy (years)</label>
+          <input type="number" id="lifeExpectancy" value="80" min="1" max="120" />
+        </div>
+      </div>
+      <div class="life-stats" id="lifeStats">
+        <div class="stat-card">
+          <div class="number" id="ageYears">--</div>
+          <div class="label">Years old</div>
+        </div>
+        <div class="stat-card highlight">
+          <div class="number" id="weeksLived">--</div>
+          <div class="label">Weeks lived</div>
+        </div>
+        <div class="stat-card warn">
+          <div class="number" id="weeksLeft">--</div>
+          <div class="label">Weeks remaining</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="percentLived">--</div>
+          <div class="label">% of life lived</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weeks Grid -->
+    <div class="weeks-section">
+      <h2>Your Life in Weeks</h2>
+      <p class="weeks-subtitle">Each dot is one week. <span style="color:var(--accent);">Lived</span> / <span style="color:var(--green);">Now</span> / <span style="color:var(--text-dim);">Future</span></p>
+      <div class="weeks-grid" id="weeksGrid"></div>
+    </div>
+
+    <!-- Commitments -->
+    <div class="commitments">
+      <h2>Interests &amp; Commitments</h2>
+      <div class="add-commitment">
+        <input type="text" id="newName" placeholder="Interest (e.g. Guitar, Reading, Running)" />
+        <input type="number" id="newHours" placeholder="hrs/week" min="0.5" step="0.5" style="max-width:100px" />
+        <div class="color-options" id="colorPicker"></div>
+        <button class="btn" onclick="addCommitment()">Add</button>
+      </div>
+      <div class="commitment-list" id="commitmentList">
+        <div class="empty-state">Add your first interest to see how your time adds up over a lifetime.</div>
+      </div>
+    </div>
+
+    <!-- Time Budget -->
+    <div class="time-budget">
+      <h2>Weekly Time Budget</h2>
+      <div class="budget-bar" id="budgetBar"></div>
+      <div class="budget-legend" id="budgetLegend"></div>
+      <div class="budget-summary" id="budgetSummary"></div>
+    </div>
+  </div>
+
+  <script>
+    const COLORS = [
+      '#7c6ff7', '#60a5fa', '#4ade80', '#fbbf24', '#f87171',
+      '#a78bfa', '#34d399', '#fb923c', '#f472b6', '#38bdf8'
+    ];
+
+    let state = {
+      dob: null,
+      lifeExpectancy: 80,
+      commitments: []
+    };
+
+    // Init color picker
+    const colorPicker = document.getElementById('colorPicker');
+    COLORS.forEach((c, i) => {
+      const el = document.createElement('div');
+      el.className = 'color-opt' + (i === 0 ? ' selected' : '');
+      el.style.background = c;
+      el.dataset.color = c;
+      el.onclick = () => {
+        colorPicker.querySelectorAll('.color-opt').forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+      };
+      colorPicker.appendChild(el);
+    });
+
+    function getSelectedColor() {
+      const sel = colorPicker.querySelector('.color-opt.selected');
+      return sel ? sel.dataset.color : COLORS[0];
+    }
+
+    function save() {
+      localStorage.setItem('life-calc', JSON.stringify(state));
+    }
+
+    function load() {
+      const data = localStorage.getItem('life-calc');
+      if (data) {
+        state = JSON.parse(data);
+        if (state.dob) document.getElementById('dob').value = state.dob;
+        document.getElementById('lifeExpectancy').value = state.lifeExpectancy;
+      }
+    }
+
+    function getAgeInfo() {
+      if (!state.dob) return null;
+      const born = new Date(state.dob);
+      const now = new Date();
+      const msLived = now - born;
+      const weeksLived = Math.floor(msLived / (7 * 24 * 60 * 60 * 1000));
+      const totalWeeks = state.lifeExpectancy * 52;
+      const ageYears = msLived / (365.25 * 24 * 60 * 60 * 1000);
+      return { born, weeksLived, totalWeeks, ageYears, weeksLeft: Math.max(0, totalWeeks - weeksLived) };
+    }
+
+    function updateLifeStats() {
+      const info = getAgeInfo();
+      if (!info) {
+        document.getElementById('ageYears').textContent = '--';
+        document.getElementById('weeksLived').textContent = '--';
+        document.getElementById('weeksLeft').textContent = '--';
+        document.getElementById('percentLived').textContent = '--';
+        return;
+      }
+      document.getElementById('ageYears').textContent = info.ageYears.toFixed(1);
+      document.getElementById('weeksLived').textContent = info.weeksLived.toLocaleString();
+      document.getElementById('weeksLeft').textContent = info.weeksLeft.toLocaleString();
+      const pct = ((info.weeksLived / info.totalWeeks) * 100).toFixed(1);
+      document.getElementById('percentLived').textContent = pct + '%';
+    }
+
+    function renderWeeksGrid() {
+      const grid = document.getElementById('weeksGrid');
+      grid.innerHTML = '';
+      const info = getAgeInfo();
+      if (!info) {
+        grid.innerHTML = '<div class="empty-state">Enter your date of birth to see your life in weeks.</div>';
+        return;
+      }
+      const total = Math.min(info.totalWeeks, 5200); // cap at 100 years
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'week-dot';
+        if (i < info.weeksLived) dot.classList.add('lived');
+        else if (i === info.weeksLived) dot.classList.add('current');
+        else dot.classList.add('future');
+        grid.appendChild(dot);
+      }
+    }
+
+    function addCommitment() {
+      const nameEl = document.getElementById('newName');
+      const hoursEl = document.getElementById('newHours');
+      const name = nameEl.value.trim();
+      const hours = parseFloat(hoursEl.value);
+      if (!name || !hours || hours <= 0) return;
+
+      state.commitments.push({
+        id: Date.now(),
+        name,
+        hoursPerWeek: hours,
+        color: getSelectedColor(),
+        loggedHours: 0
+      });
+
+      nameEl.value = '';
+      hoursEl.value = '';
+      save();
+      renderAll();
+    }
+
+    function removeCommitment(id) {
+      state.commitments = state.commitments.filter(c => c.id !== id);
+      save();
+      renderAll();
+    }
+
+    function logHours(id) {
+      const input = document.querySelector(`[data-log="${id}"]`);
+      const hours = parseFloat(input.value);
+      if (!hours || hours <= 0) return;
+      const c = state.commitments.find(c => c.id === id);
+      if (c) {
+        c.loggedHours = (c.loggedHours || 0) + hours;
+        input.value = '';
+        save();
+        renderAll();
+      }
+    }
+
+    function renderCommitments() {
+      const list = document.getElementById('commitmentList');
+      if (state.commitments.length === 0) {
+        list.innerHTML = '<div class="empty-state">Add your first interest to see how your time adds up over a lifetime.</div>';
+        return;
+      }
+
+      const info = getAgeInfo();
+      list.innerHTML = state.commitments.map(c => {
+        const lifetimeHours = info ? (c.hoursPerWeek * info.weeksLeft) : 0;
+        const lifetimeDays = (lifetimeHours / 24).toFixed(0);
+        const lifetimeYears = (lifetimeHours / (365.25 * 24)).toFixed(1);
+        const weeklyPct = ((c.hoursPerWeek / 168) * 100).toFixed(1);
+        const logged = c.loggedHours || 0;
+        const goalWeekly = c.hoursPerWeek;
+        const progressPct = Math.min(100, (logged / Math.max(goalWeekly, 1)) * 100);
+
+        return `
+          <div class="commitment-item">
+            <div class="commitment-header">
+              <span class="commitment-name" style="color:${c.color}">${esc(c.name)}</span>
+              <button class="btn btn-sm btn-danger" onclick="removeCommitment(${c.id})">Remove</button>
+            </div>
+            <div class="commitment-meta">
+              <span>${c.hoursPerWeek} hrs/week</span>
+              <span>${weeklyPct}% of your week</span>
+              <span>${logged.toFixed(1)} hrs logged</span>
+            </div>
+            <div class="commitment-bar-wrap">
+              <div class="commitment-bar" style="width:${progressPct}%; background:${c.color}"></div>
+            </div>
+            <div class="commitment-actions">
+              <input type="number" data-log="${c.id}" placeholder="Log hrs" min="0.5" step="0.5" />
+              <button class="btn btn-sm" onclick="logHours(${c.id})">Log</button>
+            </div>
+            ${info ? `
+            <div class="commitment-projection">
+              If you commit <strong>${c.hoursPerWeek} hrs/week</strong> for your remaining
+              <strong>${info.weeksLeft.toLocaleString()} weeks</strong>, you'll spend
+              <strong>${lifetimeHours.toLocaleString()} hours</strong>
+              (${lifetimeDays} full days / ${lifetimeYears} years) on ${esc(c.name)}.
+            </div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderBudget() {
+      const bar = document.getElementById('budgetBar');
+      const legend = document.getElementById('budgetLegend');
+      const summary = document.getElementById('budgetSummary');
+      const totalWeekHours = 168;
+      const sleep = 56; // 8hrs/day
+      const essentials = 25; // eating, hygiene, chores
+      const work = 40;
+      const fixedTotal = sleep + essentials + work;
+
+      const commitTotal = state.commitments.reduce((s, c) => s + c.hoursPerWeek, 0);
+      const free = totalWeekHours - fixedTotal - commitTotal;
+
+      const segments = [
+        { label: 'Sleep', hours: sleep, color: '#334155' },
+        { label: 'Work', hours: work, color: '#475569' },
+        { label: 'Essentials', hours: essentials, color: '#64748b' },
+        ...state.commitments.map(c => ({ label: c.name, hours: c.hoursPerWeek, color: c.color })),
+        { label: 'Free time', hours: Math.max(0, free), color: '#1e293b' }
+      ];
+
+      bar.innerHTML = segments.map(s => {
+        const pct = (s.hours / totalWeekHours) * 100;
+        return `<div class="budget-segment" style="width:${pct}%;background:${s.color}" title="${s.label}: ${s.hours}h">${pct > 5 ? s.hours + 'h' : ''}</div>`;
+      }).join('');
+
+      legend.innerHTML = segments.map(s =>
+        `<div class="legend-item"><div class="legend-dot" style="background:${s.color}"></div>${esc(s.label)} (${s.hours}h)</div>`
+      ).join('');
+
+      if (free < 0) {
+        summary.innerHTML = `<span class="over">You're ${Math.abs(free).toFixed(1)} hours over budget!</span> Consider reducing some commitments.`;
+      } else {
+        summary.innerHTML = `<span class="under">${free.toFixed(1)} hours</span> of free/unstructured time remaining per week.`;
+      }
+    }
+
+    function esc(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    function renderAll() {
+      updateLifeStats();
+      renderWeeksGrid();
+      renderCommitments();
+      renderBudget();
+    }
+
+    // Event listeners
+    document.getElementById('dob').addEventListener('change', e => {
+      state.dob = e.target.value;
+      save();
+      renderAll();
+    });
+
+    document.getElementById('lifeExpectancy').addEventListener('input', e => {
+      state.lifeExpectancy = parseInt(e.target.value) || 80;
+      save();
+      renderAll();
+    });
+
+    document.getElementById('newName').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addCommitment();
+    });
+
+    // Init
+    load();
+    renderAll();
+  </script>
+</body>
+</html>
