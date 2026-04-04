@@ -625,6 +625,76 @@
     .section-label-row .section-label {
       margin-bottom: 0;
     }
+
+    /* --- Email / Register Section --- */
+    .register-section {
+      animation: fadeIn 0.4s ease;
+    }
+
+    .register-section .field-input[type="email"] {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .register-success {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background: var(--success-dim);
+      border: 1px solid #4ade8030;
+      border-radius: 6px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .register-success .check {
+      color: var(--success);
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .register-success-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .register-success-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .register-note {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--text);
+      border: none;
+      border-radius: 6px;
+      color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+
+    .register-btn:hover { opacity: 0.9; }
+    .register-btn:active { transform: scale(0.99); }
+    .register-btn:disabled {
+      background: var(--surface-3);
+      color: var(--text-tertiary);
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -706,6 +776,28 @@
         <div class="status-log" id="statusLog"></div>
       </div>
 
+      <div class="section register-section" id="registerSection" style="display:none">
+        <div class="section-label">03 / Register</div>
+        <div id="registerForm">
+          <div class="field">
+            <div class="field-label">Email</div>
+            <input class="field-input" type="email" id="emailInput" placeholder="you@email.com" autocomplete="email" />
+          </div>
+          <div class="register-note">Dream transcriptions will be delivered to this inbox. No account needed.</div>
+          <button class="register-btn" id="registerBtn" onclick="registerDevice()" disabled>
+            Register device
+          </button>
+        </div>
+        <div id="registerSuccess" style="display:none">
+          <div class="register-success">
+            <span class="check">&check;</span>
+            <div class="register-success-text">
+              Transcriptions will be sent to <strong id="registeredEmail"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="section" id="savedNetworksSection" style="display:none">
         <div class="section-label-row">
           <div class="section-label">Saved networks</div>
@@ -728,6 +820,8 @@
 
   <script>
     // ===== CONFIG =====
+    const API_BASE = ''; // Set to backend URL, e.g. 'https://your-app.railway.app'
+    const BLE_CHAR_TOKEN_UUID = 'beb5483e-36e1-4688-b7f5-ea07361b26ad';
     const BLE_SERVICE_UUID   = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
     const BLE_CHAR_SSID_UUID = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
     const BLE_CHAR_PASS_UUID = 'beb5483e-36e1-4688-b7f5-ea07361b26a9';
@@ -746,6 +840,7 @@
     let charScan = null;
     let selectedSSID = '';
     let quickConnectData = null;
+    let charToken = null;
 
     // ===== SAVED NETWORKS =====
     const STORAGE_KEY = 'homesick_saved_networks';
@@ -889,6 +984,12 @@
           charScan = await bleService.getCharacteristic(BLE_CHAR_SCAN_UUID);
         } catch (e) {
           charScan = null;
+        }
+
+        try {
+          charToken = await bleService.getCharacteristic(BLE_CHAR_TOKEN_UUID);
+        } catch (e) {
+          charToken = null;
         }
 
         dot.className = 'dot connected';
@@ -1095,6 +1196,7 @@
                 showResult('success', 'Connected', ip ? `IP: ${ip}` : 'Device is online');
                 log(`WiFi connected${ip ? ` - IP: ${ip}` : ''}`, 'success');
                 saveNetwork(ssid, pass);
+                showRegisterSection();
                 btn.textContent = 'Done';
                 return;
               } else if (status.startsWith('FAIL')) {
@@ -1118,6 +1220,7 @@
           showResult('success', 'Credentials sent', 'Check your device for connection status');
           log('Credentials sent (no status feedback)', 'success');
           saveNetwork(ssid, pass);
+          showRegisterSection();
         }
 
         btn.textContent = 'Done';
@@ -1192,10 +1295,77 @@
       return new Promise(r => setTimeout(r, ms));
     }
 
+    // ===== DEVICE REGISTRATION =====
+    function showRegisterSection() {
+      const section = document.getElementById('registerSection');
+      section.style.display = '';
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function updateRegisterBtn() {
+      const email = document.getElementById('emailInput').value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      document.getElementById('registerBtn').disabled = !valid;
+    }
+
+    async function registerDevice() {
+      const emailInput = document.getElementById('emailInput');
+      const btn = document.getElementById('registerBtn');
+      const email = emailInput.value.trim();
+
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Registering...';
+      log(`Registering device with ${email}...`);
+
+      try {
+        const deviceName = document.getElementById('deviceId').textContent;
+        const res = await fetch(`${API_BASE}/api/devices/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, device_name: deviceName || undefined })
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || `Registration failed (${res.status})`);
+        }
+
+        const data = await res.json();
+        log('Device registered', 'success');
+
+        // Send token to ESP32 via BLE if characteristic available
+        if (charToken && data.device_token) {
+          try {
+            const encoder = new TextEncoder();
+            await charToken.writeValue(encoder.encode(data.device_token));
+            log('Device token stored on device', 'info');
+          } catch (e) {
+            log('Could not write token to device — save manually', 'error');
+          }
+        }
+
+        // Show success state
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('registerSuccess').style.display = '';
+        document.getElementById('registeredEmail').textContent = email;
+
+      } catch (err) {
+        log(`Registration failed: ${err.message}`, 'error');
+        btn.disabled = false;
+        btn.textContent = 'Retry';
+      }
+    }
+
     // Input listeners
     document.getElementById('ssidInput').addEventListener('input', updateSendBtn);
     document.getElementById('passInput').addEventListener('keydown', e => {
       if (e.key === 'Enter') sendCredentials();
+    });
+    document.getElementById('emailInput').addEventListener('input', updateRegisterBtn);
+    document.getElementById('emailInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') registerDevice();
     });
 
     // Init saved networks
