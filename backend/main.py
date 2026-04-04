@@ -9,21 +9,21 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, UploadFile, File, Form, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from openai import OpenAI
+from faster_whisper import WhisperModel
 import resend
 
 load_dotenv()
 
 CONFIG = {
-    "openai_api_key": os.getenv("OPENAI_API_KEY", ""),
     "resend_api_key": os.getenv("RESEND_API_KEY", ""),
     "api_base_url": os.getenv("API_BASE_URL", "http://localhost:8000"),
     "from_email": os.getenv("FROM_EMAIL", "dreams@gentlefuture.com"),
     "db_path": os.getenv("DB_PATH", "dreams.db"),
+    "whisper_model": os.getenv("WHISPER_MODEL", "tiny"),
 }
 
 resend.api_key = CONFIG["resend_api_key"]
-openai_client = OpenAI(api_key=CONFIG["openai_api_key"])
+whisper_model = WhisperModel(CONFIG["whisper_model"], device="cpu", compute_type="int8")
 
 app = FastAPI()
 
@@ -182,15 +182,10 @@ async def upload_dream(
         tmp.write(content)
         tmp.close()
 
-        with open(tmp.name, "rb") as audio_file:
-            transcription = openai_client.audio.transcriptions.create(
-                model="whisper-1",
-                file=audio_file,
-                language="en",
-                response_format="text",
-            )
+        segments, info = whisper_model.transcribe(tmp.name, language="en", beam_size=5)
+        transcription = " ".join(segment.text.strip() for segment in segments)
 
-        duration_seconds = int(file_size / (16000 * 2))
+        duration_seconds = int(info.duration)
         recorded_dt = datetime.fromisoformat(recorded_at) if recorded_at else datetime.utcnow()
         dream_id = str(uuid.uuid4())
 
