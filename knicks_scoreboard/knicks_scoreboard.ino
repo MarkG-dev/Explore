@@ -43,7 +43,7 @@ Adafruit_SSD1306 oled(SCREEN_W, SCREEN_H, &Wire, -1);
 const char* ESPN_URL =
   "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard";
 
-const unsigned long POLL_LIVE_MS = 30UL * 1000UL;        // 30 s during game
+const unsigned long POLL_LIVE_MS = 1000UL;                // 1 s during game
 const unsigned long POLL_IDLE_MS =  5UL * 60UL * 1000UL; // 5 min otherwise
 
 // ---------------------------------------------------------------------------
