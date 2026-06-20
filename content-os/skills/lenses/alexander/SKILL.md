@@ -1,9 +1,9 @@
 ---
 name: alexander
-description: Designed-mode creative engine for the Content OS. Produces composed, structured content where form carries meaning — carousels, multi-panel sequences, explainer threads, layouts, spec/mechanism content, systematic visual sets. Built on Christopher Alexander's "Notes on the Synthesis of Form": good form is good *fit* between form and context, achieved by decomposing the problem into a tree of independent subproblems, resolving each with a constructive diagram, then fusing the diagrams into a whole. This is the rigorous opposite of Alien Worlds — where that engine estranges, this one organizes. Triggers on "build a carousel," "structure this," "make it a sequence," "explain how it works," "this needs hierarchy," "the layout feels off," "panel-to-panel flow," or any brief the router classifies content_mode = designed.
+description: The structure lens of the Content OS ideation engine. Produces composed, structured content where form carries meaning — carousels, multi-panel sequences, explainer threads, layouts, spec/mechanism content, systematic visual sets. Built on Christopher Alexander's "Notes on the Synthesis of Form": good form is good *fit* between form and context, achieved by decomposing the problem into a tree of independent subproblems, resolving each with a constructive diagram, then fusing the diagrams into a whole. This is the rigorous opposite of the Alien lens — where Alien estranges, this one organizes. The conductor pulls this lens when a piece needs composition, hierarchy, or sequence. Triggers on "build a carousel," "structure this," "make it a sequence," "explain how it works," "this needs hierarchy," "the layout feels off," "panel-to-panel flow."
 ---
 
-# Alexander — Designed-Mode Engine (fit through decomposition and fusion)
+# Alexander — The Structure Lens (fit through decomposition and fusion)
 
 ## Philosophy
 
@@ -11,13 +11,13 @@ description: Designed-mode creative engine for the Content OS. Produces composed
 
 A well-made carousel, sequence, or layout is not "pretty." It *fits*: every panel sits where the demands on it put it, the hierarchy answers a real need, nothing fights anything else. When a form fits, it conveys "a powerful sense of its own adequacy and nonarbitrariness" — the same quality Alexander found in the Mousgoum hut and missed in the over-clever modern house that "achieves clarity at the expense of fit."
 
-> The most important idea in the book, in Alexander's own words, is **the diagram** (later: the *pattern*): "an abstract pattern of physical relationships which resolves a small system of interacting and conflicting forces, and is independent of all other forces and of all other possible diagrams." You create a whole by *fusing* these independent diagrams. That is this engine's entire technique.
+> The most important idea in the book, in Alexander's own words, is **the diagram** (later: the *pattern*): "an abstract pattern of physical relationships which resolves a small system of interacting and conflicting forces, and is independent of all other forces and of all other possible diagrams." You create a whole by *fusing* these independent diagrams. That is this lens's entire technique.
 
-This engine is the **rigorous opposite of Alien Worlds.** Where that engine introduces an interference pattern (estrangement), this one builds a gravity of structure (fit). Both can serve the same loop; the router decides which a brief needs.
+This lens is the **rigorous opposite of the Alien lens.** Where Alien introduces an interference pattern (a novel frame), this one builds a gravity of structure (fit). The two compose constantly — Alexander gives a piece its bones, Alien gives it a novel angle — and the conductor sequences them as discrete passes (never blended).
 
 ## The One Criterion: Fit (which Alexander also calls *life*)
 
-You cannot define good fit positively — there is no checklist of "good." **Fit is defined negatively, by the absence of misfit.** A form is good exactly when none of the ways it could grate against its context actually occur. The selection gate at the end of this engine is therefore not "which is prettier" but **"which version has fewer misfits — which one feels more whole, more alive, more inevitable?"** (Alexander's later "mirror of the self" test: which version is a truer picture of the thing it should be.) Hold this criterion the whole way through; it is what every step is for.
+You cannot define good fit positively — there is no checklist of "good." **Fit is defined negatively, by the absence of misfit.** A form is good exactly when none of the ways it could grate against its context actually occur. The selection gate at the end of this lens is therefore not "which is prettier" but **"which version has fewer misfits — which one feels more whole, more alive, more inevitable?"** (Alexander's later "mirror of the self" test: which version is a truer picture of the thing it should be.) Hold this criterion the whole way through; it is what every step is for.
 
 ## The Core Method
 
@@ -30,9 +30,9 @@ Design has an **analytic phase** (find the structure of the problem) and a **syn
 
 > **Analysis produces a tree of requirements; synthesis produces a tree of diagrams.** The program tells you which diagrams to make and how they nest. The art is matching each set of requirements to the diagram that resolves it.
 
-## How This Skill Works
+## How This Lens Works
 
-When invoked on a designed-mode brief:
+When the conductor pulls this lens on a brief that needs structure:
 
 1. **Name the context and the form.** What demands does this piece have to meet (platform, audience, the job-to-be-done), and what is the form we control (a 7-panel carousel? a thread? a spec sheet)? You can't assess fit without both halves.
 2. **Enumerate misfits, not features.** Load `references/fit-and-misfit.md`. Write the list of everything that could make this piece grate — the negative space of the design.
@@ -40,7 +40,7 @@ When invoked on a designed-mode brief:
 4. **Make a constructive diagram per center.** Load `references/diagrams.md`. Each center gets the arrangement that resolves its forces and is both requirement and form at once.
 5. **Fuse and test for life.** Load `references/realization-and-life.md`. Unfold the whole through structure-preserving fusion, apply the working subset of the fifteen properties as a finishing toolkit, and select the version with the most fit/life.
 
-Generate **N candidates**, each tagged `gen_method = alexander`. Vary the *decomposition* across candidates where it's genuinely ambiguous — different valid trees yield different structures, and the approval loop learns which decomposition this loop's audience rewards. Pairs naturally with the Nano Banana 2 image node and Magnific finishing: **Alexander decides the composition; those render and finish it.**
+Generate **N candidates**; `alexander` is recorded in each candidate's recipe (`gen_methods`). Vary the *decomposition* across candidates where it's genuinely ambiguous — different valid trees yield different structures, and the approval loop learns which decomposition this loop's audience rewards. Pairs naturally with the Nano Banana 2 image node and Magnific finishing: **Alexander decides the composition; those render and finish it.**
 
 ## The Four Reference Domains
 
@@ -56,18 +56,16 @@ Generate **N candidates**, each tagged `gen_method = alexander`. Vary the *decom
 ### 4. `references/realization-and-life.md` — Fusion, the Fifteen Properties, and the Life Test
 **Load when:** assembling the whole and selecting. Synthesis by fusion (unfolding, not assembling); a working subset of Alexander's fifteen properties as a finishing toolkit for designed content (levels of scale, strong centers, boundaries, alternating repetition, positive space, good shape, contrast, gradients, echoes, the void, simplicity, not-separateness); and the fit/life selection gate.
 
-## Routing Logic
-
-The execution-engine router sends designed-mode briefs here. Once inside:
+## When the conductor pulls this lens
 
 - **Carousel / multi-panel / sequence** → full method; the decomposition *is* the panel structure, each center a panel-or-cluster.
 - **Single composed image / spec sheet** → fewer centers, but the same logic; the fifteen properties subset does more of the work (see `realization-and-life.md`).
 - **"The layout feels off" / "something's wrong but I can't say what"** → almost always an undetected misfit or a bad decomposition. Re-run steps 1–2; the wrongness is a center fighting another center.
-- **Designed piece with a weird cover** → primary Alexander (structure) + secondary Alien Worlds (cover frame). Alexander builds the tree; the cover center is handed to the weird engine, then fused back in as a citizen of this structure.
+- **Carousel with a striking cover** → Alexander runs first and builds the tree; the conductor then hands the cover center to the **Alien** lens for a novel frame, and the cover is fused back in as a citizen of this structure (a sequenced hand-off, not a blend).
 - **It came back `off_brand_visual`** → the decomposition failed: weak centers, or the wrong properties applied. Re-decompose; find the real centers before re-rendering.
 - **It came back `wrong_format`** → the context was mis-specified (step 1). Fix the demands list, then the tree.
 
-> Mode × substrate = candidates. This engine supplies the *mode* (designed). The loop's substrate supplies the *visual grammar* — and the substrate's form-grammar (e.g. a 1-bit mask system) is itself an Alexandrian pattern language: it lives here, as a set of constructive diagrams the loop reuses.
+> Substrate × plan = candidates. This lens supplies *structure*. The loop's substrate supplies the *visual grammar* — and the substrate's form-grammar (e.g. a 1-bit mask system) is itself an Alexandrian pattern language: it lives here, as a set of constructive diagrams the loop reuses.
 
 ## Tone
 

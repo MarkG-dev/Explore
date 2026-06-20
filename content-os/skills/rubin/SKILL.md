@@ -94,6 +94,16 @@ The goal is not to tell the creator what to do. It is to help them hear what the
 
 ---
 
-## Note on this copy
+## Role in the Content OS
 
-This is the canonical Rubin conductor wired into the Content OS as the **creative-mode** engine. Per `execution-engine.md` §4, no build was needed — only making it substrate-aware per loop: when invoked by the router, Rubin runs with the active loop's substrate (voice/tone rules, banned moves, exemplars) as its voice/taste context instead of running brand-agnostic. The six `references/` files referenced above are Rubin's own domain files (drawn from "The Creative Act"); they are external to this OS build and are not reproduced here.
+Rubin is not a peer engine alongside Alien and Alexander. **Rubin is the shape of the ideation engine itself** — its conductor and its taste gate. The ideation engine (`../ideation-engine/SKILL.md`) runs the four-phase creative process described above (diagnose → diverge → build → judge) and pulls on the generative *lenses* (Alien for novel frames, Alexander for structure) during the build phase. Rubin's six domains map onto the engine's stages:
+
+- **awareness + seeds** → intake and divergence
+- **craft** → the build stage (where the lenses do their work)
+- **judgment** → the pre-QA **taste gate** ("does this have life?")
+- **voice** → the loop's substrate POV
+- **collaboration** → the human edit-diff approval loop (Choice C *is* the approve-and-edit step)
+
+Rubin can also be pulled as a callable lens in its own right (its *seeds* tactics for divergence, its *craft* tactics for breaking sameness) — a component being both the orchestrator and a participant is fine.
+
+Rubin runs **substrate-aware per loop**: it operates with the active loop's voice/tone rules, banned moves, and exemplars as context rather than brand-agnostic. The six `references/` files above are Rubin's own domain files (drawn from "The Creative Act"); they are external to this OS build and are not reproduced here.

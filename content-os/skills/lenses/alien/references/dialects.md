@@ -163,7 +163,7 @@ Rallying cries, core convictions, emotional imperatives — move energy from par
 
 ## Using dialects with the engine
 
-- The estrangement move (`estrangement.md`) builds the world; the dialect voices the dispatch from inside it. A *time-shift* world voiced as **Magician** feels like prophecy; the same world voiced as **Jester** feels like a glitching transmission. Same world, different gravity.
+- The estrangement move (`novel-frames.md`) builds the world; the dialect voices the dispatch from inside it. A *time-shift* world voiced as **Magician** feels like prophecy; the same world voiced as **Jester** feels like a glitching transmission. Same world, different gravity.
 - When generating N candidates, vary the dialect *as well as* the move — the approval loop learns which dialect this loop's audience actually rewards.
 - The **danger zone** column is where each dialect dies. Carry it into `gates.md` as the per-dialect kill-check before any candidate ships.
 - Substrate overrides everything here. If the loop's voice rules contradict a dialect's defaults, prioritize the substrate — these are behavioral anchors, not obligations.

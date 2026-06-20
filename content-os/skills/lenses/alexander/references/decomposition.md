@@ -45,7 +45,7 @@ This tree is what Alexander calls **the program**: not a list of requirements, b
 
 The decomposition you arrive at by habit ("cover, then three value props, then CTA") is a *conventional* tree, not necessarily the one the actual interactions favor. The discipline is to let the **links decide the clusters**, not the template. Two misfits you'd never group by convention may interact so densely that they belong in the same center; two you'd habitually pair may be independent and belong apart. When a designed piece feels subtly wrong, the cause is usually a decomposition that follows the template instead of the forces.
 
-**This is also where candidate variance comes from.** Where the decomposition is genuinely ambiguous — more than one valid clustering of the misfits — generate a candidate per tree. Different valid decompositions yield structurally different carousels, and the approval loop learns which structure this loop's audience actually rewards. (Tag each `gen_method = alexander`; the structural difference is the training signal.)
+**This is also where candidate variance comes from.** Where the decomposition is genuinely ambiguous — more than one valid clustering of the misfits — generate a candidate per tree. Different valid decompositions yield structurally different carousels, and the approval loop learns which structure this loop's audience actually rewards. (`alexander` is recorded in each candidate's recipe; the structural difference is the training signal.)
 
 ## How to do it in practice (the fast version)
 

@@ -43,7 +43,7 @@ The working subset most useful for designed *content* (carousels, sequences, sin
 
 (The remaining properties — local symmetries, deep interlock and ambiguity, roughness — apply less often to flat content but are available; pull them only when the piece genuinely calls for them.)
 
-> Use these to **finish** the fused form, not to generate it. The structure comes from decomposition and the constructive diagrams; the properties make each center and the relationships between them as strong as they can be. They are also where this engine hands off cleanly to rendering/finishing (Nano Banana 2 → Magnific): the properties describe *what good looks like* for the renderer to execute.
+> Use these to **finish** the fused form, not to generate it. The structure comes from decomposition and the constructive diagrams; the properties make each center and the relationships between them as strong as they can be. They are also where this lens hands off cleanly to rendering/finishing (Nano Banana 2 → Magnific): the properties describe *what good looks like* for the renderer to execute.
 
 ## The life test (the selection gate)
 
@@ -61,4 +61,4 @@ Run the gate like this:
 
 ## The handoff
 
-Output of this stage: a **finished, fused form** for each candidate, plus a fit/life judgment selecting the strongest. Tag each `gen_method = alexander` and send forward. When a piece returns with `off_brand_visual`, the failure is upstream — re-decompose (`decomposition.md`) and re-find the centers; no amount of property-polishing fixes a wrong tree.
+Output of this stage: a **finished, fused form** for each candidate, plus a fit/life judgment selecting the strongest. Record `alexander` in each candidate's recipe and send forward. When a piece returns with `off_brand_visual`, the failure is upstream — re-decompose (`decomposition.md`) and re-find the centers; no amount of property-polishing fixes a wrong tree.

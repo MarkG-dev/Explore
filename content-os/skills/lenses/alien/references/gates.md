@@ -10,9 +10,9 @@
 
 Consistency is what separates the uncanny from the random. A world earns belief by never breaking its own physics. Walk the candidate detail by detail:
 
-- Name the one rule (from `estrangement.md`). Then check each image, line, and claim against it: *does this follow from the rule, or did it sneak in from default reality?*
+- Name the one rule (from `novel-frames.md`). Then check each image, line, and claim against it: *does this follow from the rule, or did it sneak in from default reality?*
 - **Any detail that doesn't obey the rule is a leak.** One leak tells the audience the world is fake and the spell collapses. Fix the leak or cut the detail.
-- Watch for the second-law smuggle: a secondary estrangement move that introduces a *rival* physics. Allowed only if it lives *inside* the primary rule (see `estrangement.md` → Combining moves). Two competing laws = no footing = fail.
+- Watch for the second-law smuggle: a secondary estrangement move that introduces a *rival* physics. Allowed only if it lives *inside* the primary rule (see `novel-frames.md` → Combining moves). Two competing laws = no footing = fail.
 - Watch for lore contradiction across a series: a post that breaks established world-facts fails this gate even if internally clean.
 
 **Pass condition:** you could hand the world's rule to a stranger and they could predict every detail in the piece.
@@ -72,4 +72,4 @@ The OS's reject taxonomy maps back onto these gates, which makes failures diagno
 - `off_brand_visual` → the world's visual physics drifted from the loop's substrate grammar. Re-anchor the world's look to the substrate.
 - `off_voice` → the dialect contradicts the loop's house voice. This is a substrate/dialect mismatch, not a world problem — change dialect, keep the world.
 
-Frequent failures at a given gate are a signal worth carrying into the weekly substrate review: if this loop's weird candidates keep failing Gate 2, the loop may not actually want weird — which is exactly the kind of thing the router should learn.
+Frequent failures at a given gate are a signal worth carrying into the weekly substrate review: if this loop's weird candidates keep failing Gate 2, the loop may not actually want weird — which is exactly the kind of thing the conductor should learn.

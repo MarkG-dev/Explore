@@ -39,7 +39,7 @@ A world is not a one-off costume — it's an asset that compounds, exactly like 
 - **One altered law per world**, held across every post in that world. (Different campaigns can run different worlds; within a world, the law is fixed.)
 - **Accrete, don't reset.** A new post can reveal new lore, but never contradict established lore. Contradiction is the same failure as breaking the rule mid-post — it tells the audience the world is fake.
 - **Recurring artifacts and rituals** are how a world becomes recognizable. Reuse them; let them gain meaning through repetition (this is alternating repetition doing brand work).
-- **The product is the central artifact.** Every world this engine builds exists to make the real subject *legible and desirable* from a strange angle. If the world drifts away from the subject, it stops being a lens and becomes a distraction — pull it back.
+- **The product is the central artifact.** Every world this lens builds exists to make the real subject *legible and desirable* from a strange angle. If the world drifts away from the subject, it stops being a lens and becomes a distraction — pull it back.
 
 ## Worldbuilding in service of the one true thing
 

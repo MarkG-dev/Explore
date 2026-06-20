@@ -50,7 +50,7 @@ Alexander stresses (especially in the paperback preface) that the diagrams' powe
 Two consequences for the engine:
 
 1. **Improve centers one at a time.** Because the cover center is independent of the CTA center, you can refine the cover across many pieces without re-solving the CTA. This is how a loop's design quality compounds — a bank of strong, reusable constructive diagrams.
-2. **Recombine to get variety.** The same set of well-made centers recombines into endless distinct pieces. This is exactly how the loop's **visual grammar** (e.g. the 1-bit mask form-grammar in the substrate) works: it is a *pattern language* — a set of independent constructive diagrams the loop reuses and freely combines. That grammar lives here, in this engine.
+2. **Recombine to get variety.** The same set of well-made centers recombines into endless distinct pieces. This is exactly how the loop's **visual grammar** (e.g. the 1-bit mask form-grammar in the substrate) works: it is a *pattern language* — a set of independent constructive diagrams the loop reuses and freely combines. That grammar lives here, in this lens.
 
 ## Making a constructive diagram for a leaf subproblem
 

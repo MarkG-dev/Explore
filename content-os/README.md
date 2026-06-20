@@ -1,55 +1,73 @@
-# Content OS — Execution Engine & Creative Skills
+# Content OS — Ideation Engine & Creative Lenses
 
-The ideation + execution core of the AI Content OS: a **router** that classifies each brief and dispatches it to one of **three creative engines**, each a skill encoding a different way of making something good.
+The ideation core of the AI Content OS: **one conductor** that turns a brief into candidates by composing a *making-plan* — deciding which generative **lenses** to pull on, in what sequence — then judging the result. It is **not** a router that picks one engine per brief; it plans, sequences, composes, and gates.
+
+> This README is the source of truth for the **current** architecture. It supersedes the "router picks one of three engines" framing in `docs/execution-engine.md`, which was the earlier model. The docs remain as reference for the rest of the OS (lineage schema, learning loop, pipeline).
 
 ```
-brief ──▶ ROUTER ──▶ classify content_mode ──▶ dispatch to engine(s) ──▶ N candidates (gen_method tagged)
-                         weird    → Alien Worlds
-                         creative → Rubin
-                         designed → Alexander
+brief + substrate
+   │
+   ▼  PLAN     choose lenses + sequence
+   ▼  BUILD    run each lens as a discrete pass, handing off
+   │             Alien     → novel frame / voice
+   │             Alexander → structure / fit
+   ▼  GATE     Rubin judgment — does it have life?
+   ▼  EMIT     candidates tagged {gen_methods recipe, content_mode, making_plan, substrate_version}
+   → QA filter → human approval (edit_diff + reject_tags) → rest of pipeline
 ```
 
-The mode is chosen **per brief**; the taste comes from the **per-loop substrate**. *Mode × substrate = candidates.*
+The plan comes from the **brief**; the taste comes from the per-loop **substrate**. *Substrate × plan = candidates.*
+
+## The architecture in one breath
+
+- **Rubin is the conductor and the taste gate** — the ideation engine is Rubin-shaped (diagnose → diverge → build → judge). It is not a peer of the other two.
+- **Alien and Alexander are the generative lenses** the conductor pulls on during the build stage. The kit is meant to grow.
+- **Composition is by sequenced passes, never averaging.** Alien estranges → Alexander structures → Rubin judges, as discrete operations. One blended "be novel + structured + soulful at once" prompt collapses to mush — that's the failure this whole design avoids.
 
 ## Layout
 
 ```
 content-os/
-├── README.md                  ← you are here
+├── README.md                      ← you are here (current architecture)
 ├── docs/
-│   ├── content-os-plan.md      consolidated system plan (the learning loop, lineage schema, pipeline)
-│   └── execution-engine.md     spec for this layer (router + three engines)
+│   ├── content-os-plan.md          consolidated system plan (learning loop, lineage schema, pipeline)
+│   └── execution-engine.md         earlier spec (router-picks-one; superseded by this README)
 └── skills/
-    ├── router/        SKILL.md            the engine — classifies brief, dispatches, logs gen_method
-    ├── alien-worlds/  SKILL.md + refs     weird mode — defamiliarization via worldbuilding
-    ├── rubin/         SKILL.md            creative mode — Rick Rubin creative-process conductor
-    └── alexander/     SKILL.md + refs     designed mode — fit via decomposition (Christopher Alexander)
+    ├── ideation-engine/  SKILL.md           the conductor — plans, sequences, gates; logs the recipe
+    ├── rubin/            SKILL.md            the conductor's process + taste gate (Rick Rubin)
+    └── lenses/
+        ├── alien/        SKILL.md + refs     novel frames — novelty via estrangement + worldbuilding + 13 dialects
+        └── alexander/    SKILL.md + refs     structure for fit — decomposition + constructive diagrams (Christopher Alexander)
 ```
 
-## The three engines
+## The lenses
 
-| Mode | Engine | The job | Built from |
-|------|--------|---------|------------|
-| **weird** | **Alien Worlds** | genuine, coherent strangeness — surprise, defamiliarize, stop the scroll | *Alien + Worldbuilding + Dialects* (13 tonal archetypes) + `execution-engine.md` §3 |
-| **creative** | **Rubin** | voice, feeling, taste — work that has to *move* someone | Rick Rubin, *The Creative Act* (provided as the structural template) |
-| **designed** | **Alexander** | composed structure where form carries meaning — carousels, sequences, layouts | Christopher Alexander, *Notes on the Synthesis of Form* + `execution-engine.md` §5 |
+| Lens | The job | Built from |
+|------|---------|------------|
+| **Alien** | **Novel frames** — find the angle nobody else would; novelty that reveals, not noise | *Alien + Worldbuilding + Dialects* (13 tonal archetypes) |
+| **Alexander** | **Structure for fit** — composed wholeness where form carries meaning (carousels, sequences, layouts) | Christopher Alexander, *Notes on the Synthesis of Form* |
 
-**Alien Worlds** introduces an *interference pattern* (estrangement). **Alexander** builds a *gravity of structure* (fit). They are deliberate opposites; **Rubin** is the soul in the middle. The router decides which a brief needs — and learns the right routing per loop over time from the `gen_method` signal on every candidate.
+**Alien** introduces an *interference pattern* (a novel frame) that stops the scroll. **Alexander** builds a *gravity of structure* (fit) that makes a piece whole. They are deliberate opposites and compose constantly; **Rubin** is the process that wields them and the taste that judges them.
 
 ## How a brief flows
 
-1. **Router** reads `{intent, format, platform, pillar}` + the loop's substrate → classifies `content_mode` → dispatches to the primary engine (and an optional secondary, e.g. an Alexander carousel with an Alien Worlds cover).
-2. The **engine** runs its own method with the substrate as taste context and returns **N candidates**, each tagged `gen_method`.
-3. Candidates flow to the **QA filter → human approval** (where `edit_diff` + `reject_tags` are captured) → the rest of the pipeline in `docs/content-os-plan.md`.
-4. Performance + edit signal, partitioned by `gen_method`, **tune the router and the engines** over time.
+1. **Plan.** The conductor reads `{intent, format, platform, pillar}` + the loop's substrate and composes a making-plan: which lenses, in what order, how they hand off.
+2. **Build.** Each lens runs as a discrete pass with the substrate as taste context. Example plan: *Alexander builds the carousel spine → Alien generates a novel cover frame → fuse the cover back into the structure.*
+3. **Gate.** Rubin's judgment domain checks the candidates have life before they leave the engine.
+4. **Emit.** Candidates carry a **recipe** (`gen_methods: [alexander, alien]`), a soft `content_mode` descriptor, the `making_plan`, and the `substrate_version`. They flow to the QA filter → human approval (where `edit_diff` + `reject_tags` are captured) → the rest of the pipeline in `docs/content-os-plan.md`.
+5. **Learn.** Performance + edit signal, partitioned by **recipe** and **brief-type**, tune the planner and the lenses over time.
+
+## The learnable surface
+
+Because every candidate records its recipe and brief-type, the loop learns *which tool-recipe wins for which brief-type in which loop* — a far richer signal than "which of three engines won." The planner is the first thing the feedback loop should tune; until then it runs heuristics, logging recipes from day one.
 
 ## Build status
 
 | Component | Status |
 |---|---|
-| Router (heuristic v1) | ✅ built — `skills/router/` |
-| Alien Worlds (weird) | ✅ built — `skills/alien-worlds/` (estrangement taxonomy · worldbuilding · 13 dialects · gates) |
-| Alexander (designed) | ✅ built — `skills/alexander/` (fit & misfit · decomposition · constructive diagrams · realization & life) |
-| Rubin (creative) | ✅ wired in — `skills/rubin/` (canonical conductor; runs substrate-aware per loop) |
+| Ideation engine (conductor + planner + gate) | ✅ built — `skills/ideation-engine/` |
+| Rubin (conductor backbone + taste gate) | ✅ wired in — `skills/rubin/` (substrate-aware per loop) |
+| Alien lens (novel frames) | ✅ built — `skills/lenses/alien/` (frame-shift moves · worldbuilding · 13 dialects · gates) |
+| Alexander lens (structure) | ✅ built — `skills/lenses/alexander/` (fit & misfit · decomposition · constructive diagrams · realization & life) |
 
-Next per `docs/execution-engine.md` §7: wire candidates into the lineage schema (`content-os-plan.md` §4) and let the feedback loop start replacing the router's heuristics with evidence.
+**Next:** the lineage store + review tool — lock the schema (with the recipe as a first-class field), then ship a deliberately ugly approval view to start banking `edit_diff` immediately. See the database/review approach notes.

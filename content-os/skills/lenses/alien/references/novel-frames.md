@@ -1,6 +1,6 @@
-# Estrangement — The Taxonomy of Moves
+# Novel Frames — The Frame-Shift Moves
 
-*Estrangement (defamiliarization) is making the familiar strange enough to be seen again. The trick is to do it with a rule, not a whim. One rule changed, held without flinching, is what separates the uncanny from the random.*
+*A frame is the conceptual container you present a subject through. These are the moves that swap the category's default frame for a novel one. The engine of all of them is estrangement (defamiliarization): making the familiar strange enough to be seen again. The trick is to do it with a rule, not a whim. One rule changed, held without flinching, is what separates the novel from the random.*
 
 ## The discipline before the moves
 
