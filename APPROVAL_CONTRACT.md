@@ -62,9 +62,10 @@ One append on `Approve & ship` / `Reject all`:
 
   // ── CROWN JEWEL ──────────────────────────────────────────────
   "edit_diff": {
-    "before": "...",                  // EXACTLY what the AI made (selected candidate body)
-    "after": "...",                   // EXACTLY what ships (post-inline-edit)
-    "delta_type": "tightened"         // none | tightened | rewrote | reordered | tone | factual
+    "before": "...",                  // EXACTLY what the AI made — lossless, the source of truth
+    "after": "...",                   // EXACTLY what ships (post-inline-edit) — lossless
+    "delta_type": "tightened",        // HUMAN-TAPPED at commit. none|tightened|rewrote|reordered|tone|factual
+    "delta_hint": "tightened"         // heuristic guess, reference ONLY — never trusted, never queried as truth
   },
 
   // ── ONE-TAP ROUTING (triple duty: substrate · lens · planner) ─
@@ -87,6 +88,14 @@ One append on `Approve & ship` / `Reject all`:
 `edit_diff` is captured **at the editor level automatically**: `before` is the selected
 candidate's untouched body, `after` is whatever is in the editor at commit. The human never
 "saves a diff" — they just edit, and the diff falls out.
+
+**`delta_type` is a one-tap human choice at commit, not a guess.** Raw `before`/`after` are
+lossless and can never be wrong, so they're the permanent source of truth. The *label* is the
+fragile part, so we don't let code write it: when the candidate was edited, the commit button
+reveals a one-tap delta picker (the heuristic pre-highlights a `hint`, but the tap is what
+ships). An untouched candidate skips the picker and writes `delta_type: "none"`. The heuristic
+is preserved as `delta_hint` for reference/auditing only — it is **never** queried as truth.
+This keeps the corpus clean from day one without costing more than one tap.
 
 ---
 

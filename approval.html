@@ -117,6 +117,24 @@
       padding: 14px 8px; border-radius: 8px; cursor: pointer;
       border: 1px solid var(--bad); background: transparent; color: var(--bad); }
 
+    /* one-tap delta_type picker */
+    .delta-pick { display: none; }
+    .delta-pick.show { display: block; }
+    .delta-q { font-size: 12px; color: var(--mute); margin-bottom: 10px; }
+    .delta-q span { color: var(--good); }
+    .delta-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    .delta-chip { flex: 1 1 auto; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      padding: 12px 10px; border-radius: 8px; cursor: pointer; text-align: center;
+      border: 1px solid var(--border2); background: var(--panel2); color: var(--fg);
+      transition: all .12s; position: relative; }
+    .delta-chip:active { transform: scale(.97); }
+    .delta-chip.suggested { border-color: var(--good); color: var(--good); }
+    .delta-chip.suggested::after { content: 'hint'; position: absolute; top: -7px; right: 6px;
+      font-size: 8px; letter-spacing: .1em; text-transform: uppercase; color: var(--good);
+      background: var(--bg); padding: 0 4px; }
+    .delta-cancel { font-family: inherit; font-size: 11px; color: var(--faint);
+      background: none; border: none; cursor: pointer; padding: 4px; }
+
     /* payload = the contract, made visible */
     .payload { margin-top: 30px; }
     .payload-head { display: flex; justify-content: space-between; align-items: center;
@@ -164,9 +182,15 @@
   </div>
 
   <div class="bar">
-    <div class="bar-row">
+    <div class="bar-row" id="commitRow">
       <button class="commit" id="commit">Approve &amp; ship</button>
       <button class="reject-all" id="rejectAll">Reject all</button>
+    </div>
+    <!-- one-tap delta_type picker — appears only when the candidate was edited -->
+    <div class="delta-pick" id="deltaPick">
+      <div class="delta-q">You edited it — what kind of change? <span>(1 tap → ships)</span></div>
+      <div class="delta-chips" id="deltaChips"></div>
+      <button class="delta-cancel" id="deltaCancel">cancel</button>
     </div>
   </div>
 
@@ -317,32 +341,37 @@
       ed.oninput = () => { state.edits[ed.dataset.cand] = ed.innerText; renderPayload(); });
   }
 
-  // ── classify the edit ──
-  function deltaType(before, after) {
+  // the delta_type vocabulary — human picks one at commit (truth)
+  const DELTAS = ["tightened", "rewrote", "reordered", "tone", "factual"];
+
+  // heuristic is a HINT ONLY — it pre-highlights a guess, never writes the label
+  function deltaHint(before, after) {
     if (before === after) return "none";
-    if (after.trim() === "") return "rewrote";
     const ratio = after.length / before.length;
     if (after.length < before.length && before.includes(after.slice(0, 12))) return "tightened";
-    if (ratio < 0.6 || ratio > 1.6) return "rewrote";
+    if (ratio < 0.55 || ratio > 1.8) return "rewrote";
     return "tightened";
   }
 
   // ── OUTPUT CONTRACT: the append-only approval record ──
-  function buildPayload(action) {
+  // delta is null on the live panel until the human taps it at commit
+  function buildPayload(action, delta) {
     const sel = ITEM.candidates.find(c => c.candidate_id === state.selectedId);
     const before = sel ? sel.asset.body : null;
     const after = sel ? state.edits[sel.candidate_id] : null;
     const isReject = action === "reject_all";
+    const edited = !isReject && before !== after;
     return {
       content_item_id: ITEM.content_item_id,
       loop_id: ITEM.loop_id,
       substrate_version: ITEM.substrate_version,
       stage: "approval",
-      approval_action: isReject ? "reject_all"
-        : (before !== after ? "approve_with_edits" : "approve"),
+      approval_action: isReject ? "reject_all" : (edited ? "approve_with_edits" : "approve"),
       selected_candidate_id: isReject ? null : state.selectedId,
       edit_diff: isReject ? null : {
-        before, after, delta_type: deltaType(before, after)
+        before, after,
+        delta_type: edited ? (delta || null) : "none",   // human-tapped truth
+        delta_hint: edited ? deltaHint(before, after) : "none"  // heuristic, for reference only
       },
       reject_tags: state.rejectTags,
       time_to_decide_sec: Math.round((Date.now() - state.openedAt) / 1000),
@@ -372,18 +401,43 @@
     const t = $('toast'); t.textContent = msg; t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2200);
   }
-  function commit(action) {
+  function write(action, delta) {
     if (state.committed) return;
     state.committed = true;
-    const payload = buildPayload(action);
+    const payload = buildPayload(action, delta);
     // v1: this is where we'd POST to Supabase (append-only insert).
     console.log("APPROVAL WRITE →", payload);
     $('payload').innerHTML = hl(payload);
+    hideDeltaPick();
     toast(action === "reject_all" ? "Rejected — tags routed" : "Shipped — edit_diff banked");
     setTimeout(() => { state.committed = false; }, 2500); // demo only
   }
-  $('commit').onclick = () => commit("approve");
-  $('rejectAll').onclick = () => { state.selectedId = null; commit("reject_all"); };
+
+  // delta picker: one tap = pick the label AND ship
+  function showDeltaPick() {
+    const sel = ITEM.candidates.find(c => c.candidate_id === state.selectedId);
+    const hint = deltaHint(sel.asset.body, state.edits[sel.candidate_id]);
+    $('deltaChips').innerHTML = DELTAS.map(d =>
+      `<button class="delta-chip${d === hint ? ' suggested' : ''}" data-delta="${d}">${d}</button>`
+    ).join('');
+    document.querySelectorAll('.delta-chip').forEach(c =>
+      c.onclick = () => write("approve", c.dataset.delta));
+    $('commitRow').style.display = 'none';
+    $('deltaPick').classList.add('show');
+  }
+  function hideDeltaPick() {
+    $('deltaPick').classList.remove('show');
+    $('commitRow').style.display = 'flex';
+  }
+  $('deltaCancel').onclick = hideDeltaPick;
+
+  $('commit').onclick = () => {
+    const sel = ITEM.candidates.find(c => c.candidate_id === state.selectedId);
+    const edited = sel && sel.asset.body !== state.edits[sel.candidate_id];
+    if (edited) showDeltaPick();          // edited → one tap to label, then ships
+    else write("approve", "none");        // untouched → ship straight, delta_type none
+  };
+  $('rejectAll').onclick = () => { state.selectedId = null; write("reject_all"); };
 
   // ── silent friction timer ──
   setInterval(() => {
