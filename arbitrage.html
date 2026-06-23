@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Intake Arbitrage — Explore</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --panel: #111;
+      --panel-2: #161616;
+      --border: #2a2a2a;
+      --border-hi: #444;
+      --text: #f0f0f0;
+      --muted: #888;
+      --dim: #555;
+      --faint: #333;
+      --pos: #4ade80;   /* reinforcing / positive */
+      --neg: #f87171;   /* balancing / negative */
+      --accent: #d4a843; /* trophy gold */
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      line-height: 1.55;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 120px;
+    }
+
+    /* ---- top bar ---- */
+    .topbar {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .home {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .home:hover { color: var(--text); }
+    .brand {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    /* ---- hero ---- */
+    .hero { padding: 48px 0 24px; }
+    .kicker {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(34px, 7vw, 56px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 22px;
+    }
+    h1 b { font-weight: 600; }
+    .lede {
+      font-size: clamp(15px, 2.4vw, 18px);
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .lede b { color: var(--text); font-weight: 500; }
+
+    /* ---- nav pills ---- */
+    nav.pills {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding: 16px 0;
+      margin: 24px 0 8px;
+      background: linear-gradient(var(--bg) 70%, rgba(10,10,10,0));
+      backdrop-filter: blur(4px);
+    }
+    nav.pills a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel);
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    nav.pills a:hover { color: var(--text); border-color: var(--border-hi); }
+
+    /* ---- sections ---- */
+    section { padding: 44px 0 8px; scroll-margin-top: 64px; }
+    .sec-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+    h2 {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin: 8px 0 6px;
+    }
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 28px 0 12px;
+    }
+    p { color: #cfcfcf; font-weight: 300; margin-bottom: 14px; }
+    p b { color: var(--text); font-weight: 600; }
+    .sec-sub { color: var(--muted); font-weight: 300; max-width: 64ch; margin-bottom: 8px; }
+
+    /* ---- generic card ---- */
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+    }
+    .grid { display: grid; gap: 12px; }
+    @media (min-width: 640px) { .grid.two { grid-template-columns: 1fr 1fr; } }
+
+    /* ---- concept steps ---- */
+    .steps { counter-reset: step; display: grid; gap: 10px; margin-top: 18px; }
+    .step {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 18px;
+      background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      flex: none;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 13px; font-weight: 600;
+      color: var(--bg); background: var(--text);
+    }
+    .step .t { font-weight: 500; }
+    .step .d { color: var(--muted); font-weight: 300; font-size: 14px; }
+
+    .tension {
+      margin-top: 18px; padding: 18px 20px;
+      border-left: 3px solid var(--accent);
+      background: var(--panel-2); border-radius: 0 8px 8px 0;
+    }
+    .tension b { color: var(--accent); }
+
+    /* ---- loops diagram ---- */
+    .loops-tabs { display: flex; gap: 8px; margin: 22px 0 18px; }
+    .loops-tabs button {
+      flex: 1;
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      padding: 12px; border-radius: 8px; cursor: pointer;
+      background: var(--panel); color: var(--muted);
+      border: 1px solid var(--border);
+      transition: all 0.15s;
+    }
+    .loops-tabs button .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: middle; }
+    .loops-tabs button.r .dot { background: var(--pos); }
+    .loops-tabs button.b .dot { background: var(--neg); }
+    .loops-tabs button[aria-selected="true"] { color: var(--text); border-color: var(--border-hi); background: var(--panel-2); }
+
+    .loop-list { display: grid; gap: 10px; }
+    .loop {
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+      background: var(--panel);
+    }
+    .loop summary {
+      list-style: none; cursor: pointer; padding: 16px 18px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .loop summary::-webkit-details-marker { display: none; }
+    .loop .badge {
+      flex: none; font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+      padding: 4px 9px; border-radius: 6px;
+    }
+    .loop.r .badge { color: var(--pos); background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.3); }
+    .loop.b .badge { color: var(--neg); background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); }
+    .loop .ltitle { font-weight: 500; flex: 1; }
+    .loop .chev { color: var(--dim); transition: transform 0.2s; }
+    .loop[open] .chev { transform: rotate(90deg); }
+    .loop .chain {
+      padding: 0 18px 18px; color: var(--muted); font-weight: 300; font-size: 14px;
+    }
+    .loop .chain .flow {
+      display: flex; flex-wrap: wrap; gap: 6px 4px; align-items: center;
+      margin-bottom: 12px; font-size: 13px;
+    }
+    .loop .chain .flow span.node {
+      color: var(--text); background: var(--panel-2);
+      border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px;
+    }
+    .loop .chain .flow span.arr { color: var(--dim); }
+    .loop.r .chain .flow span.arr.pos { color: var(--pos); }
+    .loop.b .chain .flow span.arr.neg { color: var(--neg); }
+    .loop .note { color: #cfcfcf; }
+    .loop .note b { color: var(--text); }
+    .weaponize { box-shadow: inset 0 0 0 1px rgba(74,222,128,0.25); }
+    .assassin { box-shadow: inset 0 0 0 1px rgba(248,113,113,0.25); }
+
+    /* ---- rating ---- */
+    .rating-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+    .score { font-size: 40px; font-weight: 600; letter-spacing: -0.03em; }
+    .score.up { color: var(--pos); }
+    .score .of { font-size: 18px; color: var(--dim); font-weight: 400; }
+    .moves { display: grid; gap: 12px; margin-top: 16px; }
+    .move { padding: 16px 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+    .move .h { font-weight: 600; margin-bottom: 6px; }
+    .move .h em { color: var(--accent); font-style: normal; }
+
+    /* ---- precedents ---- */
+    .precedents { display: grid; gap: 8px; margin-top: 14px; }
+    .prec { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+    .prec .tag { flex: none; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 7px; border-radius: 5px; margin-top: 2px; }
+    .prec.win .tag { color: var(--pos); background: rgba(74,222,128,0.1); }
+    .prec.warn .tag { color: var(--neg); background: rgba(248,113,113,0.1); }
+    .prec.neu .tag { color: var(--muted); background: rgba(255,255,255,0.04); }
+    .prec .name { font-weight: 600; }
+    .prec .why { color: var(--muted); font-weight: 300; font-size: 14px; }
+
+    /* ---- filters / spectrum ---- */
+    .spectrum {
+      position: relative; margin: 24px 0 8px; padding: 26px 0 10px;
+    }
+    .spectrum .bar { height: 8px; border-radius: 999px; background: linear-gradient(90deg, var(--neg), var(--pos), var(--neg)); }
+    .spectrum .ends { display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; color: var(--muted); }
+    .spectrum .mid {
+      position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+      font-size: 12px; font-weight: 600; color: var(--pos);
+      text-align: center;
+    }
+    .spectrum .mid::after { content: ""; display:block; width:1px; height:18px; background: var(--pos); margin: 6px auto 0; }
+
+    .filters { display: grid; gap: 10px; margin-top: 18px; counter-reset: f; }
+    .filter { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+    .filter::before { counter-increment: f; content: counter(f); flex:none; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; font-size:12px; font-weight:600; color: var(--muted); border: 1px solid var(--border); }
+
+    .ranklist { display: grid; gap: 8px; margin-top: 16px; }
+    .rank { display: flex; gap: 14px; align-items: center; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+    .rank .n { font-size: 13px; font-weight: 700; color: var(--accent); width: 18px; }
+    .rank.lead { border-color: var(--accent); background: linear-gradient(90deg, rgba(212,168,67,0.08), transparent); }
+    .rank .lbl { font-weight: 400; font-size: 14.5px; }
+
+    /* ---- trophy tiers ---- */
+    .verdict { padding: 18px 20px; border: 1px solid var(--accent); border-radius: 10px; background: linear-gradient(120deg, rgba(212,168,67,0.08), transparent); margin-bottom: 24px; }
+    .verdict b { color: var(--accent); }
+
+    .tier { border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 12px; background: var(--panel); }
+    .tier .top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+    .tier .tnum { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 6px; }
+    .tier.t1 .tnum { color: var(--muted); background: rgba(255,255,255,0.04); }
+    .tier.t2 .tnum { color: var(--pos); background: rgba(74,222,128,0.1); }
+    .tier.t3 .tnum { color: var(--neg); background: rgba(248,113,113,0.1); }
+    .tier .tname { font-weight: 600; font-size: 15px; }
+    .tier .role { color: var(--muted); font-weight: 300; font-size: 14px; margin-bottom: 12px; }
+    .vendors { display: flex; flex-wrap: wrap; gap: 8px; }
+    .vendor { font-size: 13px; padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px; color: #cfcfcf; text-decoration: none; transition: all 0.15s; }
+    .vendor:hover { border-color: var(--border-hi); color: var(--text); }
+    .vendor.star { border-color: rgba(74,222,128,0.4); color: var(--pos); }
+    .vendor.star::before { content: "★ "; }
+
+    /* ---- annoyance / edge two-col ---- */
+    ul.clean { list-style: none; display: grid; gap: 10px; margin-top: 6px; }
+    ul.clean li { padding-left: 22px; position: relative; color: #cfcfcf; font-weight: 300; }
+    ul.clean li b { color: var(--text); font-weight: 600; }
+    ul.pain li::before { content: "✕"; position: absolute; left: 0; color: var(--neg); font-weight: 600; }
+    ul.edge li::before { content: "✓"; position: absolute; left: 0; color: var(--pos); font-weight: 600; }
+
+    /* ---- buyers ---- */
+    .buyers { display: grid; gap: 12px; margin-top: 8px; }
+    @media (min-width: 640px) { .buyers { grid-template-columns: 1fr 1fr; } }
+    .buyer { padding: 16px 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+    .buyer .h { font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .buyer.wedge { border-color: var(--accent); }
+    .buyer .pill { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 5px; }
+    .buyer.wedge .pill { color: var(--accent); background: rgba(212,168,67,0.12); }
+    .buyer.def .pill { color: var(--neg); background: rgba(248,113,113,0.1); }
+    .buyer p { font-size: 14px; color: var(--muted); margin: 0; }
+
+    /* ---- next steps ---- */
+    .checks { display: grid; gap: 10px; margin-top: 8px; }
+    .check { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+    .check .box { flex: none; width: 18px; height: 18px; border: 1.5px solid var(--dim); border-radius: 5px; margin-top: 2px; }
+    .check span { color: #cfcfcf; font-weight: 300; }
+    .check span b { color: var(--text); font-weight: 600; }
+
+    /* ---- sources ---- */
+    details.sources { margin-top: 40px; border: 1px solid var(--border); border-radius: 10px; background: var(--panel); }
+    details.sources summary { cursor: pointer; padding: 16px 18px; font-weight: 500; color: var(--muted); list-style: none; }
+    details.sources summary::-webkit-details-marker { display: none; }
+    details.sources summary::before { content: "▸ "; color: var(--dim); }
+    details.sources[open] summary::before { content: "▾ "; }
+    .src-body { padding: 0 18px 18px; }
+    .src-body a { color: var(--muted); font-size: 13px; word-break: break-all; }
+    .src-body a:hover { color: var(--text); }
+    .src-body .grp { margin-bottom: 14px; }
+    .src-body .grp h4 { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; }
+    .src-body ul { list-style: none; display: grid; gap: 6px; }
+
+    .disclaimer { margin-top: 16px; font-size: 12px; color: var(--faint); }
+
+    .footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--faint); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="/" class="home">&larr; Explore</a>
+    <span class="brand">Homesick</span>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="kicker">Business Model Brief</div>
+      <h1>Intake <b>Arbitrage</b></h1>
+      <p class="lede">In many custom-manufacturing categories the buyer's pain — and the cheapest surface to improve — sits in the <b>intake</b>: the spec&nbsp;&rarr;&nbsp;quote&nbsp;&rarr;&nbsp;proof&nbsp;&rarr;&nbsp;order flow, <b>not</b> the manufacturing. Build a dramatically better front end, white-label the factory, and capture value as the demand layer. The catch the name admits: <b>arbitrage closes</b>.</p>
+    </header>
+
+    <nav class="pills" aria-label="Sections">
+      <a href="#concept">Concept</a>
+      <a href="#mechanics">Mechanics</a>
+      <a href="#rating">Rating</a>
+      <a href="#market">Market</a>
+      <a href="#trophy">Trophy case study</a>
+      <a href="#next">Next steps</a>
+    </nav>
+
+    <!-- 1 — CONCEPT -->
+    <section id="concept">
+      <div class="sec-num">01 — The concept</div>
+      <h2>UX arbitrage: software is cheap to improve, factories are expensive</h2>
+      <p class="sec-sub">In fragmented, software-illiterate supplier categories, the intake experience is often genuinely terrible. That gap is the opportunity.</p>
+
+      <div class="steps">
+        <div class="step"><div><div class="t">Build a dramatically better front end</div><div class="d">Brand + intake/experience — the spec, quote, proof and order flow.</div></div></div>
+        <div class="step"><div><div class="t">Fully white-label production</div><div class="d">Lean on existing manufacturers. Take no margin from vertical integration.</div></div></div>
+        <div class="step"><div><div class="t">Capture value as the experience layer</div><div class="d">Markup on white-label cost — paid for being the best demand-capture surface.</div></div></div>
+        <div class="step"><div><div class="t">Reinvest the saved capital into growth</div><div class="d">SEO / content, programmatic pages — instead of factory capex.</div></div></div>
+      </div>
+
+      <div class="tension">
+        <b>The central tension (the name's self-diagnosis):</b> a nicer intake is a <em>temporary</em> advantage. The entire strategic game is converting it into a <b>structural moat</b> before the gap closes.
+      </div>
+    </section>
+
+    <!-- 2 — MECHANICS -->
+    <section id="mechanics">
+      <div class="sec-num">02 — Systems mechanics</div>
+      <h2>Four reinforcing loops grow it. Four balancing loops kill it.</h2>
+      <p class="sec-sub">Toggle between the growth engine and the limits. Tap any loop to trace its causal chain.</p>
+
+      <div class="loops-tabs" role="tablist">
+        <button class="r" role="tab" aria-selected="true" data-target="r-loops"><span class="dot"></span>Reinforcing — the growth engine</button>
+        <button class="b" role="tab" aria-selected="false" data-target="b-loops"><span class="dot"></span>Balancing — what closes it</button>
+      </div>
+
+      <div id="r-loops" class="loop-list" role="tabpanel">
+        <details class="loop r" open>
+          <summary><span class="badge">R1</span><span class="ltitle">SEO flywheel</span><span class="chev">›</span></summary>
+          <div class="chain">
+            <div class="flow"><span class="node">Revenue</span><span class="arr pos">+→</span><span class="node">Content spend</span><span class="arr pos">+→</span><span class="node">Organic traffic</span><span class="arr pos">+→</span><span class="node">Orders</span></div>
+            <div class="note">Compounds, but slow (months of delay) and increasingly contested.</div>
+          </div>
+        </details>
+        <details class="loop r">
+          <summary><span class="badge">R2</span><span class="ltitle">Trust flywheel</span><span class="chev">›</span></summary>
+          <div class="chain">
+            <div class="flow"><span class="node">Better intake</span><span class="arr pos">+→</span><span class="node">Satisfaction</span><span class="arr pos">+→</span><span class="node">Reviews / referrals</span><span class="arr pos">+→</span><span class="node">Orders</span></div>
+            <div class="note">Word-of-mouth compounding on top of a genuinely better experience.</div>
+          </div>
+        </details>
+        <details class="loop r weaponize">
+          <summary><span class="badge">R3</span><span class="ltitle">Data flywheel — the one to weaponize</span><span class="chev">›</span></summary>
+          <div class="chain">
+            <div class="flow"><span class="node">Orders</span><span class="arr pos">+→</span><span class="node">Quote / spec data</span><span class="arr pos">+→</span><span class="node">Faster smarter quoting</span><span class="arr pos">+→</span><span class="node">Conversion</span><span class="arr pos">+→</span><span class="node">Intake improves</span></div>
+            <div class="note"><b>The moat hides here.</b> Every order is training data for a quoting/pricing engine competitors can't replicate without your volume.</div>
+          </div>
+        </details>
+        <details class="loop r">
+          <summary><span class="badge">R4</span><span class="ltitle">Liquidity flywheel</span><span class="chev">›</span></summary>
+          <div class="chain">
+            <div class="flow"><span class="node">Volume</span><span class="arr pos">+→</span><span class="node">Supplier liquidity</span><span class="arr pos">+→</span><span class="node">Price + speed edge</span><span class="arr pos">+→</span><span class="node">Conversion</span></div>
+            <div class="note">More volume buys better supplier terms, which buys a better offer, which buys more volume.</div>
+          </div>
+        </details>
+      </div>
+
+      <div id="b-loops" class="loop-list" role="tabpanel" hidden>
+        <details class="loop b assassin" open>
+          <summary><span class="badge">B1</span><span class="ltitle">Disintermediation — the assassin</span><span class="chev">›</span></summary>
+          <div class="chain">
+            <div class="flow"><span class="node">Visible scale + markup</span><span class="arr neg">+→</span><span class="node">Go-direct pressure</span><span class="arr neg">−→</span><span class="node">Take rate / retention</span></div>
+            <div class="note"><b>The assassin of pure intake layers.</b> Visible markup teaches both customer and supplier the real price.</div>
+          </div>
+        </details>
+        <details class="loop b">
+          <summary><span class="badge">B2</span><span class="ltitle">CAC inflation</span><span class="chev">›</span></summary>
+          <div class="chain">
+            <div class="flow"><span class="node">Scale + easy copying</span><span class="arr neg">+→</span><span class="node">CAC</span><span class="arr neg">−→</span><span class="node">Unit margin</span></div>
+            <div class="note">A copyable front end plus rising ad costs compresses the margin you arbitraged for.</div>
+          </div>
+        </details>
+        <details class="loop b">
+          <summary><span class="badge">B3</span><span class="ltitle">Quality variance</span><span class="chev">›</span></summary>
+          <div class="chain">
+            <div class="flow"><span class="node">Order volume</span><span class="arr neg">+→</span><span class="node">Supplier defects</span><span class="arr neg">−→</span><span class="node">Brand satisfaction</span></div>
+            <div class="note">You own the brand and relationship but not the factory — every defect lands on you. Reputational risk without operational control.</div>
+          </div>
+        </details>
+        <details class="loop b">
+          <summary><span class="badge">B4</span><span class="ltitle">Supplier power</span><span class="chev">›</span></summary>
+          <div class="chain">
+            <div class="flow"><span class="node">Supplier concentration</span><span class="arr neg">+→</span><span class="node">Supplier power</span><span class="arr neg">−→</span><span class="node">Unit margin</span></div>
+            <div class="note">Concentrate volume for leverage and the supplier gains leverage; diversify for safety and quality variance rises. A permanent tension.</div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 3 — RATING -->
+    <section id="rating">
+      <div class="sec-num">03 — Rating the mechanics</div>
+      <h2>Strong category, maximally exposed posture</h2>
+      <div class="grid two" style="margin-top:18px;">
+        <div class="card">
+          <div class="rating-row"><span class="score up">Strong</span></div>
+          <p style="margin:0;"><b>As a category of business.</b> Asset-light, capital-efficient, proven to scale.</p>
+        </div>
+        <div class="card">
+          <div class="rating-row"><span class="score">6<span class="of">/10</span></span></div>
+          <p style="margin:0;"><b>As the pure posture described.</b> Mechanically real but maximally exposed on B1, B2, B3.</p>
+        </div>
+      </div>
+
+      <h3>Two changes take it to 8–9</h3>
+      <div class="moves">
+        <div class="move">
+          <div class="h">1 — Make the intake <em>proprietary</em>, not just nicer</div>
+          <p style="margin:0;">Nicer UX is copyable in a quarter. What isn't: a quoting engine trained on your order data (R3); saved designs, reorder history and account rosters (switching costs); embedding into the buyer's workflow so you're <b>infrastructure, not a vendor</b>. The moat is data + switching costs hiding inside "intake."</p>
+        </div>
+        <div class="move">
+          <div class="h">2 — Be willing to integrate <em>selectively</em></div>
+          <p style="margin:0;">Integrate where control equals moat. "No vertical-integration margin" is a fine <b>starting</b> posture and a dangerous <b>permanent</b> one.</p>
+        </div>
+      </div>
+
+      <div class="tension" style="border-left-color:var(--neg);">
+        <b style="color:var(--neg);">Biggest risk to stress-test:</b> SEO as the growth dump. The cheap-organic-CAC assumption is weaker now than in 2015–2022 — AI answer engines and overviews are absorbing informational and navigational search. Don't underwrite the whole model on organic.
+      </div>
+
+      <h3>Illustrative precedents <span style="font-weight:400;color:var(--dim);font-size:13px;">(verify independently)</span></h3>
+      <div class="precedents">
+        <div class="prec win"><span class="tag">Won</span><div><span class="name">Xometry</span> <span class="why">— intake arbitrage on CNC/sheet-metal; aggregated a supplier network, no factory, scaled to a public listing. Turned instant-quoting into the moat.</span></div></div>
+        <div class="prec neu"><span class="tag">Integrated</span><div><span class="name">Sticker Mule</span> <span class="why">— started lean, then vertically integrated because control of cost/speed/quality <em>was</em> the moat.</span></div></div>
+        <div class="prec warn"><span class="tag">Squeezed</span><div><span class="name">Lumi</span> <span class="why">— stayed a thin layer in custom packaging and got squeezed; widely cited cautionary case.</span></div></div>
+        <div class="prec neu"><span class="tag">See also</span><div><span class="name">Fictiv, Protolabs · Arka, Packlane · Custom Ink</span> <span class="why">— on-demand mfg, packaging, and apparel (owns saved designs/rosters).</span></div></div>
+      </div>
+    </section>
+
+    <!-- 4 — MARKET -->
+    <section id="market">
+      <div class="sec-num">04 — Picking a market</div>
+      <h2>The sweet spot is mid-complexity</h2>
+      <p class="sec-sub">Complex enough that intake is painful and manual today (the arbitrage), but productizable enough that a configurator captures ~80% of orders without human back-and-forth.</p>
+
+      <div class="spectrum">
+        <div class="mid">The money is here</div>
+        <div class="bar"></div>
+        <div class="ends"><span>Commodity (blank tees)<br>no intake pain, no moat</span><span style="text-align:right;">Bespoke (custom yachts)<br>can't productize the quote</span></div>
+      </div>
+
+      <h3>Five filters for a great category</h3>
+      <div class="filters">
+        <div class="filter"><span>Intake is manual / slow today — email-a-rep, wait two days for a quote.</span></div>
+        <div class="filter"><span>Suppliers are fragmented, SEO-/software-illiterate, with excess capacity.</span></div>
+        <div class="filter"><span>Buyer is B2B / prosumer who values time over the last 5% of price.</span></div>
+        <div class="filter"><span>Considered but repeatable purchase — enough AOV for markup, enough repeat for LTV.</span></div>
+        <div class="filter"><span>Spec-able digitally.</span></div>
+      </div>
+
+      <h3>Candidate categories <span style="font-weight:400;color:var(--dim);font-size:13px;">(best-first for a lean entrant)</span></h3>
+      <div class="ranklist">
+        <div class="rank lead"><span class="n">1</span><span class="lbl">Awards / medals / challenge coins / enamel pins / patches — fragmented, SEO-able, emotional, deadline-driven (low disintermediation).</span></div>
+        <div class="rank"><span class="n">2</span><span class="lbl">Custom signage & large-format print.</span></div>
+        <div class="rank"><span class="n">3</span><span class="lbl">Custom packaging & foam inserts — high pain, but Arka/Packlane exist; Lumi struggled. Enter on a niche.</span></div>
+        <div class="rank"><span class="n">4</span><span class="lbl">Made-to-order industrial parts (laser/sheet-metal/CNC/3D) — proven by Xometry/Fictiv; obvious lanes taken, go vertical-specific.</span></div>
+        <div class="rank"><span class="n">5</span><span class="lbl">Niche apparel & promo — hats, socks, team kit, embroidered workwear.</span></div>
+      </div>
+    </section>
+
+    <!-- 5 — TROPHY CASE STUDY -->
+    <section id="trophy">
+      <div class="sec-num">05 — Trophy / Awards case study</div>
+      <h2>The supply side is already built on a white-label spine</h2>
+
+      <div class="verdict">
+        <b>Verdict:</b> trophies pass the <b>supply test</b> better than almost any category. You don't have to convince anyone to white-label — the trade is structured that way, across three back-end tiers.
+      </div>
+
+      <div class="tier t1">
+        <div class="top"><span class="tnum">Tier 1</span><span class="tname">Component wholesalers</span></div>
+        <div class="role">Trade-only, blind freight, <b>blank</b> parts. The shop assembles + engraves; these ship the parts.</div>
+        <div class="vendors">
+          <a class="vendor" href="https://www.jdsindustries.com/" target="_blank" rel="noopener">JDS Industries</a>
+          <a class="vendor" href="https://marcoawardsgroup.com/" target="_blank" rel="noopener">Marco Awards Group</a>
+        </div>
+      </div>
+
+      <div class="tier t2">
+        <div class="top"><span class="tnum">Tier 2</span><span class="tname">Decorated dropship — the no-touch white-label gold</span></div>
+        <div class="role">They engrave <b>and</b> blind-ship to your customer; you hold no inventory.</div>
+        <div class="vendors">
+          <a class="vendor star" href="https://www.lazerdesigns.com/dropship" target="_blank" rel="noopener">Lazer Designs — partner here first</a>
+          <a class="vendor" href="https://winedgeinc.com/services/drop-shipping" target="_blank" rel="noopener">Winning Edge</a>
+        </div>
+      </div>
+
+      <div class="tier t3">
+        <div class="top"><span class="tnum">Tier 3</span><span class="tname">Vertically integrated incumbents</span></div>
+        <div class="role">Competitors / acquisition targets — <b>not</b> white-label.</div>
+        <div class="vendors">
+          <a class="vendor" href="https://www.crownawards.com/" target="_blank" rel="noopener">Crown Awards</a>
+          <a class="vendor" href="https://www.edco.com/trophies" target="_blank" rel="noopener">EDCO Awards</a>
+          <a class="vendor" href="https://trophydepot.com/" target="_blank" rel="noopener">Trophy Depot</a>
+          <a class="vendor" href="https://k2awards.com/" target="_blank" rel="noopener">K2 Awards</a>
+          <a class="vendor" href="https://www.trophyoutlet.com/" target="_blank" rel="noopener">Trophy Outlet</a>
+          <a class="vendor" href="https://www.orderfastawards.com/" target="_blank" rel="noopener">OrderFast / Same Day</a>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top:24px;">
+        <div class="card">
+          <h3 style="margin-top:0;">What's annoying today <span style="font-weight:400;color:var(--dim);font-size:13px;">(the arbitrage)</span></h3>
+          <ul class="clean pain">
+            <li><b>Bulk/roster entry is brutal.</b> "200 trophies, 200 names" = line-by-line forms or an emailed spreadsheet. The #1 wedge.</li>
+            <li><b>No real-time visual proof.</b> Pick a stock figure, type against a 40-char limit, pay blind.</li>
+            <li><b>Reorder is an afterthought.</b> Recurring buyers, but no saved roster/template to clone last season.</li>
+            <li><b>Custom = "email us for a quote."</b> Falls off a cliff the moment you leave stock SKUs.</li>
+            <li>Dense, dated, desktop-era UX; clip-art-bin figure pickers.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;">Your edge <span style="font-weight:400;color:var(--dim);font-size:13px;">(proprietary intake)</span></h3>
+          <ul class="clean edge">
+            <li><b>Roster intake that doesn't suck</b> — paste a CSV of 200 names → instant per-trophy preview grid.</li>
+            <li><b>Live proof rendering</b> on every config, including logo upload.</li>
+            <li><b>Account-based reorder</b> — saved rosters/figures/templates; "reorder last season, change the year." The R3 + R2 switching-cost moat.</li>
+            <li><b>Programmatic SEO</b> — a page per sport × event × city.</li>
+            <li><b>Deadline-guarantee UX</b> — real ship-by dates from the dropshipper's same-day capability.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Recurring buyers — pick the niches the platforms ignore</h3>
+      <div class="buyers">
+        <div class="buyer def">
+          <div class="h">High-LTV but defended <span class="pill">don't fight head-on</span></div>
+          <p>Corporate years-of-service. Terryberry bundles service awards into a full engagement platform; Baudville sells presentation-ready milestone programs.</p>
+        </div>
+        <div class="buyer wedge">
+          <div class="h">Calendar-recurring &amp; underserved <span class="pill">the wedge</span></div>
+          <p>Youth sports leagues, schools' awards nights, dance &amp; martial-arts studios, running events, county fairs / equestrian. Predictable reorder calendar, clunky incumbents, need roster-and-reorder — not HR software. Own these, then graduate up.</p>
+        </div>
+      </div>
+
+      <h3>Partner vs. buy</h3>
+      <div class="grid two">
+        <div class="card"><b>Partner</b><p style="margin:6px 0 0;color:var(--muted);font-size:14px;">A decorated-dropship fulfiller (Lazer Designs-type) for no-touch; JDS/Marco for components if you later contract a regional engraving shop for higher-margin custom work.</p></div>
+        <div class="card"><b>Buy</b><p style="margin:6px 0 0;color:var(--muted);font-size:14px;">An aging regional trophy shop (retiring owner-operators = roll-up entry), <b style="color:var(--text);font-weight:600;">or</b> a mid-size online retailer with decent domain authority but dying UX — acquire the traffic, re-platform the intake.</p></div>
+      </div>
+      <div class="tension"><b>Cheapest test before buying anything:</b> stand up the roster-intake configurator on a dropship partner and try to win three youth leagues in one season.</div>
+    </section>
+
+    <!-- 6 — NEXT STEPS -->
+    <section id="next">
+      <div class="sec-num">06 — Open questions / next steps</div>
+      <h2>Validate one niche, end to end</h2>
+      <div class="checks">
+        <div class="check"><span class="box"></span><span>Run unit economics + the <b>reorder-lock loop</b> on one niche (youth sports leagues or dance studios).</span></div>
+        <div class="check"><span class="box"></span><span>Define the concrete <b>disintermediation defense</b> for that niche.</span></div>
+        <div class="check"><span class="box"></span><span>Validate decorated-dropship <b>terms, minimums, turnaround and per-item economics</b> with a Tier-2 partner.</span></div>
+        <div class="check"><span class="box"></span><span>Pressure-test the <b>SEO assumption</b> against AI-search headwinds; model a paid + partnerships acquisition mix as backup.</span></div>
+      </div>
+
+      <details class="sources">
+        <summary>Sources</summary>
+        <div class="src-body">
+          <div class="grp">
+            <h4>Web sources (gathered this session)</h4>
+            <ul>
+              <li><a href="https://www.jdsindustries.com/" target="_blank" rel="noopener">JDS Industries — jdsindustries.com</a></li>
+              <li><a href="https://marcoawardsgroup.com/" target="_blank" rel="noopener">Marco Awards Group — marcoawardsgroup.com</a></li>
+              <li><a href="https://www.lazerdesigns.com/dropship" target="_blank" rel="noopener">Lazer Designs (dropship) — lazerdesigns.com/dropship</a></li>
+              <li><a href="https://winedgeinc.com/services/drop-shipping" target="_blank" rel="noopener">Winning Edge — winedgeinc.com</a></li>
+              <li><a href="https://www.crownawards.com/" target="_blank" rel="noopener">Crown Awards — crownawards.com</a></li>
+              <li><a href="https://www.edco.com/trophies" target="_blank" rel="noopener">EDCO Awards — edco.com</a></li>
+              <li><a href="https://trophydepot.com/" target="_blank" rel="noopener">Trophy Depot — trophydepot.com</a></li>
+              <li><a href="https://k2awards.com/" target="_blank" rel="noopener">K2 Awards — k2awards.com</a></li>
+              <li><a href="https://www.trophyoutlet.com/" target="_blank" rel="noopener">Trophy Outlet — trophyoutlet.com</a></li>
+              <li><a href="https://www.orderfastawards.com/" target="_blank" rel="noopener">OrderFast / Same Day Awards — orderfastawards.com</a></li>
+              <li><a href="https://www.terryberry.com/employee-service-awards/" target="_blank" rel="noopener">Terryberry — terryberry.com</a></li>
+              <li><a href="https://www.baudville.com/products/years-of-service-milestone-award" target="_blank" rel="noopener">Baudville — baudville.com</a></li>
+            </ul>
+          </div>
+          <div class="grp">
+            <h4>Precedents (general knowledge — not independently verified)</h4>
+            <p style="font-size:13px;color:var(--muted);margin:0;">Xometry, Sticker Mule, Lumi, Fictiv, Protolabs, Arka, Packlane, Custom Ink.</p>
+          </div>
+        </div>
+      </details>
+
+      <p class="disclaimer">Working brief. Synthesizes model mechanics plus a supply-side crosscheck on the trophy/awards category. Precedents and vendor claims should be verified independently before relying on them.</p>
+    </section>
+
+    <div class="footer">Objects for elsewhere</div>
+  </div>
+
+  <script>
+    // Loop tab toggle
+    document.querySelectorAll('.loops-tabs button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.loops-tabs button').forEach(function (b) {
+          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        });
+        document.querySelectorAll('.loop-list').forEach(function (panel) {
+          panel.hidden = panel.id !== btn.dataset.target;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

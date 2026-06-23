@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/wifi", "destination": "/wifi.html" },
-    { "source": "/lifetracker", "destination": "/lifetracker.html" }
+    { "source": "/lifetracker", "destination": "/lifetracker.html" },
+    { "source": "/arbitrage", "destination": "/arbitrage.html" }
   ]
 }
