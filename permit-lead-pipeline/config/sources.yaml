@@ -47,6 +47,34 @@ sources:
     backfill_days: 90
     selectors: {}
 
+  # --- Free open-data feeds (Socrata) — reliable APIs, no scraping. -----------
+  # Eastern-MA cities (not the Berkshire launch market) but wired now to prove
+  # multi-source robustness and for statewide expansion. Enable when ready.
+  # Confirm each dataset's real column names, then fill field_map.
+  cambridge:
+    kind: socrata
+    enabled: false
+    jurisdiction: Cambridge
+    resource_url: "https://data.cambridgema.gov/resource/9qm7-wbdc.json"
+    rate_limit_seconds: 1
+    field_map:                # dataset column names -> canonical fields (VERIFY)
+      permit_id: permitnumber
+      address: address
+      permit_type: permittypedescr
+      description: description
+      status: status
+      applied_date: applicationdate
+      issued_date: issueddate
+      valuation: totalprojectcost
+
+  boston:
+    kind: socrata
+    enabled: false
+    jurisdiction: Boston
+    resource_url: "https://data.boston.gov/api/3/action/datastore_search"  # CKAN; see notes
+    rate_limit_seconds: 1
+    field_map: {}             # Boston is CKAN not pure Socrata; map after inspecting
+
   # Always-available offline source for development + CI. No network.
   fixture:
     kind: fixture

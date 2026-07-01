@@ -1,0 +1,8 @@
+Hi {{owner}},
+
+We noticed the permit at {{address}} — {{hook}}.
+
+We're a local, licensed {{town}}-area company and we'd be glad to stop by and give you a straightforward quote. No pressure, no obligation.
+
+Call or text {{contractor_phone}}.
+— {{contractor_name}}

@@ -163,11 +163,12 @@
       <button data-ch="postcard" onclick="showChannel('postcard')">Postcard</button>
     </div>
     <div class="draftbox" id="m-body"></div>
+    <div id="m-mail"></div>
     <div class="modrow">
       <button class="copy" onclick="copyDraft()">Copy</button>
       <button onclick="closeDraft()">Close</button>
     </div>
-    <div class="compliance">You send this from your own email/number. PermitPulse never contacts the homeowner directly.</div>
+    <div class="compliance">Email &amp; text: you send from your own account. Postcards can be auto-mailed for you. PermitPulse never phones or emails the homeowner directly.</div>
   </div>
 </div>
 
@@ -303,6 +304,19 @@ function showChannel(ch){
   }else{
     box.textContent=DRAFT[ch]||'';
   }
+  // Postcard tab: offer to auto-mail it (the compliant, done-for-you channel).
+  const mail=document.getElementById('m-mail');
+  if(ch==='postcard' && DRAFT.mail_quote){
+    const price=DRAFT.mail_quote.price_to_contractor_usd.toFixed(2);
+    mail.innerHTML='<div class="modrow"><button class="copy" style="flex:1" '+
+      'onclick="mailIt()">📮 Auto-mail this postcard — $'+price+'</button></div>'+
+      '<div class="compliance">Printed &amp; mailed to the property address via our mail partner. Billed to your card. (Wiring up — see mailer.py.)</div>';
+  }else{ mail.innerHTML=''; }
+}
+function mailIt(){
+  alert("Auto-mail is the next integration: a print-and-mail partner (e.g. Lob) "
+    +"drops this postcard to the property address for a small per-piece fee on "
+    +"your card. Physical mail is fully compliant. Coming soon.");
 }
 function currentDraftText(){
   return CHANNEL==='email'?(DRAFT.email.subject+'\n\n'+DRAFT.email.body):(DRAFT[CHANNEL]||'');

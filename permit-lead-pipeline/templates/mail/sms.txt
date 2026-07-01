@@ -1,0 +1,1 @@
+Hi {{owner}}, I saw the permit at {{address}} in {{town}} — {{hook}}. We're local & licensed, happy to give a free quote if useful. — {{contractor_name}}

@@ -48,11 +48,17 @@
           "drafts": {
             "email": {
               "subject": "About your project at 22 Housatonic St",
-              "body": "Hi Pham,\n\nI saw the permit for work at 22 Housatonic St in Lee \u2014 we can take a quick look at the roof while permits are active.\n\nWe're a local Lee-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nChris Battaini Roofing & Seamless Gutters"
+              "body": "Hi Pham,\n\nI saw the permit for work at 22 Housatonic St in Lee \u2014 we can take a quick look at the roof while the project is active.\n\nWe're a local Lee-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nChris Battaini Roofing & Seamless Gutters\n(413) 441-4840"
             },
-            "sms": "Hi Pham, I saw the permit for work at 22 Housatonic St in Lee \u2014 we can take a quick look at the roof while permits are active. We're local \u2014 happy to give a free quote if useful. \u2014 Chris Battaini Roofing & Seamless Gutters",
-            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 22 Housatonic St in Lee \u2014 we can take a quick look at the roof while permits are active. Call (413) 441-4840 for a free, no-pressure estimate. Local & licensed. \u2014 Chris Battaini Roofing & Seamless Gutters",
-            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+            "sms": "Hi Pham, I saw the permit at 22 Housatonic St in Lee \u2014 we can take a quick look at the roof while the project is active. We're local & licensed, happy to give a free quote if useful. \u2014 Chris Battaini Roofing & Seamless Gutters",
+            "postcard": "Hi Pham,\n\nWe noticed the permit at 22 Housatonic St \u2014 we can take a quick look at the roof while the project is active.\n\nWe're a local, licensed Lee-area company and we'd be glad to stop by and give you a straightforward quote. No pressure, no obligation.\n\nCall or text (413) 441-4840.\n\u2014 Chris Battaini Roofing & Seamless Gutters",
+            "mail_quote": {
+              "kind": "postcard",
+              "partner_cost_usd": 0.73,
+              "price_to_contractor_usd": 1.25,
+              "our_margin_usd": 0.52
+            },
+            "channel_note": "Send email/text from YOUR account. Postcards can be auto-mailed for a small per-piece fee \u2014 we never contact the homeowner over phone or email directly."
           }
         }
       ]
@@ -103,11 +109,17 @@
           "drafts": {
             "email": {
               "subject": "About your project at 7 Wendell Ave",
-              "body": "Hi Alvarez,\n\nI saw the permit for work at 7 Wendell Ave in Pittsfield \u2014 we can take a quick look at the roof while permits are active.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nBriggs Roofing"
+              "body": "Hi Alvarez,\n\nI saw the permit for work at 7 Wendell Ave in Pittsfield \u2014 we can take a quick look at the roof while the project is active.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nBriggs Roofing\n(413) 243-1888"
             },
-            "sms": "Hi Alvarez, I saw the permit for work at 7 Wendell Ave in Pittsfield \u2014 we can take a quick look at the roof while permits are active. We're local \u2014 happy to give a free quote if useful. \u2014 Briggs Roofing",
-            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 7 Wendell Ave in Pittsfield \u2014 we can take a quick look at the roof while permits are active. Call (413) 243-1888 for a free, no-pressure estimate. Local & licensed. \u2014 Briggs Roofing",
-            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+            "sms": "Hi Alvarez, I saw the permit at 7 Wendell Ave in Pittsfield \u2014 we can take a quick look at the roof while the project is active. We're local & licensed, happy to give a free quote if useful. \u2014 Briggs Roofing",
+            "postcard": "Hi Alvarez,\n\nWe noticed the permit at 7 Wendell Ave \u2014 we can take a quick look at the roof while the project is active.\n\nWe're a local, licensed Pittsfield-area company and we'd be glad to stop by and give you a straightforward quote. No pressure, no obligation.\n\nCall or text (413) 243-1888.\n\u2014 Briggs Roofing",
+            "mail_quote": {
+              "kind": "postcard",
+              "partner_cost_usd": 0.73,
+              "price_to_contractor_usd": 1.25,
+              "our_margin_usd": 0.52
+            },
+            "channel_note": "Send email/text from YOUR account. Postcards can be auto-mailed for a small per-piece fee \u2014 we never contact the homeowner over phone or email directly."
           }
         }
       ]
@@ -176,11 +188,17 @@
           "drafts": {
             "email": {
               "subject": "About your project at 45 Onota St",
-              "body": "Hi Delgado,\n\nI saw the permit for work at 45 Onota St in Pittsfield \u2014 we can take a quick look at the roof while permits are active.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nA.C. Wood Contracting"
+              "body": "Hi Delgado,\n\nI saw the permit for work at 45 Onota St in Pittsfield \u2014 we can take a quick look at the roof while the project is active.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nA.C. Wood Contracting\n(413) 499-9905"
             },
-            "sms": "Hi Delgado, I saw the permit for work at 45 Onota St in Pittsfield \u2014 we can take a quick look at the roof while permits are active. We're local \u2014 happy to give a free quote if useful. \u2014 A.C. Wood Contracting",
-            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 45 Onota St in Pittsfield \u2014 we can take a quick look at the roof while permits are active. Call (413) 499-9905 for a free, no-pressure estimate. Local & licensed. \u2014 A.C. Wood Contracting",
-            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+            "sms": "Hi Delgado, I saw the permit at 45 Onota St in Pittsfield \u2014 we can take a quick look at the roof while the project is active. We're local & licensed, happy to give a free quote if useful. \u2014 A.C. Wood Contracting",
+            "postcard": "Hi Delgado,\n\nWe noticed the permit at 45 Onota St \u2014 we can take a quick look at the roof while the project is active.\n\nWe're a local, licensed Pittsfield-area company and we'd be glad to stop by and give you a straightforward quote. No pressure, no obligation.\n\nCall or text (413) 499-9905.\n\u2014 A.C. Wood Contracting",
+            "mail_quote": {
+              "kind": "postcard",
+              "partner_cost_usd": 0.73,
+              "price_to_contractor_usd": 1.25,
+              "our_margin_usd": 0.52
+            },
+            "channel_note": "Send email/text from YOUR account. Postcards can be auto-mailed for a small per-piece fee \u2014 we never contact the homeowner over phone or email directly."
           }
         }
       ]
@@ -210,11 +228,17 @@
           "drafts": {
             "email": {
               "subject": "About your project at 134 Church St",
-              "body": "Hi Okafor,\n\nI saw the permit for work at 134 Church St in North Adams \u2014 since the roof will be freshly done, it's the ideal moment to add solar.\n\nWe're a local North Adams-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nBerkshire Photovoltaic Services"
+              "body": "Hi Okafor,\n\nI saw the permit for work at 134 Church St in North Adams \u2014 since the roof will be freshly done, it's the ideal moment to add solar.\n\nWe're a local North Adams-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nBerkshire Photovoltaic Services\n(413) 664-0152"
             },
-            "sms": "Hi Okafor, I saw the permit for work at 134 Church St in North Adams \u2014 since the roof will be freshly done, it's the ideal moment to add solar. We're local \u2014 happy to give a free quote if useful. \u2014 Berkshire Photovoltaic Services",
-            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 134 Church St in North Adams \u2014 since the roof will be freshly done, it's the ideal moment to add solar. Call (413) 664-0152 for a free, no-pressure estimate. Local & licensed. \u2014 Berkshire Photovoltaic Services",
-            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+            "sms": "Hi Okafor, I saw the permit at 134 Church St in North Adams \u2014 since the roof will be freshly done, it's the ideal moment to add solar. We're local & licensed, happy to give a free quote if useful. \u2014 Berkshire Photovoltaic Services",
+            "postcard": "Hi Okafor,\n\nWe noticed the permit at 134 Church St \u2014 since the roof will be freshly done, it's the ideal moment to add solar.\n\nWe're a local, licensed North Adams-area company and we'd be glad to stop by and give you a straightforward quote. No pressure, no obligation.\n\nCall or text (413) 664-0152.\n\u2014 Berkshire Photovoltaic Services",
+            "mail_quote": {
+              "kind": "postcard",
+              "partner_cost_usd": 0.73,
+              "price_to_contractor_usd": 1.25,
+              "our_margin_usd": 0.52
+            },
+            "channel_note": "Send email/text from YOUR account. Postcards can be auto-mailed for a small per-piece fee \u2014 we never contact the homeowner over phone or email directly."
           }
         }
       ]
@@ -253,11 +277,17 @@
           "drafts": {
             "email": {
               "subject": "About your project at 18 High St",
-              "body": "Hi Ives,\n\nI saw the permit for work at 18 High St in Dalton \u2014 while the space is open is the cheapest time to upgrade the heating/cooling.\n\nWe're a local Dalton-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nLaureyns United"
+              "body": "Hi Ives,\n\nI saw the permit for work at 18 High St in Dalton \u2014 while the space is open is the cheapest time to upgrade the heating and cooling.\n\nWe're a local Dalton-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nLaureyns United\n(413) 717-1684"
             },
-            "sms": "Hi Ives, I saw the permit for work at 18 High St in Dalton \u2014 while the space is open is the cheapest time to upgrade the heating/cooling. We're local \u2014 happy to give a free quote if useful. \u2014 Laureyns United",
-            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 18 High St in Dalton \u2014 while the space is open is the cheapest time to upgrade the heating/cooling. Call (413) 717-1684 for a free, no-pressure estimate. Local & licensed. \u2014 Laureyns United",
-            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+            "sms": "Hi Ives, I saw the permit at 18 High St in Dalton \u2014 while the space is open is the cheapest time to upgrade the heating and cooling. We're local & licensed, happy to give a free quote if useful. \u2014 Laureyns United",
+            "postcard": "Hi Ives,\n\nWe noticed the permit at 18 High St \u2014 while the space is open is the cheapest time to upgrade the heating and cooling.\n\nWe're a local, licensed Dalton-area company and we'd be glad to stop by and give you a straightforward quote. No pressure, no obligation.\n\nCall or text (413) 717-1684.\n\u2014 Laureyns United",
+            "mail_quote": {
+              "kind": "postcard",
+              "partner_cost_usd": 0.73,
+              "price_to_contractor_usd": 1.25,
+              "our_margin_usd": 0.52
+            },
+            "channel_note": "Send email/text from YOUR account. Postcards can be auto-mailed for a small per-piece fee \u2014 we never contact the homeowner over phone or email directly."
           }
         }
       ]
@@ -331,11 +361,17 @@
           "drafts": {
             "email": {
               "subject": "About your project at 61 Elm St",
-              "body": "Hi Russo,\n\nI saw the permit for work at 61 Elm St in Pittsfield \u2014 while the space is open is the cheapest time to upgrade the heating/cooling.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nDon Davis Heating Cooling & Plumbing"
+              "body": "Hi Russo,\n\nI saw the permit for work at 61 Elm St in Pittsfield \u2014 while the space is open is the cheapest time to upgrade the heating and cooling.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nDon Davis Heating Cooling & Plumbing"
             },
-            "sms": "Hi Russo, I saw the permit for work at 61 Elm St in Pittsfield \u2014 while the space is open is the cheapest time to upgrade the heating/cooling. We're local \u2014 happy to give a free quote if useful. \u2014 Don Davis Heating Cooling & Plumbing",
-            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 61 Elm St in Pittsfield \u2014 while the space is open is the cheapest time to upgrade the heating/cooling. Call  for a free, no-pressure estimate. Local & licensed. \u2014 Don Davis Heating Cooling & Plumbing",
-            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+            "sms": "Hi Russo, I saw the permit at 61 Elm St in Pittsfield \u2014 while the space is open is the cheapest time to upgrade the heating and cooling. We're local & licensed, happy to give a free quote if useful. \u2014 Don Davis Heating Cooling & Plumbing",
+            "postcard": "Hi Russo,\n\nWe noticed the permit at 61 Elm St \u2014 while the space is open is the cheapest time to upgrade the heating and cooling.\n\nWe're a local, licensed Pittsfield-area company and we'd be glad to stop by and give you a straightforward quote. No pressure, no obligation.\n\nCall or text .\n\u2014 Don Davis Heating Cooling & Plumbing",
+            "mail_quote": {
+              "kind": "postcard",
+              "partner_cost_usd": 0.73,
+              "price_to_contractor_usd": 1.25,
+              "our_margin_usd": 0.52
+            },
+            "channel_note": "Send email/text from YOUR account. Postcards can be auto-mailed for a small per-piece fee \u2014 we never contact the homeowner over phone or email directly."
           }
         }
       ]
@@ -418,11 +454,17 @@
           "drafts": {
             "email": {
               "subject": "About your project at 61 Elm St",
-              "body": "Hi Russo,\n\nI saw the permit for work at 61 Elm St in Pittsfield \u2014 we can help with the finish work to tie the project together.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nKJ Home Improvement LLC"
+              "body": "Hi Russo,\n\nI saw the permit for work at 61 Elm St in Pittsfield \u2014 we can help with the finish work to tie the whole project together.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nKJ Home Improvement LLC\n(413) 822-3556"
             },
-            "sms": "Hi Russo, I saw the permit for work at 61 Elm St in Pittsfield \u2014 we can help with the finish work to tie the project together. We're local \u2014 happy to give a free quote if useful. \u2014 KJ Home Improvement LLC",
-            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 61 Elm St in Pittsfield \u2014 we can help with the finish work to tie the project together. Call (413) 822-3556 for a free, no-pressure estimate. Local & licensed. \u2014 KJ Home Improvement LLC",
-            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+            "sms": "Hi Russo, I saw the permit at 61 Elm St in Pittsfield \u2014 we can help with the finish work to tie the whole project together. We're local & licensed, happy to give a free quote if useful. \u2014 KJ Home Improvement LLC",
+            "postcard": "Hi Russo,\n\nWe noticed the permit at 61 Elm St \u2014 we can help with the finish work to tie the whole project together.\n\nWe're a local, licensed Pittsfield-area company and we'd be glad to stop by and give you a straightforward quote. No pressure, no obligation.\n\nCall or text (413) 822-3556.\n\u2014 KJ Home Improvement LLC",
+            "mail_quote": {
+              "kind": "postcard",
+              "partner_cost_usd": 0.73,
+              "price_to_contractor_usd": 1.25,
+              "our_margin_usd": 0.52
+            },
+            "channel_note": "Send email/text from YOUR account. Postcards can be auto-mailed for a small per-piece fee \u2014 we never contact the homeowner over phone or email directly."
           }
         }
       ]

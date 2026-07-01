@@ -1,0 +1,10 @@
+About your project at {{address}}
+Hi {{owner}},
+
+I saw the permit for work at {{address}} in {{town}} — {{hook}}.
+
+We're a local {{town}}-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.
+
+Best,
+{{contractor_name}}
+{{contractor_phone}}

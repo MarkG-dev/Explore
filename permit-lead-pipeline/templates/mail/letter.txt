@@ -1,0 +1,11 @@
+Dear {{owner_full}},
+
+I saw that a permit was recently filed for work at {{address}} here in {{town}}. Congratulations on the project.
+
+I'm reaching out because {{hook}}. As a local, licensed contractor, I'd be happy to take a look and give you a clear, no-obligation estimate whenever it's convenient for you.
+
+There's no pressure at all — if the timing is right, I'm easy to reach at {{contractor_phone}}.
+
+Warm regards,
+{{contractor_name}}
+{{contractor_phone}}
