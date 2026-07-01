@@ -1,0 +1,70 @@
+# Intent-scoring config (build-spec §3). Weights are DATA, not code, so we can
+# re-tune and re-score history without a redeploy. Sum of weights = 100.
+weights:
+  trade_match: 30       # permit work maps cleanly to a trade we test
+  adjacency_value: 25   # fan-out potential (roof -> solar/gutter) x est. $ band
+  freshness: 20         # decays with age; stale permit ~= worthless
+  owner_pull: 15        # blank contractor_name -> homeowner may need a pro
+  valuation: 10         # bigger declared value -> bigger adjacent opportunity
+
+# Freshness decay: full score at <= full_days, ~0 by zero_days (linear between).
+freshness:
+  full_days: 7
+  zero_days: 60
+
+# Declared-valuation normalization (USD) -> 0..1 via log scale between these.
+valuation:
+  floor: 2000
+  ceil: 150000
+
+# Estimated $ band -> 0..1 contribution for adjacency_value.
+value_bands:
+  "0-5k": 0.2
+  "5-10k": 0.4
+  "10-20k": 0.7
+  "20k+": 1.0
+  unknown: 0.3
+
+# Scored arm only delivers leads at/above this intent_score (the quality bar the
+# raw control lacks). Tune against pilot volume.
+min_scored_arm_score: 40
+
+# Trades the pilot actively tests. primary_trade outside this set still scores,
+# but trade_match is capped lower (we can't route it to a test participant).
+test_trades: [roofing, solar, hvac, remodel]
+
+# Keyword -> trade map for the rules-only classifier fallback (no API key).
+# Lowercased substring match against permit_type + description.
+trade_keywords:
+  roofing:  [roof, reroof, re-roof, shingle, roofing]
+  solar:    [solar, photovoltaic, pv, panel]
+  hvac:     [hvac, furnace, boiler, heat pump, mini split, mini-split, air condition, ac unit, heating, cooling]
+  remodel:  [remodel, addition, renovation, kitchen, bathroom, bath remodel, finish basement, deck, alteration]
+  pool:     [pool, spa, hot tub]
+  electrical: [electrical, electric service, panel upgrade, wiring, generator]
+  plumbing: [plumbing, water heater, septic, sewer]
+
+# Adjacency map (build-spec §3 / handoff §3): primary_trade -> adjacent trades
+# with a default estimated value band for the fan-out job.
+adjacencies:
+  roofing:
+    - {trade: solar,      est_value_band: "10-20k"}
+    - {trade: gutters,    est_value_band: "0-5k"}
+    - {trade: skylights,  est_value_band: "0-5k"}
+    - {trade: insulation, est_value_band: "5-10k"}
+  pool:
+    - {trade: fencing,      est_value_band: "5-10k"}
+    - {trade: landscaping,  est_value_band: "5-10k"}
+    - {trade: decking,      est_value_band: "10-20k"}
+    - {trade: solar_heating, est_value_band: "5-10k"}
+  remodel:
+    - {trade: flooring,    est_value_band: "5-10k"}
+    - {trade: countertops, est_value_band: "5-10k"}
+    - {trade: hvac,        est_value_band: "10-20k"}
+    - {trade: electrical,  est_value_band: "5-10k"}
+    - {trade: paint,       est_value_band: "0-5k"}
+  new_construction:
+    - {trade: landscaping,       est_value_band: "10-20k"}
+    - {trade: security,          est_value_band: "0-5k"}
+    - {trade: window_treatments, est_value_band: "5-10k"}
+    - {trade: pest,              est_value_band: "0-5k"}

@@ -1,0 +1,59 @@
+# Permit data sources for the Berkshire County wedge (build-spec §5 / handoff §9).
+#
+# NOTE ON SELECTORS: The live PermitEyes/Pittsfield portals return 403 to
+# automated fetches without a real browser context, so the CSS selectors below
+# are STARTING POINTS to confirm against the live page (open it in a browser,
+# inspect the results table, paste the real selectors here). The scraper reads
+# these from config precisely so nobody has to touch Python to fix a selector.
+#
+# Be a good citizen: rate_limit_seconds throttles requests; identify honestly.
+
+sources:
+  permiteyes_berkshire:
+    kind: permiteyes
+    enabled: true
+    engine: playwright          # publicview.php needs a browser; falls back to httpx
+    base_url: "https://permiteyes.us/berkshire/publicview.php"
+    jurisdictions:              # Berkshire towns served by the shared portal
+      - Pittsfield
+      - Great Barrington
+      - Lenox
+      - Lee
+      - Adams
+      - North Adams
+      - Williamstown
+      - Dalton
+      - Stockbridge
+    rate_limit_seconds: 3
+    backfill_days: 90
+    # Confirm these against the live results table:
+    selectors:
+      results_table: "table.permit-results, table#results"
+      row: "tbody tr"
+      cell_permit_no: "td:nth-child(1)"
+      cell_address: "td:nth-child(2)"
+      cell_type: "td:nth-child(3)"
+      cell_status: "td:nth-child(4)"
+      cell_applied_date: "td:nth-child(5)"
+      cell_owner: "td:nth-child(6)"
+      cell_contractor: "td:nth-child(7)"
+
+  pittsfield:
+    kind: generic_table
+    enabled: false              # Pittsfield migrating PermitEyes -> OpenGov (handoff §8.6)
+    engine: playwright          #   build against whatever is LIVE when you enable this
+    base_url: ""
+    rate_limit_seconds: 3
+    backfill_days: 90
+    selectors: {}
+
+  # Always-available offline source for development + CI. No network.
+  fixture:
+    kind: fixture
+    enabled: true
+    path: "fixtures/sample_permits.json"
+
+# Politeness / identification for real HTTP requests.
+http:
+  user_agent: "BerkshirePermitPilot/0.1 (contact: mark@deckdoctors.xyz)"
+  timeout_seconds: 30

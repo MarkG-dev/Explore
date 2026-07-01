@@ -1,0 +1,10 @@
+# Core pipeline deps. Kept minimal on purpose (handoff: build the minimum
+# that lets the double-blind test produce a trustworthy number).
+httpx>=0.27          # lightweight HTTP for static portals
+selectolax>=0.3      # fast HTML parsing
+PyYAML>=6.0          # config (scoring weights, sources)
+jinja2>=3.1          # digest + dashboard rendering
+
+# Optional / feature-gated (pipeline runs without them):
+#   anthropic>=0.40   -> LLM classification (falls back to rules if absent)
+#   playwright>=1.44  -> JS-rendered portals (falls back to httpx if absent)

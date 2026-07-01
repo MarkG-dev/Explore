@@ -1,0 +1,93 @@
+[
+  {
+    "source_permit_id": "BP-2026-0412",
+    "jurisdiction": "Pittsfield",
+    "address": "45 Onota St",
+    "permit_type": "Roof Replacement",
+    "description": "Full tear-off and re-roof, asphalt shingle, single family",
+    "status": "Issued",
+    "applied_date": "2026-06-20",
+    "issued_date": "2026-06-25",
+    "valuation": 18500,
+    "contractor_name": null,
+    "owner_name": "R. Delgado"
+  },
+  {
+    "source_permit_id": "BP-2026-0389",
+    "jurisdiction": "Lenox",
+    "address": "12 Kemble St",
+    "permit_type": "Solar PV Installation",
+    "description": "Roof-mounted photovoltaic array, 8.4kW",
+    "status": "Issued",
+    "applied_date": "2026-06-18",
+    "issued_date": "2026-06-22",
+    "valuation": 26000,
+    "contractor_name": "Berkshire PV Services",
+    "owner_name": "T. Whitman"
+  },
+  {
+    "source_permit_id": "BP-2026-0401",
+    "jurisdiction": "Great Barrington",
+    "address": "88 Main St",
+    "permit_type": "Kitchen Remodel / Addition",
+    "description": "Kitchen remodel with rear addition, new electrical and HVAC",
+    "status": "Applied",
+    "applied_date": "2026-06-27",
+    "issued_date": null,
+    "valuation": 72000,
+    "contractor_name": null,
+    "owner_name": "M. Osei"
+  },
+  {
+    "source_permit_id": "BP-2026-0355",
+    "jurisdiction": "Dalton",
+    "address": "3 Depot St",
+    "permit_type": "Furnace Replacement",
+    "description": "Replace oil furnace with high-efficiency heat pump",
+    "status": "Issued",
+    "applied_date": "2026-05-30",
+    "issued_date": "2026-06-02",
+    "valuation": 14000,
+    "contractor_name": "Laureyns United",
+    "owner_name": "P. Nkemelu"
+  },
+  {
+    "source_permit_id": "BP-2026-0300",
+    "jurisdiction": "Adams",
+    "address": "210 Columbia St",
+    "permit_type": "Inground Pool",
+    "description": "New inground pool with required fence enclosure",
+    "status": "Issued",
+    "applied_date": "2026-04-15",
+    "issued_date": "2026-04-20",
+    "valuation": 55000,
+    "contractor_name": "Aqua Build",
+    "owner_name": "S. Ferris"
+  },
+  {
+    "source_permit_id": "BP-2026-0410",
+    "jurisdiction": "Pittsfield",
+    "address": "7 Wendell Ave",
+    "permit_type": "Reroof",
+    "description": "Re-roof detached garage, owner pulling permit",
+    "status": "Applied",
+    "applied_date": "2026-06-29",
+    "issued_date": null,
+    "valuation": 6500,
+    "contractor_name": null,
+    "owner_name": "J. Alvarez"
+  },
+  {
+    "source_permit_id": "BP-2026-0120",
+    "jurisdiction": "Williamstown",
+    "address": "50 Spring St",
+    "permit_type": "Electrical Service Upgrade",
+    "description": "200A panel upgrade, standby generator",
+    "status": "Issued",
+    "applied_date": "2026-02-10",
+    "issued_date": "2026-02-14",
+    "valuation": 9000,
+    "contractor_name": "North County Electric",
+    "owner_name": "L. Barnes"
+  }
+]
