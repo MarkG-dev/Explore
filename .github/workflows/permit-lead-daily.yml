@@ -14,6 +14,15 @@ on:
   schedule:
     - cron: "0 11 * * *"      # 07:00 America/New_York (permits post overnight)
   workflow_dispatch:           # manual "Run workflow" button
+    inputs:
+      source:
+        description: "Source id from config/sources.yaml (fixture|permiteyes_berkshire|cambridge|boston)"
+        default: fixture
+      mode:
+        description: "run (full pipeline) or inspect (confirm columns/selectors)"
+        default: run
+        type: choice
+        options: [run, inspect]
 
 permissions:
   contents: write              # to commit the refreshed data JSON
@@ -34,22 +43,37 @@ jobs:
       - name: Install deps
         run: pip install -r requirements.txt
 
+      - name: Install Playwright (only needed for portal sources)
+        if: contains(github.event.inputs.source, 'permiteyes')
+        run: pip install playwright && python -m playwright install --with-deps chromium
+
       - name: Test pipeline
         env:
           PYTHONPATH: src
         run: python -m pytest tests/ -q
 
+      # Inspect mode: confirm live columns/selectors for a source (network is open here).
+      - name: Inspect source
+        if: github.event.inputs.mode == 'inspect'
+        env:
+          PYTHONPATH: src
+          SOCRATA_APP_TOKEN: ${{ secrets.SOCRATA_APP_TOKEN }}
+        run: python -m permitlead.inspect_source "${{ github.event.inputs.source }}" --sample 3
+
       - name: Run pipeline + export web data
+        if: github.event.inputs.mode != 'inspect'
         env:
           PYTHONPATH: src
           # ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # uncomment to use LLM
-          SOURCE: fixture        # change to permiteyes_berkshire when selectors are confirmed
+          SOCRATA_APP_TOKEN: ${{ secrets.SOCRATA_APP_TOKEN }}
+          SOURCE: ${{ github.event.inputs.source || 'fixture' }}
         run: |
           python -m permitlead.seed_contractors --db data/permits.db
           python -m permitlead.run_daily --source "$SOURCE" --db data/permits.db --out out/
           python -m permitlead.export_web --db data/permits.db --out ../permitleads-data.json
 
       - name: Commit refreshed leads (if changed)
+        if: github.event.inputs.mode != 'inspect'
         run: |
           cd "$GITHUB_WORKSPACE"
           if ! git diff --quiet -- permitleads-data.json; then

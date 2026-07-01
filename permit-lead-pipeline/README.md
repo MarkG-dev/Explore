@@ -32,15 +32,45 @@ python -m permitlead.run_daily --db data/permits.db --analyze
 
 `out/` gets `scored_<trade>.md`, `raw_<trade>.md`, and `dashboard_<contractor>.html`.
 
+## Scrapers / sources
+
+Each source in `config/sources.yaml` maps to an adapter (registry in
+`scrape/__init__.py`). Adding a source = a config block, not Python:
+
+| kind | adapter | use |
+|---|---|---|
+| `fixture` | FixtureScraper | offline demo/CI data |
+| `permiteyes` | PermitEyesScraper | Berkshire portal (Playwright; selectors in config) |
+| `socrata` | SocrataScraper | Cambridge/Somerville free open-data APIs |
+| `ckan` | CkanScraper | Boston (Analyze Boston) free open-data API |
+
+All API adapters share `httpclient.get` (retry/backoff; 4xx fails fast). The
+row→Permit mapping for API sources is a config `field_map` (dataset column →
+canonical field). See `research/ma-permit-data-sources.md` for the full MA
+sourcing strategy (buy breadth, build the vendor-templated rest).
+
+## Confirming a live source (the "confirm selectors/columns" step)
+
+Run **where the network is open** — your machine or the GitHub Action (this
+pipeline's sandbox egress policy blocks these hosts):
+
+```bash
+# API sources: prints real column names + flags any field_map that doesn't match
+python -m permitlead.inspect_source cambridge --sample 3
+# PermitEyes: prints each table's selector guess + header + sample row + forms
+python -m permitlead.inspect_source permiteyes_berkshire
+```
+Paste the confirmed selectors/columns into `config/sources.yaml`, set the source
+`enabled: true`, and run. From CI: **Actions → Permit-lead daily → Run workflow
+→ source=…, mode=inspect**.
+
 ## Going live
 
-1. **Confirm selectors.** Open `permiteyes.us/berkshire/publicview.php` in a browser,
-   inspect the results table, and paste the real CSS selectors into
-   `config/sources.yaml` (the portal 403s bare HTTP, so the scraper uses Playwright).
+1. **Confirm the source** with `inspect_source` (above); fill `config/sources.yaml`.
 2. **Optional LLM.** `export ANTHROPIC_API_KEY=...` to use `claude-haiku-4-5` for
    classification; without it the deterministic **rules** classifier runs.
-3. **Load contractors** into the `contractor` table (name, trade, town) — arm
-   assignment is automatic and stratified by trade.
+3. **Load contractors** — `python -m permitlead.seed_contractors` (from
+   `config/contractors.csv`). Arm assignment / exclusivity is automatic.
 4. **Schedule** `run_daily` daily (cron / GitHub Action). This box is ephemeral;
    nothing scheduled here survives.
 

@@ -47,6 +47,44 @@ def _money(text: str) -> Optional[float]:
 
 
 class PermitEyesScraper(Scraper):
+    def discover(self) -> dict:
+        """Load the live portal and report every table + a selector guess and a
+        sample row, so a human can confirm/fill the selectors in sources.yaml.
+        Requires Playwright + network. This is the "confirm selectors" tool."""
+        try:
+            from playwright.sync_api import sync_playwright
+        except ImportError:
+            return {"error": "playwright not installed"}
+        report = {"url": self.cfg["base_url"], "tables": [], "forms": []}
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True)
+            page = browser.new_page(
+                user_agent=self.http.get("user_agent", "PermitPilot/0.1"))
+            page.goto(self.cfg["base_url"], wait_until="networkidle")
+            html = page.content()
+            browser.close()
+        tree = HTMLParser(html)
+        for i, table in enumerate(tree.css("table")):
+            rows = table.css("tr")
+            if len(rows) < 2:
+                continue
+            header = [c.text(strip=True) for c in rows[0].css("th, td")]
+            sample = [c.text(strip=True) for c in rows[1].css("td")]
+            report["tables"].append({
+                "index": i,
+                "selector_guess": (f"table#{table.attributes.get('id')}"
+                                   if table.attributes.get("id")
+                                   else f"table:nth-of-type({i+1})"),
+                "columns": len(header), "header": header, "sample_row": sample,
+            })
+        for form in tree.css("form"):
+            fields = [inp.attributes.get("name") for inp in form.css("input, select")
+                      if inp.attributes.get("name")]
+            report["forms"].append({"action": form.attributes.get("action"),
+                                    "method": form.attributes.get("method", "get"),
+                                    "fields": fields})
+        return report
+
     def fetch(self) -> Iterable[Permit]:
         engine = self.cfg.get("engine", "httpx")
         html_pages = (

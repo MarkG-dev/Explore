@@ -68,12 +68,22 @@ sources:
       valuation: totalprojectcost
 
   boston:
-    kind: socrata
+    kind: ckan               # Analyze Boston runs CKAN, not Socrata
     enabled: false
     jurisdiction: Boston
-    resource_url: "https://data.boston.gov/api/3/action/datastore_search"  # CKAN; see notes
+    base_url: "https://data.boston.gov/api/3/action/datastore_search"
+    resource_id: "6ddcd912-32a0-43df-9908-63574f8c7e77"   # Approved Building Permits
     rate_limit_seconds: 1
-    field_map: {}             # Boston is CKAN not pure Socrata; map after inspecting
+    field_map:               # confirm with: python -m permitlead.inspect_source boston
+      permit_id: permitnumber
+      address: address
+      permit_type: worktype
+      description: description
+      status: status
+      applied_date: applicant_compliance_date
+      issued_date: issued_date
+      valuation: declared_valuation
+      owner_name: owner
 
   # Always-available offline source for development + CI. No network.
   fixture:

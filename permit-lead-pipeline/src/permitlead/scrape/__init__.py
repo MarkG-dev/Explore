@@ -2,13 +2,15 @@
 from __future__ import annotations
 
 from .base import FixtureScraper, Scraper
+from .ckan import CkanScraper
 from .permiteyes import PermitEyesScraper
 from .socrata import SocrataScraper
 
 _REGISTRY = {
     "fixture": FixtureScraper,
     "permiteyes": PermitEyesScraper,
-    "socrata": SocrataScraper,          # free open-data feeds (Boston/Cambridge/Somerville)
+    "socrata": SocrataScraper,          # Cambridge/Somerville open data
+    "ckan": CkanScraper,                # Boston (Analyze Boston)
     # "generic_table": GenericTableScraper,  # add when Pittsfield/OpenGov is live
 }
 

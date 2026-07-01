@@ -68,7 +68,8 @@ def row_to_permit(row: dict, source: str, fmap: dict, jurisdiction: str) -> Opti
 class SocrataScraper(Scraper):
     def fetch(self) -> Iterable[Permit]:
         import os
-        import httpx
+
+        from ..httpclient import get
 
         fmap = self.cfg.get("field_map", {})
         jurisdiction = self.cfg.get("jurisdiction", "")
@@ -80,21 +81,19 @@ class SocrataScraper(Scraper):
             headers["X-App-Token"] = token
 
         offset = 0
-        with httpx.Client(headers=headers,
-                          timeout=self.http.get("timeout_seconds", 30)) as c:
-            while offset < max_rows:
-                params = {"$limit": limit, "$offset": offset,
-                          "$order": self.cfg.get("order_field", ":id")}
-                if self.cfg.get("where"):
-                    params["$where"] = self.cfg["where"]
-                resp = c.get(self.cfg["resource_url"], params=params)
-                resp.raise_for_status()
-                rows = resp.json()
-                if not rows:
-                    break
-                for row in rows:
-                    p = row_to_permit(row, self.name, fmap, jurisdiction)
-                    if p is not None:
-                        yield p
-                offset += limit
-                time.sleep(self.cfg.get("rate_limit_seconds", 1))
+        while offset < max_rows:
+            params = {"$limit": limit, "$offset": offset,
+                      "$order": self.cfg.get("order_field", ":id")}
+            if self.cfg.get("where"):
+                params["$where"] = self.cfg["where"]
+            resp = get(self.cfg["resource_url"], params=params, headers=headers,
+                       timeout=self.http.get("timeout_seconds", 30))
+            rows = resp.json()
+            if not rows:
+                break
+            for row in rows:
+                p = row_to_permit(row, self.name, fmap, jurisdiction)
+                if p is not None:
+                    yield p
+            offset += limit
+            time.sleep(self.cfg.get("rate_limit_seconds", 1))
