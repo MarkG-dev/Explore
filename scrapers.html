@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f3d2e">
+<title>PermitPulse — Scraper Ops</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  :root{--ink:#12241d;--green:#0f3d2e;--green2:#12704f;--lime:#39b46e;
+        --paper:#f4f6f4;--card:#fff;--line:#e3e6e2;--muted:#5c6b64;
+        --ok:#2f9e56;--warn:#d99a1c;--dead:#d1483d;--gray:#9aa5a0;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+  a{color:inherit}
+  .top{background:var(--green);color:#eafaf1}
+  .top .wrap{max-width:1040px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px}
+  .logo .dot{width:12px;height:12px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(57,180,110,.25)}
+  .top .gen{font-size:12.5px;color:#bfe4d0}
+  .wrap{max-width:1040px;margin:0 auto;padding:22px 20px}
+  h1{font-size:22px;letter-spacing:-.02em;margin-bottom:4px}
+  .lede{color:var(--muted);font-size:14px;margin-bottom:20px;max-width:70ch}
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px}
+  .stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em}
+  .stat span{font-size:12px;color:var(--muted)}
+  .src{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0;margin-bottom:14px;overflow:hidden}
+  .src-head{display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line)}
+  .src-head h3{font-size:16px;font-family:ui-monospace,monospace}
+  .kind{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+        background:#eef3f0;color:var(--green2);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+  .health{margin-left:auto;font-size:12px;font-weight:700;padding:5px 11px;border-radius:100px;display:flex;align-items:center;gap:6px}
+  .dotm{width:8px;height:8px;border-radius:50%}
+  .h-ok{background:#e7f6ec;color:var(--ok)} .h-ok .dotm{background:var(--ok)}
+  .h-stale{background:#fbf1dc;color:var(--warn)} .h-stale .dotm{background:var(--warn)}
+  .h-dead{background:#fbe6e3;color:var(--dead)} .h-dead .dotm{background:var(--dead)}
+  .h-never{background:#eef0ef;color:var(--gray)} .h-never .dotm{background:var(--gray)}
+  .h-disabled{background:#eef0ef;color:var(--gray)} .h-disabled .dotm{background:var(--gray)}
+  .src-body{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;padding:16px 18px}
+  .kv{font-size:13px;margin-bottom:8px;display:flex;gap:8px}
+  .kv .k{color:var(--muted);min-width:92px}
+  .kv .v{color:var(--ink);word-break:break-all}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px}
+  .chip{font-size:11.5px;background:#f2f5f3;border:1px solid var(--line);border-radius:100px;padding:2px 8px;color:#3a4a42}
+  .confirm{background:#fbf1dc;border:1px solid #f0ddb0;border-radius:10px;padding:12px;font-size:13px}
+  .confirm b{color:#8a6410}
+  .cmd{font-family:ui-monospace,monospace;font-size:12px;background:#0f2019;color:#8ff0bb;
+       padding:9px 11px;border-radius:8px;margin-top:8px;overflow-x:auto;white-space:nowrap}
+  .runmetrics{display:flex;gap:16px;font-size:13px;margin-top:2px}
+  .runmetrics b{font-size:18px}
+  .muted{color:var(--muted)} .none{color:var(--gray);font-style:italic}
+  .note{font-size:12.5px;color:var(--muted);margin-top:18px}
+  @media(max-width:800px){.stats{grid-template-columns:1fr 1fr}.src-body{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <a class="logo" href="/permitleads"><span class="dot"></span>PermitPulse · Ops</a>
+  <span class="gen" id="gen"></span>
+</div></div>
+
+<div class="wrap">
+  <h1>Scraper sources</h1>
+  <p class="lede">Health, coverage, and config for every permit data source. Sources are added via <code>config/sources.yaml</code>. "Needs confirm" means the live columns/selectors haven't been verified yet — run <code>inspect_source</code> where the network is open (your machine or the GitHub Action).</p>
+
+  <div class="stats">
+    <div class="stat"><b id="s-sources">–</b><span>Sources</span></div>
+    <div class="stat"><b id="s-enabled">–</b><span>Enabled</span></div>
+    <div class="stat"><b id="s-healthy" style="color:var(--ok)">–</b><span>Healthy</span></div>
+    <div class="stat"><b id="s-confirm" style="color:var(--warn)">–</b><span>Need confirm</span></div>
+    <div class="stat"><b id="s-permits">–</b><span>Permits in DB</span></div>
+  </div>
+
+  <div id="list"></div>
+  <p class="note">Data: <code>/sources-status.json</code>, refreshed by the daily pipeline (<code>export_status</code>). This dashboard is read-only — enabling a source and confirming selectors happens in config + CI.</p>
+</div>
+
+<script>
+const HEALTH_LABEL={ok:"Healthy",stale:"Stale",dead:"Dead / empty",never:"Never run",disabled:"Disabled"};
+
+fetch('/sources-status.json').then(r=>r.json()).then(render).catch(()=>{
+  document.getElementById('list').innerHTML='<div class="src"><div class="src-body">No <code>sources-status.json</code> found. Run <code>export_status</code>.</div></div>';
+});
+
+function render(d){
+  document.getElementById('gen').textContent='updated '+d.generated;
+  document.getElementById('s-sources').textContent=d.totals.sources;
+  document.getElementById('s-enabled').textContent=d.totals.enabled;
+  document.getElementById('s-healthy').textContent=d.totals.healthy;
+  document.getElementById('s-confirm').textContent=d.totals.needs_confirm;
+  document.getElementById('s-permits').textContent=d.db_permits;
+
+  document.getElementById('list').innerHTML=d.sources.map(s=>{
+    const lr=s.last_run;
+    const cov=s.jurisdictions.length
+      ? '<div class="chips">'+s.jurisdictions.slice(0,12).map(j=>`<span class="chip">${esc(j)}</span>`).join('')
+        +(s.jurisdictions.length>12?`<span class="chip">+${s.jurisdictions.length-12}</span>`:'')+'</div>'
+      : '<span class="none">—</span>';
+    const fields=s.field_map_fields.length
+      ? '<div class="chips">'+s.field_map_fields.map(f=>`<span class="chip">${esc(f)}</span>`).join('')+'</div>'
+      : '<span class="none">n/a</span>';
+    const run=lr
+      ? `<div class="runmetrics"><div><b>${lr.rows_scraped??0}</b><br><span class="muted">scraped</span></div>
+         <div><b>${lr.rows_new??0}</b><br><span class="muted">new</span></div>
+         <div><b style="color:${lr.status==='success'?'var(--ok)':'var(--dead)'}">${esc(lr.status||'')}</b><br>
+         <span class="muted">${esc((lr.finished_at||'').replace('T',' '))}</span></div></div>`
+        +(lr.error?`<div class="kv" style="margin-top:8px"><span class="k">error</span><span class="v" style="color:var(--dead)">${esc(lr.error)}</span></div>`:'')
+      : '<span class="none">never run</span>';
+    const confirm=s.needs_confirm
+      ? `<div class="confirm"><b>⚠ Needs live confirmation.</b> Verify columns/selectors before enabling:
+         <div class="cmd">python -m permitlead.inspect_source ${esc(s.id)}</div>
+         <div class="muted" style="margin-top:6px;font-size:12px">Or in CI: Actions → Permit-lead daily → Run workflow → source=${esc(s.id)}, mode=inspect</div></div>`
+      : '';
+    return `<div class="src">
+      <div class="src-head">
+        <h3>${esc(s.id)}</h3><span class="kind">${esc(s.kind||'')}</span>
+        <span class="health h-${s.health}"><span class="dotm"></span>${HEALTH_LABEL[s.health]||s.health}</span>
+      </div>
+      <div class="src-body">
+        <div>
+          <div class="kv"><span class="k">Enabled</span><span class="v">${s.enabled?'yes':'no'}</span></div>
+          <div class="kv"><span class="k">Endpoint</span><span class="v">${esc(s.endpoint)||'<span class=none>—</span>'}</span></div>
+          <div class="kv"><span class="k">Coverage</span><span class="v">${cov}</span></div>
+          <div class="kv"><span class="k">Field map</span><span class="v">${fields}</span></div>
+        </div>
+        <div>
+          <div class="kv"><span class="k">Last run</span><span class="v">${run}</span></div>
+          ${confirm}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+</script>
+</body>
+</html>

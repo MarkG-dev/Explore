@@ -71,17 +71,18 @@ jobs:
           python -m permitlead.seed_contractors --db data/permits.db
           python -m permitlead.run_daily --source "$SOURCE" --db data/permits.db --out out/
           python -m permitlead.export_web --db data/permits.db --out ../permitleads-data.json
+          python -m permitlead.export_status --db data/permits.db --out ../sources-status.json
 
       - name: Commit refreshed leads (if changed)
         if: github.event.inputs.mode != 'inspect'
         run: |
           cd "$GITHUB_WORKSPACE"
-          if ! git diff --quiet -- permitleads-data.json; then
+          if ! git diff --quiet -- permitleads-data.json sources-status.json; then
             git config user.name "permitpulse-bot"
             git config user.email "actions@github.com"
-            git add permitleads-data.json
-            git commit -m "chore: refresh permit leads ($(date -u +%Y-%m-%d))"
+            git add permitleads-data.json sources-status.json
+            git commit -m "chore: refresh permit leads + source status ($(date -u +%Y-%m-%d))"
             git push
           else
-            echo "No lead changes today."
+            echo "No changes today."
           fi

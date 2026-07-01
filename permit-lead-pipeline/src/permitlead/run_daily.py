@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 import yaml
@@ -45,20 +45,29 @@ def run(source: str, out_dir: Path, db_path: Path, today: date) -> dict:
     classifier = get_classifier(scoring)
 
     scraped = classified = 0
+    started_at = datetime.utcnow().isoformat(timespec="seconds")
     with db.session(db_path) as conn:
-        # 1-2. scrape + normalize + store
-        scraper = build_scraper(source, src_cfg, sources.get("http"))
-        for permit in scraper.fetch():
-            permit = normalize(permit)
-            db.upsert_permit(conn, permit)
-            scraped += 1
+        before = db.count_permits(conn, source)
+        # 1-2. scrape + normalize + store — log the run either way (health tracking)
+        try:
+            scraper = build_scraper(source, src_cfg, sources.get("http"))
+            for permit in scraper.fetch():
+                permit = normalize(permit)
+                db.upsert_permit(conn, permit)
+                scraped += 1
 
-            # 3-4. classify + score
-            trade, adj, conf = classifier.classify(permit)
-            classification = score_permit(permit, trade, adj, conf, scoring,
-                                          today, model=classifier.model)
-            db.upsert_classification(conn, classification)
-            classified += 1
+                # 3-4. classify + score
+                trade, adj, conf = classifier.classify(permit)
+                classification = score_permit(permit, trade, adj, conf, scoring,
+                                              today, model=classifier.model)
+                db.upsert_classification(conn, classification)
+                classified += 1
+            rows_new = db.count_permits(conn, source) - before
+            db.record_run(conn, source, started_at, scraped, rows_new, "success")
+        except Exception as exc:  # noqa: BLE001 - log dead source, then re-raise
+            db.record_run(conn, source, started_at, scraped,
+                          db.count_permits(conn, source) - before, "error", str(exc))
+            raise
 
         # 5. route leads to test participants (if any are loaded)
         contractors = [dict(r) for r in conn.execute("SELECT * FROM contractor")]

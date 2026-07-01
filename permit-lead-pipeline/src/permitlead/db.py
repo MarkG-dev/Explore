@@ -76,8 +76,19 @@ CREATE TABLE IF NOT EXISTS outcome (
     job_value     REAL,
     noted_at      TEXT
 );
+CREATE TABLE IF NOT EXISTS run_log (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    source        TEXT,
+    started_at    TEXT,
+    finished_at   TEXT,
+    rows_scraped  INTEGER,
+    rows_new      INTEGER,
+    status        TEXT,          -- success | error
+    error         TEXT
+);
 CREATE INDEX IF NOT EXISTS idx_class_score ON classification(intent_score);
 CREATE INDEX IF NOT EXISTS idx_lead_arm ON lead(arm);
+CREATE INDEX IF NOT EXISTS idx_runlog_source ON run_log(source, finished_at);
 """
 
 
@@ -170,6 +181,21 @@ def insert_lead(conn: sqlite3.Connection, lead: Lead) -> None:
                contractor_id, delivered_at)
            VALUES (:id,:permit_id,:arm,:trade_bucket,:contractor_id,:delivered_at)""",
         lead.__dict__,
+    )
+
+
+def count_permits(conn: sqlite3.Connection, source: str) -> int:
+    return conn.execute("SELECT COUNT(*) n FROM permit WHERE source=?",
+                        (source,)).fetchone()["n"]
+
+
+def record_run(conn: sqlite3.Connection, source: str, started_at: str,
+               rows_scraped: int, rows_new: int, status: str,
+               error: Optional[str] = None) -> None:
+    conn.execute(
+        """INSERT INTO run_log (source, started_at, finished_at, rows_scraped,
+               rows_new, status, error) VALUES (?,?,?,?,?,?,?)""",
+        (source, started_at, _now(), rows_scraped, rows_new, status, error),
     )
 
 

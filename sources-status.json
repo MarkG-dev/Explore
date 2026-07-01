@@ -1,0 +1,107 @@
+{
+  "generated": "2026-07-01",
+  "db_permits": 14,
+  "totals": {
+    "sources": 5,
+    "enabled": 2,
+    "healthy": 1,
+    "needs_confirm": 3
+  },
+  "sources": [
+    {
+      "id": "permiteyes_berkshire",
+      "kind": "permiteyes",
+      "enabled": true,
+      "endpoint": "https://permiteyes.us/berkshire/publicview.php",
+      "jurisdictions": [
+        "Pittsfield",
+        "Great Barrington",
+        "Lenox",
+        "Lee",
+        "Adams",
+        "North Adams",
+        "Williamstown",
+        "Dalton",
+        "Stockbridge"
+      ],
+      "field_map_fields": [],
+      "last_run": null,
+      "health": "never",
+      "needs_confirm": true
+    },
+    {
+      "id": "pittsfield",
+      "kind": "generic_table",
+      "enabled": false,
+      "endpoint": "",
+      "jurisdictions": [],
+      "field_map_fields": [],
+      "last_run": null,
+      "health": "disabled",
+      "needs_confirm": false
+    },
+    {
+      "id": "cambridge",
+      "kind": "socrata",
+      "enabled": false,
+      "endpoint": "https://data.cambridgema.gov/resource/9qm7-wbdc.json",
+      "jurisdictions": [
+        "Cambridge"
+      ],
+      "field_map_fields": [
+        "address",
+        "applied_date",
+        "description",
+        "issued_date",
+        "permit_id",
+        "permit_type",
+        "status",
+        "valuation"
+      ],
+      "last_run": null,
+      "health": "disabled",
+      "needs_confirm": true
+    },
+    {
+      "id": "boston",
+      "kind": "ckan",
+      "enabled": false,
+      "endpoint": "https://data.boston.gov/api/3/action/datastore_search",
+      "jurisdictions": [
+        "Boston"
+      ],
+      "field_map_fields": [
+        "address",
+        "applied_date",
+        "description",
+        "issued_date",
+        "owner_name",
+        "permit_id",
+        "permit_type",
+        "status",
+        "valuation"
+      ],
+      "last_run": null,
+      "health": "disabled",
+      "needs_confirm": true
+    },
+    {
+      "id": "fixture",
+      "kind": "fixture",
+      "enabled": true,
+      "endpoint": "fixtures/sample_permits.json",
+      "jurisdictions": [],
+      "field_map_fields": [],
+      "last_run": {
+        "started_at": "2026-07-01T04:22:40",
+        "finished_at": "2026-07-01T04:22:40",
+        "rows_scraped": 14,
+        "rows_new": 14,
+        "status": "success",
+        "error": null
+      },
+      "health": "ok",
+      "needs_confirm": false
+    }
+  ]
+}
