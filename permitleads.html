@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f3d2e">
+<title>PermitPulse — Permit-verified leads for Berkshire County contractors</title>
+<meta name="description" content="Stop paying for shared leads you lose. PermitPulse turns public building permits into scored, exclusive project leads for Berkshire County roofers, solar installers, and HVAC/remodel pros.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  :root{
+    --ink:#12241d; --green:#0f3d2e; --green2:#12704f; --lime:#39b46e;
+    --paper:#fbfaf6; --card:#ffffff; --line:#e7e4da; --muted:#5c6b64;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  a{color:inherit}
+  .btn{display:inline-block;background:var(--green2);color:#fff;font-weight:600;
+       padding:13px 22px;border-radius:9px;text-decoration:none;font-size:15px;
+       border:none;cursor:pointer;transition:transform .12s,background .12s}
+  .btn:hover{background:var(--green);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--green);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#fff}
+
+  header{position:sticky;top:0;z-index:20;background:rgba(251,250,246,.85);
+         backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.02em;font-size:19px}
+  .logo .dot{width:14px;height:14px;border-radius:50%;background:var(--lime);
+             box-shadow:0 0 0 4px rgba(57,180,110,.2)}
+  nav a{margin-left:22px;text-decoration:none;font-size:14px;color:var(--muted);font-weight:500}
+  nav a:hover{color:var(--ink)}
+  .nav-cta{margin-left:22px}
+
+  .hero{padding:76px 0 60px;text-align:center}
+  .pill{display:inline-block;background:#eaf6ef;color:var(--green2);font-weight:600;
+        font-size:12.5px;padding:6px 13px;border-radius:100px;margin-bottom:22px;
+        border:1px solid #d3ebdd}
+  h1{font-size:clamp(32px,5.2vw,52px);line-height:1.08;letter-spacing:-.03em;font-weight:800;max-width:14ch;margin:0 auto 20px}
+  h1 em{font-style:normal;color:var(--green2)}
+  .sub{font-size:clamp(16px,2.2vw,20px);color:var(--muted);max-width:52ch;margin:0 auto 30px}
+  .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .trust{margin-top:18px;font-size:13px;color:var(--muted)}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:48px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center}
+  .stat b{display:block;font-size:30px;font-weight:800;color:var(--green2);letter-spacing:-.02em}
+  .stat span{font-size:13.5px;color:var(--muted)}
+
+  section{padding:56px 0}
+  .kicker{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:12px}
+  h2{font-size:clamp(24px,3.4vw,34px);letter-spacing:-.02em;font-weight:800;margin-bottom:14px;max-width:20ch}
+  .lead{color:var(--muted);font-size:17px;max-width:60ch}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px}
+  .compare{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .compare.bad{border-color:#f0d9d9;background:#fdf7f6}
+  .compare h3{font-size:17px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .compare ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .compare li{display:flex;gap:10px;font-size:14.5px;color:#33443c}
+  .mark{flex:0 0 20px;font-weight:800}
+  .bad .mark{color:#c0554e}.good .mark{color:var(--green2)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:34px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative}
+  .step .n{width:34px;height:34px;border-radius:9px;background:var(--green);color:#fff;
+           display:grid;place-items:center;font-weight:700;margin-bottom:14px}
+  .step h3{font-size:17px;margin-bottom:8px}
+  .step p{font-size:14px;color:var(--muted)}
+
+  .fan{background:var(--green);color:#eafaf1;border-radius:20px;padding:40px;margin-top:10px}
+  .fan h2{color:#fff;max-width:24ch}.fan .lead{color:#bfe4d0}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+        padding:9px 14px;border-radius:100px;font-size:13.5px;font-weight:500}
+  .chip b{color:#8ff0bb}
+
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:34px}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}
+  .plan.featured{border:2px solid var(--lime);box-shadow:0 12px 40px -18px rgba(18,112,79,.4)}
+  .plan .tag{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}
+  .plan .amt{font-size:38px;font-weight:800;letter-spacing:-.02em;margin:10px 0 4px}
+  .plan .amt small{font-size:15px;font-weight:500;color:var(--muted)}
+  .plan p{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .plan ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:20px}
+  .plan li{font-size:14px;display:flex;gap:9px}.plan li::before{content:"✓";color:var(--green2);font-weight:800}
+
+  .faq{margin-top:26px;display:flex;flex-direction:column;gap:2px}
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 18px;margin-bottom:10px}
+  summary{cursor:pointer;font-weight:600;padding:14px 0;font-size:15.5px;list-style:none;display:flex;justify-content:space-between}
+  summary::after{content:"+";color:var(--lime);font-weight:800;font-size:20px}
+  details[open] summary::after{content:"–"}
+  details p{padding:0 0 16px;color:var(--muted);font-size:14.5px}
+
+  .final{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:52px 26px;margin-top:10px}
+  .final h2{margin:0 auto 12px}
+  .form{display:flex;gap:10px;max-width:440px;margin:24px auto 0;flex-wrap:wrap;justify-content:center}
+  .form input{flex:1;min-width:220px;padding:13px 16px;border:1px solid var(--line);border-radius:9px;font-size:15px;font-family:inherit}
+  .form input:focus{outline:2px solid var(--lime);border-color:transparent}
+  .note{font-size:12.5px;color:var(--muted);margin-top:14px}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px;text-align:center}
+  @media(max-width:760px){.cols,.steps,.price,.stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>PermitPulse</div>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#why">Why permits</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn nav-cta" href="/permitleads/app">See a demo →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <span class="pill">● Now piloting in Berkshire County, MA</span>
+    <h1>Stop paying for leads you <em>lose</em>.</h1>
+    <p class="sub">Angi and Thumbtack sell the same homeowner form to five contractors. PermitPulse turns public building permits into <b>scored, exclusive</b> project leads — real homeowners who just got funded and approved for work.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#pilot">Join the free pilot</a>
+      <a class="btn ghost" href="/permitleads/app">See a live demo</a>
+    </div>
+    <div class="trust">No shared leads · No long contracts · Cancel anytime</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>12–15%</b><span>Permit-lead close rate vs. ~4–5% on shared lead platforms*</span></div>
+    <div class="stat"><b>1 permit</b><span>= leads for 3–5 adjacent trades (roof → solar, gutters, insulation)</span></div>
+    <div class="stat"><b>$0</b><span>for your first 30 days in the Berkshire County pilot</span></div>
+  </div>
+
+  <section id="why">
+    <div class="kicker">The problem</div>
+    <h2>Shared leads are a race to the bottom.</h2>
+    <p class="lead">You pay $20–150 for a lead that four other contractors also bought. Half are out of your area or trade. The FTC even fined HomeAdvisor $7.2M for misrepresenting lead quality. There's a better signal hiding in plain sight.</p>
+    <div class="cols">
+      <div class="compare bad good-off">
+        <h3>😤 Shared lead platforms</h3>
+        <ul>
+          <li><span class="mark">✕</span> Same lead sold to 2–5 contractors</li>
+          <li><span class="mark">✕</span> Homeowner is just "researching"</li>
+          <li><span class="mark">✕</span> Junk, out-of-area, out-of-trade leads</li>
+          <li><span class="mark">✕</span> You pay whether you win or not</li>
+        </ul>
+      </div>
+      <div class="compare good">
+        <h3>✅ PermitPulse permit leads</h3>
+        <ul>
+          <li><span class="mark">✓</span> Exclusive — yours, not resold five times</li>
+          <li><span class="mark">✓</span> Project is funded, permitted, happening now</li>
+          <li><span class="mark">✓</span> Scored & filtered to your trade and towns</li>
+          <li><span class="mark">✓</span> Flat monthly price — no per-lead roulette</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="kicker">How it works</div>
+    <h2>From public record to booked job.</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>We watch the permits</h3><p>Every roof, solar, HVAC, and remodel permit filed across Berkshire County — pulled daily from the public portals.</p></div>
+      <div class="step"><div class="n">2</div><h3>We score the intent</h3><p>Each permit is graded 0–100 for your trade — freshness, project size, owner-pulled jobs, and adjacent-trade opportunity.</p></div>
+      <div class="step"><div class="n">3</div><h3>You get the good ones</h3><p>A short, ranked daily list of the leads worth your time — with the address, owner, and why it matters. Mark won/lost in one tap.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="fan">
+      <div class="kicker" style="color:#8ff0bb">The multiplier</div>
+      <h2>One permit is really five leads.</h2>
+      <p class="lead">A roof permit isn't just a roof job. It's the best possible timing for the trades that come next — and we surface every one of them for you.</p>
+      <div class="chips">
+        <div class="chip">🏠 Roof replacement → <b>solar</b></div>
+        <div class="chip">→ <b>gutters</b></div>
+        <div class="chip">→ <b>insulation</b></div>
+        <div class="chip">🏊 Pool → <b>fencing</b></div>
+        <div class="chip">→ <b>landscaping</b></div>
+        <div class="chip">🍳 Kitchen remodel → <b>HVAC</b></div>
+        <div class="chip">→ <b>flooring</b> → <b>electrical</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="kicker">Pricing</div>
+    <h2>Simple, flat, cancel anytime.</h2>
+    <p class="lead">We're onboarding a small group of Berkshire County contractors first. Pilot members get the founder's phone number and help no platform will ever give you.</p>
+    <div class="price">
+      <div class="plan featured">
+        <div class="tag">Pilot — limited spots</div>
+        <div class="amt">Free <small>/ first 30 days</small></div>
+        <p>Then $99/mo. Prove it pays for itself before you spend a dollar.</p>
+        <ul>
+          <li>Daily scored leads for your trade</li>
+          <li>Adjacent-trade opportunities included</li>
+          <li>Owner name + property address</li>
+          <li>Won/lost tracking dashboard</li>
+          <li>Direct line to the founder</li>
+        </ul>
+        <a class="btn" href="#pilot" style="width:100%;text-align:center">Claim a pilot spot</a>
+      </div>
+      <div class="plan">
+        <div class="tag">Standard</div>
+        <div class="amt">$99–149 <small>/ month</small></div>
+        <p>After the pilot. Priced per trade &amp; territory. No per-lead fees, ever.</p>
+        <ul>
+          <li>Everything in the pilot</li>
+          <li>Multiple trades / territories</li>
+          <li>Email + dashboard delivery</li>
+          <li>Cancel anytime, no contract</li>
+        </ul>
+        <a class="btn ghost" href="#pilot" style="width:100%;text-align:center">Talk to us</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Questions</div>
+    <h2>Straight answers.</h2>
+    <div class="faq">
+      <details open><summary>Are these leads really exclusive?</summary><p>Yes. During the pilot each scored lead goes to one contractor per trade in a territory — the opposite of the shared-lead model. The permit record is public, but the scoring, ranking, and adjacent-trade matching are what you're paying for.</p></details>
+      <details><summary>Where does the data come from?</summary><p>Public building-permit records filed with Berkshire County towns (PermitEyes and municipal portals). When someone pulls a permit, it's a public announcement that a funded, approved project is starting at a specific address.</p></details>
+      <details><summary>Is contacting these homeowners allowed?</summary><p>You contact them the way you already do — the permit is public record. We surface the lead; you make the outreach. We keep the pilot deliberately simple and compliant on this front.</p></details>
+      <details><summary>What if the leads don't convert?</summary><p>That's exactly what the free 30-day pilot is for. If scored permit leads don't beat what you're doing now, you walk away having spent nothing.</p></details>
+      <details><summary>Which trades do you cover?</summary><p>Starting with roofing, solar, and HVAC/remodeling in Berkshire County. If you're an adjacent trade (gutters, insulation, electrical), tell us — you may already be sitting on our opportunity map.</p></details>
+    </div>
+  </section>
+
+  <div class="final" id="pilot">
+    <div class="kicker" style="justify-content:center">Join the pilot</div>
+    <h2>Get your first scored leads this week.</h2>
+    <p class="lead" style="margin:0 auto">Drop your email and we'll reach out to set up your free 30-day trial. Berkshire County contractors only, for now.</p>
+    <form class="form" onsubmit="return joinPilot(event)">
+      <input id="email" type="email" required placeholder="you@yourcompany.com" aria-label="Email">
+      <input id="trade" type="text" placeholder="Your trade (e.g. roofing)" aria-label="Trade">
+      <button class="btn" type="submit">Request access</button>
+    </form>
+    <div class="note">We'll email you from mark@deckdoctors.xyz. No spam, no reselling your info.</div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">PermitPulse · Permit-verified leads for Berkshire County · Pilot program 2026<br>
+  <span style="font-size:11px">*Conversion figures are industry benchmarks being validated in our Berkshire County pilot.</span></div>
+</footer>
+
+<script>
+  function joinPilot(e){
+    e.preventDefault();
+    var email=document.getElementById('email').value;
+    var trade=document.getElementById('trade').value||'(not specified)';
+    var subject=encodeURIComponent('PermitPulse pilot — access request');
+    var body=encodeURIComponent('I want to join the Berkshire County pilot.\n\nEmail: '+email+'\nTrade: '+trade+'\n');
+    window.location.href='mailto:mark@deckdoctors.xyz?subject='+subject+'&body='+body;
+    return false;
+  }
+</script>
+</body>
+</html>

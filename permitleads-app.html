@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f3d2e">
+<title>PermitPulse — Your Leads</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  :root{--ink:#12241d;--green:#0f3d2e;--green2:#12704f;--lime:#39b46e;
+        --paper:#f4f6f4;--card:#fff;--line:#e3e6e2;--muted:#5c6b64;
+        --hot:#e8562f;--warm:#e0a12f;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+  a{color:inherit}
+  .top{background:var(--green);color:#eafaf1;position:sticky;top:0;z-index:10}
+  .top .wrap{max-width:1000px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px}
+  .logo .dot{width:12px;height:12px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(57,180,110,.25)}
+  .who{display:flex;align-items:center;gap:10px;font-size:14px}
+  select,button,input{font-family:inherit}
+  .who select{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);
+              border-radius:8px;padding:8px 10px;font-size:14px;font-weight:500}
+  .who select option{color:#12241d}
+  .wrap{max-width:1000px;margin:0 auto;padding:22px 20px}
+
+  /* sign-in */
+  .signin{max-width:460px;margin:8vh auto;background:var(--card);border:1px solid var(--line);
+          border-radius:18px;padding:34px;text-align:center}
+  .signin h1{font-size:24px;letter-spacing:-.02em;margin-bottom:8px}
+  .signin p{color:var(--muted);font-size:15px;margin-bottom:22px}
+  .signin select{width:100%;padding:13px;border:1px solid var(--line);border-radius:10px;font-size:15px;margin-bottom:14px}
+  .btn{background:var(--green2);color:#fff;font-weight:600;padding:12px 20px;border:none;
+       border-radius:9px;font-size:15px;cursor:pointer;transition:background .12s,transform .12s}
+  .btn:hover{background:var(--green);transform:translateY(-1px)}
+  .btn.mini{padding:7px 12px;font-size:13px}
+  .btn.ghost{background:#fff;color:var(--green);border:1px solid var(--line)}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px}
+  .stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em}
+  .stat span{font-size:12.5px;color:var(--muted)}
+  .stat.win b{color:var(--green2)}
+
+  /* filters */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+  .filters select,.filters label{background:var(--card);border:1px solid var(--line);border-radius:9px;
+       padding:9px 11px;font-size:13.5px;color:var(--ink)}
+  .filters label{display:flex;align-items:center;gap:8px;color:var(--muted)}
+  .filters input[type=range]{accent-color:var(--lime)}
+  .spacer{flex:1}
+
+  /* lead cards */
+  .lead{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;
+        display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:start}
+  .lead.done{opacity:.62}
+  .lead.won{border-color:#bfe6cd;background:#f4fbf6}
+  .lead.lost{border-color:#f0d9d9;background:#fdf7f6}
+  .score{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;
+         font-weight:800;font-size:20px;color:#fff;background:var(--green2)}
+  .score.hot{background:var(--hot)}.score.warm{background:var(--warm)}
+  .ld-main h3{font-size:16px;margin-bottom:3px}
+  .ld-meta{font-size:13px;color:var(--muted);margin-bottom:9px}
+  .badges{display:flex;flex-wrap:wrap;gap:6px}
+  .badge{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:100px;border:1px solid var(--line);background:#fafbfa;color:#3a4a42}
+  .badge.pull{background:#fff2e8;border-color:#f6d8bf;color:#b5501f}
+  .badge.adj{background:#eef7f1;border-color:#cfe9d8;color:var(--green2)}
+  .badge.fresh{background:#eef3fb;border-color:#d3e0f2;color:#2b5a9c}
+  .actions{display:flex;flex-direction:column;gap:7px;min-width:104px}
+  .actions button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px;font-size:13px;font-weight:600;cursor:pointer}
+  .actions .w:hover{background:#e9f8ef;border-color:#8fd6ab}
+  .actions .l:hover{background:#fdeceb;border-color:#e6a6a1}
+  .actions .n:hover{background:#f2f2f2}
+  .actions button.sel{background:var(--green2);color:#fff;border-color:var(--green2)}
+  .actions .l.sel{background:var(--hot);border-color:var(--hot)}
+  .empty{text-align:center;color:var(--muted);padding:50px 0}
+  .hint{font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px}
+  @media(max-width:720px){.stats{grid-template-columns:1fr 1fr}.lead{grid-template-columns:auto 1fr}.actions{grid-column:1/-1;flex-direction:row}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <a class="logo" href="/permitleads"><span class="dot"></span>PermitPulse</a>
+    <div class="who" id="who" hidden>
+      <span>Signed in as</span>
+      <select id="switch" onchange="signIn(this.value)"></select>
+      <button class="btn mini ghost" onclick="exportOutcomes()">Export</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sign-in -->
+<div id="signin" class="signin">
+  <h1>Your permit leads</h1>
+  <p>Pilot demo — pick your business to see the scored leads waiting for you in Berkshire County.</p>
+  <select id="picker"></select>
+  <button class="btn" style="width:100%" onclick="signIn(document.getElementById('picker').value)">View my leads →</button>
+  <div class="hint">Demo data. Won/lost marks are saved to this browser only.</div>
+</div>
+
+<!-- Dashboard -->
+<div id="dash" class="wrap" hidden>
+  <div class="stats">
+    <div class="stat"><b id="s-total">0</b><span>Leads waiting</span></div>
+    <div class="stat"><b id="s-marked">0</b><span>Reviewed</span></div>
+    <div class="stat win"><b id="s-won">0</b><span>Marked won</span></div>
+    <div class="stat win"><b id="s-conv">0%</b><span>Your close rate</span></div>
+  </div>
+
+  <div class="filters">
+    <select id="f-trade" onchange="render()"><option value="">All trades</option></select>
+    <select id="f-town" onchange="render()"><option value="">All towns</option></select>
+    <select id="f-status" onchange="render()">
+      <option value="">All statuses</option>
+      <option value="unmarked">Not reviewed</option>
+      <option value="won">Won</option>
+      <option value="lost">Lost</option>
+      <option value="no_response">No response</option>
+    </select>
+    <label>Min score <input id="f-score" type="range" min="0" max="100" value="0" oninput="scoreLbl();render()"> <b id="f-score-v">0</b></label>
+    <div class="spacer"></div>
+    <select id="f-sort" onchange="render()">
+      <option value="score">Sort: highest score</option>
+      <option value="fresh">Sort: freshest</option>
+    </select>
+  </div>
+
+  <div id="list"></div>
+</div>
+
+<script>
+let DATA=null, CURRENT=null;
+
+fetch('/permitleads-data.json').then(r=>r.json()).then(d=>{
+  DATA=d;
+  const withLeads=d.contractors.filter(c=>c.leads.length);
+  const picker=document.getElementById('picker'), sw=document.getElementById('switch');
+  (withLeads.length?withLeads:d.contractors).forEach(c=>{
+    const label=`${c.name} — ${c.trade} · ${c.town}`;
+    picker.add(new Option(label,c.id)); sw.add(new Option(label,c.id));
+  });
+  // auto sign-in if remembered
+  const last=localStorage.getItem('pp_last');
+  if(last && d.contractors.some(c=>c.id===last)) signIn(last);
+}).catch(()=>{
+  document.getElementById('signin').innerHTML='<h1>Demo data not found</h1><p>Run the pipeline export to generate permitleads-data.json.</p>';
+});
+
+function outcomeKey(cid){return 'pp_out_'+cid;}
+function getOutcomes(cid){try{return JSON.parse(localStorage.getItem(outcomeKey(cid))||'{}');}catch(e){return {};}}
+function setOutcome(cid,leadId,status){
+  const o=getOutcomes(cid);
+  if(o[leadId]===status){delete o[leadId];}else{o[leadId]=status;}
+  localStorage.setItem(outcomeKey(cid),JSON.stringify(o));
+  refreshStats();render();
+}
+
+function signIn(cid){
+  CURRENT=DATA.contractors.find(c=>c.id===cid);
+  if(!CURRENT)return;
+  localStorage.setItem('pp_last',cid);
+  document.getElementById('signin').hidden=true;
+  document.getElementById('dash').hidden=false;
+  document.getElementById('who').hidden=false;
+  document.getElementById('switch').value=cid;
+  // populate trade/town filters from this contractor's leads
+  const trades=[...new Set(CURRENT.leads.map(l=>l.adjacencies.map(a=>a.trade)).flat().concat(CURRENT.trade))];
+  const towns=[...new Set(CURRENT.leads.map(l=>l.town))].sort();
+  const ft=document.getElementById('f-town');
+  ft.length=1; towns.forEach(t=>ft.add(new Option(t,t)));
+  refreshStats(); render();
+}
+
+function scoreLbl(){document.getElementById('f-score-v').textContent=document.getElementById('f-score').value;}
+
+function refreshStats(){
+  const o=getOutcomes(CURRENT.id), leads=CURRENT.leads;
+  const marked=Object.keys(o).length;
+  const won=Object.values(o).filter(s=>s==='won').length;
+  document.getElementById('s-total').textContent=leads.length;
+  document.getElementById('s-marked').textContent=marked;
+  document.getElementById('s-won').textContent=won;
+  document.getElementById('s-conv').textContent=(leads.length?Math.round(100*won/leads.length):0)+'%';
+}
+
+function scoreClass(s){return s>=75?'hot':s>=50?'warm':'';}
+
+function render(){
+  const o=getOutcomes(CURRENT.id);
+  const fTown=document.getElementById('f-town').value;
+  const fStatus=document.getElementById('f-status').value;
+  const minScore=+document.getElementById('f-score').value;
+  const sort=document.getElementById('f-sort').value;
+  let leads=CURRENT.leads.filter(l=>l.score>=minScore);
+  if(fTown) leads=leads.filter(l=>l.town===fTown);
+  if(fStatus) leads=leads.filter(l=>{
+    const st=o[l.lead_id];
+    return fStatus==='unmarked'?!st:st===fStatus;
+  });
+  leads.sort((a,b)=> sort==='fresh'
+    ? (a.freshness_days??999)-(b.freshness_days??999)
+    : b.score-a.score);
+
+  const list=document.getElementById('list');
+  if(!leads.length){list.innerHTML='<div class="empty">No leads match these filters.</div>';return;}
+  list.innerHTML=leads.map(l=>{
+    const st=o[l.lead_id]||'';
+    const adj=l.adjacencies.slice(0,4).map(a=>`<span class="badge adj">+ ${a.trade} ${a.est_value_band!=='unknown'?'('+a.est_value_band+')':''}</span>`).join('');
+    const fresh=l.freshness_days!=null?`<span class="badge fresh">${l.freshness_days}d ago</span>`:'';
+    const pull=l.owner_pull?'<span class="badge pull">⚑ owner-pulled</span>':'';
+    return `<div class="lead ${st?'done '+st:''}">
+      <div class="score ${scoreClass(l.score)}">${l.score}</div>
+      <div class="ld-main">
+        <h3>${esc(l.address)}, ${esc(l.town)}</h3>
+        <div class="ld-meta">${esc(l.permit_type)} · owner: ${esc(l.owner||'n/a')}</div>
+        <div class="badges">${fresh}${pull}${adj||''}</div>
+      </div>
+      <div class="actions">
+        <button class="w ${st==='won'?'sel':''}" onclick="setOutcome('${CURRENT.id}','${l.lead_id}','won')">Won</button>
+        <button class="l ${st==='lost'?'sel':''}" onclick="setOutcome('${CURRENT.id}','${l.lead_id}','lost')">Lost</button>
+        <button class="n ${st==='no_response'?'sel':''}" onclick="setOutcome('${CURRENT.id}','${l.lead_id}','no_response')">No reply</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function exportOutcomes(){
+  const o=getOutcomes(CURRENT.id);
+  const rows=CURRENT.leads.map(l=>({lead_id:l.lead_id,address:l.address,town:l.town,
+     score:l.score,status:o[l.lead_id]||'unmarked'}));
+  const blob=new Blob([JSON.stringify({contractor:CURRENT.name,arm:CURRENT.arm,outcomes:rows},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='outcomes_'+CURRENT.id+'.json';a.click();
+}
+
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+</script>
+</body>
+</html>

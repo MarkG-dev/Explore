@@ -33,8 +33,8 @@ def test_pipeline_runs_and_scores(tmp_path):
 
     summary = run("fixture", out_dir, db_path, TODAY)
 
-    assert summary["scraped"] == 7
-    assert summary["classified"] == 7
+    assert summary["scraped"] == 14
+    assert summary["classified"] == 14
     assert summary["leads_delivered"] > 0
 
     with db.session(db_path) as conn:

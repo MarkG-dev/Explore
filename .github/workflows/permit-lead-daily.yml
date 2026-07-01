@@ -1,0 +1,63 @@
+name: Permit-lead daily pipeline
+
+# Runs the Berkshire permit-lead pipeline daily: scrape -> classify -> score ->
+# route arms -> export the contractor-app data (permitleads-data.json), then
+# commit the refreshed JSON so Vercel redeploys with today's leads.
+#
+# NOTE: The `fixture` source runs anywhere with no secrets (good for verifying
+# the workflow). To go live, switch --source to permiteyes_berkshire AND either
+# run Playwright here or point at your own scraper host; the live portal needs a
+# browser context. Set ANTHROPIC_API_KEY as a repo secret to use the LLM
+# classifier instead of the rules fallback.
+
+on:
+  schedule:
+    - cron: "0 11 * * *"      # 07:00 America/New_York (permits post overnight)
+  workflow_dispatch:           # manual "Run workflow" button
+
+permissions:
+  contents: write              # to commit the refreshed data JSON
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: permit-lead-pipeline
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Test pipeline
+        env:
+          PYTHONPATH: src
+        run: python -m pytest tests/ -q
+
+      - name: Run pipeline + export web data
+        env:
+          PYTHONPATH: src
+          # ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # uncomment to use LLM
+          SOURCE: fixture        # change to permiteyes_berkshire when selectors are confirmed
+        run: |
+          python -m permitlead.seed_contractors --db data/permits.db
+          python -m permitlead.run_daily --source "$SOURCE" --db data/permits.db --out out/
+          python -m permitlead.export_web --db data/permits.db --out ../permitleads-data.json
+
+      - name: Commit refreshed leads (if changed)
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          if ! git diff --quiet -- permitleads-data.json; then
+            git config user.name "permitpulse-bot"
+            git config user.email "actions@github.com"
+            git add permitleads-data.json
+            git commit -m "chore: refresh permit leads ($(date -u +%Y-%m-%d))"
+            git push
+          else
+            echo "No lead changes today."
+          fi
