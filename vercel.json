@@ -5,6 +5,7 @@
     { "source": "/permitleads", "destination": "/permitleads.html" },
     { "source": "/permitleads/app", "destination": "/permitleads-app.html" },
     { "source": "/permitleads/ops", "destination": "/scrapers.html" },
-    { "source": "/knockradar", "destination": "/knockradar.html" }
+    { "source": "/knockradar", "destination": "/knockradar.html" },
+    { "source": "/knockradar/concepts", "destination": "/knockradar-concepts.html" }
   ]
 }
