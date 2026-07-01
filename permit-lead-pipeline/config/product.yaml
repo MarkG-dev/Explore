@@ -1,0 +1,48 @@
+# Product config: exclusivity, lead routing, alerts, outreach.
+# Separate from scoring/sources so business rules are tunable without touching
+# the pipeline. Answers "how do we offer exclusives" as CONFIG, not code.
+
+exclusivity:
+  # 'hybrid' (recommended): every lead exclusive (one contractor per trade per
+  # lead) + a capacity cap of N subscribers per trade per region. Sells scarcity
+  # without starving subs given low Berkshire permit volume (~600-900/yr).
+  mode: hybrid
+  # Max paying subscribers per trade, per region (the scarcity you sell).
+  # Extra sign-ups go on a waitlist and receive nothing until a seat frees.
+  caps:
+    roofing: 3
+    solar: 2
+    hvac: 3
+    remodel: 3
+    default: 3
+
+# Berkshire towns grouped into sellable territories.
+regions:
+  North:   [North Adams, Williamstown, Adams, Cheshire, Clarksburg]
+  Central: [Pittsfield, Dalton, Lanesborough, Lenox, Lee, Hinsdale, Richmond]
+  South:   [Great Barrington, Stockbridge, Sheffield, Egremont, Lenox Dale]
+
+# One permit -> leads for multiple trades. Maps a permit's primary trade +
+# adjacency trades onto the trades we actually have subscribers for.
+# e.g. a roof permit becomes a SOLAR lead (adjacency) for a solar sub.
+adjacency_to_trade:
+  solar: solar
+  hvac: hvac
+  roofing: roofing
+  flooring: remodel
+  countertops: remodel
+  paint: remodel
+  # gutters/insulation/skylights/fencing/etc. have no subscriber trade -> skipped
+
+# Tier A: alert the CONTRACTOR (our customer). Zero TCPA risk (they opted in).
+alerts:
+  hot_score: 70          # leads at/above this trigger an immediate alert
+  channels: [email]      # email|sms — SMS requires a provider + the sub's consent
+  digest_hour: 7         # local hour for the daily digest
+
+# Tier B: AI-drafted outreach the CONTRACTOR sends themselves (compliant).
+# We never send to the homeowner directly (that's the TCPA/CAN-SPAM landmine).
+outreach:
+  sender: contractor     # 'contractor' only. Do NOT change to 'platform'.
+  channels: [email, sms, postcard]
+  tone: "friendly, local, low-pressure"

@@ -1,666 +1,24 @@
 {
   "generated": "2026-07-01",
+  "model": "hybrid",
   "contractors": [
     {
-      "id": "c_allfaze",
-      "name": "Allfaze Mechanical",
-      "trade": "hvac",
-      "town": "Williamstown",
-      "arm": "raw",
-      "leads": [
-        {
-          "lead_id": "3a514be8fcb2308b",
-          "score": 67,
-          "address": "18 High St",
-          "town": "Dalton",
-          "permit_type": "Heat Pump Install",
-          "owner": "G. Ives",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "974ce1992a5bc915",
-          "score": 44,
-          "address": "3 Depot St",
-          "town": "Dalton",
-          "permit_type": "Furnace Replacement",
-          "owner": "P. Nkemelu",
-          "owner_pull": false,
-          "freshness_days": 29,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "f375b79d426c9e31",
-          "score": 41,
-          "address": "77 Walker St",
-          "town": "Lenox",
-          "permit_type": "Furnace Replacement",
-          "owner": "C. Bianchi",
-          "owner_pull": false,
-          "freshness_days": 35,
-          "adjacencies": []
-        }
-      ]
-    },
-    {
-      "id": "c_dondavis",
-      "name": "Don Davis Heating Cooling & Plumbing",
-      "trade": "hvac",
-      "town": "Pittsfield",
-      "arm": "raw",
-      "leads": [
-        {
-          "lead_id": "2658509229cbb554",
-          "score": 67,
-          "address": "18 High St",
-          "town": "Dalton",
-          "permit_type": "Heat Pump Install",
-          "owner": "G. Ives",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "c0e50f118020ab79",
-          "score": 44,
-          "address": "3 Depot St",
-          "town": "Dalton",
-          "permit_type": "Furnace Replacement",
-          "owner": "P. Nkemelu",
-          "owner_pull": false,
-          "freshness_days": 29,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "a21a1feb5570539d",
-          "score": 41,
-          "address": "77 Walker St",
-          "town": "Lenox",
-          "permit_type": "Furnace Replacement",
-          "owner": "C. Bianchi",
-          "owner_pull": false,
-          "freshness_days": 35,
-          "adjacencies": []
-        }
-      ]
-    },
-    {
-      "id": "c_laureyns",
-      "name": "Laureyns United",
-      "trade": "hvac",
-      "town": "Pittsfield",
-      "arm": "scored",
-      "leads": [
-        {
-          "lead_id": "153ec1a163788531",
-          "score": 67,
-          "address": "18 High St",
-          "town": "Dalton",
-          "permit_type": "Heat Pump Install",
-          "owner": "G. Ives",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "f8f63127c204bc1a",
-          "score": 44,
-          "address": "3 Depot St",
-          "town": "Dalton",
-          "permit_type": "Furnace Replacement",
-          "owner": "P. Nkemelu",
-          "owner_pull": false,
-          "freshness_days": 29,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "930fdef62b63a8a0",
-          "score": 41,
-          "address": "77 Walker St",
-          "town": "Lenox",
-          "permit_type": "Furnace Replacement",
-          "owner": "C. Bianchi",
-          "owner_pull": false,
-          "freshness_days": 35,
-          "adjacencies": []
-        }
-      ]
-    },
-    {
-      "id": "c_pariseau",
-      "name": "Pariseau Inc.",
-      "trade": "hvac",
-      "town": "Pittsfield",
-      "arm": "scored",
-      "leads": [
-        {
-          "lead_id": "ae0c75be50ffcc81",
-          "score": 67,
-          "address": "18 High St",
-          "town": "Dalton",
-          "permit_type": "Heat Pump Install",
-          "owner": "G. Ives",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "7a6bb74deadefb7b",
-          "score": 44,
-          "address": "3 Depot St",
-          "town": "Dalton",
-          "permit_type": "Furnace Replacement",
-          "owner": "P. Nkemelu",
-          "owner_pull": false,
-          "freshness_days": 29,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "7ba233bb5bf17ff6",
-          "score": 41,
-          "address": "77 Walker St",
-          "town": "Lenox",
-          "permit_type": "Furnace Replacement",
-          "owner": "C. Bianchi",
-          "owner_pull": false,
-          "freshness_days": 35,
-          "adjacencies": []
-        }
-      ]
-    },
-    {
-      "id": "c_pipers",
-      "name": "Pittsfield Pipers Inc.",
-      "trade": "hvac",
-      "town": "Pittsfield",
-      "arm": "scored",
-      "leads": [
-        {
-          "lead_id": "3c41275e79230539",
-          "score": 67,
-          "address": "18 High St",
-          "town": "Dalton",
-          "permit_type": "Heat Pump Install",
-          "owner": "G. Ives",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "479d6e23b6d4a4ee",
-          "score": 44,
-          "address": "3 Depot St",
-          "town": "Dalton",
-          "permit_type": "Furnace Replacement",
-          "owner": "P. Nkemelu",
-          "owner_pull": false,
-          "freshness_days": 29,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "5c87f83cd6873bb3",
-          "score": 41,
-          "address": "77 Walker St",
-          "town": "Lenox",
-          "permit_type": "Furnace Replacement",
-          "owner": "C. Bianchi",
-          "owner_pull": false,
-          "freshness_days": 35,
-          "adjacencies": []
-        }
-      ]
-    },
-    {
-      "id": "c_wtpi",
-      "name": "WTPI Service",
-      "trade": "hvac",
-      "town": "Pittsfield",
-      "arm": "raw",
-      "leads": [
-        {
-          "lead_id": "9465fdb731192b16",
-          "score": 67,
-          "address": "18 High St",
-          "town": "Dalton",
-          "permit_type": "Heat Pump Install",
-          "owner": "G. Ives",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "a99b6714f4acc2db",
-          "score": 44,
-          "address": "3 Depot St",
-          "town": "Dalton",
-          "permit_type": "Furnace Replacement",
-          "owner": "P. Nkemelu",
-          "owner_pull": false,
-          "freshness_days": 29,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "0b4ddec439d09a9f",
-          "score": 41,
-          "address": "77 Walker St",
-          "town": "Lenox",
-          "permit_type": "Furnace Replacement",
-          "owner": "C. Bianchi",
-          "owner_pull": false,
-          "freshness_days": 35,
-          "adjacencies": []
-        }
-      ]
-    },
-    {
-      "id": "c_kj",
-      "name": "KJ Home Improvement LLC",
-      "trade": "remodel",
-      "town": "Pittsfield",
-      "arm": "scored",
-      "leads": [
-        {
-          "lead_id": "7e46c3ac417a022a",
-          "score": 89,
-          "address": "88 Main St",
-          "town": "Great Barrington",
-          "permit_type": "Kitchen Remodel / Addition",
-          "owner": "M. Osei",
-          "owner_pull": true,
-          "freshness_days": 4,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        },
-        {
-          "lead_id": "bb9dc9b686a86514",
-          "score": 83,
-          "address": "9 Pine St",
-          "town": "Stockbridge",
-          "permit_type": "Kitchen Remodel",
-          "owner": "H. Tanaka",
-          "owner_pull": true,
-          "freshness_days": 21,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        },
-        {
-          "lead_id": "ad4068799130c2d2",
-          "score": 72,
-          "address": "61 Elm St",
-          "town": "Pittsfield",
-          "permit_type": "Bathroom Remodel",
-          "owner": "A. Russo",
-          "owner_pull": false,
-          "freshness_days": 5,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "c_morrison",
-      "name": "Morrison's Home Improvement",
-      "trade": "remodel",
-      "town": "Lenox",
-      "arm": "scored",
-      "leads": [
-        {
-          "lead_id": "8ab8922055b88536",
-          "score": 89,
-          "address": "88 Main St",
-          "town": "Great Barrington",
-          "permit_type": "Kitchen Remodel / Addition",
-          "owner": "M. Osei",
-          "owner_pull": true,
-          "freshness_days": 4,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        },
-        {
-          "lead_id": "158be607d5cc9a84",
-          "score": 83,
-          "address": "9 Pine St",
-          "town": "Stockbridge",
-          "permit_type": "Kitchen Remodel",
-          "owner": "H. Tanaka",
-          "owner_pull": true,
-          "freshness_days": 21,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        },
-        {
-          "lead_id": "5ba3894a2c1b1853",
-          "score": 72,
-          "address": "61 Elm St",
-          "town": "Pittsfield",
-          "permit_type": "Bathroom Remodel",
-          "owner": "A. Russo",
-          "owner_pull": false,
-          "freshness_days": 5,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "c_salco",
-      "name": "Salco Construction Company",
-      "trade": "remodel",
-      "town": "Pittsfield",
-      "arm": "raw",
-      "leads": [
-        {
-          "lead_id": "0b529d5d1d5d2368",
-          "score": 89,
-          "address": "88 Main St",
-          "town": "Great Barrington",
-          "permit_type": "Kitchen Remodel / Addition",
-          "owner": "M. Osei",
-          "owner_pull": true,
-          "freshness_days": 4,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        },
-        {
-          "lead_id": "49b2064591f2f3eb",
-          "score": 83,
-          "address": "9 Pine St",
-          "town": "Stockbridge",
-          "permit_type": "Kitchen Remodel",
-          "owner": "H. Tanaka",
-          "owner_pull": true,
-          "freshness_days": 21,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        },
-        {
-          "lead_id": "dc2e0df04d84a198",
-          "score": 72,
-          "address": "61 Elm St",
-          "town": "Pittsfield",
-          "permit_type": "Bathroom Remodel",
-          "owner": "A. Russo",
-          "owner_pull": false,
-          "freshness_days": 5,
-          "adjacencies": [
-            {
-              "trade": "flooring",
-              "rationale": "remodel permit -> flooring opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "countertops",
-              "rationale": "remodel permit -> countertops opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "hvac",
-              "rationale": "remodel permit -> hvac opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "electrical",
-              "rationale": "remodel permit -> electrical opportunity",
-              "est_value_band": "5-10k"
-            },
-            {
-              "trade": "paint",
-              "rationale": "remodel permit -> paint opportunity",
-              "est_value_band": "0-5k"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "c_acwood",
-      "name": "A.C. Wood Contracting",
+      "id": "c_battaini",
+      "name": "Chris Battaini Roofing & Seamless Gutters",
       "trade": "roofing",
-      "town": "Lanesborough",
-      "arm": "raw",
+      "town": "Pittsfield",
+      "region": "Central",
+      "active": true,
       "leads": [
         {
-          "lead_id": "4e2eb3ffb25c7779",
-          "score": 86,
+          "lead_id": "5883da3728ed772e",
           "address": "22 Housatonic St",
           "town": "Lee",
           "permit_type": "Roof Replacement",
           "owner": "K. Pham",
           "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "3463cab1697d028e",
+          "primary_trade": "roofing",
           "score": 86,
-          "address": "45 Onota St",
-          "town": "Pittsfield",
-          "permit_type": "Roof Replacement",
-          "owner": "R. Delgado",
-          "owner_pull": true,
-          "freshness_days": 6,
           "adjacencies": [
             {
               "trade": "solar",
@@ -682,71 +40,20 @@
               "rationale": "roofing permit -> insulation opportunity",
               "est_value_band": "5-10k"
             }
-          ]
-        },
-        {
-          "lead_id": "bd757343c345056e",
-          "score": 83,
-          "address": "7 Wendell Ave",
-          "town": "Pittsfield",
-          "permit_type": "Reroof",
-          "owner": "J. Alvarez",
-          "owner_pull": true,
-          "freshness_days": 2,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
+          ],
+          "freshness_days": 3,
+          "matched_trade": "roofing",
+          "exclusive": true,
+          "match_reason": "owner-pulled roofing permit",
+          "drafts": {
+            "email": {
+              "subject": "About your project at 22 Housatonic St",
+              "body": "Hi Pham,\n\nI saw the permit for work at 22 Housatonic St in Lee \u2014 we can take a quick look at the roof while permits are active.\n\nWe're a local Lee-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nChris Battaini Roofing & Seamless Gutters"
             },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "5aac15030270eb0f",
-          "score": 72,
-          "address": "301 State Rd",
-          "town": "Great Barrington",
-          "permit_type": "Reroof",
-          "owner": "Berkshire Realty LLC",
-          "owner_pull": false,
-          "freshness_days": 8,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
+            "sms": "Hi Pham, I saw the permit for work at 22 Housatonic St in Lee \u2014 we can take a quick look at the roof while permits are active. We're local \u2014 happy to give a free quote if useful. \u2014 Chris Battaini Roofing & Seamless Gutters",
+            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 22 Housatonic St in Lee \u2014 we can take a quick look at the roof while permits are active. Call (413) 441-4840 for a free, no-pressure estimate. Local & licensed. \u2014 Chris Battaini Roofing & Seamless Gutters",
+            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+          }
         }
       ]
     },
@@ -755,272 +62,53 @@
       "name": "Briggs Roofing",
       "trade": "roofing",
       "town": "Lee",
-      "arm": "scored",
+      "region": "Central",
+      "active": true,
       "leads": [
         {
-          "lead_id": "2e746d247b8b57f7",
-          "score": 86,
-          "address": "22 Housatonic St",
-          "town": "Lee",
-          "permit_type": "Roof Replacement",
-          "owner": "K. Pham",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "8e5a94307da6a380",
-          "score": 86,
-          "address": "45 Onota St",
-          "town": "Pittsfield",
-          "permit_type": "Roof Replacement",
-          "owner": "R. Delgado",
-          "owner_pull": true,
-          "freshness_days": 6,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "d54f5dc243c9ccda",
-          "score": 83,
+          "lead_id": "8cbcd25f648fc735",
           "address": "7 Wendell Ave",
           "town": "Pittsfield",
           "permit_type": "Reroof",
           "owner": "J. Alvarez",
           "owner_pull": true,
-          "freshness_days": 2,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "e454d39f748cecbe",
-          "score": 72,
-          "address": "301 State Rd",
-          "town": "Great Barrington",
-          "permit_type": "Reroof",
-          "owner": "Berkshire Realty LLC",
-          "owner_pull": false,
-          "freshness_days": 8,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "c_battaini",
-      "name": "Chris Battaini Roofing & Seamless Gutters",
-      "trade": "roofing",
-      "town": "Pittsfield",
-      "arm": "scored",
-      "leads": [
-        {
-          "lead_id": "c5ea243fa3791681",
-          "score": 86,
-          "address": "22 Housatonic St",
-          "town": "Lee",
-          "permit_type": "Roof Replacement",
-          "owner": "K. Pham",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "d4434fdc57e83433",
-          "score": 86,
-          "address": "45 Onota St",
-          "town": "Pittsfield",
-          "permit_type": "Roof Replacement",
-          "owner": "R. Delgado",
-          "owner_pull": true,
-          "freshness_days": 6,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "eee071209a58a47d",
+          "primary_trade": "roofing",
           "score": 83,
-          "address": "7 Wendell Ave",
-          "town": "Pittsfield",
-          "permit_type": "Reroof",
-          "owner": "J. Alvarez",
-          "owner_pull": true,
+          "adjacencies": [
+            {
+              "trade": "solar",
+              "rationale": "roofing permit -> solar opportunity",
+              "est_value_band": "10-20k"
+            },
+            {
+              "trade": "gutters",
+              "rationale": "roofing permit -> gutters opportunity",
+              "est_value_band": "0-5k"
+            },
+            {
+              "trade": "skylights",
+              "rationale": "roofing permit -> skylights opportunity",
+              "est_value_band": "0-5k"
+            },
+            {
+              "trade": "insulation",
+              "rationale": "roofing permit -> insulation opportunity",
+              "est_value_band": "5-10k"
+            }
+          ],
           "freshness_days": 2,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
+          "matched_trade": "roofing",
+          "exclusive": true,
+          "match_reason": "owner-pulled roofing permit",
+          "drafts": {
+            "email": {
+              "subject": "About your project at 7 Wendell Ave",
+              "body": "Hi Alvarez,\n\nI saw the permit for work at 7 Wendell Ave in Pittsfield \u2014 we can take a quick look at the roof while permits are active.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nBriggs Roofing"
             },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "a6f9edf9ea5deb69",
-          "score": 72,
-          "address": "301 State Rd",
-          "town": "Great Barrington",
-          "permit_type": "Reroof",
-          "owner": "Berkshire Realty LLC",
-          "owner_pull": false,
-          "freshness_days": 8,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
+            "sms": "Hi Alvarez, I saw the permit for work at 7 Wendell Ave in Pittsfield \u2014 we can take a quick look at the roof while permits are active. We're local \u2014 happy to give a free quote if useful. \u2014 Briggs Roofing",
+            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 7 Wendell Ave in Pittsfield \u2014 we can take a quick look at the roof while permits are active. Call (413) 243-1888 for a free, no-pressure estimate. Local & licensed. \u2014 Briggs Roofing",
+            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+          }
         }
       ]
     },
@@ -1029,272 +117,71 @@
       "name": "R & T Roofing and Remodeling",
       "trade": "roofing",
       "town": "Pittsfield",
-      "arm": "scored",
-      "leads": [
-        {
-          "lead_id": "c0a9672a62b9fae7",
-          "score": 86,
-          "address": "22 Housatonic St",
-          "town": "Lee",
-          "permit_type": "Roof Replacement",
-          "owner": "K. Pham",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "0cdeec71e2b48518",
-          "score": 86,
-          "address": "45 Onota St",
-          "town": "Pittsfield",
-          "permit_type": "Roof Replacement",
-          "owner": "R. Delgado",
-          "owner_pull": true,
-          "freshness_days": 6,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "e993d68e1d600d3b",
-          "score": 83,
-          "address": "7 Wendell Ave",
-          "town": "Pittsfield",
-          "permit_type": "Reroof",
-          "owner": "J. Alvarez",
-          "owner_pull": true,
-          "freshness_days": 2,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "1e2164b3a25592b8",
-          "score": 72,
-          "address": "301 State Rd",
-          "town": "Great Barrington",
-          "permit_type": "Reroof",
-          "owner": "Berkshire Realty LLC",
-          "owner_pull": false,
-          "freshness_days": 8,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        }
-      ]
+      "region": "Central",
+      "active": false,
+      "leads": []
     },
     {
       "id": "c_sg",
       "name": "S & G Roofing Inc.",
       "trade": "roofing",
       "town": "Pittsfield",
-      "arm": "raw",
+      "region": "Central",
+      "active": false,
+      "leads": []
+    },
+    {
+      "id": "c_acwood",
+      "name": "A.C. Wood Contracting",
+      "trade": "roofing",
+      "town": "Lanesborough",
+      "region": "Central",
+      "active": true,
       "leads": [
         {
-          "lead_id": "86e409c71f979142",
-          "score": 86,
-          "address": "22 Housatonic St",
-          "town": "Lee",
-          "permit_type": "Roof Replacement",
-          "owner": "K. Pham",
-          "owner_pull": true,
-          "freshness_days": 3,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "9e059a6d8a2880eb",
-          "score": 86,
+          "lead_id": "6c07644d0bf87a57",
           "address": "45 Onota St",
           "town": "Pittsfield",
           "permit_type": "Roof Replacement",
           "owner": "R. Delgado",
           "owner_pull": true,
+          "primary_trade": "roofing",
+          "score": 86,
+          "adjacencies": [
+            {
+              "trade": "solar",
+              "rationale": "roofing permit -> solar opportunity",
+              "est_value_band": "10-20k"
+            },
+            {
+              "trade": "gutters",
+              "rationale": "roofing permit -> gutters opportunity",
+              "est_value_band": "0-5k"
+            },
+            {
+              "trade": "skylights",
+              "rationale": "roofing permit -> skylights opportunity",
+              "est_value_band": "0-5k"
+            },
+            {
+              "trade": "insulation",
+              "rationale": "roofing permit -> insulation opportunity",
+              "est_value_band": "5-10k"
+            }
+          ],
           "freshness_days": 6,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
+          "matched_trade": "roofing",
+          "exclusive": true,
+          "match_reason": "owner-pulled roofing permit",
+          "drafts": {
+            "email": {
+              "subject": "About your project at 45 Onota St",
+              "body": "Hi Delgado,\n\nI saw the permit for work at 45 Onota St in Pittsfield \u2014 we can take a quick look at the roof while permits are active.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nA.C. Wood Contracting"
             },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "b990b1cf9650a680",
-          "score": 83,
-          "address": "7 Wendell Ave",
-          "town": "Pittsfield",
-          "permit_type": "Reroof",
-          "owner": "J. Alvarez",
-          "owner_pull": true,
-          "freshness_days": 2,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
-        },
-        {
-          "lead_id": "f1d7af2cb6c360b4",
-          "score": 72,
-          "address": "301 State Rd",
-          "town": "Great Barrington",
-          "permit_type": "Reroof",
-          "owner": "Berkshire Realty LLC",
-          "owner_pull": false,
-          "freshness_days": 8,
-          "adjacencies": [
-            {
-              "trade": "solar",
-              "rationale": "roofing permit -> solar opportunity",
-              "est_value_band": "10-20k"
-            },
-            {
-              "trade": "gutters",
-              "rationale": "roofing permit -> gutters opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "skylights",
-              "rationale": "roofing permit -> skylights opportunity",
-              "est_value_band": "0-5k"
-            },
-            {
-              "trade": "insulation",
-              "rationale": "roofing permit -> insulation opportunity",
-              "est_value_band": "5-10k"
-            }
-          ]
+            "sms": "Hi Delgado, I saw the permit for work at 45 Onota St in Pittsfield \u2014 we can take a quick look at the roof while permits are active. We're local \u2014 happy to give a free quote if useful. \u2014 A.C. Wood Contracting",
+            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 45 Onota St in Pittsfield \u2014 we can take a quick look at the roof while permits are active. Call (413) 499-9905 for a free, no-pressure estimate. Local & licensed. \u2014 A.C. Wood Contracting",
+            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+          }
         }
       ]
     },
@@ -1303,29 +190,32 @@
       "name": "Berkshire Photovoltaic Services",
       "trade": "solar",
       "town": "North Adams",
-      "arm": "scored",
+      "region": "North",
+      "active": true,
       "leads": [
         {
-          "lead_id": "046801d1fd5c8141",
-          "score": 70,
+          "lead_id": "125ed741b17ffe17",
           "address": "134 Church St",
           "town": "North Adams",
           "permit_type": "Solar PV Installation",
           "owner": "D. Okafor",
           "owner_pull": true,
+          "primary_trade": "solar",
+          "score": 70,
+          "adjacencies": [],
           "freshness_days": 5,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "8e90246af64525e1",
-          "score": 53,
-          "address": "12 Kemble St",
-          "town": "Lenox",
-          "permit_type": "Solar PV Installation",
-          "owner": "T. Whitman",
-          "owner_pull": false,
-          "freshness_days": 9,
-          "adjacencies": []
+          "matched_trade": "solar",
+          "exclusive": true,
+          "match_reason": "owner-pulled solar permit",
+          "drafts": {
+            "email": {
+              "subject": "About your project at 134 Church St",
+              "body": "Hi Okafor,\n\nI saw the permit for work at 134 Church St in North Adams \u2014 since the roof will be freshly done, it's the ideal moment to add solar.\n\nWe're a local North Adams-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nBerkshire Photovoltaic Services"
+            },
+            "sms": "Hi Okafor, I saw the permit for work at 134 Church St in North Adams \u2014 since the roof will be freshly done, it's the ideal moment to add solar. We're local \u2014 happy to give a free quote if useful. \u2014 Berkshire Photovoltaic Services",
+            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 134 Church St in North Adams \u2014 since the roof will be freshly done, it's the ideal moment to add solar. Call (413) 664-0152 for a free, no-pressure estimate. Local & licensed. \u2014 Berkshire Photovoltaic Services",
+            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+          }
         }
       ]
     },
@@ -1334,31 +224,323 @@
       "name": "PV Squared Solar",
       "trade": "solar",
       "town": "Greenfield",
-      "arm": "raw",
+      "region": "Other",
+      "active": true,
+      "leads": []
+    },
+    {
+      "id": "c_laureyns",
+      "name": "Laureyns United",
+      "trade": "hvac",
+      "town": "Pittsfield",
+      "region": "Central",
+      "active": true,
       "leads": [
         {
-          "lead_id": "aa8b6cf7c216a354",
-          "score": 70,
-          "address": "134 Church St",
-          "town": "North Adams",
-          "permit_type": "Solar PV Installation",
-          "owner": "D. Okafor",
+          "lead_id": "993a7627d9d77a5d",
+          "address": "18 High St",
+          "town": "Dalton",
+          "permit_type": "Heat Pump Install",
+          "owner": "G. Ives",
           "owner_pull": true,
-          "freshness_days": 5,
-          "adjacencies": []
-        },
-        {
-          "lead_id": "a5ee21fdabaa400c",
-          "score": 53,
-          "address": "12 Kemble St",
-          "town": "Lenox",
-          "permit_type": "Solar PV Installation",
-          "owner": "T. Whitman",
-          "owner_pull": false,
-          "freshness_days": 9,
-          "adjacencies": []
+          "primary_trade": "hvac",
+          "score": 67,
+          "adjacencies": [],
+          "freshness_days": 3,
+          "matched_trade": "hvac",
+          "exclusive": true,
+          "match_reason": "owner-pulled hvac permit",
+          "drafts": {
+            "email": {
+              "subject": "About your project at 18 High St",
+              "body": "Hi Ives,\n\nI saw the permit for work at 18 High St in Dalton \u2014 while the space is open is the cheapest time to upgrade the heating/cooling.\n\nWe're a local Dalton-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nLaureyns United"
+            },
+            "sms": "Hi Ives, I saw the permit for work at 18 High St in Dalton \u2014 while the space is open is the cheapest time to upgrade the heating/cooling. We're local \u2014 happy to give a free quote if useful. \u2014 Laureyns United",
+            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 18 High St in Dalton \u2014 while the space is open is the cheapest time to upgrade the heating/cooling. Call (413) 717-1684 for a free, no-pressure estimate. Local & licensed. \u2014 Laureyns United",
+            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+          }
         }
       ]
+    },
+    {
+      "id": "c_wtpi",
+      "name": "WTPI Service",
+      "trade": "hvac",
+      "town": "Pittsfield",
+      "region": "Central",
+      "active": false,
+      "leads": []
+    },
+    {
+      "id": "c_pariseau",
+      "name": "Pariseau Inc.",
+      "trade": "hvac",
+      "town": "Pittsfield",
+      "region": "Central",
+      "active": true,
+      "leads": []
+    },
+    {
+      "id": "c_dondavis",
+      "name": "Don Davis Heating Cooling & Plumbing",
+      "trade": "hvac",
+      "town": "Pittsfield",
+      "region": "Central",
+      "active": true,
+      "leads": [
+        {
+          "lead_id": "6329aa4af7bc93ca",
+          "address": "61 Elm St",
+          "town": "Pittsfield",
+          "permit_type": "Bathroom Remodel",
+          "owner": "A. Russo",
+          "owner_pull": false,
+          "primary_trade": "remodel",
+          "score": 72,
+          "adjacencies": [
+            {
+              "trade": "flooring",
+              "rationale": "remodel permit -> flooring opportunity",
+              "est_value_band": "5-10k"
+            },
+            {
+              "trade": "countertops",
+              "rationale": "remodel permit -> countertops opportunity",
+              "est_value_band": "5-10k"
+            },
+            {
+              "trade": "hvac",
+              "rationale": "remodel permit -> hvac opportunity",
+              "est_value_band": "10-20k"
+            },
+            {
+              "trade": "electrical",
+              "rationale": "remodel permit -> electrical opportunity",
+              "est_value_band": "5-10k"
+            },
+            {
+              "trade": "paint",
+              "rationale": "remodel permit -> paint opportunity",
+              "est_value_band": "0-5k"
+            }
+          ],
+          "freshness_days": 5,
+          "matched_trade": "hvac",
+          "exclusive": true,
+          "match_reason": "remodel permit \u2192 hvac opportunity",
+          "drafts": {
+            "email": {
+              "subject": "About your project at 61 Elm St",
+              "body": "Hi Russo,\n\nI saw the permit for work at 61 Elm St in Pittsfield \u2014 while the space is open is the cheapest time to upgrade the heating/cooling.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nDon Davis Heating Cooling & Plumbing"
+            },
+            "sms": "Hi Russo, I saw the permit for work at 61 Elm St in Pittsfield \u2014 while the space is open is the cheapest time to upgrade the heating/cooling. We're local \u2014 happy to give a free quote if useful. \u2014 Don Davis Heating Cooling & Plumbing",
+            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 61 Elm St in Pittsfield \u2014 while the space is open is the cheapest time to upgrade the heating/cooling. Call  for a free, no-pressure estimate. Local & licensed. \u2014 Don Davis Heating Cooling & Plumbing",
+            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+          }
+        }
+      ]
+    },
+    {
+      "id": "c_pipers",
+      "name": "Pittsfield Pipers Inc.",
+      "trade": "hvac",
+      "town": "Pittsfield",
+      "region": "Central",
+      "active": false,
+      "leads": []
+    },
+    {
+      "id": "c_allfaze",
+      "name": "Allfaze Mechanical",
+      "trade": "hvac",
+      "town": "Williamstown",
+      "region": "North",
+      "active": true,
+      "leads": []
+    },
+    {
+      "id": "c_morrison",
+      "name": "Morrison's Home Improvement",
+      "trade": "remodel",
+      "town": "Lenox",
+      "region": "Central",
+      "active": true,
+      "leads": []
+    },
+    {
+      "id": "c_kj",
+      "name": "KJ Home Improvement LLC",
+      "trade": "remodel",
+      "town": "Pittsfield",
+      "region": "Central",
+      "active": true,
+      "leads": [
+        {
+          "lead_id": "6329aa4af7bc93ca",
+          "address": "61 Elm St",
+          "town": "Pittsfield",
+          "permit_type": "Bathroom Remodel",
+          "owner": "A. Russo",
+          "owner_pull": false,
+          "primary_trade": "remodel",
+          "score": 72,
+          "adjacencies": [
+            {
+              "trade": "flooring",
+              "rationale": "remodel permit -> flooring opportunity",
+              "est_value_band": "5-10k"
+            },
+            {
+              "trade": "countertops",
+              "rationale": "remodel permit -> countertops opportunity",
+              "est_value_band": "5-10k"
+            },
+            {
+              "trade": "hvac",
+              "rationale": "remodel permit -> hvac opportunity",
+              "est_value_band": "10-20k"
+            },
+            {
+              "trade": "electrical",
+              "rationale": "remodel permit -> electrical opportunity",
+              "est_value_band": "5-10k"
+            },
+            {
+              "trade": "paint",
+              "rationale": "remodel permit -> paint opportunity",
+              "est_value_band": "0-5k"
+            }
+          ],
+          "freshness_days": 5,
+          "matched_trade": "remodel",
+          "exclusive": true,
+          "match_reason": "owner-pulled remodel permit",
+          "drafts": {
+            "email": {
+              "subject": "About your project at 61 Elm St",
+              "body": "Hi Russo,\n\nI saw the permit for work at 61 Elm St in Pittsfield \u2014 we can help with the finish work to tie the project together.\n\nWe're a local Pittsfield-area company and happy to stop by, take a look, and give you a no-pressure quote whenever it's convenient.\n\nBest,\nKJ Home Improvement LLC"
+            },
+            "sms": "Hi Russo, I saw the permit for work at 61 Elm St in Pittsfield \u2014 we can help with the finish work to tie the project together. We're local \u2014 happy to give a free quote if useful. \u2014 KJ Home Improvement LLC",
+            "postcard": "NEIGHBOR \u2014 I saw the permit for work at 61 Elm St in Pittsfield \u2014 we can help with the finish work to tie the project together. Call (413) 822-3556 for a free, no-pressure estimate. Local & licensed. \u2014 KJ Home Improvement LLC",
+            "channel_note": "Send from YOUR email/number. We never contact the homeowner directly."
+          }
+        }
+      ]
+    },
+    {
+      "id": "c_salco",
+      "name": "Salco Construction Company",
+      "trade": "remodel",
+      "town": "Pittsfield",
+      "region": "Central",
+      "active": true,
+      "leads": []
+    }
+  ],
+  "alerts": [
+    {
+      "contractor_id": "c_battaini",
+      "contractor": "Chris Battaini Roofing & Seamless Gutters",
+      "channel": "email",
+      "hot_count": 1,
+      "top_lead": {
+        "score": 86,
+        "address": "22 Housatonic St",
+        "town": "Lee"
+      },
+      "subject": "1 new permit lead(s) in your area",
+      "body": "1 new hot lead(s) for Chris Battaini Roofing & Seamless Gutters:\n\n  [86] 22 Housatonic St, Lee \u2014 owner-pulled roofing permit\n\nOpen your dashboard to mark won/lost and get outreach drafts."
+    },
+    {
+      "contractor_id": "c_briggs",
+      "contractor": "Briggs Roofing",
+      "channel": "email",
+      "hot_count": 1,
+      "top_lead": {
+        "score": 83,
+        "address": "7 Wendell Ave",
+        "town": "Pittsfield"
+      },
+      "subject": "1 new permit lead(s) in your area",
+      "body": "1 new hot lead(s) for Briggs Roofing:\n\n  [83] 7 Wendell Ave, Pittsfield \u2014 owner-pulled roofing permit\n\nOpen your dashboard to mark won/lost and get outreach drafts."
+    },
+    {
+      "contractor_id": "c_acwood",
+      "contractor": "A.C. Wood Contracting",
+      "channel": "email",
+      "hot_count": 1,
+      "top_lead": {
+        "score": 86,
+        "address": "45 Onota St",
+        "town": "Pittsfield"
+      },
+      "subject": "1 new permit lead(s) in your area",
+      "body": "1 new hot lead(s) for A.C. Wood Contracting:\n\n  [86] 45 Onota St, Pittsfield \u2014 owner-pulled roofing permit\n\nOpen your dashboard to mark won/lost and get outreach drafts."
+    },
+    {
+      "contractor_id": "c_bpvs",
+      "contractor": "Berkshire Photovoltaic Services",
+      "channel": "email",
+      "hot_count": 1,
+      "top_lead": {
+        "score": 70,
+        "address": "134 Church St",
+        "town": "North Adams"
+      },
+      "subject": "1 new permit lead(s) in your area",
+      "body": "1 new hot lead(s) for Berkshire Photovoltaic Services:\n\n  [70] 134 Church St, North Adams \u2014 owner-pulled solar permit\n\nOpen your dashboard to mark won/lost and get outreach drafts."
+    },
+    {
+      "contractor_id": "c_dondavis",
+      "contractor": "Don Davis Heating Cooling & Plumbing",
+      "channel": "email",
+      "hot_count": 1,
+      "top_lead": {
+        "score": 72,
+        "address": "61 Elm St",
+        "town": "Pittsfield"
+      },
+      "subject": "1 new permit lead(s) in your area",
+      "body": "1 new hot lead(s) for Don Davis Heating Cooling & Plumbing:\n\n  [72] 61 Elm St, Pittsfield \u2014 remodel permit \u2192 hvac opportunity\n\nOpen your dashboard to mark won/lost and get outreach drafts."
+    },
+    {
+      "contractor_id": "c_kj",
+      "contractor": "KJ Home Improvement LLC",
+      "channel": "email",
+      "hot_count": 1,
+      "top_lead": {
+        "score": 72,
+        "address": "61 Elm St",
+        "town": "Pittsfield"
+      },
+      "subject": "1 new permit lead(s) in your area",
+      "body": "1 new hot lead(s) for KJ Home Improvement LLC:\n\n  [72] 61 Elm St, Pittsfield \u2014 owner-pulled remodel permit\n\nOpen your dashboard to mark won/lost and get outreach drafts."
+    }
+  ],
+  "waitlist": [
+    {
+      "id": "c_randt",
+      "name": "R & T Roofing and Remodeling",
+      "trade": "roofing",
+      "region": "Central"
+    },
+    {
+      "id": "c_sg",
+      "name": "S & G Roofing Inc.",
+      "trade": "roofing",
+      "region": "Central"
+    },
+    {
+      "id": "c_wtpi",
+      "name": "WTPI Service",
+      "trade": "hvac",
+      "region": "Central"
+    },
+    {
+      "id": "c_pipers",
+      "name": "Pittsfield Pipers Inc.",
+      "trade": "hvac",
+      "region": "Central"
     }
   ]
 }

@@ -67,15 +67,37 @@
   .badge.pull{background:#fff2e8;border-color:#f6d8bf;color:#b5501f}
   .badge.adj{background:#eef7f1;border-color:#cfe9d8;color:var(--green2)}
   .badge.fresh{background:#eef3fb;border-color:#d3e0f2;color:#2b5a9c}
+  .badge.excl{background:#12241d;border-color:#12241d;color:#8ff0bb}
+  .ld-reason{font-size:12.5px;color:var(--green2);font-weight:600;margin-bottom:8px}
   .actions{display:flex;flex-direction:column;gap:7px;min-width:104px}
   .actions button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px;font-size:13px;font-weight:600;cursor:pointer}
   .actions .w:hover{background:#e9f8ef;border-color:#8fd6ab}
   .actions .l:hover{background:#fdeceb;border-color:#e6a6a1}
   .actions .n:hover{background:#f2f2f2}
+  .actions .d{background:var(--green2);color:#fff;border-color:var(--green2)}
+  .actions .d:hover{background:var(--green)}
   .actions button.sel{background:var(--green2);color:#fff;border-color:var(--green2)}
   .actions .l.sel{background:var(--hot);border-color:var(--hot)}
   .empty{text-align:center;color:var(--muted);padding:50px 0}
   .hint{font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px}
+  /* draft modal */
+  .modal{position:fixed;inset:0;background:rgba(10,20,15,.55);display:none;
+         align-items:center;justify-content:center;z-index:50;padding:18px}
+  .modal.open{display:flex}
+  .sheet{background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:88vh;
+         overflow:auto;padding:22px}
+  .sheet h3{font-size:18px;margin-bottom:4px}
+  .sheet .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+  .tabs{display:flex;gap:6px;margin-bottom:12px}
+  .tabs button{flex:1;padding:8px;border:1px solid var(--line);background:#fafbfa;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer}
+  .tabs button.on{background:var(--green2);color:#fff;border-color:var(--green2)}
+  .draftbox{background:#f6f8f6;border:1px solid var(--line);border-radius:10px;padding:14px;
+            font-size:13.5px;white-space:pre-wrap;line-height:1.5}
+  .draftbox .subj{font-weight:700;margin-bottom:8px}
+  .modrow{display:flex;gap:8px;margin-top:14px}
+  .modrow button{flex:1;padding:10px;border-radius:9px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff}
+  .modrow .copy{background:var(--green2);color:#fff;border-color:var(--green2)}
+  .compliance{font-size:11.5px;color:var(--muted);margin-top:12px;text-align:center}
   @media(max-width:720px){.stats{grid-template-columns:1fr 1fr}.lead{grid-template-columns:auto 1fr}.actions{grid-column:1/-1;flex-direction:row}}
 </style>
 </head>
@@ -128,6 +150,25 @@
   </div>
 
   <div id="list"></div>
+</div>
+
+<!-- Draft outreach modal (Tier B — contractor-sent) -->
+<div id="modal" class="modal" onclick="if(event.target===this)closeDraft()">
+  <div class="sheet">
+    <h3 id="m-title">Outreach draft</h3>
+    <div class="sub" id="m-sub"></div>
+    <div class="tabs">
+      <button data-ch="email" class="on" onclick="showChannel('email')">Email</button>
+      <button data-ch="sms" onclick="showChannel('sms')">Text</button>
+      <button data-ch="postcard" onclick="showChannel('postcard')">Postcard</button>
+    </div>
+    <div class="draftbox" id="m-body"></div>
+    <div class="modrow">
+      <button class="copy" onclick="copyDraft()">Copy</button>
+      <button onclick="closeDraft()">Close</button>
+    </div>
+    <div class="compliance">You send this from your own email/number. PermitPulse never contacts the homeowner directly.</div>
+  </div>
 </div>
 
 <script>
@@ -210,14 +251,19 @@ function render(){
     const adj=l.adjacencies.slice(0,4).map(a=>`<span class="badge adj">+ ${a.trade} ${a.est_value_band!=='unknown'?'('+a.est_value_band+')':''}</span>`).join('');
     const fresh=l.freshness_days!=null?`<span class="badge fresh">${l.freshness_days}d ago</span>`:'';
     const pull=l.owner_pull?'<span class="badge pull">⚑ owner-pulled</span>':'';
+    const excl=l.exclusive?'<span class="badge excl">🔒 Exclusive to you</span>':'';
+    const reason=l.match_reason?`<div class="ld-reason">${esc(l.match_reason)}</div>`:'';
+    const draftBtn=l.drafts?`<button class="d" onclick="openDraft('${l.lead_id}')">✉ Draft</button>`:'';
     return `<div class="lead ${st?'done '+st:''}">
       <div class="score ${scoreClass(l.score)}">${l.score}</div>
       <div class="ld-main">
         <h3>${esc(l.address)}, ${esc(l.town)}</h3>
         <div class="ld-meta">${esc(l.permit_type)} · owner: ${esc(l.owner||'n/a')}</div>
-        <div class="badges">${fresh}${pull}${adj||''}</div>
+        ${reason}
+        <div class="badges">${excl}${fresh}${pull}${adj||''}</div>
       </div>
       <div class="actions">
+        ${draftBtn}
         <button class="w ${st==='won'?'sel':''}" onclick="setOutcome('${CURRENT.id}','${l.lead_id}','won')">Won</button>
         <button class="l ${st==='lost'?'sel':''}" onclick="setOutcome('${CURRENT.id}','${l.lead_id}','lost')">Lost</button>
         <button class="n ${st==='no_response'?'sel':''}" onclick="setOutcome('${CURRENT.id}','${l.lead_id}','no_response')">No reply</button>
@@ -236,6 +282,38 @@ function exportOutcomes(){
 }
 
 function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+// --- Draft outreach modal ---
+let DRAFT=null, CHANNEL='email';
+function openDraft(leadId){
+  const l=CURRENT.leads.find(x=>x.lead_id===leadId);
+  if(!l||!l.drafts)return;
+  DRAFT=l.drafts;
+  document.getElementById('m-title').textContent='Outreach draft — '+l.address;
+  document.getElementById('m-sub').textContent=l.match_reason||'';
+  document.getElementById('modal').classList.add('open');
+  showChannel('email');
+}
+function showChannel(ch){
+  CHANNEL=ch;
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.ch===ch));
+  const box=document.getElementById('m-body');
+  if(ch==='email'){
+    box.innerHTML='<div class="subj">'+esc(DRAFT.email.subject)+'</div>'+esc(DRAFT.email.body);
+  }else{
+    box.textContent=DRAFT[ch]||'';
+  }
+}
+function currentDraftText(){
+  return CHANNEL==='email'?(DRAFT.email.subject+'\n\n'+DRAFT.email.body):(DRAFT[CHANNEL]||'');
+}
+function copyDraft(){
+  const t=currentDraftText();
+  navigator.clipboard?.writeText(t);
+  const b=document.querySelector('.modrow .copy');
+  const o=b.textContent;b.textContent='Copied ✓';setTimeout(()=>b.textContent=o,1200);
+}
+function closeDraft(){document.getElementById('modal').classList.remove('open');}
 </script>
 </body>
 </html>
