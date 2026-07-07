@@ -26,88 +26,182 @@
     color: var(--sc-ink);
   }
   .swatch .chip { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--sc-hairline-strong); }
+  .brand-row {
+    display: grid; grid-template-columns: 1fr auto auto auto;
+    gap: var(--space-4); align-items: center;
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--sc-hairline);
+    border-radius: var(--radius-md);
+    text-decoration: none; color: var(--sc-ink);
+    transition: border-color var(--dur-fast) var(--ease),
+                background var(--dur-fast) var(--ease);
+  }
+  .brand-row:hover {
+    border-color: var(--sc-hairline-strong);
+    background: rgba(255,255,255,0.04); opacity: 1;
+  }
+  .brand-row .name { font-family: var(--font-display); font-size: 20px; color: var(--sc-white); }
+  .brand-row .slug,
+  .brand-row .updated {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tracking-mono); text-transform: uppercase;
+    color: var(--sc-mist);
+  }
+  .brand-row .arrow { font-family: var(--font-mono); font-size: 14px; color: var(--sc-mist); }
+  .prompt-box {
+    background: var(--sc-void); color: var(--sc-mist);
+    border: 1px solid var(--sc-hairline);
+    border-radius: var(--radius-md);
+    padding: 18px; font-family: var(--font-mono);
+    font-size: 12px; line-height: 1.55;
+    max-height: 320px; overflow: auto; white-space: pre-wrap;
+  }
+  .prompt-box strong { color: var(--sc-ink); font-weight: 700; }
+  select {
+    background: transparent;
+    color: var(--sc-ink);
+    border: 1px solid var(--sc-hairline-strong);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-family: var(--font-display); font-size: 15px;
+  }
+  select:focus { outline: none; border-color: var(--sc-ink); }
 </style>
 </head>
 <body>
 <div class="sc-page">
   <header class="sc-topbar">
     <div class="left"><span class="sc-wordmark">Spacecadet Studio<span class="plus">+</span></span></div>
-    <div class="center">Studio · Admin</div>
+    <div class="center" id="pageTag">Studio · Admin</div>
     <div class="right sc-meta-lines">NYC, Planet Earth
 <span class="sc-clock">00:00:00</span></div>
   </header>
 
-  <main style="align-self: center; max-width: 1100px; width: 100%; display: flex; flex-direction: column; gap: var(--space-6);">
-    <div>
-      <div class="sc-eyebrow">Create · edit · publish</div>
-      <h1 class="sc-h1" style="margin-top: 6px;">Brands.</h1>
+  <!-- LIST VIEW -->
+  <main id="listView" style="align-self: center; max-width: 1100px; width: 100%; display: flex; flex-direction: column; gap: var(--space-6);">
+    <div class="sc-row" style="justify-content: space-between; align-items: baseline;">
+      <div>
+        <div class="sc-eyebrow">All brands · edit or create</div>
+        <h1 class="sc-h1" style="margin-top: 6px;">Brands.</h1>
+      </div>
+      <a class="sc-pill solid" href="?slug=__new__">＋ New brand</a>
+    </div>
+
+    <div id="brandsList" style="display: flex; flex-direction: column; gap: var(--space-3);">
+      <div class="sc-status">Loading…</div>
+    </div>
+  </main>
+
+  <!-- EDITOR VIEW -->
+  <main id="editorView" style="display: none; align-self: center; max-width: 1100px; width: 100%; flex-direction: column; gap: var(--space-6);">
+    <div class="sc-row" style="justify-content: space-between;">
+      <div>
+        <div class="sc-eyebrow" id="editorMode">Editing</div>
+        <h1 class="sc-h1" id="editorTitle" style="margin-top: 6px;">—</h1>
+      </div>
+      <a class="sc-pill mono small" href="/brand-os/admin">← All brands</a>
     </div>
 
     <div class="sc-navrow">
-      <button class="sc-pill mono small active" data-tab="paste">Paste guidelines</button>
-      <button class="sc-pill mono small" data-tab="zip">Upload Claude Design zip</button>
+      <button class="sc-pill mono small active" data-tab="fields">Config</button>
+      <button class="sc-pill mono small" data-tab="prompts">Prompts</button>
+      <button class="sc-pill mono small" data-tab="zip">Upload zip</button>
     </div>
 
-    <section id="tab-zip" style="display:none;" class="sc-card">
+    <section id="tab-zip" class="sc-card" style="display:none;">
       <div class="sc-eyebrow">Claude Design system zip</div>
       <div class="dropzone" id="drop">Drop the Claude Design handoff zip here (or click to pick)</div>
       <input type="file" id="picker" accept=".zip" style="display:none">
       <div class="sc-status" id="zipStatus"></div>
     </section>
 
-    <section id="tab-paste">
-      <div style="display: flex; flex-direction: column; gap: var(--space-5);">
-        <div class="sc-card">
-          <div class="sc-eyebrow">Brand</div>
-          <div class="sc-grid-2">
-            <div class="sc-field"><label>Name</label><input id="name" placeholder="Acme"></div>
-            <div class="sc-field mono"><label>Slug</label><input id="slug" placeholder="acme"></div>
-          </div>
-          <div class="sc-field mono"><label>Client password</label><input id="password" type="password" placeholder="something the client will remember"></div>
-        </div>
+    <section id="tab-prompts" style="display: none; flex-direction: column; gap: var(--space-5);">
+      <div class="sc-card">
+        <div class="sc-eyebrow">Compiled Copywriter system prompt</div>
+        <div class="sc-row"><span class="sc-eyebrow">Model:</span><span class="sc-pill mono small" id="pmodel1">—</span></div>
+        <div class="prompt-box" id="prompt1">Loading…</div>
+        <div class="sc-eyebrow">This is exactly what's sent to Claude as the <strong>system</strong> message. <code>{TASK}</code> is replaced with the preset (or word-count instruction) at request time.</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-eyebrow">Compiled Art Director prompt template</div>
+        <div class="sc-row"><span class="sc-eyebrow">Model:</span><span class="sc-pill mono small" id="pmodel2">—</span></div>
+        <div class="prompt-box" id="prompt2">Loading…</div>
+        <div class="sc-eyebrow">Sent as <code>prompt</code> to Magnific Mystic. <code>{USER_PROMPT}</code> = client input, <code>{PRESET_HINT}</code> = selected shot preset hint.</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-eyebrow">Full Magnific API params</div>
+        <pre class="sc-json" id="apiParams">—</pre>
+      </div>
+    </section>
 
-        <div class="sc-card">
-          <div class="sc-eyebrow">Voice</div>
-          <div class="sc-field"><label>Guidelines</label>
-            <textarea id="voice_guidelines" placeholder="Sharp, spare, declarative. Confident, no hype."></textarea></div>
-          <div class="sc-grid-2">
-            <div class="sc-field"><label>Examples (one per line)</label>
-              <textarea id="voice_examples" placeholder="Autonomy is won in the dark.&#10;Earned underground."></textarea></div>
-            <div class="sc-field"><label>Do NOT use (one per line)</label>
-              <textarea id="voice_donot" placeholder="emoji&#10;exclamation&#10;cutting-edge"></textarea></div>
-          </div>
+    <section id="tab-fields" style="display: flex; flex-direction: column; gap: var(--space-5);">
+      <div class="sc-card">
+        <div class="sc-eyebrow">Brand</div>
+        <div class="sc-grid-2">
+          <div class="sc-field"><label>Name</label><input id="name" placeholder="Acme"></div>
+          <div class="sc-field mono"><label>Slug</label><input id="slug" placeholder="acme"></div>
         </div>
+        <div class="sc-field mono"><label id="passwordLabel">Client password</label><input id="password" type="password" placeholder="something the client will remember"></div>
+        <div class="sc-eyebrow" id="passwordHint" style="display:none;">Leave blank to keep the existing password. Fill to reset.</div>
+      </div>
 
-        <div class="sc-card">
-          <div class="sc-eyebrow">Art direction</div>
-          <div class="sc-field"><label>Palette (comma-separated, e.g. black:#000000, signal:#FF0000)</label>
-            <input id="palette" placeholder="black:#000000, white:#FFFFFF, signal:#FF0000"></div>
-          <div id="swatches" style="display:flex; flex-wrap:wrap; gap: 8px;"></div>
-          <div class="sc-grid-2">
-            <div class="sc-field"><label>Photography</label><textarea id="photography" placeholder="Black-and-white, high-contrast, grainy."></textarea></div>
-            <div class="sc-field"><label>Framing</label><textarea id="framing" placeholder="Wide, orthogonal, hairline rules."></textarea></div>
+      <div class="sc-card">
+        <div class="sc-eyebrow">Models</div>
+        <div class="sc-grid-2">
+          <div class="sc-field">
+            <label>Copywriter model (Claude)</label>
+            <select id="model_copywriter">
+              <option value="claude-opus-4-8">claude-opus-4-8 (highest quality)</option>
+              <option value="claude-opus-4-7">claude-opus-4-7</option>
+              <option value="claude-sonnet-5">claude-sonnet-5</option>
+              <option value="claude-haiku-4-5-20251001">claude-haiku-4-5 (fastest)</option>
+            </select>
           </div>
-          <div class="sc-grid-2">
-            <div class="sc-field"><label>Grade</label><textarea id="grade" placeholder="Desaturated, pushed contrast."></textarea></div>
-            <div class="sc-field"><label>Reference cues (one per line)</label><textarea id="cues" placeholder="dust cloud on black&#10;thermal capture"></textarea></div>
+          <div class="sc-field">
+            <label>Art director model (Magnific Mystic)</label>
+            <select id="model_artDirector">
+              <option value="realism">realism (photographic default)</option>
+              <option value="zen">zen (smoother, basic, cleaner)</option>
+              <option value="flexible">flexible (HDR, saturated)</option>
+              <option value="fluid">fluid (best prompt adherence)</option>
+            </select>
           </div>
         </div>
+      </div>
 
-        <div class="sc-row" style="justify-content: space-between;">
-          <div class="sc-row">
-            <button class="sc-pill solid" id="build">Generate config →</button>
-            <button class="sc-pill mono small" id="save" disabled>Save to repo</button>
-          </div>
-          <span class="sc-status" id="status"></span>
+      <div class="sc-card">
+        <div class="sc-eyebrow">Voice</div>
+        <div class="sc-field"><label>Guidelines</label>
+          <textarea id="voice_guidelines" placeholder="Sharp, spare, declarative. Confident, no hype."></textarea></div>
+        <div class="sc-grid-2">
+          <div class="sc-field"><label>Examples (one per line)</label>
+            <textarea id="voice_examples" placeholder="Autonomy is won in the dark.&#10;Earned underground."></textarea></div>
+          <div class="sc-field"><label>Do NOT use (one per line)</label>
+            <textarea id="voice_donot" placeholder="emoji&#10;exclamation&#10;cutting-edge"></textarea></div>
         </div>
+      </div>
 
-        <div class="sc-card" id="jsonWrap" style="display:none;">
-          <div class="sc-eyebrow">Generated config</div>
-          <pre class="sc-json" id="json"></pre>
-          <div class="sc-row">
-            <button class="sc-pill mono small" id="copyJson">Copy JSON</button>
-          </div>
+      <div class="sc-card">
+        <div class="sc-eyebrow">Art direction</div>
+        <div class="sc-field"><label>Palette (comma-separated, e.g. black:#000000, signal:#FF0000)</label>
+          <input id="palette" placeholder="black:#000000, white:#FFFFFF, signal:#FF0000"></div>
+        <div id="swatches" style="display:flex; flex-wrap:wrap; gap: 8px;"></div>
+        <div class="sc-grid-2">
+          <div class="sc-field"><label>Photography</label><textarea id="photography" placeholder="Black-and-white, high-contrast, grainy."></textarea></div>
+          <div class="sc-field"><label>Framing</label><textarea id="framing" placeholder="Wide, orthogonal, hairline rules."></textarea></div>
         </div>
+        <div class="sc-grid-2">
+          <div class="sc-field"><label>Grade</label><textarea id="grade" placeholder="Desaturated, pushed contrast."></textarea></div>
+          <div class="sc-field"><label>Reference cues (one per line)</label><textarea id="cues" placeholder="dust cloud on black&#10;thermal capture"></textarea></div>
+        </div>
+      </div>
+
+      <div class="sc-row" style="justify-content: space-between;">
+        <div class="sc-row">
+          <button class="sc-pill solid" id="save">Save →</button>
+          <button class="sc-pill mono small" id="preview">Preview prompts</button>
+        </div>
+        <span class="sc-status" id="status"></span>
       </div>
     </section>
   </main>
@@ -121,22 +215,20 @@
 
 <script src="/brand-os/starfield.js"></script>
 <script>
-  // Tabs
-  document.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => {
-    document.querySelectorAll('[data-tab]').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById('tab-paste').style.display = t.dataset.tab === 'paste' ? '' : 'none';
-    document.getElementById('tab-zip').style.display = t.dataset.tab === 'zip' ? '' : 'none';
-    // Zip flow still needs the form visible below to review + save
-    if (t.dataset.tab === 'zip') document.getElementById('tab-paste').style.display = '';
-  }));
+  const params = new URLSearchParams(location.search);
+  const editSlug = params.get('slug');
+  const isNew = editSlug === '__new__';
+  const isEditor = !!editSlug;
 
-  // Auth guard
+  // Guard
   (async () => {
     const r = await fetch('/api/brand-os/session', { credentials: 'same-origin' });
-    if (!r.ok) { location.href = `/brand-os/login?admin=1&next=${encodeURIComponent(location.pathname)}`; return; }
+    if (!r.ok) { location.href = `/brand-os/login?admin=1&next=${encodeURIComponent(location.pathname + location.search)}`; return; }
     const me = await r.json();
     if (me.role !== 'admin') { location.href = '/brand-os/login?admin=1'; return; }
+
+    if (isEditor) initEditor();
+    else initList();
   })();
 
   document.getElementById('logout').addEventListener('click', async (e) => {
@@ -145,13 +237,130 @@
     location.href = '/brand-os';
   });
 
-  document.getElementById('palette').addEventListener('input', renderSwatches);
+  /* -----------------------------------------------------------
+     LIST VIEW
+  ----------------------------------------------------------- */
+  async function initList() {
+    document.getElementById('pageTag').textContent = 'Studio · Brands';
+    document.getElementById('listView').style.display = '';
+    document.getElementById('editorView').style.display = 'none';
+    try {
+      const r = await fetch('/api/brand-os/brands', { credentials: 'same-origin' });
+      const j = await r.json();
+      const list = document.getElementById('brandsList');
+      list.innerHTML = '';
+      if (!j.brands || !j.brands.length) {
+        list.innerHTML = '<div class="sc-status">No brands yet. Create your first with the ＋ New brand button.</div>';
+        return;
+      }
+      for (const b of j.brands) {
+        const a = document.createElement('a');
+        a.className = 'brand-row';
+        a.href = `?slug=${encodeURIComponent(b.slug)}`;
+        a.innerHTML = `
+          <div class="name">${escapeHtml(b.name || b.slug)}</div>
+          <div class="slug">${escapeHtml(b.slug)}</div>
+          <div class="updated">${fmtDate(b.updatedAt)}</div>
+          <div class="arrow">edit →</div>
+        `;
+        list.appendChild(a);
+      }
+    } catch (e) {
+      document.getElementById('brandsList').innerHTML = `<div class="sc-status err">${escapeHtml(e.message)}</div>`;
+    }
+  }
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    try { return new Date(iso).toISOString().slice(0, 10); } catch { return '—'; }
+  }
+  function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  /* -----------------------------------------------------------
+     EDITOR VIEW
+  ----------------------------------------------------------- */
+  async function initEditor() {
+    document.getElementById('listView').style.display = 'none';
+    document.getElementById('editorView').style.display = 'flex';
+    document.getElementById('pageTag').textContent = 'Studio · Editor';
+
+    if (isNew) {
+      document.getElementById('editorMode').textContent = 'New brand';
+      document.getElementById('editorTitle').textContent = 'New brand.';
+      // slug editable
+      document.getElementById('slug').disabled = false;
+      document.getElementById('passwordLabel').textContent = 'Client password';
+    } else {
+      document.getElementById('editorMode').textContent = 'Editing';
+      document.getElementById('editorTitle').textContent = `${editSlug}.`;
+      // load
+      try {
+        const r = await fetch(`/api/brand-os/brands?slug=${encodeURIComponent(editSlug)}`, { credentials: 'same-origin' });
+        const b = await r.json();
+        if (!r.ok) throw new Error(b.error || 'Load failed');
+        fillForm(b);
+        document.getElementById('slug').disabled = true;
+        document.getElementById('passwordLabel').textContent = 'Reset password (optional)';
+        document.getElementById('passwordHint').style.display = '';
+      } catch (e) {
+        setStatus(e.message, 'err');
+      }
+    }
+
+    // Tabs
+    document.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => {
+      document.querySelectorAll('[data-tab]').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      ['fields', 'prompts', 'zip'].forEach(name => {
+        const el = document.getElementById('tab-' + name);
+        if (!el) return;
+        el.style.display = t.dataset.tab === name ? 'flex' : 'none';
+      });
+      if (t.dataset.tab === 'prompts') refreshPrompts();
+    }));
+
+    // Palette live-swatches
+    document.getElementById('palette').addEventListener('input', renderSwatches);
+
+    // Slug auto from name (only when new)
+    document.getElementById('name').addEventListener('input', e => {
+      if (!isNew) return;
+      const slugEl = document.getElementById('slug');
+      if (!slugEl.dataset.touched) {
+        slugEl.value = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+      }
+    });
+    document.getElementById('slug').addEventListener('input', e => e.target.dataset.touched = '1');
+
+    document.getElementById('save').addEventListener('click', doSave);
+    document.getElementById('preview').addEventListener('click', () => {
+      document.querySelector('[data-tab="prompts"]').click();
+    });
+
+    initZipFlow();
+  }
+
+  function fillForm(b) {
+    document.getElementById('name').value = b.name || '';
+    document.getElementById('slug').value = b.slug || '';
+    document.getElementById('voice_guidelines').value = b.voice?.guidelines || '';
+    document.getElementById('voice_examples').value = (b.voice?.examples || []).join('\n');
+    document.getElementById('voice_donot').value = (b.voice?.doNotUse || []).join('\n');
+    document.getElementById('palette').value = (b.art?.palette || []).map(p => `${p.name}:${p.hex}`).join(', ');
+    document.getElementById('photography').value = b.art?.photography || '';
+    document.getElementById('framing').value = b.art?.framing || '';
+    document.getElementById('grade').value = b.art?.grade || '';
+    document.getElementById('cues').value = (b.art?.referenceCues || []).join('\n');
+    if (b.model?.copywriter) document.getElementById('model_copywriter').value = b.model.copywriter;
+    if (b.model?.artDirector) document.getElementById('model_artDirector').value = b.model.artDirector;
+    renderSwatches();
+  }
+
   function renderSwatches() {
     const wrap = document.getElementById('swatches'); wrap.innerHTML = '';
     parsePalette(document.getElementById('palette').value).forEach(({ name, hex }) => {
       const el = document.createElement('div');
       el.className = 'swatch';
-      el.innerHTML = `<span class="chip" style="background:${hex}"></span>${name} ${hex}`;
+      el.innerHTML = `<span class="chip" style="background:${hex}"></span>${escapeHtml(name)} ${escapeHtml(hex)}`;
       wrap.appendChild(el);
     });
   }
@@ -162,19 +371,15 @@
     }).filter(p => /^#[0-9a-fA-F]{3,8}$/.test(p.hex));
   }
 
-  document.getElementById('name').addEventListener('input', e => {
-    const slugEl = document.getElementById('slug');
-    if (!slugEl.dataset.touched) {
-      slugEl.value = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
-    }
-  });
-  document.getElementById('slug').addEventListener('input', e => e.target.dataset.touched = '1');
-
   function buildConfig() {
     return {
       name: document.getElementById('name').value.trim(),
       slug: document.getElementById('slug').value.trim(),
       password: document.getElementById('password').value,
+      model: {
+        copywriter: document.getElementById('model_copywriter').value,
+        artDirector: document.getElementById('model_artDirector').value,
+      },
       voice: {
         guidelines: document.getElementById('voice_guidelines').value.trim(),
         examples: splitLines(document.getElementById('voice_examples').value),
@@ -191,21 +396,15 @@
   }
   function splitLines(s) { return (s || '').split('\n').map(x => x.trim()).filter(Boolean); }
 
-  document.getElementById('build').addEventListener('click', () => {
+  async function doSave() {
     const cfg = buildConfig();
-    if (!cfg.name || !cfg.slug || !cfg.password) {
-      setStatus('Name, slug, and password required.', 'err'); return;
+    if (!cfg.name || !cfg.slug) {
+      setStatus('Name and slug required.', 'err'); return;
     }
-    const preview = JSON.parse(JSON.stringify(cfg));
-    preview.password = '***';
-    document.getElementById('json').textContent = JSON.stringify(preview, null, 2);
-    document.getElementById('jsonWrap').style.display = '';
-    document.getElementById('save').disabled = false;
-    setStatus('Preview built. Review, then save.', 'ok');
-  });
-
-  document.getElementById('save').addEventListener('click', async () => {
-    const cfg = buildConfig();
+    if (isNew && !cfg.password) {
+      setStatus('New brand needs a password.', 'err'); return;
+    }
+    if (!isNew && !cfg.password) delete cfg.password; // preserve existing
     setStatus('Saving…');
     try {
       const r = await fetch('/api/brand-os/save-brand', {
@@ -214,33 +413,50 @@
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || 'Save failed');
-      if (j.committed) setStatus(`Committed: ${j.commit || j.path}`, 'ok');
-      else {
-        setStatus('GITHUB_PAT not set — copy the JSON and commit manually.', 'ok');
-        document.getElementById('json').textContent = j.content || document.getElementById('json').textContent;
-      }
+      if (j.committed) setStatus(`Committed. ${j.commit || j.path}`, 'ok');
+      else setStatus('Saved locally. GITHUB_PAT not set — manual commit required.', 'ok');
+      // After creating a new brand, redirect to its editor
+      if (isNew) setTimeout(() => location.href = `?slug=${encodeURIComponent(cfg.slug)}`, 800);
     } catch (e) { setStatus(e.message, 'err'); }
-  });
+  }
 
-  document.getElementById('copyJson').addEventListener('click', () => {
-    navigator.clipboard.writeText(document.getElementById('json').textContent);
-    setStatus('Copied.', 'ok');
-  });
+  async function refreshPrompts() {
+    const slug = document.getElementById('slug').value.trim();
+    if (!slug || isNew) {
+      document.getElementById('prompt1').textContent = 'Save the brand first — then previews render live.';
+      document.getElementById('prompt2').textContent = '';
+      document.getElementById('apiParams').textContent = '';
+      return;
+    }
+    try {
+      const r = await fetch(`/api/brand-os/preview-prompts?slug=${encodeURIComponent(slug)}`, { credentials: 'same-origin' });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || 'Preview failed');
+      document.getElementById('prompt1').textContent = j.copywriter.systemTemplate;
+      document.getElementById('pmodel1').textContent = j.copywriter.model;
+      document.getElementById('prompt2').textContent = j.artDirector.promptTemplate;
+      document.getElementById('pmodel2').textContent = j.artDirector.model;
+      document.getElementById('apiParams').textContent = JSON.stringify(j.artDirector.apiParams, null, 2);
+    } catch (e) {
+      document.getElementById('prompt1').textContent = 'Error: ' + e.message;
+    }
+  }
 
   function setStatus(text, cls = '') {
     const s = document.getElementById('status');
     s.textContent = text; s.className = 'sc-status ' + cls;
   }
 
-  // Zip flow
-  const drop = document.getElementById('drop');
-  const picker = document.getElementById('picker');
-  drop.addEventListener('click', () => picker.click());
-  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('hover'); }));
-  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, () => drop.classList.remove('hover')));
-  drop.addEventListener('drop', e => { e.preventDefault(); handleZip(e.dataTransfer.files[0]); });
-  picker.addEventListener('change', e => handleZip(e.target.files[0]));
-
+  /* Zip flow (unchanged) */
+  function initZipFlow() {
+    const drop = document.getElementById('drop');
+    const picker = document.getElementById('picker');
+    drop.addEventListener('click', () => picker.click());
+    ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('hover'); }));
+    ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, () => drop.classList.remove('hover')));
+    drop.addEventListener('drop', e => { e.preventDefault(); handleZip(e.dataTransfer.files[0]); });
+    picker.addEventListener('change', e => handleZip(e.target.files[0]));
+  }
   async function handleZip(file) {
     if (!file) return;
     const zs = document.getElementById('zipStatus');
@@ -249,7 +465,6 @@
       const buf = await file.arrayBuffer();
       const zip = await JSZip.loadAsync(buf);
       const paths = Object.keys(zip.files);
-
       const colorsPath = paths.find(p => /tokens\/colors\.css$/i.test(p));
       if (colorsPath) {
         const css = await zip.files[colorsPath].async('text');
@@ -267,37 +482,31 @@
         const photo = extractSection(md, 'Photography') || extractSection(md, 'Visual foundations');
         if (photo) document.getElementById('photography').value = photo.trim().slice(0, 500);
         const h1 = md.match(/^#\s+(.+?)\s+—?/m);
-        if (h1) {
+        if (h1 && isNew) {
           document.getElementById('name').value = h1[1].trim();
           document.getElementById('name').dispatchEvent(new Event('input'));
         }
       }
-
       zs.textContent = `Loaded ${paths.length} files. Palette + voice hints filled — edit and save.`;
-      document.querySelector('[data-tab="paste"]').click();
+      document.querySelector('[data-tab="fields"]').click();
     } catch (e) { zs.textContent = 'Zip parse failed: ' + e.message; }
   }
-
   function extractPalette(css) {
-    const found = [];
-    const re = /--([a-z0-9-]+):\s*(?:rgb\((\d+),\s*(\d+),\s*(\d+)\)|(#[0-9a-fA-F]{3,8}))/gi;
+    const found = []; const re = /--([a-z0-9-]+):\s*(?:rgb\((\d+),\s*(\d+),\s*(\d+)\)|(#[0-9a-fA-F]{3,8}))/gi;
     let m;
     while ((m = re.exec(css))) {
       const name = m[1];
       const hex = m[5] || `#${[m[2], m[3], m[4]].map(v => Number(v).toString(16).padStart(2, '0')).join('')}`;
       if (name.length < 20 && /^(lx-|sc-)?[a-z-]+$/.test(name)) {
         const clean = name.replace(/^lx-|^sc-/, '').replace(/-/g, ' ');
-        if (!found.some(f => f.hex.toLowerCase() === hex.toLowerCase())) {
-          found.push({ name: clean, hex });
-        }
+        if (!found.some(f => f.hex.toLowerCase() === hex.toLowerCase())) found.push({ name: clean, hex });
       }
     }
     return found.slice(0, 8);
   }
   function extractSection(md, heading) {
     const re = new RegExp(`(?:^|\\n)#{1,4}\\s*${escapeRe(heading)}[^\\n]*\\n([\\s\\S]*?)(?=\\n#{1,4}\\s|$)`, 'i');
-    const m = md.match(re);
-    return m ? m[1].trim() : null;
+    const m = md.match(re); return m ? m[1].trim() : null;
   }
   function escapeRe(s) { return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'); }
 </script>

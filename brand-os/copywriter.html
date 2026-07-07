@@ -5,6 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Copywriter · Brand OS</title>
 <link rel="stylesheet" href="/brand-os/style.css">
+<style>
+  .history {
+    display: flex; flex-direction: column; gap: var(--space-2);
+    max-height: 320px; overflow-y: auto;
+    padding-right: 4px;
+  }
+  .history-item {
+    border: 1px solid var(--sc-hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease),
+                background var(--dur-fast) var(--ease);
+  }
+  .history-item:hover { border-color: var(--sc-hairline-strong); background: rgba(255,255,255,0.04); opacity: 1; }
+  .history-item .meta {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: var(--tracking-mono); text-transform: uppercase;
+    color: var(--sc-mist); margin-bottom: 6px;
+  }
+  .history-item .body {
+    font-family: var(--font-display); font-size: 14px;
+    line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
 </head>
 <body>
 <div class="sc-page">
@@ -15,13 +42,14 @@
 <span class="sc-clock">00:00:00</span></div>
   </header>
 
-  <main style="align-self: center; max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: var(--space-6);">
+  <main style="align-self: center; max-width: 1300px; width: 100%; display: flex; flex-direction: column; gap: var(--space-6);">
     <div>
       <div class="sc-tag"><span class="num">01</span> Locked to your voice</div>
       <h1 class="sc-h1" style="margin-top: 6px;">Copywriter</h1>
     </div>
 
-    <div class="sc-grid-2">
+    <div style="display: grid; grid-template-columns: 1.05fr 1.15fr 0.85fr; gap: var(--space-5);">
+      <!-- SOURCE -->
       <div class="sc-card" style="gap: var(--space-4);">
         <div class="sc-eyebrow">Source</div>
         <div class="sc-field">
@@ -30,6 +58,10 @@
         <div>
           <div class="sc-eyebrow" style="margin-bottom: 8px;">Task</div>
           <div class="sc-navrow" id="presets"></div>
+        </div>
+        <div>
+          <div class="sc-eyebrow" style="margin-bottom: 8px;">Word count</div>
+          <div class="sc-navrow" id="wordcounts"></div>
         </div>
         <div class="sc-row" style="justify-content: space-between;">
           <div class="sc-row">
@@ -40,15 +72,25 @@
         </div>
       </div>
 
+      <!-- RESULT -->
       <div class="sc-card" style="gap: var(--space-4);">
         <div class="sc-eyebrow">Result</div>
-        <div id="output" class="sc-field" style="min-height: 320px; flex: 1; border: var(--border-thin) solid var(--sc-hairline); border-radius: var(--radius-sm); padding: 16px; white-space: pre-wrap; line-height: 1.55; font-family: var(--font-display); color: var(--sc-ink);">
+        <div id="output" class="sc-field" style="min-height: 340px; flex: 1; border: var(--border-thin) solid var(--sc-hairline); border-radius: var(--radius-sm); padding: 16px; white-space: pre-wrap; line-height: 1.55; font-family: var(--font-display); color: var(--sc-ink);">
           <span class="sc-eyebrow">Waiting for input</span>
         </div>
         <div class="sc-row">
           <button class="sc-pill mono small" id="copy" disabled>Copy</button>
           <button class="sc-pill mono small" id="reroll" disabled>Reroll</button>
         </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="sc-card" style="gap: var(--space-3);">
+        <div class="sc-row" style="justify-content: space-between; align-items: baseline;">
+          <div class="sc-eyebrow">History (this session)</div>
+          <button class="sc-pill mono small" id="clearHist">Clear</button>
+        </div>
+        <div class="history" id="history"></div>
       </div>
     </div>
   </main>
@@ -66,7 +108,9 @@
   const slug = params.get('slug');
   document.getElementById('backLink').href = `/brand-os/brand?slug=${encodeURIComponent(slug || '')}`;
 
+  const HIST_KEY = `brandos:copywriter:${slug}`;
   let activePreset = null;
+  let activeWordCount = null;
 
   (async () => {
     if (!slug) { location.href = '/brand-os/login'; return; }
@@ -76,19 +120,41 @@
     document.getElementById('brandTag').textContent = `${(me.name || slug).toUpperCase()} · COPYWRITER`;
 
     const presets = ['Tighten', 'Rewrite as tagline', 'Headline', 'Explain simply'];
-    const wrap = document.getElementById('presets');
+    const pwrap = document.getElementById('presets');
     presets.forEach((p, i) => {
       const b = document.createElement('button');
       b.className = 'sc-pill mono small';
       b.textContent = p;
       b.onclick = () => {
         activePreset = p;
-        wrap.querySelectorAll('.sc-pill').forEach(el => el.classList.remove('active'));
+        pwrap.querySelectorAll('.sc-pill').forEach(el => el.classList.remove('active'));
         b.classList.add('active');
       };
       if (i === 0) b.click();
-      wrap.appendChild(b);
+      pwrap.appendChild(b);
     });
+
+    const wcs = [
+      { label: 'Any length', v: null },
+      { label: '15 words', v: 15 },
+      { label: '50 words', v: 50 },
+      { label: '100 words', v: 100 },
+    ];
+    const wwrap = document.getElementById('wordcounts');
+    wcs.forEach((wc, i) => {
+      const b = document.createElement('button');
+      b.className = 'sc-pill mono small';
+      b.textContent = wc.label;
+      b.onclick = () => {
+        activeWordCount = wc.v;
+        wwrap.querySelectorAll('.sc-pill').forEach(el => el.classList.remove('active'));
+        b.classList.add('active');
+      };
+      if (i === 0) b.click();
+      wwrap.appendChild(b);
+    });
+
+    renderHistory();
   })();
 
   document.getElementById('go').addEventListener('click', async () => {
@@ -104,7 +170,7 @@
       const r = await fetch('/api/brand-os/copywriter', {
         method: 'POST', headers: { 'content-type': 'application/json' },
         credentials: 'same-origin',
-        body: JSON.stringify({ slug, source, presetLabel: activePreset }),
+        body: JSON.stringify({ slug, source, presetLabel: activePreset, wordCount: activeWordCount }),
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || 'Failed');
@@ -112,6 +178,7 @@
       status.className = 'sc-status ok'; status.textContent = 'Done.';
       document.getElementById('copy').disabled = false;
       document.getElementById('reroll').disabled = false;
+      pushHistory({ ts: Date.now(), source, preset: activePreset, wordCount: activeWordCount, output: j.output });
     } catch (e) {
       status.className = 'sc-status err'; status.textContent = e.message;
       out.innerHTML = '<span class="sc-eyebrow">Waiting for input</span>';
@@ -129,11 +196,49 @@
     s.className = 'sc-status ok'; s.textContent = 'Copied.';
   });
   document.getElementById('reroll').addEventListener('click', () => document.getElementById('go').click());
+  document.getElementById('clearHist').addEventListener('click', () => {
+    sessionStorage.removeItem(HIST_KEY); renderHistory();
+  });
   document.getElementById('logout').addEventListener('click', async (e) => {
     e.preventDefault();
     await fetch('/api/brand-os/session', { method: 'DELETE', credentials: 'same-origin' });
     location.href = '/brand-os';
   });
+
+  function pushHistory(entry) {
+    const cur = readHistory();
+    cur.unshift(entry);
+    sessionStorage.setItem(HIST_KEY, JSON.stringify(cur.slice(0, 100)));
+    renderHistory();
+  }
+  function readHistory() {
+    try { return JSON.parse(sessionStorage.getItem(HIST_KEY) || '[]'); } catch { return []; }
+  }
+  function renderHistory() {
+    const wrap = document.getElementById('history');
+    const items = readHistory();
+    wrap.innerHTML = '';
+    if (!items.length) {
+      const d = document.createElement('div');
+      d.className = 'sc-status';
+      d.textContent = 'Nothing yet.';
+      wrap.appendChild(d); return;
+    }
+    for (const it of items) {
+      const d = document.createElement('div');
+      d.className = 'history-item';
+      const wc = it.wordCount ? `${it.wordCount}w · ` : '';
+      d.innerHTML = `<div class="meta">${wc}${escapeHtml(it.preset || '')}</div><div class="body">${escapeHtml(it.output)}</div>`;
+      d.onclick = () => {
+        document.getElementById('source').value = it.source || '';
+        document.getElementById('output').textContent = it.output;
+        document.getElementById('copy').disabled = false;
+        document.getElementById('reroll').disabled = false;
+      };
+      wrap.appendChild(d);
+    }
+  }
+  function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 </script>
 </body>
 </html>

@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   const payload = await verify(readCookie(cookieHeader), secret);
   if (!payload) return res.status(401).json({ error: 'Not signed in' });
 
-  const { slug, task, source, presetLabel } = req.body || {};
+  const { slug, task, source, presetLabel, wordCount } = req.body || {};
   if (!slug || !source) return res.status(400).json({ error: 'slug and source required' });
   if (payload.role !== 'admin' && payload.slug !== slug) {
     return res.status(403).json({ error: 'Session does not match slug' });
@@ -38,7 +38,13 @@ export default async function handler(req, res) {
   }
 
   const preset = (brand.presets?.copywriter || []).find(p => p.label === presetLabel);
-  const taskInstruction = preset?.prompt || task || 'Rewrite in brand voice.';
+  let taskInstruction = preset?.prompt || task || 'Rewrite in brand voice.';
+
+  // Word-count constraint (15 / 50 / 100 boilerplates or arbitrary integer).
+  const wc = parseInt(wordCount, 10);
+  if (Number.isFinite(wc) && wc >= 5 && wc <= 500) {
+    taskInstruction += ` The result MUST be no more than ${wc} words. Count carefully. Prefer the exact target length, ±2 words.`;
+  }
 
   const system = buildSystemPrompt(brand, taskInstruction);
   const model = brand.model?.copywriter || 'claude-opus-4-8';

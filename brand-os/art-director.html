@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Art Director · Brand OS</title>
 <link rel="stylesheet" href="/brand-os/style.css">
+<style>
+  .history {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
+    max-height: 400px; overflow-y: auto;
+  }
+  .history-item {
+    aspect-ratio: 1; border: 1px solid var(--sc-hairline);
+    border-radius: var(--radius-sm); overflow: hidden;
+    cursor: pointer; background: var(--sc-void);
+    transition: border-color var(--dur-fast) var(--ease);
+  }
+  .history-item:hover { border-color: var(--sc-ink); opacity: 1; }
+  .history-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ref-thumb {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 4px 10px; border-radius: var(--radius-pill);
+    border: 1px solid var(--sc-hairline-strong);
+    font-family: var(--font-mono); font-size: 11px; color: var(--sc-mist);
+  }
+  .ref-thumb img { width: 20px; height: 20px; object-fit: cover; border-radius: 50%; }
+</style>
 </head>
 <body>
 <div class="sc-page">
@@ -15,22 +36,42 @@
 <span class="sc-clock">00:00:00</span></div>
   </header>
 
-  <main style="align-self: center; max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: var(--space-6);">
+  <main style="align-self: center; max-width: 1300px; width: 100%; display: flex; flex-direction: column; gap: var(--space-6);">
     <div>
       <div class="sc-tag"><span class="num">02</span> Locked to your look</div>
       <h1 class="sc-h1" style="margin-top: 6px;">Art Director</h1>
     </div>
 
-    <div class="sc-grid-2" style="grid-template-columns: 1fr 1.15fr;">
+    <div style="display: grid; grid-template-columns: 1fr 1.15fr 0.85fr; gap: var(--space-5);">
+      <!-- PROMPT -->
       <div class="sc-card" style="gap: var(--space-4);">
         <div class="sc-eyebrow">Prompt</div>
         <div class="sc-field">
-          <textarea id="prompt" style="min-height: 160px;" placeholder="Describe the shot. Palette, framing, and grade come from your art direction — you don't need to specify them."></textarea>
+          <textarea id="prompt" style="min-height: 140px;" placeholder="Describe the shot. Palette, framing, and grade come from your art direction — you don't need to specify them."></textarea>
         </div>
         <div>
           <div class="sc-eyebrow" style="margin-bottom: 8px;">Shot preset</div>
           <div class="sc-navrow" id="presets"></div>
         </div>
+
+        <div>
+          <div class="sc-eyebrow" style="margin-bottom: 8px;">Reference images (URLs)</div>
+          <div class="sc-field mono">
+            <label>Style reference URL (color, texture, mood)</label>
+            <input id="styleRef" placeholder="https://…jpg">
+          </div>
+          <div class="sc-field mono" style="margin-top: 8px;">
+            <label>Structure reference URL (composition, layout)</label>
+            <input id="structureRef" placeholder="https://…jpg">
+          </div>
+          <div class="sc-eyebrow" style="margin-top: 4px;">Paste a public URL (imgbb, imgur, cdn). File upload coming next.</div>
+        </div>
+
+        <div id="adminModelRow" style="display:none;">
+          <div class="sc-eyebrow" style="margin-bottom: 8px;">Model override (admin only)</div>
+          <div class="sc-navrow" id="models"></div>
+        </div>
+
         <div class="sc-row" style="justify-content: space-between;">
           <div class="sc-row">
             <button class="sc-pill solid" id="go">Generate →</button>
@@ -40,13 +81,25 @@
         </div>
       </div>
 
+      <!-- RESULT -->
       <div class="sc-card" style="gap: var(--space-4);">
         <div class="sc-eyebrow">Result</div>
         <div class="sc-frame" id="frame">No image yet</div>
         <div class="sc-row">
           <a class="sc-pill mono small" id="download" download="hero.jpg" style="pointer-events:none; opacity:0.35;">Download</a>
           <button class="sc-pill mono small" id="reroll" disabled>Reroll</button>
+          <button class="sc-pill mono small" id="useAsStyle" disabled>Use as style ref</button>
+          <button class="sc-pill mono small" id="useAsStructure" disabled>Use as structure ref</button>
         </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="sc-card" style="gap: var(--space-3);">
+        <div class="sc-row" style="justify-content: space-between; align-items: baseline;">
+          <div class="sc-eyebrow">History (this session)</div>
+          <button class="sc-pill mono small" id="clearHist">Clear</button>
+        </div>
+        <div class="history" id="history"></div>
       </div>
     </div>
   </main>
@@ -64,7 +117,10 @@
   const slug = params.get('slug');
   document.getElementById('backLink').href = `/brand-os/brand?slug=${encodeURIComponent(slug || '')}`;
 
+  const HIST_KEY = `brandos:art-director:${slug}`;
   let activePreset = null;
+  let activeModel = null;
+  let lastImageUrl = null;
 
   (async () => {
     if (!slug) { location.href = '/brand-os/login'; return; }
@@ -74,19 +130,39 @@
     document.getElementById('brandTag').textContent = `${(me.name || slug).toUpperCase()} · ART DIRECTOR`;
 
     const presets = ['Hero horizontal', 'Product still', 'Social square', 'Story portrait'];
-    const wrap = document.getElementById('presets');
+    const pwrap = document.getElementById('presets');
     presets.forEach((p, i) => {
       const b = document.createElement('button');
       b.className = 'sc-pill mono small';
       b.textContent = p;
       b.onclick = () => {
         activePreset = p;
-        wrap.querySelectorAll('.sc-pill').forEach(el => el.classList.remove('active'));
+        pwrap.querySelectorAll('.sc-pill').forEach(el => el.classList.remove('active'));
         b.classList.add('active');
       };
       if (i === 0) b.click();
-      wrap.appendChild(b);
+      pwrap.appendChild(b);
     });
+
+    if (me.role === 'admin') {
+      document.getElementById('adminModelRow').style.display = '';
+      const models = ['brand default', 'realism', 'zen', 'flexible', 'fluid'];
+      const mwrap = document.getElementById('models');
+      models.forEach((m, i) => {
+        const b = document.createElement('button');
+        b.className = 'sc-pill mono small';
+        b.textContent = m;
+        b.onclick = () => {
+          activeModel = i === 0 ? null : m;
+          mwrap.querySelectorAll('.sc-pill').forEach(el => el.classList.remove('active'));
+          b.classList.add('active');
+        };
+        if (i === 0) b.click();
+        mwrap.appendChild(b);
+      });
+    }
+
+    renderHistory();
   })();
 
   document.getElementById('go').addEventListener('click', async () => {
@@ -95,23 +171,36 @@
     const frame = document.getElementById('frame');
     const dl = document.getElementById('download');
     const rer = document.getElementById('reroll');
+    const styleRef = document.getElementById('styleRef').value.trim();
+    const structureRef = document.getElementById('structureRef').value.trim();
     if (!prompt) { status.className = 'sc-status err'; status.textContent = 'Give it a subject.'; return; }
     status.className = 'sc-status'; status.textContent = 'Dialing… (up to 60s)';
     frame.innerHTML = 'Working…';
     dl.style.pointerEvents = 'none'; dl.style.opacity = '0.35';
     rer.disabled = true;
+    document.getElementById('useAsStyle').disabled = true;
+    document.getElementById('useAsStructure').disabled = true;
     try {
       const r = await fetch('/api/brand-os/art-director', {
         method: 'POST', headers: { 'content-type': 'application/json' },
         credentials: 'same-origin',
-        body: JSON.stringify({ slug, prompt, presetLabel: activePreset }),
+        body: JSON.stringify({
+          slug, prompt, presetLabel: activePreset,
+          styleReferenceUrl: styleRef || undefined,
+          structureReferenceUrl: structureRef || undefined,
+          modelOverride: activeModel || undefined,
+        }),
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || 'Failed');
       frame.innerHTML = `<img src="${j.imageUrl}" alt="">`;
+      lastImageUrl = j.imageUrl;
       dl.href = j.imageUrl; dl.style.pointerEvents = 'auto'; dl.style.opacity = '1';
       rer.disabled = false;
+      document.getElementById('useAsStyle').disabled = false;
+      document.getElementById('useAsStructure').disabled = false;
       status.className = 'sc-status ok'; status.textContent = 'Done.';
+      pushHistory({ ts: Date.now(), prompt, preset: activePreset, styleRef, structureRef, model: activeModel, imageUrl: j.imageUrl });
     } catch (e) {
       status.className = 'sc-status err'; status.textContent = e.message;
       frame.innerHTML = 'No image yet';
@@ -120,18 +209,71 @@
 
   document.getElementById('clear').addEventListener('click', () => {
     document.getElementById('prompt').value = '';
+    document.getElementById('styleRef').value = '';
+    document.getElementById('structureRef').value = '';
     document.getElementById('frame').innerHTML = 'No image yet';
     document.getElementById('status').textContent = '';
     document.getElementById('download').style.pointerEvents = 'none';
     document.getElementById('download').style.opacity = '0.35';
     document.getElementById('reroll').disabled = true;
+    document.getElementById('useAsStyle').disabled = true;
+    document.getElementById('useAsStructure').disabled = true;
+    lastImageUrl = null;
   });
   document.getElementById('reroll').addEventListener('click', () => document.getElementById('go').click());
+  document.getElementById('useAsStyle').addEventListener('click', () => {
+    if (lastImageUrl) document.getElementById('styleRef').value = lastImageUrl;
+  });
+  document.getElementById('useAsStructure').addEventListener('click', () => {
+    if (lastImageUrl) document.getElementById('structureRef').value = lastImageUrl;
+  });
+  document.getElementById('clearHist').addEventListener('click', () => {
+    sessionStorage.removeItem(HIST_KEY); renderHistory();
+  });
   document.getElementById('logout').addEventListener('click', async (e) => {
     e.preventDefault();
     await fetch('/api/brand-os/session', { method: 'DELETE', credentials: 'same-origin' });
     location.href = '/brand-os';
   });
+
+  function pushHistory(entry) {
+    const cur = readHistory(); cur.unshift(entry);
+    sessionStorage.setItem(HIST_KEY, JSON.stringify(cur.slice(0, 40)));
+    renderHistory();
+  }
+  function readHistory() {
+    try { return JSON.parse(sessionStorage.getItem(HIST_KEY) || '[]'); } catch { return []; }
+  }
+  function renderHistory() {
+    const wrap = document.getElementById('history');
+    const items = readHistory();
+    wrap.innerHTML = '';
+    if (!items.length) {
+      const d = document.createElement('div');
+      d.className = 'sc-status';
+      d.textContent = 'Nothing yet.';
+      wrap.appendChild(d); return;
+    }
+    for (const it of items) {
+      const d = document.createElement('div');
+      d.className = 'history-item';
+      d.innerHTML = `<img src="${it.imageUrl}" alt="">`;
+      d.title = it.prompt;
+      d.onclick = () => {
+        document.getElementById('prompt').value = it.prompt || '';
+        document.getElementById('styleRef').value = it.styleRef || '';
+        document.getElementById('structureRef').value = it.structureRef || '';
+        document.getElementById('frame').innerHTML = `<img src="${it.imageUrl}" alt="">`;
+        lastImageUrl = it.imageUrl;
+        const dl = document.getElementById('download');
+        dl.href = it.imageUrl; dl.style.pointerEvents = 'auto'; dl.style.opacity = '1';
+        document.getElementById('reroll').disabled = false;
+        document.getElementById('useAsStyle').disabled = false;
+        document.getElementById('useAsStructure').disabled = false;
+      };
+      wrap.appendChild(d);
+    }
+  }
 </script>
 </body>
 </html>

@@ -18,13 +18,18 @@ export const config = {
     '/api/brand-os/copywriter',
     '/api/brand-os/art-director',
     '/api/brand-os/save-brand',
+    '/api/brand-os/brands',
+    '/api/brand-os/preview-prompts',
   ],
 };
 
 export default async function middleware(req) {
   const url = new URL(req.url);
   const isApi = url.pathname.startsWith('/api/');
-  const isAdmin = url.pathname.endsWith('/admin') || url.pathname.endsWith('/save-brand');
+  const isAdmin = url.pathname.endsWith('/admin')
+    || url.pathname.endsWith('/save-brand')
+    || url.pathname.endsWith('/brands')
+    || url.pathname.endsWith('/preview-prompts');
 
   const secret = process.env.AUTH_SECRET;
   if (!secret) {

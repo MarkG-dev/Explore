@@ -47,7 +47,7 @@ export default async function handler(req, res) {
   const magKey = process.env.MAGNIFIC_API_KEY;
   if (!magKey) return res.status(500).json({ error: 'MAGNIFIC_API_KEY not configured' });
 
-  const { slug, prompt, presetLabel } = req.body || {};
+  const { slug, prompt, presetLabel, styleReferenceUrl, structureReferenceUrl, modelOverride } = req.body || {};
   if (!slug || !prompt) return res.status(400).json({ error: 'slug and prompt required' });
   if (payload.role !== 'admin' && payload.slug !== slug) {
     return res.status(403).json({ error: 'Session does not match slug' });
@@ -66,26 +66,33 @@ export default async function handler(req, res) {
 
   const merged = buildPrompt(brand, prompt, preset);
   const aspect = ASPECT_MAP[preset.aspect] || 'square_1_1';
-  const model = brand.model?.artDirector || 'realism';
+  // Admins can override the brand's default model per-call; clients cannot.
+  const model = (payload.role === 'admin' && modelOverride)
+    ? modelOverride
+    : (brand.model?.artDirector || 'realism');
 
   try {
     // 1. Submit.
+    const submitBody = {
+      prompt: merged,
+      aspect_ratio: aspect,
+      resolution: '2k',
+      model,
+      engine: 'automatic',
+      creative_detailing: 33,
+      adherence: 50,
+      hdr: 20,
+    };
+    if (styleReferenceUrl) submitBody.style_reference = styleReferenceUrl;
+    if (structureReferenceUrl) submitBody.structure_reference = structureReferenceUrl;
+
     const submitRes = await fetch(`${MAG_BASE}/ai/mystic`, {
       method: 'POST',
       headers: {
         'x-magnific-api-key': magKey,
         'content-type': 'application/json',
       },
-      body: JSON.stringify({
-        prompt: merged,
-        aspect_ratio: aspect,
-        resolution: '2k',
-        model,
-        engine: 'automatic',
-        creative_detailing: 33,
-        adherence: 50,
-        hdr: 20,
-      }),
+      body: JSON.stringify(submitBody),
     });
     const submitData = await submitRes.json().catch(() => ({}));
     if (!submitRes.ok) {
