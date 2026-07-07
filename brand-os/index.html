@@ -3,86 +3,60 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Brand OS</title>
-<link rel="stylesheet" href="/design-system/styles.css">
-<style>
-  body { background: var(--lx-black); color: var(--text-on-dark); min-height: 100vh; }
-  .page {
-    max-width: 720px; margin: 0 auto;
-    padding: var(--page-margin) 24px;
-    display: flex; flex-direction: column; gap: var(--space-7);
-  }
-  .eyebrow {
-    font-family: var(--font-mono); font-size: var(--fs-label);
-    letter-spacing: var(--tracking-label); text-transform: uppercase;
-    color: var(--text-muted-dark);
-  }
-  h1.title { font-size: 44px; }
-  .card-row { display: grid; gap: var(--space-3); }
-  .card {
-    background: transparent;
-    border: var(--border-thin) solid var(--border-on-dark);
-    padding: var(--space-6);
-    color: var(--text-on-dark);
-    text-decoration: none;
-    display: flex; justify-content: space-between; align-items: center;
-    transition: opacity var(--dur-fast) var(--ease-standard);
-    --chamfer: 10px;
-  }
-  .card:hover { opacity: 0.62; }
-  .card-title { font-family: var(--font-primary); font-size: 22px; text-transform: uppercase; }
-  .card-sub {
-    font-family: var(--font-mono); font-size: var(--fs-label);
-    letter-spacing: var(--tracking-label); text-transform: uppercase;
-    color: var(--text-muted-dark); margin-top: 4px;
-  }
-  .card-arrow { font-family: var(--font-mono); font-size: 16px; }
-  .rule { border: 0; border-top: 1px solid var(--hairline-dark); margin: 0; }
-  .footer {
-    display: flex; justify-content: space-between;
-    font-family: var(--font-mono); font-size: var(--fs-label);
-    letter-spacing: var(--tracking-label); text-transform: uppercase;
-    color: var(--text-muted-dark);
-  }
-  .footer a:hover { opacity: 0.62; }
-</style>
+<title>Brand OS · Spacecadet Studio</title>
+<link rel="stylesheet" href="/brand-os/style.css">
 </head>
 <body>
-<div class="page">
-  <div>
-    <div class="eyebrow">Brand OS</div>
-    <h1 class="title lx-h1">Locked tools<br>for a real brand</h1>
-  </div>
 
-  <hr class="rule">
+<div class="sc-page">
+  <header class="sc-topbar">
+    <div class="left">
+      <span class="sc-wordmark">Spacecadet Studio<span class="plus">+</span></span>
+    </div>
+    <div class="center">Brand OS · v1</div>
+    <div class="right sc-meta-lines">NYC, Planet Earth
+<span class="sc-clock">00:00:00</span></div>
+  </header>
 
-  <div class="card-row" id="cards">
-    <a class="card lx-chamfer" href="/brand-os/login">
-      <div>
-        <div class="card-title">Client Login</div>
-        <div class="card-sub">Access your brand's copywriter + art director</div>
-      </div>
-      <span class="card-arrow">→</span>
-    </a>
-    <a class="card lx-chamfer" href="/brand-os/login?admin=1">
-      <div>
-        <div class="card-title">Admin</div>
-        <div class="card-sub">Create + edit brand configs</div>
-      </div>
-      <span class="card-arrow">→</span>
-    </a>
-  </div>
+  <main style="display:flex; flex-direction:column; gap: var(--space-8); align-self: center; max-width: 1100px; width: 100%;">
+    <div>
+      <div class="sc-eyebrow">Locked tools · for a real brand</div>
+      <h1 class="sc-display">Brand<br>from tomorrow.</h1>
+    </div>
 
-  <hr class="rule">
+    <div class="sc-lead">Every client gets a workshop with two locked tools — a copywriter that stays in your voice, an art director that stays in your look. Nothing else to configure.</div>
 
-  <div class="footer">
-    <span>Homesick × Loop X system</span>
-    <a href="/">← Explore</a>
-  </div>
+    <div class="sc-grid-2" style="gap: var(--space-4);">
+      <a class="sc-card hover-lift" href="/brand-os/login">
+        <div class="sc-tag"><span class="num">01</span> Client</div>
+        <h2 class="sc-h2">Sign in</h2>
+        <div class="sc-lead" style="font-size: 15px;">Access your brand's copywriter + art director.</div>
+        <div class="sc-row" style="justify-content: flex-end;">
+          <span class="sc-pill mono">Enter →</span>
+        </div>
+      </a>
+      <a class="sc-card hover-lift" href="/brand-os/login?admin=1">
+        <div class="sc-tag"><span class="num">02</span> Admin</div>
+        <h2 class="sc-h2">Studio</h2>
+        <div class="sc-lead" style="font-size: 15px;">Create + edit brand configs. Paste guidelines or upload a Claude Design zip.</div>
+        <div class="sc-row" style="justify-content: flex-end;">
+          <span class="sc-pill mono">Enter →</span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="sc-botbar">
+    <div class="left">
+      <a href="/" class="sc-pill small mono">← Explore</a>
+    </div>
+    <div class="center">Strategy · design · frontier tech</div>
+    <div class="right">All condition brand intelligence</div>
+  </footer>
 </div>
 
+<script src="/brand-os/starfield.js"></script>
 <script>
-  // If already signed in, jump straight to the right destination.
   (async () => {
     try {
       const r = await fetch('/api/brand-os/session', { credentials: 'same-origin' });

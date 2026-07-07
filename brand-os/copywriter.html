@@ -3,158 +3,87 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Copywriter — Brand OS</title>
-<link rel="stylesheet" href="/design-system/styles.css">
-<style>
-  body { background: var(--lx-off-white); color: var(--text-on-light); min-height: 100vh; }
-  .page {
-    max-width: 1100px; margin: 0 auto;
-    padding: var(--page-margin) 24px 96px;
-    display: flex; flex-direction: column; gap: var(--space-6);
-  }
-  .top {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-bottom: 14px; border-bottom: 1px solid var(--hairline-light);
-    font-family: var(--font-mono); font-size: var(--fs-label);
-    letter-spacing: var(--tracking-label); text-transform: uppercase;
-  }
-  .top a { color: var(--text-muted-light); }
-  .top a:hover { opacity: 0.62; }
-  .top .brand-tag { display: flex; gap: 20px; align-items: baseline; }
-  .top .brand-tag strong { font-family: var(--font-primary); font-weight: 500; font-size: 15px; text-transform: uppercase; }
-  h1.title { font-size: 44px; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
-  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-  .panel {
-    background: var(--lx-white);
-    border: var(--border-thin) solid var(--lx-black);
-    padding: var(--space-6);
-    --chamfer: 14px;
-    display: flex; flex-direction: column; gap: var(--space-4);
-    min-height: 480px;
-  }
-  .eyebrow {
-    font-family: var(--font-mono); font-size: var(--fs-label);
-    letter-spacing: var(--tracking-label); text-transform: uppercase;
-    color: var(--text-muted-light);
-  }
-  textarea {
-    width: 100%; flex: 1;
-    background: transparent; border: 1px solid var(--hairline-light);
-    padding: 14px; font-family: var(--font-primary); font-size: 15px;
-    line-height: 1.5; color: var(--text-on-light); resize: vertical;
-    min-height: 240px;
-  }
-  textarea:focus { outline: none; border-color: var(--lx-black); }
-  .presets { display: flex; flex-wrap: wrap; gap: 6px; }
-  .preset {
-    padding: 8px 14px; background: transparent; cursor: pointer;
-    border: 1px solid var(--lx-black); color: var(--lx-black);
-    font-family: var(--font-mono); font-size: 11px;
-    letter-spacing: 0.04em; text-transform: uppercase;
-    --chamfer: 6px;
-    transition: opacity var(--dur-fast) var(--ease-standard),
-                background var(--dur-fast) var(--ease-standard),
-                color var(--dur-fast) var(--ease-standard);
-  }
-  .preset:hover { opacity: 0.62; }
-  .preset.active { background: var(--lx-black); color: var(--lx-off-white); }
-  .actions { display: flex; gap: 10px; align-items: center; }
-  .btn {
-    padding: 13px 22px; background: var(--lx-black); color: var(--lx-off-white);
-    border: none; cursor: pointer; font-family: var(--font-mono); font-size: 12px;
-    letter-spacing: 0.04em; text-transform: uppercase; --chamfer: 7px;
-    transition: opacity var(--dur-fast) var(--ease-standard);
-  }
-  .btn:hover { opacity: 0.62; }
-  .btn.ghost { background: transparent; color: var(--lx-black); border: 1px solid var(--lx-black); }
-  .status {
-    font-family: var(--font-mono); font-size: var(--fs-label);
-    letter-spacing: var(--tracking-label); text-transform: uppercase;
-    color: var(--text-muted-light); min-height: 16px;
-  }
-  .status.err { color: var(--lx-signal); }
-  .output {
-    flex: 1; white-space: pre-wrap; line-height: 1.55;
-    background: var(--lx-off-white); border: 1px solid var(--hairline-light);
-    padding: 14px; min-height: 240px; overflow-y: auto;
-  }
-  .output.empty { color: var(--text-muted-light); font-family: var(--font-mono);
-    font-size: var(--fs-label); text-transform: uppercase; letter-spacing: var(--tracking-label);
-    display: flex; align-items: center; justify-content: center;
-  }
-</style>
+<title>Copywriter · Brand OS</title>
+<link rel="stylesheet" href="/brand-os/style.css">
 </head>
 <body>
-<div class="page">
-  <div class="top">
-    <div class="brand-tag">
-      <span>Brand OS · Copywriter</span>
-      <strong id="brandName">—</strong>
-    </div>
-    <div style="display:flex; gap:20px">
-      <a href="#" id="backLink">← Workshop</a>
-      <a href="#" id="logout">Sign out</a>
-    </div>
-  </div>
+<div class="sc-page">
+  <header class="sc-topbar">
+    <div class="left"><span class="sc-wordmark">Spacecadet Studio<span class="plus">+</span></span></div>
+    <div class="center" id="brandTag">— · copywriter</div>
+    <div class="right sc-meta-lines">NYC, Planet Earth
+<span class="sc-clock">00:00:00</span></div>
+  </header>
 
-  <div>
-    <div class="eyebrow">01 · Locked to your voice</div>
-    <h1 class="title lx-h1">Copywriter</h1>
-  </div>
-
-  <div class="grid">
-    <div class="panel">
-      <div class="eyebrow">Source</div>
-      <textarea id="source" placeholder="Paste the text to rewrite — a headline, a paragraph, a raw idea."></textarea>
-      <div>
-        <div class="eyebrow" style="margin-bottom:6px">Task</div>
-        <div class="presets" id="presets"></div>
-      </div>
-      <div class="actions">
-        <button class="btn lx-chamfer" id="go">Rewrite →</button>
-        <button class="btn ghost lx-chamfer" id="clear">Clear</button>
-      </div>
-      <div class="status" id="status"></div>
+  <main style="align-self: center; max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: var(--space-6);">
+    <div>
+      <div class="sc-tag"><span class="num">01</span> Locked to your voice</div>
+      <h1 class="sc-h1" style="margin-top: 6px;">Copywriter</h1>
     </div>
 
-    <div class="panel">
-      <div class="eyebrow">Result</div>
-      <div class="output empty" id="output">Waiting for input</div>
-      <div class="actions">
-        <button class="btn ghost lx-chamfer" id="copy" disabled>Copy</button>
-        <button class="btn ghost lx-chamfer" id="reroll" disabled>Reroll</button>
+    <div class="sc-grid-2">
+      <div class="sc-card" style="gap: var(--space-4);">
+        <div class="sc-eyebrow">Source</div>
+        <div class="sc-field">
+          <textarea id="source" placeholder="Paste the text to rewrite — a headline, a paragraph, a raw idea."></textarea>
+        </div>
+        <div>
+          <div class="sc-eyebrow" style="margin-bottom: 8px;">Task</div>
+          <div class="sc-navrow" id="presets"></div>
+        </div>
+        <div class="sc-row" style="justify-content: space-between;">
+          <div class="sc-row">
+            <button class="sc-pill solid" id="go">Rewrite →</button>
+            <button class="sc-pill mono small" id="clear">Clear</button>
+          </div>
+          <span class="sc-status" id="status"></span>
+        </div>
+      </div>
+
+      <div class="sc-card" style="gap: var(--space-4);">
+        <div class="sc-eyebrow">Result</div>
+        <div id="output" class="sc-field" style="min-height: 320px; flex: 1; border: var(--border-thin) solid var(--sc-hairline); border-radius: var(--radius-sm); padding: 16px; white-space: pre-wrap; line-height: 1.55; font-family: var(--font-display); color: var(--sc-ink);">
+          <span class="sc-eyebrow">Waiting for input</span>
+        </div>
+        <div class="sc-row">
+          <button class="sc-pill mono small" id="copy" disabled>Copy</button>
+          <button class="sc-pill mono small" id="reroll" disabled>Reroll</button>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
+
+  <footer class="sc-botbar">
+    <div class="left"><a href="#" id="backLink" class="sc-pill small mono">← Workshop</a></div>
+    <div class="center"></div>
+    <div class="right"><a href="#" id="logout" class="sc-pill small mono">Sign out</a></div>
+  </footer>
 </div>
 
+<script src="/brand-os/starfield.js"></script>
 <script>
   const params = new URLSearchParams(location.search);
   const slug = params.get('slug');
   document.getElementById('backLink').href = `/brand-os/brand?slug=${encodeURIComponent(slug || '')}`;
 
   let activePreset = null;
-  let brandConfig = null;
 
   (async () => {
     if (!slug) { location.href = '/brand-os/login'; return; }
     const r = await fetch('/api/brand-os/session', { credentials: 'same-origin' });
     if (!r.ok) { location.href = `/brand-os/login?next=${encodeURIComponent(location.pathname + location.search)}`; return; }
     const me = await r.json();
-    document.getElementById('brandName').textContent = (me.name || slug).toUpperCase();
+    document.getElementById('brandTag').textContent = `${(me.name || slug).toUpperCase()} · COPYWRITER`;
 
-    // Preset labels are stored server-side; we render a static default list
-    // that matches the seed. Real presets are enforced server-side by label.
     const presets = ['Tighten', 'Rewrite as tagline', 'Headline', 'Explain simply'];
     const wrap = document.getElementById('presets');
     presets.forEach((p, i) => {
       const b = document.createElement('button');
-      b.className = 'preset lx-chamfer';
+      b.className = 'sc-pill mono small';
       b.textContent = p;
       b.onclick = () => {
         activePreset = p;
-        wrap.querySelectorAll('.preset').forEach(el => el.classList.remove('active'));
+        wrap.querySelectorAll('.sc-pill').forEach(el => el.classList.remove('active'));
         b.classList.add('active');
       };
       if (i === 0) b.click();
@@ -166,41 +95,38 @@
     const source = document.getElementById('source').value.trim();
     const status = document.getElementById('status');
     const out = document.getElementById('output');
-    if (!source) { status.textContent = 'Give it something to work with.'; status.classList.add('err'); return; }
-    status.classList.remove('err');
-    status.textContent = 'Rewriting…';
+    if (!source) { status.className = 'sc-status err'; status.textContent = 'Give it something to work with.'; return; }
+    status.className = 'sc-status'; status.textContent = 'Rewriting…';
     out.textContent = '';
-    out.classList.remove('empty');
     document.getElementById('copy').disabled = true;
     document.getElementById('reroll').disabled = true;
     try {
       const r = await fetch('/api/brand-os/copywriter', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        method: 'POST', headers: { 'content-type': 'application/json' },
         credentials: 'same-origin',
         body: JSON.stringify({ slug, source, presetLabel: activePreset }),
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || 'Failed');
       out.textContent = j.output;
-      status.textContent = 'Done.';
+      status.className = 'sc-status ok'; status.textContent = 'Done.';
       document.getElementById('copy').disabled = false;
       document.getElementById('reroll').disabled = false;
     } catch (e) {
-      status.textContent = e.message; status.classList.add('err');
-      out.textContent = ''; out.classList.add('empty'); out.textContent = 'Waiting for input';
+      status.className = 'sc-status err'; status.textContent = e.message;
+      out.innerHTML = '<span class="sc-eyebrow">Waiting for input</span>';
     }
   });
 
   document.getElementById('clear').addEventListener('click', () => {
     document.getElementById('source').value = '';
-    document.getElementById('output').textContent = 'Waiting for input';
-    document.getElementById('output').classList.add('empty');
+    document.getElementById('output').innerHTML = '<span class="sc-eyebrow">Waiting for input</span>';
     document.getElementById('status').textContent = '';
   });
   document.getElementById('copy').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('output').textContent);
-    document.getElementById('status').textContent = 'Copied.';
+    const s = document.getElementById('status');
+    s.className = 'sc-status ok'; s.textContent = 'Copied.';
   });
   document.getElementById('reroll').addEventListener('click', () => document.getElementById('go').click());
   document.getElementById('logout').addEventListener('click', async (e) => {
