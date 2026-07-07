@@ -1,0 +1,35 @@
+/* ------------------------------------------------------------------
+   Loop X — Color tokens
+   A minimal, high-contrast, monochrome palette. High contrast drives
+   brand recognition; grey provides structure; off-white aids
+   readability. Red exists only as a rare technical stroke accent.
+------------------------------------------------------------------ */
+:root {
+  /* --- Base palette (exact source values) --- */
+  --lx-black:      rgb(0, 0, 0);        /* #000000 — primary */
+  --lx-white:      rgb(255, 255, 255);  /* #FFFFFF */
+  --lx-off-white:  rgb(247, 247, 247);  /* #F7F7F7 — light surfaces / on-dark text */
+  --lx-grey:       rgb(196, 196, 196);  /* #C4C4C4 — structural neutral */
+  --lx-grey-deck:  rgb(56, 56, 56);     /* #383838 — deck/backing grey */
+  --lx-ink-20:     rgba(0, 0, 0, 0.2);  /* hairline rules on light */
+  --lx-signal:     rgb(255, 0, 0);      /* #FF0000 — technical stroke accent, rare */
+
+  /* --- Semantic: surfaces --- */
+  --surface-primary:   var(--lx-black);      /* default brand ground */
+  --surface-inverse:   var(--lx-white);
+  --surface-muted:     var(--lx-off-white);  /* readable light panels */
+  --surface-structure: var(--lx-grey);       /* grey framing blocks */
+  --surface-backing:   var(--lx-grey-deck);  /* deck backing / matting */
+
+  /* --- Semantic: text --- */
+  --text-on-dark:      var(--lx-off-white);
+  --text-on-light:     var(--lx-black);
+  --text-muted-dark:   rgba(247, 247, 247, 0.6);
+  --text-muted-light:  rgba(0, 0, 0, 0.55);
+
+  /* --- Semantic: lines & borders --- */
+  --border-on-light:   var(--lx-black);
+  --border-on-dark:    var(--lx-off-white);
+  --hairline-light:    var(--lx-ink-20);
+  --hairline-dark:     rgba(247, 247, 247, 0.25);
+}

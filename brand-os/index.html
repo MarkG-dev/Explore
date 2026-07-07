@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand OS</title>
+<link rel="stylesheet" href="/design-system/styles.css">
+<style>
+  body { background: var(--lx-black); color: var(--text-on-dark); min-height: 100vh; }
+  .page {
+    max-width: 720px; margin: 0 auto;
+    padding: var(--page-margin) 24px;
+    display: flex; flex-direction: column; gap: var(--space-7);
+  }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  h1.title { font-size: 44px; }
+  .card-row { display: grid; gap: var(--space-3); }
+  .card {
+    background: transparent;
+    border: var(--border-thin) solid var(--border-on-dark);
+    padding: var(--space-6);
+    color: var(--text-on-dark);
+    text-decoration: none;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: opacity var(--dur-fast) var(--ease-standard);
+    --chamfer: 10px;
+  }
+  .card:hover { opacity: 0.62; }
+  .card-title { font-family: var(--font-primary); font-size: 22px; text-transform: uppercase; }
+  .card-sub {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark); margin-top: 4px;
+  }
+  .card-arrow { font-family: var(--font-mono); font-size: 16px; }
+  .rule { border: 0; border-top: 1px solid var(--hairline-dark); margin: 0; }
+  .footer {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  .footer a:hover { opacity: 0.62; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div>
+    <div class="eyebrow">Brand OS</div>
+    <h1 class="title lx-h1">Locked tools<br>for a real brand</h1>
+  </div>
+
+  <hr class="rule">
+
+  <div class="card-row" id="cards">
+    <a class="card lx-chamfer" href="/brand-os/login">
+      <div>
+        <div class="card-title">Client Login</div>
+        <div class="card-sub">Access your brand's copywriter + art director</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a class="card lx-chamfer" href="/brand-os/login?admin=1">
+      <div>
+        <div class="card-title">Admin</div>
+        <div class="card-sub">Create + edit brand configs</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+
+  <hr class="rule">
+
+  <div class="footer">
+    <span>Homesick × Loop X system</span>
+    <a href="/">← Explore</a>
+  </div>
+</div>
+
+<script>
+  // If already signed in, jump straight to the right destination.
+  (async () => {
+    try {
+      const r = await fetch('/api/brand-os/session', { credentials: 'same-origin' });
+      if (!r.ok) return;
+      const { slug, role } = await r.json();
+      if (role === 'admin') location.href = '/brand-os/admin';
+      else if (slug) location.href = `/brand-os/brand?slug=${encodeURIComponent(slug)}`;
+    } catch {}
+  })();
+</script>
+</body>
+</html>

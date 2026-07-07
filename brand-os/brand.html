@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand OS</title>
+<link rel="stylesheet" href="/design-system/styles.css">
+<style>
+  body { background: var(--lx-off-white); color: var(--text-on-light); min-height: 100vh; }
+  .page {
+    max-width: 960px; margin: 0 auto;
+    padding: var(--page-margin) 24px;
+    display: flex; flex-direction: column; gap: var(--space-7);
+  }
+  .top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 14px; border-bottom: 1px solid var(--hairline-light);
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+  }
+  .top .brand { display: flex; gap: 20px; align-items: baseline; color: var(--text-on-light); }
+  .top .brand strong { font-family: var(--font-primary); font-weight: 500; font-size: 16px; }
+  .top a { color: var(--text-muted-light); }
+  .top a:hover { opacity: 0.62; }
+  h1.title { font-size: 44px; }
+  .subtitle {
+    font-family: var(--font-primary); font-size: var(--fs-lead);
+    line-height: var(--lh-body); color: var(--text-muted-light); max-width: 640px;
+  }
+  .tools { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  @media (max-width: 720px) { .tools { grid-template-columns: 1fr; } }
+  .tool {
+    background: var(--lx-white);
+    border: var(--border-thin) solid var(--lx-black);
+    padding: var(--space-6);
+    color: var(--text-on-light); text-decoration: none;
+    display: flex; flex-direction: column; gap: var(--space-4);
+    aspect-ratio: 1.35;
+    --chamfer: 12px;
+    transition: opacity var(--dur-fast) var(--ease-standard);
+  }
+  .tool:hover { opacity: 0.62; }
+  .tool .eyebrow {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-light);
+  }
+  .tool h2 { font-family: var(--font-primary); font-size: 30px; text-transform: uppercase; line-height: 0.95; margin-top: auto; }
+  .tool .cta {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: var(--space-3); border-top: 1px solid var(--hairline-light);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <div class="brand">
+      <span>Brand OS</span>
+      <strong id="brandName">—</strong>
+    </div>
+    <a href="#" id="logout">Sign out</a>
+  </div>
+
+  <div>
+    <h1 class="title lx-h1" id="hello">The workshop.</h1>
+    <p class="subtitle">Two locked tools. Every output stays in your voice, every image in your art direction.</p>
+  </div>
+
+  <div class="tools">
+    <a class="tool lx-chamfer" id="copyLink" href="#">
+      <div class="eyebrow">01 · Locked to your voice</div>
+      <h2>Copywriter</h2>
+      <div class="cta"><span>Write / rewrite</span><span>→</span></div>
+    </a>
+    <a class="tool lx-chamfer" id="artLink" href="#">
+      <div class="eyebrow">02 · Locked to your look</div>
+      <h2>Art Director</h2>
+      <div class="cta"><span>Generate hero shot</span><span>→</span></div>
+    </a>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+  document.getElementById('copyLink').href = `/brand-os/copywriter?slug=${encodeURIComponent(slug || '')}`;
+  document.getElementById('artLink').href = `/brand-os/art-director?slug=${encodeURIComponent(slug || '')}`;
+
+  (async () => {
+    if (!slug) { location.href = '/brand-os/login'; return; }
+    try {
+      const r = await fetch(`/api/brand-os/session`, { credentials: 'same-origin' });
+      if (!r.ok) { location.href = `/brand-os/login?next=${encodeURIComponent(location.pathname + location.search)}`; return; }
+      const me = await r.json();
+      document.getElementById('brandName').textContent = me.name || slug;
+      document.getElementById('hello').textContent = `${(me.name || slug).toUpperCase()}.`;
+    } catch {}
+  })();
+
+  document.getElementById('logout').addEventListener('click', async (e) => {
+    e.preventDefault();
+    await fetch('/api/brand-os/session', { method: 'DELETE', credentials: 'same-origin' });
+    location.href = '/brand-os';
+  });
+</script>
+</body>
+</html>

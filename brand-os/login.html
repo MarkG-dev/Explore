@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — Brand OS</title>
+<link rel="stylesheet" href="/design-system/styles.css">
+<style>
+  body { background: var(--lx-black); color: var(--text-on-dark); min-height: 100vh; }
+  .page {
+    max-width: 440px; margin: 0 auto;
+    padding: var(--page-margin) 24px;
+    display: flex; flex-direction: column; gap: var(--space-6);
+  }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  h1.title { font-size: 34px; }
+  form { display: flex; flex-direction: column; gap: var(--space-4); }
+  .field { display: flex; flex-direction: column; gap: var(--space-2); }
+  .field label {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  .field input {
+    background: transparent; color: var(--text-on-dark);
+    border: var(--border-thin) solid var(--border-on-dark);
+    padding: 12px 14px; font-family: var(--font-mono); font-size: 14px;
+    --chamfer: 7px; letter-spacing: 0.02em;
+  }
+  .field input:focus { outline: none; opacity: 0.9; }
+  .field.chamfer input { }
+  .lx-chamfer.field { padding: 0; }
+  .btn {
+    padding: 13px 22px;
+    background: var(--lx-off-white); color: var(--lx-black);
+    border: none; cursor: pointer;
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    --chamfer: 7px;
+    transition: opacity var(--dur-fast) var(--ease-standard);
+  }
+  .btn:hover { opacity: 0.62; }
+  .btn.ghost {
+    background: transparent; color: var(--text-on-dark);
+    border: var(--border-thin) solid var(--border-on-dark);
+  }
+  .row { display: flex; gap: 10px; align-items: center; }
+  .row a {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  .msg {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--lx-signal); min-height: 16px;
+  }
+  .top {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <span>Brand OS</span>
+    <a href="/brand-os">← Home</a>
+  </div>
+
+  <div>
+    <div class="eyebrow" id="mode-label">Client login</div>
+    <h1 class="title lx-h1" id="mode-title">Sign in</h1>
+  </div>
+
+  <form id="loginForm">
+    <div class="field lx-chamfer">
+      <label for="f1">Brand slug</label>
+      <input type="text" id="f1" name="slug" placeholder="acme" autocomplete="username" required>
+    </div>
+    <div class="field lx-chamfer">
+      <label for="f2">Password</label>
+      <input type="password" id="f2" name="password" autocomplete="current-password" required>
+    </div>
+    <div class="msg" id="msg"></div>
+    <div class="row">
+      <button class="btn lx-chamfer" type="submit">Sign in →</button>
+      <a href="?admin=1" id="modeSwitch">Admin login</a>
+    </div>
+  </form>
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const isAdmin = params.get('admin') === '1';
+  const next = params.get('next') || '';
+  const label = document.getElementById('mode-label');
+  const title = document.getElementById('mode-title');
+  const f1 = document.getElementById('f1');
+  const modeSwitch = document.getElementById('modeSwitch');
+
+  if (isAdmin) {
+    label.textContent = 'Admin login';
+    title.textContent = 'Admin sign in';
+    f1.placeholder = 'admin username';
+    f1.name = 'username';
+    document.querySelector('label[for=f1]').textContent = 'Username';
+    modeSwitch.href = '/brand-os/login';
+    modeSwitch.textContent = 'Client login';
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('msg');
+    msg.textContent = 'Signing in…';
+    const data = Object.fromEntries(new FormData(e.target).entries());
+    try {
+      const r = await fetch('/api/brand-os/session', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(data),
+        credentials: 'same-origin',
+      });
+      const j = await r.json();
+      if (!r.ok) { msg.textContent = j.error || 'Sign-in failed'; return; }
+      msg.textContent = 'OK.';
+      if (j.role === 'admin') location.href = next || '/brand-os/admin';
+      else location.href = next || `/brand-os/brand?slug=${encodeURIComponent(j.slug)}`;
+    } catch (err) {
+      msg.textContent = err.message;
+    }
+  });
+</script>
+</body>
+</html>

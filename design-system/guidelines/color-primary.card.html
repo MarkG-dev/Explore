@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Primary — Black & White" subtitle="High-contrast core; drives brand recognition" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 150px; }
+  .sw { display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; }
+  .name { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .hex { font-family: var(--font-mono); font-size: 11px; opacity: .6; margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw" style="background:var(--lx-black);color:var(--lx-off-white)">
+      <span class="name">Black</span><span class="hex">#000000 · R0 G0 B0</span>
+    </div>
+    <div class="sw" style="background:var(--lx-white);color:var(--lx-black);box-shadow:inset 1px 0 0 var(--hairline-light)">
+      <span class="name">White</span><span class="hex">#FFFFFF · R255 G255 B255</span>
+    </div>
+  </div>
+</body>
+</html>

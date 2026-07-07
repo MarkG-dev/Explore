@@ -1,0 +1,11 @@
+/* ------------------------------------------------------------------
+   Loop X — Webfonts
+   Primary  : Aeonik  (commercial — substituted with Hanken Grotesk)
+   Secondary: DM Mono (exact — available on Google Fonts)
+
+   NOTE: Aeonik is a licensed typeface (CoType Foundry) and is NOT
+   bundled here. Hanken Grotesk is loaded as the nearest free
+   grotesque substitute so specimens render sensibly. Replace with
+   licensed Aeonik web files for production. See readme.md.
+------------------------------------------------------------------ */
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap");

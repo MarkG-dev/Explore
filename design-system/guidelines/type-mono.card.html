@@ -1,0 +1,29 @@
+<!-- @dsCard group="Type" viewport="700x220" name="DM Mono — Labels & Links" subtitle="Secondary: eyebrows, UI, technical detail" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; }
+  .wrap { padding: 26px 36px; display: flex; flex-direction: column; gap: 14px; }
+  .meta { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing:.04em; color: var(--text-muted-light); }
+  .row { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; }
+  .frame { border: 1px solid var(--lx-black); padding: 6px 12px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="meta">DM Mono · Regular · Uppercase</div>
+    <div class="row">
+      <span class="lx-label">Eyebrow text</span>
+      <span class="lx-label frame lx-chamfer" style="--chamfer:5px">Framed label</span>
+      <span class="lx-link">&gt; More info</span>
+    </div>
+    <div class="meta" style="margin-top:8px">Caption / technical detail</div>
+    <span style="font-family:var(--font-mono);font-size:12px;line-height:1.3;max-width:520px">
+      LoopX SLAM · LiDAR + GPS + inertial fusion · 360° detection
+    </span>
+  </div>
+</body>
+</html>

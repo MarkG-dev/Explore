@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Signal — Red" subtitle="Rare technical stroke accent only; never a fill" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--lx-black); }
+  .wrap { height: 150px; display: flex; align-items: center; gap: 28px; padding: 0 32px; color: var(--lx-off-white); }
+  .chip { width: 90px; height: 90px; border: 2px solid var(--lx-signal); }
+  .name { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .hex { font-family: var(--font-mono); font-size: 11px; opacity: .6; margin-top: 4px; }
+  .note { font-family: var(--font-primary); font-size: 14px; opacity: .8; max-width: 320px; line-height: 1.3; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="chip lx-chamfer" style="--chamfer:7px"></div>
+    <div>
+      <div class="name">Signal red</div>
+      <div class="hex">#FF0000</div>
+    </div>
+    <div class="note">Reserved for technical strokes, targeting reticles and thermal accents. Used sparingly — a single spark against monochrome. Never as a background fill.</div>
+  </div>
+</body>
+</html>

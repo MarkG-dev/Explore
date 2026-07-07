@@ -1,0 +1,25 @@
+<!-- @dsCard group="Spacing" viewport="700x200" name="Chamfer geometry" subtitle="The signature cut-corner silhouette (.lx-chamfer)" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--lx-black); }
+  .wrap { padding: 26px 36px; display: flex; align-items: center; gap: 24px; }
+  .box { display: flex; align-items: center; justify-content: center; background: var(--lx-off-white); color: var(--lx-black); font-family: var(--font-mono); font-size: 11px; }
+  .b1 { width: 120px; height: 120px; --chamfer: 7px; }
+  .b2 { width: 120px; height: 120px; --chamfer: 14px; }
+  .b3 { width: 120px; height: 120px; --chamfer: 28px; }
+  .note { color: var(--lx-off-white); font-family: var(--font-primary); font-size: 14px; max-width: 240px; line-height: 1.35; opacity:.85; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="box b1 lx-chamfer">7px</div>
+    <div class="box b2 lx-chamfer">14px</div>
+    <div class="box b3 lx-chamfer">28px</div>
+    <div class="note">Corners are cut, never rounded — echoing the notched LOOP X letterforms. Apply <code>.lx-chamfer</code> and set <code>--chamfer</code>.</div>
+  </div>
+</body>
+</html>

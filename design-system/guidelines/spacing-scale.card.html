@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Spacing scale" subtitle="4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; }
+  .wrap { padding: 26px 36px; display: flex; align-items: flex-end; gap: 14px; }
+  .u { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .bar { width: 22px; background: var(--lx-black); }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted-light); }
+</style>
+</head>
+<body>
+  <div class="wrap" id="w"></div>
+  <script>
+    const steps = [4,8,12,16,24,32,48,64,96];
+    document.getElementById('w').innerHTML = steps.map(s =>
+      `<div class="u"><div class="bar" style="height:${s}px"></div><div class="lbl">${s}</div></div>`
+    ).join('');
+  </script>
+</body>
+</html>

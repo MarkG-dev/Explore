@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art Director — Brand OS</title>
+<link rel="stylesheet" href="/design-system/styles.css">
+<style>
+  body { background: var(--lx-black); color: var(--text-on-dark); min-height: 100vh; }
+  .page {
+    max-width: 1100px; margin: 0 auto;
+    padding: var(--page-margin) 24px 96px;
+    display: flex; flex-direction: column; gap: var(--space-6);
+  }
+  .top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 14px; border-bottom: 1px solid var(--hairline-dark);
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  .top a { color: var(--text-muted-dark); }
+  .top a:hover { opacity: 0.62; }
+  .brand-tag { display: flex; gap: 20px; align-items: baseline; }
+  .brand-tag strong { font-family: var(--font-primary); font-weight: 500; font-size: 15px; text-transform: uppercase; color: var(--text-on-dark); }
+  h1.title { font-size: 44px; }
+  .grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-6); }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .panel {
+    background: transparent;
+    border: var(--border-thin) solid var(--border-on-dark);
+    padding: var(--space-6);
+    --chamfer: 14px;
+    display: flex; flex-direction: column; gap: var(--space-4);
+  }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  textarea {
+    width: 100%; background: transparent;
+    border: 1px solid var(--hairline-dark);
+    padding: 14px; font-family: var(--font-primary); font-size: 15px;
+    line-height: 1.5; color: var(--text-on-dark); resize: vertical;
+    min-height: 140px;
+  }
+  textarea:focus { outline: none; border-color: var(--lx-off-white); }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; }
+  .preset {
+    padding: 8px 14px; background: transparent; cursor: pointer;
+    border: 1px solid var(--lx-off-white); color: var(--lx-off-white);
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    --chamfer: 6px;
+    transition: opacity var(--dur-fast) var(--ease-standard),
+                background var(--dur-fast) var(--ease-standard),
+                color var(--dur-fast) var(--ease-standard);
+  }
+  .preset:hover { opacity: 0.62; }
+  .preset.active { background: var(--lx-off-white); color: var(--lx-black); }
+  .actions { display: flex; gap: 10px; align-items: center; }
+  .btn {
+    padding: 13px 22px; background: var(--lx-off-white); color: var(--lx-black);
+    border: none; cursor: pointer; font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.04em; text-transform: uppercase; --chamfer: 7px;
+    transition: opacity var(--dur-fast) var(--ease-standard);
+  }
+  .btn:hover { opacity: 0.62; }
+  .btn.ghost { background: transparent; color: var(--lx-off-white); border: 1px solid var(--lx-off-white); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .status {
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    color: var(--text-muted-dark); min-height: 16px;
+  }
+  .status.err { color: var(--lx-signal); }
+  .frame {
+    background: var(--lx-grey-deck);
+    border: 1px solid var(--hairline-dark);
+    aspect-ratio: 1; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted-dark);
+    font-family: var(--font-mono); font-size: var(--fs-label);
+    text-transform: uppercase; letter-spacing: var(--tracking-label);
+  }
+  .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <div class="brand-tag">
+      <span>Brand OS · Art Director</span>
+      <strong id="brandName">—</strong>
+    </div>
+    <div style="display:flex; gap:20px">
+      <a href="#" id="backLink">← Workshop</a>
+      <a href="#" id="logout">Sign out</a>
+    </div>
+  </div>
+
+  <div>
+    <div class="eyebrow">02 · Locked to your look</div>
+    <h1 class="title lx-h1">Art Director</h1>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <div class="eyebrow">Prompt</div>
+      <textarea id="prompt" placeholder="Describe the shot. Palette, framing, and grade are added from your art direction — you don't need to specify them."></textarea>
+
+      <div>
+        <div class="eyebrow" style="margin-bottom:6px">Shot preset</div>
+        <div class="presets" id="presets"></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn lx-chamfer" id="go">Generate →</button>
+        <button class="btn ghost lx-chamfer" id="clear">Clear</button>
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+
+    <div class="panel">
+      <div class="eyebrow">Result</div>
+      <div class="frame" id="frame">No image yet</div>
+      <div class="actions">
+        <a class="btn ghost lx-chamfer" id="download" download="hero.jpg" style="pointer-events:none; opacity:0.35">Download</a>
+        <button class="btn ghost lx-chamfer" id="reroll" disabled>Reroll</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+  document.getElementById('backLink').href = `/brand-os/brand?slug=${encodeURIComponent(slug || '')}`;
+
+  let activePreset = null;
+
+  (async () => {
+    if (!slug) { location.href = '/brand-os/login'; return; }
+    const r = await fetch('/api/brand-os/session', { credentials: 'same-origin' });
+    if (!r.ok) { location.href = `/brand-os/login?next=${encodeURIComponent(location.pathname + location.search)}`; return; }
+    const me = await r.json();
+    document.getElementById('brandName').textContent = (me.name || slug).toUpperCase();
+
+    const presets = ['Hero horizontal', 'Product still', 'Social square', 'Story portrait'];
+    const wrap = document.getElementById('presets');
+    presets.forEach((p, i) => {
+      const b = document.createElement('button');
+      b.className = 'preset lx-chamfer';
+      b.textContent = p;
+      b.onclick = () => {
+        activePreset = p;
+        wrap.querySelectorAll('.preset').forEach(el => el.classList.remove('active'));
+        b.classList.add('active');
+      };
+      if (i === 0) b.click();
+      wrap.appendChild(b);
+    });
+  })();
+
+  document.getElementById('go').addEventListener('click', async () => {
+    const prompt = document.getElementById('prompt').value.trim();
+    const status = document.getElementById('status');
+    const frame = document.getElementById('frame');
+    const dl = document.getElementById('download');
+    const rer = document.getElementById('reroll');
+    if (!prompt) { status.textContent = 'Give it a subject.'; status.classList.add('err'); return; }
+    status.classList.remove('err');
+    status.textContent = 'Dialing in your art direction… (up to 60 s)';
+    frame.innerHTML = 'Working…';
+    dl.style.pointerEvents = 'none'; dl.style.opacity = '0.35';
+    rer.disabled = true;
+    try {
+      const r = await fetch('/api/brand-os/art-director', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ slug, prompt, presetLabel: activePreset }),
+      });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || 'Failed');
+      frame.innerHTML = `<img src="${j.imageUrl}" alt="">`;
+      dl.href = j.imageUrl; dl.style.pointerEvents = 'auto'; dl.style.opacity = '1';
+      rer.disabled = false;
+      status.textContent = 'Done.';
+    } catch (e) {
+      status.textContent = e.message; status.classList.add('err');
+      frame.innerHTML = 'No image yet';
+    }
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    document.getElementById('prompt').value = '';
+    document.getElementById('frame').innerHTML = 'No image yet';
+    document.getElementById('status').textContent = '';
+    document.getElementById('download').style.pointerEvents = 'none';
+    document.getElementById('download').style.opacity = '0.35';
+    document.getElementById('reroll').disabled = true;
+  });
+  document.getElementById('reroll').addEventListener('click', () => document.getElementById('go').click());
+  document.getElementById('logout').addEventListener('click', async (e) => {
+    e.preventDefault();
+    await fetch('/api/brand-os/session', { method: 'DELETE', credentials: 'same-origin' });
+    location.href = '/brand-os';
+  });
+</script>
+</body>
+</html>

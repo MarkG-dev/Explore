@@ -1,0 +1,56 @@
+/* ------------------------------------------------------------------
+   Loop X — Spacing, layout & geometry tokens
+   The system is built on a wide document grid: 50px page margins, a
+   fixed label/sidebar column and a large content column. The
+   signature shape is the chamfered ("cut corner") rectangle, echoing
+   the notched geometry of the LOOP X letterforms.
+------------------------------------------------------------------ */
+:root {
+  /* --- Spacing scale --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* --- Document grid (scaled from the 1920px source canvas) --- */
+  --page-margin: 50px;    /* outer margin on all sides */
+  --sidebar-col: 471px;   /* label / title column */
+  --grid-gutter: 20px;    /* column gutter */
+
+  /* --- Geometry --- */
+  --chamfer: 7px;         /* signature cut-corner size (buttons/labels) */
+  --chamfer-lg: 14px;     /* larger panels */
+  --radius-none: 0px;     /* the system is overwhelmingly square */
+  --radius-panel: 15px;   /* rare — used on some framed light panels */
+
+  /* --- Borders --- */
+  --border-hair: 0.5px;   /* guideline hairlines */
+  --border-thin: 1px;
+  --border-med: 1.3px;    /* button outlines */
+
+  /* --- Motion --- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --dur-fast: 120ms; /* @kind other */
+  --dur-med: 220ms; /* @kind other */
+}
+
+/* Signature chamfered-corner clip. Apply to any box for the Loop X
+   cut-corner silhouette. Corner size follows --chamfer by default;
+   override with `--chamfer:` on the element. */
+.lx-chamfer {
+  clip-path: polygon(
+    var(--chamfer) 0,
+    calc(100% - var(--chamfer)) 0,
+    100% var(--chamfer),
+    100% calc(100% - var(--chamfer)),
+    calc(100% - var(--chamfer)) 100%,
+    var(--chamfer) 100%,
+    0 calc(100% - var(--chamfer)),
+    0 var(--chamfer)
+  );
+}

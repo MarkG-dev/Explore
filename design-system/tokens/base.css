@@ -1,0 +1,25 @@
+/* ------------------------------------------------------------------
+   Loop X — Base resets & link defaults
+   Minimal, so the monochrome system reads cleanly everywhere.
+------------------------------------------------------------------ */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  color: var(--text-on-light);
+  background: var(--surface-inverse);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Links — mono, understated, high-contrast on both grounds. */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--dur-fast) var(--ease-standard);
+}
+a:hover { opacity: 0.6; }
+
+/* Selection uses the rare signal red — a single spark of colour. */
+::selection { background: var(--lx-signal); color: var(--lx-white); }

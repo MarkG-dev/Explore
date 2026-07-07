@@ -1,0 +1,10 @@
+/* ==================================================================
+   Loop X — Design System
+   Global CSS entry point. Consumers link THIS file only.
+   Everything below is an @import; add no rules here directly.
+   ================================================================== */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/base.css";

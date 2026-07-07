@@ -1,0 +1,282 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/brand/**",
+              "components/content/**",
+              "components/controls/**",
+              "components/layout/**",
+              "components/navigation/**",
+              "ui_kits/website/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Hanken Grotesk|DM Mono))/i]",
+        "message": "Font not provided by the design system. Available: Hanken Grotesk, DM Mono."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|tone|size|arrow|as|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, tone, size, arrow, as."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:outline|solid|ghost)$/]",
+        "message": "<Button> variant must be one of 'outline' | 'solid' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<Button> tone must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Eyebrow'] > JSXAttribute > JSXIdentifier[name!=/^(?:framed|tone|key|ref|className|style|children)$/]",
+        "message": "<Eyebrow> doesn't accept that prop. Declared props: framed, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Eyebrow'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<Eyebrow> tone must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Logo'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|height|tone|title|key|ref|className|style|children)$/]",
+        "message": "<Logo> doesn't accept that prop. Declared props: variant, height, tone, title."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Logo'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:wordmark|symbol)$/]",
+        "message": "<Logo> variant must be one of 'wordmark' | 'symbol'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Navbar'] > JSXAttribute > JSXIdentifier[name!=/^(?:items|active|tone|onSelect|key|ref|className|style|children)$/]",
+        "message": "<Navbar> doesn't accept that prop. Declared props: items, active, tone, onSelect."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Navbar'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<Navbar> tone must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PageHeader'] > JSXAttribute > JSXIdentifier[name!=/^(?:left|section|index|tone|key|ref|className|style|children)$/]",
+        "message": "<PageHeader> doesn't accept that prop. Declared props: left, section, index, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PageHeader'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<PageHeader> tone must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Panel'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|bordered|chamfer|padding|key|ref|className|style|children)$/]",
+        "message": "<Panel> doesn't accept that prop. Declared props: tone, bordered, chamfer, padding."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Panel'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:light|dark|muted|grey|none)$/]",
+        "message": "<Panel> tone must be one of 'light' | 'dark' | 'muted' | 'grey' | 'none'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|description|action|tone|onAction|key|ref|className|style|children)$/]",
+        "message": "<ProductCard> doesn't accept that prop. Declared props: title, description, action, tone, onAction."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCard'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<ProductCard> tone must be one of 'light' | 'dark'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Button": {
+        "replaces": []
+      },
+      "Eyebrow": {
+        "replaces": []
+      },
+      "Logo": {
+        "replaces": []
+      },
+      "Navbar": {
+        "replaces": []
+      },
+      "PageHeader": {
+        "replaces": []
+      },
+      "Panel": {
+        "replaces": []
+      },
+      "ProductCard": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--border-hair",
+      "--border-med",
+      "--border-on-dark",
+      "--border-on-light",
+      "--border-thin",
+      "--chamfer",
+      "--chamfer-lg",
+      "--dur-fast",
+      "--dur-med",
+      "--ease-standard",
+      "--font-mono",
+      "--font-primary",
+      "--fs-body",
+      "--fs-body-sm",
+      "--fs-display",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-h3",
+      "--fs-label",
+      "--fs-lead",
+      "--fs-link",
+      "--fs-title",
+      "--fw-light",
+      "--fw-medium",
+      "--fw-regular",
+      "--grid-gutter",
+      "--hairline-dark",
+      "--hairline-light",
+      "--lh-body",
+      "--lh-headline",
+      "--lh-label",
+      "--lh-tight",
+      "--lx-black",
+      "--lx-grey",
+      "--lx-grey-deck",
+      "--lx-ink-20",
+      "--lx-off-white",
+      "--lx-signal",
+      "--lx-white",
+      "--page-margin",
+      "--radius-none",
+      "--radius-panel",
+      "--sidebar-col",
+      "--space-1",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--surface-backing",
+      "--surface-inverse",
+      "--surface-muted",
+      "--surface-primary",
+      "--surface-structure",
+      "--text-muted-dark",
+      "--text-muted-light",
+      "--text-on-dark",
+      "--text-on-light",
+      "--tracking-label",
+      "--tracking-normal",
+      "--tracking-tight"
+    ],
+    "tokenKinds": {
+      "--lx-black": "color",
+      "--lx-white": "color",
+      "--lx-off-white": "color",
+      "--lx-grey": "color",
+      "--lx-grey-deck": "color",
+      "--lx-ink-20": "color",
+      "--lx-signal": "color",
+      "--surface-primary": "color",
+      "--surface-inverse": "color",
+      "--surface-muted": "color",
+      "--surface-structure": "color",
+      "--surface-backing": "color",
+      "--text-on-dark": "font",
+      "--text-on-light": "font",
+      "--text-muted-dark": "font",
+      "--text-muted-light": "font",
+      "--border-on-light": "color",
+      "--border-on-dark": "color",
+      "--hairline-light": "color",
+      "--hairline-dark": "color",
+      "--font-primary": "font",
+      "--font-mono": "font",
+      "--fw-light": "font",
+      "--fw-regular": "font",
+      "--fw-medium": "font",
+      "--fs-display": "spacing",
+      "--fs-h1": "spacing",
+      "--fs-h2": "spacing",
+      "--fs-h3": "spacing",
+      "--fs-title": "spacing",
+      "--fs-lead": "spacing",
+      "--fs-body": "spacing",
+      "--fs-body-sm": "spacing",
+      "--fs-label": "spacing",
+      "--fs-link": "spacing",
+      "--lh-headline": "font",
+      "--lh-tight": "font",
+      "--lh-body": "font",
+      "--lh-label": "font",
+      "--tracking-tight": "font",
+      "--tracking-normal": "font",
+      "--tracking-label": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--page-margin": "spacing",
+      "--sidebar-col": "spacing",
+      "--grid-gutter": "spacing",
+      "--chamfer": "spacing",
+      "--chamfer-lg": "spacing",
+      "--radius-none": "radius",
+      "--radius-panel": "radius",
+      "--border-hair": "spacing",
+      "--border-thin": "spacing",
+      "--border-med": "spacing",
+      "--ease-standard": "other",
+      "--dur-fast": "other",
+      "--dur-med": "other"
+    },
+    "fontFamilies": [
+      "DM Mono",
+      "Hanken Grotesk"
+    ]
+  }
+}

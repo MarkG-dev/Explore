@@ -2,10 +2,17 @@
   "rewrites": [
     { "source": "/wifi", "destination": "/wifi.html" },
     { "source": "/lifetracker", "destination": "/lifetracker.html" },
-    { "source": "/brand", "destination": "/brand.html" }
+    { "source": "/brand", "destination": "/brand.html" },
+    { "source": "/brand-os", "destination": "/brand-os/index.html" },
+    { "source": "/brand-os/login", "destination": "/brand-os/login.html" },
+    { "source": "/brand-os/brand", "destination": "/brand-os/brand.html" },
+    { "source": "/brand-os/copywriter", "destination": "/brand-os/copywriter.html" },
+    { "source": "/brand-os/art-director", "destination": "/brand-os/art-director.html" },
+    { "source": "/brand-os/admin", "destination": "/brand-os/admin.html" }
   ],
   "functions": {
     "api/scrape-cosmos.js": { "maxDuration": 60, "memory": 1024 },
-    "api/magnific.js": { "maxDuration": 60 }
+    "api/magnific.js": { "maxDuration": 60 },
+    "api/brand-os/art-director.js": { "maxDuration": 60 }
   }
 }
