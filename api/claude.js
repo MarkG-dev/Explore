@@ -1,13 +1,18 @@
 // Vercel serverless function: proxy to Anthropic Messages API.
 // Body: { apiKey, system, messages, max_tokens, model? }
+//
+// Key resolution order:
+//   1. apiKey in request body (browser localStorage override)
+//   2. ANTHROPIC_API_KEY env var (set this in Vercel project settings)
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'POST only' });
   }
   try {
-    const { apiKey, system, messages, max_tokens = 2000, model } = req.body || {};
-    if (!apiKey) return res.status(400).json({ error: 'Missing apiKey' });
+    const { apiKey: bodyKey, system, messages, max_tokens = 2000, model } = req.body || {};
+    const apiKey = bodyKey || process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) return res.status(400).json({ error: 'Missing apiKey — set ANTHROPIC_API_KEY env var or send apiKey in request body' });
     if (!messages || !Array.isArray(messages)) return res.status(400).json({ error: 'Missing messages' });
 
     const r = await fetch('https://api.anthropic.com/v1/messages', {

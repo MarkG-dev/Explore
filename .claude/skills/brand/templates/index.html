@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{BRAND}} — brand</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #f0f0f0;
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    padding: 60px 24px 100px;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 32px; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 span { color: #555; }
+  .sub { color: #888; font-size: 14px; margin-bottom: 40px; }
+  h2 {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #555; margin: 40px 0 16px; font-weight: 500;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: #111; border: 1px solid #2a2a2a; border-radius: 6px;
+    overflow: hidden; text-decoration: none; color: inherit;
+    transition: border-color 0.15s;
+  }
+  .card:hover { border-color: #444; }
+  .card iframe {
+    width: 100%; aspect-ratio: 4/3; border: 0; display: block;
+    pointer-events: none; background: #111;
+  }
+  .card .lbl {
+    padding: 12px 14px; font-size: 12px;
+    display: flex; justify-content: space-between; color: #888;
+  }
+  .card .lbl strong { color: #f0f0f0; font-weight: 500; }
+  .brief {
+    background: #111; border: 1px solid #2a2a2a; border-radius: 6px;
+    padding: 24px; font-size: 13px; line-height: 1.7; color: #ccc;
+    white-space: pre-wrap;
+    max-height: 500px; overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>{{BRAND}}<span>.</span></h1>
+    <div class="sub">{{TAGLINE}}</div>
+
+    <h2>Compositions</h2>
+    <div class="grid">
+{{CARDS}}
+    </div>
+
+    <h2>Brief</h2>
+    <div class="brief">{{BRIEF_MD}}</div>
+  </div>
+</body>
+</html>

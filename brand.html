@@ -350,9 +350,9 @@
     <div class="subtitle">Concept in Claude · Source through Cosmos · Dial in Magnific · Compose back in Claude</div>
 
     <div class="settings-strip">
-      <span class="key-dot" id="dotClaude"></span> Claude
+      <span class="key-dot set" id="dotClaude"></span> Claude (server key)
       <span class="key-dot" id="dotMagnific"></span> Magnific
-      <button class="settings-btn" onclick="openSettings()">Keys →</button>
+      <button class="settings-btn" onclick="openSettings()">Override keys →</button>
     </div>
 
     <div class="stepper">
@@ -626,7 +626,6 @@
       const audience = document.getElementById('brandAudience').value.trim();
 
       if (!brandName) return status('conceptStatus', 'Give the brand a name.', true);
-      if (!claudeKey()) return status('conceptStatus', 'Add your Anthropic API key first (Keys →).', true);
 
       status('conceptStatus', 'Thinking through concept and art direction…');
       document.getElementById('conceptOut').style.display = 'none';
@@ -808,7 +807,6 @@ Audience: ${audience || '(unspecified)'}`;
       if (!state.magResultUrl && !state.selectedRefUrl) {
         return status('composeStatus', 'Need a base image (dial one in step 3 or pick a reference).', true);
       }
-      if (!claudeKey()) return status('composeStatus', 'Add your Anthropic API key first.', true);
 
       // If no magnific result, fall back to the selected reference
       if (!document.getElementById('canvasBase').src) {
