@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Brand Agent — Explore</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #1a1a1a;
+      --border: #2a2a2a;
+      --border-hi: #444;
+      --text: #f0f0f0;
+      --text-dim: #888;
+      --text-mute: #555;
+      --accent: #f0f0f0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
+      padding: 40px 24px 80px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .brand {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+
+    .back {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      text-decoration: none;
+    }
+    .back:hover { color: var(--text-dim); }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    h1 span { color: var(--text-mute); }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+
+    /* --- Stepper --- */
+    .stepper {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 32px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .step {
+      flex: 1;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-mute);
+      text-align: center;
+    }
+    .step.active {
+      color: var(--text);
+      border-color: var(--border-hi);
+      background: var(--surface2);
+    }
+    .step.done { color: var(--text-dim); }
+
+    /* --- Panels --- */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 20px;
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .panel-num {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      margin-bottom: 8px;
+    }
+
+    input[type=text], input[type=password], textarea, select {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--border-hi);
+    }
+    textarea { min-height: 90px; line-height: 1.5; }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .row.single { grid-template-columns: 1fr; }
+    @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn:hover { background: #fff; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn.secondary:hover { border-color: var(--border-hi); background: var(--surface2); }
+
+    /* --- Concept output --- */
+    .concept-out {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      margin-top: 20px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .concept-out strong { color: var(--text); font-weight: 500; }
+
+    /* --- Moodboard --- */
+    .moodboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .mood-tile {
+      aspect-ratio: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    .mood-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mood-tile.selected { border-color: var(--text); }
+    .mood-tile.selected::after {
+      content: "✓";
+      position: absolute; top: 6px; right: 8px;
+      background: var(--text); color: var(--bg);
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+    }
+
+    /* --- Magnific dials --- */
+    .dials { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 640px) { .dials { grid-template-columns: 1fr; } }
+    .dial-group { display: flex; flex-direction: column; gap: 6px; }
+    .dial-row { display: flex; justify-content: space-between; align-items: center; }
+    .dial-val { font-variant-numeric: tabular-nums; color: var(--text-dim); font-size: 12px; }
+    input[type=range] {
+      width: 100%; -webkit-appearance: none; appearance: none;
+      background: transparent; height: 20px; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 2px; background: var(--border); border-radius: 1px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--text); margin-top: -6px;
+    }
+
+    /* --- Composer (Claude adds elements) --- */
+    .composer {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 720px) { .composer { grid-template-columns: 1fr; } }
+
+    .canvas-wrap {
+      position: relative;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      aspect-ratio: 1;
+      overflow: hidden;
+    }
+    .canvas-wrap img.base {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .overlay {
+      position: absolute; inset: 0;
+      pointer-events: none;
+    }
+
+    .elements-list { display: flex; flex-direction: column; gap: 12px; max-height: 480px; overflow-y: auto; }
+    .element-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .element-card strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 2px; font-size: 13px; }
+    .element-card button {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-dim); border-radius: 4px;
+      padding: 4px 8px; font-size: 11px; cursor: pointer;
+    }
+    .element-card button:hover { color: var(--text); border-color: var(--border-hi); }
+
+    /* --- Utility --- */
+    .hint { font-size: 12px; color: var(--text-mute); margin-top: 8px; line-height: 1.5; }
+    .status { font-size: 12px; color: var(--text-dim); margin-top: 12px; font-style: italic; }
+    .status.err { color: #f87171; font-style: normal; }
+    .spacer { height: 8px; }
+    .actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+    .settings-strip {
+      display: flex; gap: 10px; align-items: center;
+      padding: 10px 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; margin-bottom: 20px;
+      font-size: 11px; color: var(--text-mute);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .key-dot { width: 6px; height: 6px; border-radius: 50%; background: #444; }
+    .key-dot.set { background: #4ade80; }
+    .settings-btn {
+      margin-left: auto;
+      background: transparent; border: none; color: var(--text-dim);
+      cursor: pointer; font-family: inherit; font-size: 11px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .settings-btn:hover { color: var(--text); }
+
+    .modal-bg {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      display: none; align-items: center; justify-content: center;
+      z-index: 100; padding: 20px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 28px; width: 100%; max-width: 480px;
+    }
+    .modal h3 { font-weight: 500; font-size: 16px; margin-bottom: 16px; }
+    .modal .row { grid-template-columns: 1fr; }
+
+    .footer {
+      margin-top: 60px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #333;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <div class="brand">Homesick</div>
+      <a class="back" href="/">← back</a>
+    </div>
+
+    <h1>Brand Agent<span>.</span></h1>
+    <div class="subtitle">Concept in Claude · Source through Cosmos · Dial in Magnific · Compose back in Claude</div>
+
+    <div class="settings-strip">
+      <span class="key-dot" id="dotClaude"></span> Claude
+      <span class="key-dot" id="dotMagnific"></span> Magnific
+      <button class="settings-btn" onclick="openSettings()">Keys →</button>
+    </div>
+
+    <div class="stepper">
+      <div class="step active" id="s1">1 · Concept</div>
+      <div class="step" id="s2">2 · Source</div>
+      <div class="step" id="s3">3 · Dial</div>
+      <div class="step" id="s4">4 · Compose</div>
+    </div>
+
+    <!-- STEP 1: CONCEPT + ART DIRECTION -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Concept &amp; Art Direction</div>
+        <div class="panel-num">01 · Claude</div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Brand name</label>
+          <input type="text" id="brandName" placeholder="Homesick">
+        </div>
+        <div>
+          <label>Category</label>
+          <input type="text" id="brandCategory" placeholder="Objects for elsewhere">
+        </div>
+      </div>
+      <div class="row single">
+        <div>
+          <label>Vibe / positioning</label>
+          <textarea id="brandVibe" placeholder="Quiet, considered, tactile. Not for everyone. Between a well-worn Muji notebook and a Kinfolk cover."></textarea>
+        </div>
+      </div>
+      <div class="row single">
+        <div>
+          <label>Audience &amp; anti-audience</label>
+          <textarea id="brandAudience" placeholder="For: solo makers who buy fewer, better things. Not for: dropshippers, hypebeasts."></textarea>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" onclick="runConcept()">Generate brief →</button>
+        <button class="btn secondary" onclick="clearConcept()">Clear</button>
+      </div>
+      <div class="status" id="conceptStatus"></div>
+
+      <div class="concept-out" id="conceptOut" style="display:none"></div>
+    </div>
+
+    <!-- STEP 2: COSMOS SOURCING -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Source Moodboard</div>
+        <div class="panel-num">02 · Cosmos</div>
+      </div>
+
+      <div class="row single">
+        <div>
+          <label>Cosmos board URLs (one per line)</label>
+          <textarea id="cosmosUrls" placeholder="https://www.cosmos.so/username/board-slug&#10;https://www.cosmos.so/username/another-board"></textarea>
+          <div class="hint">Playwright will visit each board and pull the visible images. Public boards only.</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" onclick="scrapeCosmos()">Scrape references →</button>
+        <button class="btn secondary" onclick="clearMood()">Clear board</button>
+      </div>
+      <div class="status" id="cosmosStatus"></div>
+
+      <div class="moodboard" id="moodboard"></div>
+    </div>
+
+    <!-- STEP 3: MAGNIFIC DIALS -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Dial with Magnific</div>
+        <div class="panel-num">03 · Magnific</div>
+      </div>
+
+      <div class="hint" style="margin-bottom:16px">
+        Pick a reference from the moodboard (or upload one), tune the dials, and Magnific will re-render it in the brand's direction.
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Selected reference</label>
+          <div id="selectedRef" style="height:120px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; display:flex; align-items:center; justify-content:center; overflow:hidden; color:var(--text-mute); font-size:12px;">
+            None — pick from moodboard above
+          </div>
+        </div>
+        <div>
+          <label>Or upload</label>
+          <input type="file" id="uploadRef" accept="image/*" style="padding:9px 14px;">
+        </div>
+      </div>
+
+      <div class="row single">
+        <div>
+          <label>Prompt / restyle direction</label>
+          <textarea id="magPrompt" placeholder="Auto-filled from the brief. Edit freely."></textarea>
+        </div>
+      </div>
+
+      <div class="dials">
+        <div class="dial-group">
+          <div class="dial-row"><label style="margin:0">Creativity</label><span class="dial-val" id="valCreat">4</span></div>
+          <input type="range" min="0" max="10" value="4" id="dialCreat" oninput="valCreat.textContent=this.value">
+        </div>
+        <div class="dial-group">
+          <div class="dial-row"><label style="margin:0">HDR</label><span class="dial-val" id="valHdr">3</span></div>
+          <input type="range" min="0" max="10" value="3" id="dialHdr" oninput="valHdr.textContent=this.value">
+        </div>
+        <div class="dial-group">
+          <div class="dial-row"><label style="margin:0">Resemblance</label><span class="dial-val" id="valRes">6</span></div>
+          <input type="range" min="0" max="10" value="6" id="dialRes" oninput="valRes.textContent=this.value">
+        </div>
+        <div class="dial-group">
+          <div class="dial-row"><label style="margin:0">Fractality</label><span class="dial-val" id="valFrac">2</span></div>
+          <input type="range" min="0" max="10" value="2" id="dialFrac" oninput="valFrac.textContent=this.value">
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+      <div class="row">
+        <div>
+          <label>Engine</label>
+          <select id="magEngine">
+            <option value="magnific_illusio">Illusio (natural)</option>
+            <option value="magnific_sparkle">Sparkle (default)</option>
+            <option value="magnific_sharpy">Sharpy (crisp)</option>
+          </select>
+        </div>
+        <div>
+          <label>Upscale factor</label>
+          <select id="magScale">
+            <option value="2">2×</option>
+            <option value="4" selected>4×</option>
+            <option value="8">8×</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" onclick="runMagnific()">Send to Magnific →</button>
+        <button class="btn secondary" onclick="suggestFromBrief()">Suggest prompt from brief</button>
+      </div>
+      <div class="status" id="magStatus"></div>
+
+      <div id="magResult" style="margin-top:20px; display:none">
+        <label>Result</label>
+        <div style="background:var(--surface2); border:1px solid var(--border); border-radius:6px; overflow:hidden;">
+          <img id="magResultImg" style="width:100%; display:block;">
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: COMPOSE ELEMENTS -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Compose Elements</div>
+        <div class="panel-num">04 · Claude</div>
+      </div>
+
+      <div class="hint" style="margin-bottom:20px">
+        Claude reads the brief and the dialed image, then adds brand elements — wordmark, tagline, price tag, badge — as an HTML/SVG overlay you can nudge and export.
+      </div>
+
+      <div class="composer">
+        <div class="canvas-wrap" id="canvas">
+          <img class="base" id="canvasBase" style="display:none">
+          <div class="overlay" id="canvasOverlay"></div>
+        </div>
+        <div>
+          <div class="row single" style="margin-bottom:12px">
+            <div>
+              <label>What to add</label>
+              <textarea id="composePrompt" placeholder="Wordmark bottom-left, tagline under it, small circular badge top-right that reads &quot;S/S 26&quot;."></textarea>
+            </div>
+          </div>
+          <button class="btn" onclick="composeElements()" style="width:100%">Ask Claude to lay it out →</button>
+          <div class="status" id="composeStatus"></div>
+
+          <div class="spacer"></div>
+          <label>Elements</label>
+          <div class="elements-list" id="elementsList">
+            <div class="element-card" style="justify-content:center;">Nothing yet.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn secondary" onclick="exportComposition()">Export composition (HTML)</button>
+        <button class="btn secondary" onclick="downloadBrief()">Download brief (MD)</button>
+      </div>
+    </div>
+
+    <div class="footer">Objects for elsewhere · brand agent v0.1</div>
+  </div>
+
+  <!-- Settings modal -->
+  <div class="modal-bg" id="settingsModal">
+    <div class="modal">
+      <h3>API Keys</h3>
+      <div class="hint" style="margin-bottom:16px">Stored in your browser's localStorage. Nothing leaves this device except the API calls themselves.</div>
+      <div class="row">
+        <div>
+          <label>Anthropic API Key</label>
+          <input type="password" id="keyClaude" placeholder="sk-ant-...">
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Magnific API Key</label>
+          <input type="password" id="keyMagnific" placeholder="mag-...">
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="saveKeys()">Save</button>
+        <button class="btn secondary" onclick="closeSettings()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- state ----------
+    const state = {
+      brief: null,
+      moodImages: [],       // {url, source}
+      selectedRefUrl: null,
+      magResultUrl: null,
+      elements: [],          // {kind, text, x, y, size, color, weight}
+    };
+
+    // ---------- keys ----------
+    function loadKeys() {
+      const c = localStorage.getItem('brandagent.claude') || '';
+      const m = localStorage.getItem('brandagent.magnific') || '';
+      document.getElementById('keyClaude').value = c;
+      document.getElementById('keyMagnific').value = m;
+      document.getElementById('dotClaude').classList.toggle('set', !!c);
+      document.getElementById('dotMagnific').classList.toggle('set', !!m);
+    }
+    function saveKeys() {
+      const c = document.getElementById('keyClaude').value.trim();
+      const m = document.getElementById('keyMagnific').value.trim();
+      localStorage.setItem('brandagent.claude', c);
+      localStorage.setItem('brandagent.magnific', m);
+      loadKeys();
+      closeSettings();
+    }
+    function openSettings() { document.getElementById('settingsModal').classList.add('open'); }
+    function closeSettings() { document.getElementById('settingsModal').classList.remove('open'); }
+    const claudeKey = () => localStorage.getItem('brandagent.claude') || '';
+    const magnificKey = () => localStorage.getItem('brandagent.magnific') || '';
+
+    // ---------- step indicator ----------
+    function setStep(n) {
+      for (let i = 1; i <= 4; i++) {
+        const el = document.getElementById('s' + i);
+        el.classList.remove('active', 'done');
+        if (i < n) el.classList.add('done');
+        if (i === n) el.classList.add('active');
+      }
+    }
+
+    // ---------- STEP 1 : concept ----------
+    async function runConcept() {
+      const brandName = document.getElementById('brandName').value.trim();
+      const category = document.getElementById('brandCategory').value.trim();
+      const vibe = document.getElementById('brandVibe').value.trim();
+      const audience = document.getElementById('brandAudience').value.trim();
+
+      if (!brandName) return status('conceptStatus', 'Give the brand a name.', true);
+      if (!claudeKey()) return status('conceptStatus', 'Add your Anthropic API key first (Keys →).', true);
+
+      status('conceptStatus', 'Thinking through concept and art direction…');
+      document.getElementById('conceptOut').style.display = 'none';
+
+      const sys = `You are a senior brand designer and art director. Given a brand brief, produce:
+1. **Positioning** — one paragraph, sharp.
+2. **Tone words** — 5 adjectives.
+3. **Visual system** — palette (3-5 hex codes with names), typography direction, photography direction (subject, framing, lighting, grade), motion feel.
+4. **Wordmark direction** — one paragraph.
+5. **Reference cues** — 6 short prompts a designer could feed a moodboard search (Cosmos-style keywords).
+
+Return clean markdown. Be specific and opinionated. No hedging.`;
+
+      const user = `Brand: ${brandName}
+Category: ${category || '(unspecified)'}
+Vibe: ${vibe || '(unspecified)'}
+Audience: ${audience || '(unspecified)'}`;
+
+      try {
+        const res = await fetch('/api/claude', {
+          method: 'POST',
+          headers: {'content-type':'application/json'},
+          body: JSON.stringify({
+            apiKey: claudeKey(),
+            system: sys,
+            messages: [{role:'user', content: user}],
+            max_tokens: 2000,
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Claude call failed');
+        const text = data.text;
+        state.brief = { brandName, category, vibe, audience, text };
+        renderBrief(text);
+        status('conceptStatus', 'Brief ready.');
+        setStep(2);
+      } catch (e) {
+        status('conceptStatus', e.message, true);
+      }
+    }
+
+    function renderBrief(text) {
+      const out = document.getElementById('conceptOut');
+      out.style.display = 'block';
+      // simple markdown: bold + newlines
+      const html = text
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/^#+\s*(.*)$/gm, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+      out.innerHTML = html;
+    }
+
+    function clearConcept() {
+      state.brief = null;
+      document.getElementById('conceptOut').style.display = 'none';
+      status('conceptStatus', '');
+      setStep(1);
+    }
+
+    // ---------- STEP 2 : cosmos ----------
+    async function scrapeCosmos() {
+      const raw = document.getElementById('cosmosUrls').value.trim();
+      if (!raw) return status('cosmosStatus', 'Paste at least one Cosmos board URL.', true);
+      const urls = raw.split('\n').map(s => s.trim()).filter(Boolean);
+
+      status('cosmosStatus', `Scraping ${urls.length} board(s)… this can take a moment.`);
+      try {
+        const res = await fetch('/api/scrape-cosmos', {
+          method: 'POST',
+          headers: {'content-type':'application/json'},
+          body: JSON.stringify({ urls })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Scrape failed');
+        state.moodImages = data.images || [];
+        renderMoodboard();
+        status('cosmosStatus', `Pulled ${state.moodImages.length} images.`);
+        if (state.moodImages.length) setStep(3);
+      } catch (e) {
+        status('cosmosStatus', e.message, true);
+      }
+    }
+
+    function renderMoodboard() {
+      const board = document.getElementById('moodboard');
+      board.innerHTML = '';
+      state.moodImages.forEach((img, i) => {
+        const tile = document.createElement('div');
+        tile.className = 'mood-tile';
+        tile.innerHTML = `<img src="${img.url}" alt="" loading="lazy" referrerpolicy="no-referrer">`;
+        tile.onclick = () => selectRef(img.url, tile);
+        board.appendChild(tile);
+      });
+    }
+
+    function selectRef(url, tile) {
+      document.querySelectorAll('.mood-tile').forEach(t => t.classList.remove('selected'));
+      tile.classList.add('selected');
+      state.selectedRefUrl = url;
+      const box = document.getElementById('selectedRef');
+      box.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover" referrerpolicy="no-referrer">`;
+    }
+
+    function clearMood() {
+      state.moodImages = [];
+      state.selectedRefUrl = null;
+      document.getElementById('moodboard').innerHTML = '';
+      document.getElementById('selectedRef').innerHTML = 'None — pick from moodboard above';
+      status('cosmosStatus', '');
+    }
+
+    // Upload fallback
+    document.addEventListener('DOMContentLoaded', () => {
+      loadKeys();
+      const up = document.getElementById('uploadRef');
+      up.addEventListener('change', (e) => {
+        const f = e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = () => {
+          state.selectedRefUrl = r.result;
+          document.getElementById('selectedRef').innerHTML =
+            `<img src="${r.result}" style="width:100%;height:100%;object-fit:cover">`;
+        };
+        r.readAsDataURL(f);
+      });
+    });
+
+    // ---------- STEP 3 : magnific ----------
+    function suggestFromBrief() {
+      if (!state.brief) { status('magStatus', 'Generate a brief first.', true); return; }
+      const cues = (state.brief.text.match(/Reference cues?[\s\S]*/i) || [''])[0];
+      const first = cues.split('\n').find(l => /^\s*[-*\d]/.test(l)) || '';
+      const clean = first.replace(/^[\s\-*\d.]+/, '').trim();
+      document.getElementById('magPrompt').value =
+        clean || `${state.brief.brandName} hero image — ${state.brief.vibe}`;
+    }
+
+    async function runMagnific() {
+      if (!state.selectedRefUrl) return status('magStatus', 'Pick or upload a reference first.', true);
+      if (!magnificKey()) return status('magStatus', 'Add your Magnific API key first (Keys →).', true);
+
+      const body = {
+        apiKey: magnificKey(),
+        image: state.selectedRefUrl,
+        prompt: document.getElementById('magPrompt').value.trim(),
+        engine: document.getElementById('magEngine').value,
+        scale: parseInt(document.getElementById('magScale').value, 10),
+        creativity: parseInt(document.getElementById('dialCreat').value, 10),
+        hdr: parseInt(document.getElementById('dialHdr').value, 10),
+        resemblance: parseInt(document.getElementById('dialRes').value, 10),
+        fractality: parseInt(document.getElementById('dialFrac').value, 10),
+      };
+
+      status('magStatus', 'Sent to Magnific. Polling for result…');
+      try {
+        const res = await fetch('/api/magnific', {
+          method: 'POST',
+          headers: {'content-type':'application/json'},
+          body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Magnific call failed');
+        state.magResultUrl = data.imageUrl;
+        document.getElementById('magResult').style.display = 'block';
+        document.getElementById('magResultImg').src = data.imageUrl;
+        document.getElementById('canvasBase').src = data.imageUrl;
+        document.getElementById('canvasBase').style.display = 'block';
+        status('magStatus', 'Result in. Move to step 4.');
+        setStep(4);
+      } catch (e) {
+        status('magStatus', e.message, true);
+      }
+    }
+
+    // ---------- STEP 4 : compose ----------
+    async function composeElements() {
+      if (!state.magResultUrl && !state.selectedRefUrl) {
+        return status('composeStatus', 'Need a base image (dial one in step 3 or pick a reference).', true);
+      }
+      if (!claudeKey()) return status('composeStatus', 'Add your Anthropic API key first.', true);
+
+      // If no magnific result, fall back to the selected reference
+      if (!document.getElementById('canvasBase').src) {
+        document.getElementById('canvasBase').src = state.selectedRefUrl;
+        document.getElementById('canvasBase').style.display = 'block';
+      }
+
+      const instructions = document.getElementById('composePrompt').value.trim() ||
+        'Wordmark bottom-left, small tagline under it. Restrained.';
+
+      status('composeStatus', 'Claude is laying it out…');
+
+      const sys = `You are an art director laying out overlay elements on a hero image for the brand described below.
+Return ONLY valid JSON matching this shape — no prose, no code fence:
+{
+  "elements": [
+    {
+      "kind": "wordmark" | "tagline" | "badge" | "caption" | "price",
+      "text": string,
+      "x": number,        // 0-100, % from left of container
+      "y": number,        // 0-100, % from top of container
+      "anchor": "start" | "center" | "end",
+      "size": number,     // px at 400px container, will scale
+      "weight": 300 | 400 | 500 | 600 | 700,
+      "letterSpacing": string,   // e.g. "0.2em" or "-0.02em"
+      "color": "#hex",
+      "rotate": number,   // degrees, usually 0
+      "shape": "none" | "circle" | "pill"
+    }
+  ]
+}
+Constraints:
+- Fewer, better elements. 2-4 total.
+- Use the palette from the brief.
+- Respect contrast against the image (assume mid-tone photograph).`;
+
+      const user = `Brief:\n${state.brief ? state.brief.text : '(no brief — use restrained defaults for brand: "'+ (document.getElementById('brandName').value||'BRAND') +'")'}
+Instructions: ${instructions}`;
+
+      try {
+        const res = await fetch('/api/claude', {
+          method: 'POST',
+          headers: {'content-type':'application/json'},
+          body: JSON.stringify({
+            apiKey: claudeKey(),
+            system: sys,
+            messages: [{role:'user', content: user}],
+            max_tokens: 1500,
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Claude call failed');
+        let parsed;
+        try {
+          const m = data.text.match(/\{[\s\S]*\}/);
+          parsed = JSON.parse(m ? m[0] : data.text);
+        } catch (e) {
+          throw new Error('Claude returned unparseable layout: ' + data.text.slice(0,200));
+        }
+        state.elements = parsed.elements || [];
+        renderOverlay();
+        renderElementsList();
+        status('composeStatus', `Placed ${state.elements.length} element(s).`);
+      } catch (e) {
+        status('composeStatus', e.message, true);
+      }
+    }
+
+    function renderOverlay() {
+      const overlay = document.getElementById('canvasOverlay');
+      overlay.innerHTML = '';
+      const container = document.getElementById('canvas');
+      const cw = container.clientWidth || 400;
+      const scale = cw / 400;
+      state.elements.forEach((el, i) => {
+        const div = document.createElement('div');
+        const size = Math.round((el.size || 16) * scale);
+        div.style.position = 'absolute';
+        div.style.left = el.x + '%';
+        div.style.top = el.y + '%';
+        div.style.color = el.color || '#fff';
+        div.style.fontSize = size + 'px';
+        div.style.fontWeight = el.weight || 500;
+        div.style.letterSpacing = el.letterSpacing || 'normal';
+        div.style.transform = `translate(${el.anchor==='end'?'-100%': el.anchor==='center'?'-50%':'0'}, -50%) rotate(${el.rotate||0}deg)`;
+        div.style.whiteSpace = 'nowrap';
+        div.style.pointerEvents = 'none';
+        div.style.textShadow = '0 1px 2px rgba(0,0,0,0.4)';
+        if (el.shape === 'circle') {
+          div.style.background = el.color;
+          div.style.color = '#000';
+          div.style.borderRadius = '50%';
+          div.style.width = (size*3.5) + 'px';
+          div.style.height = (size*3.5) + 'px';
+          div.style.display = 'flex';
+          div.style.alignItems = 'center';
+          div.style.justifyContent = 'center';
+          div.style.textAlign = 'center';
+          div.style.textShadow = 'none';
+        } else if (el.shape === 'pill') {
+          div.style.background = el.color;
+          div.style.color = '#000';
+          div.style.borderRadius = '999px';
+          div.style.padding = `${size*0.4}px ${size*0.9}px`;
+          div.style.textShadow = 'none';
+        }
+        div.textContent = el.text || '';
+        overlay.appendChild(div);
+      });
+    }
+
+    window.addEventListener('resize', renderOverlay);
+
+    function renderElementsList() {
+      const list = document.getElementById('elementsList');
+      if (!state.elements.length) {
+        list.innerHTML = `<div class="element-card" style="justify-content:center;">Nothing yet.</div>`;
+        return;
+      }
+      list.innerHTML = '';
+      state.elements.forEach((el, i) => {
+        const card = document.createElement('div');
+        card.className = 'element-card';
+        card.innerHTML = `
+          <div>
+            <strong>${el.kind}</strong>
+            ${el.text}
+          </div>
+          <button onclick="removeElement(${i})">×</button>`;
+        list.appendChild(card);
+      });
+    }
+    window.removeElement = (i) => {
+      state.elements.splice(i, 1);
+      renderOverlay();
+      renderElementsList();
+    };
+
+    // ---------- Exports ----------
+    function exportComposition() {
+      const base = document.getElementById('canvasBase').src;
+      const html = `<!doctype html><meta charset="utf-8"><title>Composition</title>
+<style>body{margin:0;background:#000;display:grid;place-items:center;min-height:100vh}
+.wrap{position:relative;width:min(90vw,900px);aspect-ratio:1;overflow:hidden}
+.wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.el{position:absolute;pointer-events:none;text-shadow:0 1px 2px rgba(0,0,0,.4);white-space:nowrap}</style>
+<div class="wrap">
+<img src="${base}">
+${state.elements.map(el => `<div class="el" style="left:${el.x}%;top:${el.y}%;color:${el.color};font-size:${(el.size||16)/400*100}cqi;font-weight:${el.weight||500};letter-spacing:${el.letterSpacing||'normal'};transform:translate(${el.anchor==='end'?'-100%':el.anchor==='center'?'-50%':'0'},-50%) rotate(${el.rotate||0}deg)">${escapeHtml(el.text||'')}</div>`).join('\n')}
+</div>`;
+      downloadFile('composition.html', html, 'text/html');
+    }
+
+    function downloadBrief() {
+      if (!state.brief) return;
+      const md = `# ${state.brief.brandName}\n\n_${state.brief.category}_\n\n${state.brief.text}`;
+      downloadFile(`${state.brief.brandName || 'brand'}-brief.md`, md, 'text/markdown');
+    }
+
+    function downloadFile(name, content, mime) {
+      const blob = new Blob([content], {type: mime});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    // ---------- utils ----------
+    function status(id, msg, err=false) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.classList.toggle('err', !!err);
+    }
+  </script>
+</body>
+</html>

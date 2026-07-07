@@ -1,6 +1,11 @@
 {
   "rewrites": [
     { "source": "/wifi", "destination": "/wifi.html" },
-    { "source": "/lifetracker", "destination": "/lifetracker.html" }
-  ]
+    { "source": "/lifetracker", "destination": "/lifetracker.html" },
+    { "source": "/brand", "destination": "/brand.html" }
+  ],
+  "functions": {
+    "api/scrape-cosmos.js": { "maxDuration": 60, "memory": 1024 },
+    "api/magnific.js": { "maxDuration": 60 }
+  }
 }
