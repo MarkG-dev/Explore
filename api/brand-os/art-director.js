@@ -16,6 +16,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { verify, readCookie } from '../../lib/brand-os-auth.js';
+import { logEvent, estimateArtDirectorCost } from '../../lib/brand-os-usage.js';
 
 export const config = { maxDuration: 60 };
 
@@ -123,7 +124,18 @@ export default async function handler(req, res) {
       if (state === 'COMPLETED' || state === 'SUCCESS' || state === 'DONE') {
         const generated = inner.generated || inner.output || [];
         const imageUrl = Array.isArray(generated) ? generated[0] : generated;
-        return res.status(200).json({ imageUrl, taskId });
+
+        const costUsd = estimateArtDirectorCost(model);
+        logEvent(slug, {
+          ts: new Date().toISOString(),
+          type: 'artDirector',
+          model,
+          aspect,
+          preset: presetLabel || null,
+          costUsd,
+        }).catch(e => console.error('usage log failed:', e.message));
+
+        return res.status(200).json({ imageUrl, taskId, usage: { costUsd } });
       }
       if (state === 'FAILED' || state === 'ERROR') {
         return res.status(500).json({ error: 'Magnific job failed', raw: inner });

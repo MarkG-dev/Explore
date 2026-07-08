@@ -10,6 +10,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { verify, readCookie } from '../../lib/brand-os-auth.js';
+import { logEvent, computeCopywriterCost } from '../../lib/brand-os-usage.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
@@ -70,7 +71,24 @@ export default async function handler(req, res) {
       .filter(b => b.type === 'text')
       .map(b => b.text)
       .join('\n');
-    return res.status(200).json({ output });
+
+    const inputTokens = data.usage?.input_tokens || 0;
+    const outputTokens = data.usage?.output_tokens || 0;
+    const costUsd = computeCopywriterCost(model, inputTokens, outputTokens);
+
+    // Fire-and-forget: don't block the response on Blob write.
+    logEvent(slug, {
+      ts: new Date().toISOString(),
+      type: 'copywriter',
+      model,
+      preset: presetLabel || null,
+      wordCount: Number.isFinite(wc) && wc >= 5 && wc <= 500 ? wc : null,
+      inputTokens,
+      outputTokens,
+      costUsd,
+    }).catch(e => console.error('usage log failed:', e.message));
+
+    return res.status(200).json({ output, usage: { inputTokens, outputTokens, costUsd } });
   } catch (e) {
     return res.status(500).json({ error: e.message });
   }

@@ -105,14 +105,45 @@
     <div class="sc-navrow">
       <button class="sc-pill mono small active" data-tab="fields">Config</button>
       <button class="sc-pill mono small" data-tab="prompts">Prompts</button>
+      <button class="sc-pill mono small" data-tab="usage">Usage</button>
       <button class="sc-pill mono small" data-tab="zip">Upload zip</button>
     </div>
 
-    <section id="tab-zip" class="sc-card" style="display:none;">
-      <div class="sc-eyebrow">Claude Design system zip</div>
-      <div class="dropzone" id="drop">Drop the Claude Design handoff zip here (or click to pick)</div>
-      <input type="file" id="picker" accept=".zip" style="display:none">
-      <div class="sc-status" id="zipStatus"></div>
+    <section id="tab-zip" style="display: none; flex-direction: column; gap: var(--space-5);">
+      <div class="sc-card">
+        <div class="sc-eyebrow">Design system or strategy deck</div>
+        <div class="dropzone" id="drop">Drop a Claude Design zip, or a .md / .txt strategy doc — click to pick</div>
+        <input type="file" id="picker" accept=".zip,.md,.txt,.markdown" style="display:none">
+        <div class="sc-status" id="zipStatus"></div>
+        <div class="sc-eyebrow">Pulls palette + voice from design-system zips, and positioning / audience / products / belief from markdown or text with those headings.</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-eyebrow">Or paste strategy synthesis</div>
+        <div class="sc-field"><label>Markdown, notes, or bullets</label>
+          <textarea id="pastedStrategy" style="min-height: 220px;" placeholder="## Positioning&#10;...&#10;&#10;## Audience&#10;...&#10;&#10;## Products&#10;- Name — description&#10;&#10;## Core belief&#10;..."></textarea></div>
+        <div class="sc-row">
+          <button class="sc-pill mono small" id="parsePaste">Parse into strategy fields</button>
+        </div>
+        <div class="sc-eyebrow">Recognizes headings named Positioning, Audience, Products, Belief / North star, Voice, Photography — anything else is ignored.</div>
+      </div>
+    </section>
+
+    <section id="tab-usage" style="display: none; flex-direction: column; gap: var(--space-5);">
+      <div class="sc-card">
+        <div class="sc-row" style="justify-content: space-between; align-items: baseline;">
+          <div class="sc-eyebrow">All time · this brand</div>
+          <div class="sc-h2" id="usageTotal">$0.00</div>
+        </div>
+        <div class="sc-eyebrow">Rolling 6 months, billed to the org Anthropic + Magnific accounts. Magnific credit cost is an estimate — actuals depend on your plan tier.</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-eyebrow">By month</div>
+        <div id="usageMonths" style="display:flex; flex-direction:column; gap: 6px;">Loading…</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-eyebrow">Recent events (current month, newest first)</div>
+        <div id="usageEvents" style="display:flex; flex-direction:column; gap: 4px;">Loading…</div>
+      </div>
     </section>
 
     <section id="tab-prompts" style="display: none; flex-direction: column; gap: var(--space-5);">
@@ -325,12 +356,13 @@
     document.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => {
       document.querySelectorAll('[data-tab]').forEach(x => x.classList.remove('active'));
       t.classList.add('active');
-      ['fields', 'prompts', 'zip'].forEach(name => {
+      ['fields', 'prompts', 'usage', 'zip'].forEach(name => {
         const el = document.getElementById('tab-' + name);
         if (!el) return;
         el.style.display = t.dataset.tab === name ? 'flex' : 'none';
       });
       if (t.dataset.tab === 'prompts') refreshPrompts();
+      if (t.dataset.tab === 'usage') refreshUsage();
     }));
 
     // Palette live-swatches
@@ -352,6 +384,21 @@
     });
 
     initZipFlow();
+
+    // Paste box → parse strategy markdown directly
+    const parseBtn = document.getElementById('parsePaste');
+    if (parseBtn) {
+      parseBtn.addEventListener('click', () => {
+        const text = document.getElementById('pastedStrategy').value;
+        if (!text.trim()) { setStatus('Nothing to parse.', 'err'); return; }
+        const filled = applyStrategyMarkdown(text);
+        const zs = document.getElementById('zipStatus');
+        if (zs) zs.textContent = filled.length
+          ? `Filled: ${filled.join(', ')}. Review and save.`
+          : 'No recognizable headings — try Positioning, Audience, Products, Belief.';
+        document.querySelector('[data-tab="fields"]').click();
+      });
+    }
   }
 
   function fillForm(b) {
@@ -445,6 +492,63 @@
     } catch (e) { setStatus(e.message, 'err'); }
   }
 
+  async function refreshUsage() {
+    const slug = document.getElementById('slug').value.trim();
+    const monthsEl = document.getElementById('usageMonths');
+    const eventsEl = document.getElementById('usageEvents');
+    const totalEl = document.getElementById('usageTotal');
+    if (!slug || isNew) {
+      monthsEl.textContent = 'Save the brand first — then usage tracking starts.';
+      eventsEl.textContent = '';
+      totalEl.textContent = '$0.00';
+      return;
+    }
+    monthsEl.textContent = 'Loading…';
+    eventsEl.textContent = '';
+    try {
+      const r = await fetch(`/api/brand-os/usage?slug=${encodeURIComponent(slug)}`, { credentials: 'same-origin' });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || 'Usage load failed');
+      totalEl.textContent = `$${(j.totalCostUsd || 0).toFixed(2)}`;
+      monthsEl.innerHTML = '';
+      j.months.forEach(m => {
+        const row = document.createElement('div');
+        row.className = 'brand-row';
+        row.style.gridTemplateColumns = '80px 1fr 1fr 100px';
+        row.innerHTML = `
+          <div class="slug">${escapeHtml(m.month)}</div>
+          <div class="slug">Copywriter · ${m.copywriter?.calls || 0} calls · ${(m.copywriter?.inputTokens || 0)}/${(m.copywriter?.outputTokens || 0)} tok</div>
+          <div class="slug">Art dir · ${m.artDirector?.calls || 0} calls</div>
+          <div class="name" style="font-size: 18px; text-align: right;">$${(m.totalCostUsd || 0).toFixed(2)}</div>
+        `;
+        monthsEl.appendChild(row);
+      });
+      const current = j.months[0];
+      const evs = (current?.events || []).slice(0, 25);
+      if (!evs.length) {
+        eventsEl.innerHTML = '<div class="sc-status">No calls yet this month.</div>';
+      } else {
+        eventsEl.innerHTML = '';
+        evs.forEach(e => {
+          const row = document.createElement('div');
+          row.style.cssText = 'display: grid; grid-template-columns: 140px 100px 1fr 90px; gap: 12px; padding: 6px 10px; border-bottom: 1px solid var(--sc-hairline); font-family: var(--font-mono); font-size: 11px; color: var(--sc-mist);';
+          const detail = e.type === 'copywriter'
+            ? `${e.model} · ${e.preset || '—'} · ${e.inputTokens || 0}/${e.outputTokens || 0} tok`
+            : `${e.model} · ${e.preset || '—'} · ${e.aspect || '—'}`;
+          row.innerHTML = `
+            <div>${new Date(e.ts).toISOString().slice(0, 16).replace('T', ' ')}</div>
+            <div style="color: var(--sc-ink);">${e.type}</div>
+            <div>${escapeHtml(detail)}</div>
+            <div style="text-align: right; color: var(--sc-ink);">$${(e.costUsd || 0).toFixed(4)}</div>
+          `;
+          eventsEl.appendChild(row);
+        });
+      }
+    } catch (e) {
+      monthsEl.innerHTML = `<div class="sc-status err">${escapeHtml(e.message)}</div>`;
+    }
+  }
+
   async function refreshPrompts() {
     const slug = document.getElementById('slug').value.trim();
     if (!slug || isNew) {
@@ -485,11 +589,30 @@
   async function handleZip(file) {
     if (!file) return;
     const zs = document.getElementById('zipStatus');
+    const isZip = /\.zip$/i.test(file.name);
+
+    // Bare markdown / text file — parse directly.
+    if (!isZip) {
+      zs.textContent = 'Reading file…';
+      try {
+        const text = await file.text();
+        const filled = applyStrategyMarkdown(text);
+        zs.textContent = filled.length
+          ? `Filled: ${filled.join(', ')}. Review and save.`
+          : 'No matching headings found. Try named sections like Positioning, Audience, Products, Belief.';
+        document.querySelector('[data-tab="fields"]').click();
+      } catch (e) { zs.textContent = 'File read failed: ' + e.message; }
+      return;
+    }
+
     zs.textContent = 'Reading zip…';
     try {
       const buf = await file.arrayBuffer();
       const zip = await JSZip.loadAsync(buf);
       const paths = Object.keys(zip.files);
+      const filled = new Set();
+
+      // Palette from design-system tokens
       const colorsPath = paths.find(p => /tokens\/colors\.css$/i.test(p));
       if (colorsPath) {
         const css = await zip.files[colorsPath].async('text');
@@ -497,24 +620,72 @@
         if (palette.length) {
           document.getElementById('palette').value = palette.map(p => `${p.name}:${p.hex}`).join(', ');
           renderSwatches();
+          filled.add('palette');
         }
       }
-      const readmePath = paths.find(p => /^(?:.*\/)?readme\.md$/i.test(p) && !/^__MACOSX/.test(p));
-      if (readmePath) {
-        const md = await zip.files[readmePath].async('text');
-        const voice = extractSection(md, 'Content fundamentals') || extractSection(md, 'Voice');
-        if (voice) document.getElementById('voice_guidelines').value = voice.trim();
-        const photo = extractSection(md, 'Photography') || extractSection(md, 'Visual foundations');
-        if (photo) document.getElementById('photography').value = photo.trim().slice(0, 500);
-        const h1 = md.match(/^#\s+(.+?)\s+—?/m);
-        if (h1 && isNew) {
-          document.getElementById('name').value = h1[1].trim();
-          document.getElementById('name').dispatchEvent(new Event('input'));
+
+      // Sweep every markdown file for voice, photography, and strategy sections.
+      const mdPaths = paths.filter(p =>
+        /\.(md|markdown|txt)$/i.test(p) && !/^__MACOSX/.test(p) && !zip.files[p].dir
+      );
+      for (const p of mdPaths) {
+        const md = await zip.files[p].async('text');
+        applyStrategyMarkdown(md).forEach(k => filled.add(k));
+
+        if (!document.getElementById('voice_guidelines').value.trim()) {
+          const voice = extractSection(md, 'Content fundamentals') || extractSection(md, 'Voice');
+          if (voice) { document.getElementById('voice_guidelines').value = voice.trim(); filled.add('voice'); }
+        }
+        if (!document.getElementById('photography').value.trim()) {
+          const photo = extractSection(md, 'Photography') || extractSection(md, 'Visual foundations');
+          if (photo) { document.getElementById('photography').value = photo.trim().slice(0, 800); filled.add('photography'); }
+        }
+        if (isNew && !document.getElementById('name').value.trim()) {
+          const h1 = md.match(/^#\s+(.+?)\s+—?/m);
+          if (h1) {
+            document.getElementById('name').value = h1[1].trim();
+            document.getElementById('name').dispatchEvent(new Event('input'));
+            filled.add('name');
+          }
         }
       }
-      zs.textContent = `Loaded ${paths.length} files. Palette + voice hints filled — edit and save.`;
+
+      zs.textContent = filled.size
+        ? `Loaded ${paths.length} files. Filled: ${[...filled].join(', ')}. Review and save.`
+        : `Loaded ${paths.length} files. No recognizable sections found — fill by hand.`;
       document.querySelector('[data-tab="fields"]').click();
     } catch (e) { zs.textContent = 'Zip parse failed: ' + e.message; }
+  }
+
+  // Extract strategy sections from any markdown/text into the form.
+  // Returns which fields it filled.
+  function applyStrategyMarkdown(md) {
+    const filled = [];
+    const trySet = (id, ...names) => {
+      const el = document.getElementById(id);
+      if (el.value.trim()) return;
+      for (const n of names) {
+        const found = extractSection(md, n);
+        if (found) { el.value = found.trim().slice(0, 2000); filled.push(id); return; }
+      }
+    };
+    trySet('strategy_positioning', 'Positioning', 'What we are', 'Company', 'Product');
+    trySet('strategy_audience', 'Audience', 'Who we serve', 'For', 'Users');
+    trySet('strategy_belief', 'Core belief', 'North star', 'Belief', 'Manifesto', 'Vision');
+
+    const productsEl = document.getElementById('strategy_products');
+    if (!productsEl.value.trim()) {
+      const productsRaw = extractSection(md, 'Products') || extractSection(md, 'Product line');
+      if (productsRaw) {
+        const bullets = productsRaw
+          .split('\n')
+          .map(l => l.trim())
+          .filter(l => /^[-*•]/.test(l))
+          .map(l => l.replace(/^[-*•]\s*/, ''));
+        if (bullets.length) { productsEl.value = bullets.join('\n'); filled.push('strategy_products'); }
+      }
+    }
+    return filled;
   }
   function extractPalette(css) {
     const found = []; const re = /--([a-z0-9-]+):\s*(?:rgb\((\d+),\s*(\d+),\s*(\d+)\)|(#[0-9a-fA-F]{3,8}))/gi;

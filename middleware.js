@@ -21,6 +21,7 @@ export const config = {
     '/api/brand-os/brands',
     '/api/brand-os/preview-prompts',
     '/api/brand-os/upload-ref',
+    '/api/brand-os/usage',
   ],
 };
 
@@ -30,7 +31,8 @@ export default async function middleware(req) {
   const isAdmin = url.pathname.endsWith('/admin')
     || url.pathname.endsWith('/save-brand')
     || url.pathname.endsWith('/brands')
-    || url.pathname.endsWith('/preview-prompts');
+    || url.pathname.endsWith('/preview-prompts')
+    || url.pathname.endsWith('/usage');
 
   const secret = process.env.AUTH_SECRET;
   if (!secret) {
