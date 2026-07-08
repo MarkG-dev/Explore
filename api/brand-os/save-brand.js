@@ -66,11 +66,11 @@ export default async function handler(req, res) {
       artDirector: b.model?.artDirector || 'realism',
     },
     assets: {
-      pdfGuidelinesUrl:  b.assets?.pdfGuidelinesUrl  || '',
-      htmlGuidelinesUrl: b.assets?.htmlGuidelinesUrl || '',
-      claudeDesignUrl:   b.assets?.claudeDesignUrl   || '',
-      brandAssetsUrl:    b.assets?.brandAssetsUrl    || '',
-      markdownBundle:    Array.isArray(b.assets?.markdownBundle) ? b.assets.markdownBundle : [],
+      assetLibraryUrl:  b.assets?.assetLibraryUrl  || b.assets?.brandAssetsUrl || '',
+      pdfGuidelines:    Array.isArray(b.assets?.pdfGuidelines)
+        ? b.assets.pdfGuidelines.filter(f => f && f.url).map(f => ({ name: f.name || '', url: f.url }))
+        : (b.assets?.pdfGuidelinesUrl ? [{ name: 'Brand Guidelines.pdf', url: b.assets.pdfGuidelinesUrl }] : []),
+      guidelinesZipUrl: b.assets?.guidelinesZipUrl || '',
     },
   };
 

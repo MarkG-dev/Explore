@@ -135,42 +135,30 @@
 
     <section id="tab-assets" style="display: none; flex-direction: column; gap: var(--space-5);">
       <div class="sc-card">
-        <div class="sc-eyebrow">Guidelines · three formats of the same brand book</div>
+        <div class="sc-eyebrow">Asset library · Drive / Frame.io / any URL</div>
         <div class="sc-field mono">
-          <label>PDF guidelines URL</label>
-          <div style="display:grid; grid-template-columns: 1fr auto; gap: 8px;">
-            <input id="asset_pdf" placeholder="https://... or upload">
-            <button class="sc-pill mono small" data-upload="pdf" data-accept="application/pdf" data-prefix="brand-os/assets">Upload PDF</button>
-          </div>
-        </div>
-        <div class="sc-field mono">
-          <label>Machine-Ready / HTML guidelines URL</label>
-          <div style="display:grid; grid-template-columns: 1fr auto; gap: 8px;">
-            <input id="asset_html" placeholder="https://... or upload">
-            <button class="sc-pill mono small" data-upload="html" data-accept="text/html,application/zip" data-prefix="brand-os/assets">Upload HTML/ZIP</button>
-          </div>
-        </div>
-        <div class="sc-field mono">
-          <label>Claude Design URL</label>
-          <input id="asset_claudeDesign" placeholder="https://claude.ai/design/p/...">
+          <label>Asset library URL</label>
+          <input id="asset_library" placeholder="https://drive.google.com/...">
         </div>
       </div>
 
       <div class="sc-card">
-        <div class="sc-eyebrow">Library assets · logos, photography, source</div>
-        <div class="sc-field mono">
-          <label>Brand assets URL (zip download or Drive link)</label>
-          <div style="display:grid; grid-template-columns: 1fr auto; gap: 8px;">
-            <input id="asset_brand" placeholder="https://... or upload zip">
-            <button class="sc-pill mono small" data-upload="brand" data-accept="application/zip,image/*" data-prefix="brand-os/assets">Upload ZIP</button>
-          </div>
-        </div>
-
-        <div class="sc-eyebrow" style="margin-top: 8px;">Markdown bundle</div>
-        <div id="mdList" style="display: flex; flex-direction: column; gap: 6px;"></div>
+        <div class="sc-eyebrow">PDF guidelines · one or many files</div>
+        <div id="pdfList" style="display: flex; flex-direction: column; gap: 6px;"></div>
         <div class="sc-row">
-          <button class="sc-pill mono small" id="mdUploadBtn">Upload .md</button>
-          <button class="sc-pill mono small" id="mdAddUrlBtn">Add by URL</button>
+          <button class="sc-pill mono small" id="pdfUploadBtn">Upload PDF</button>
+          <button class="sc-pill mono small" id="pdfAddUrlBtn">Add by URL</button>
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-eyebrow">Guidelines ZIP · the machine-ready bundle for Claude Design / Cowork / Code</div>
+        <div class="sc-field mono">
+          <label>Guidelines ZIP URL</label>
+          <div style="display:grid; grid-template-columns: 1fr auto; gap: 8px;">
+            <input id="asset_zip" placeholder="https://... or upload">
+            <button class="sc-pill mono small" data-upload="zip" data-accept="application/zip,application/x-zip-compressed" data-prefix="brand-os/assets">Upload ZIP</button>
+          </div>
         </div>
       </div>
 
@@ -454,12 +442,13 @@
   function fillForm(b) {
     document.getElementById('name').value = b.name || '';
     document.getElementById('slug').value = b.slug || '';
-    // Assets
-    document.getElementById('asset_pdf').value = b.assets?.pdfGuidelinesUrl || '';
-    document.getElementById('asset_html').value = b.assets?.htmlGuidelinesUrl || '';
-    document.getElementById('asset_claudeDesign').value = b.assets?.claudeDesignUrl || '';
-    document.getElementById('asset_brand').value = b.assets?.brandAssetsUrl || '';
-    renderMdList(b.assets?.markdownBundle || []);
+    // Assets — new simplified schema, with legacy fallbacks
+    const legacyBrand = b.assets?.brandAssetsUrl || '';
+    document.getElementById('asset_library').value = b.assets?.assetLibraryUrl || legacyBrand;
+    document.getElementById('asset_zip').value = b.assets?.guidelinesZipUrl || '';
+    let pdfs = Array.isArray(b.assets?.pdfGuidelines) ? b.assets.pdfGuidelines.slice() : [];
+    if (!pdfs.length && b.assets?.pdfGuidelinesUrl) pdfs = [{ name: 'Brand Guidelines.pdf', url: b.assets.pdfGuidelinesUrl }];
+    renderPdfList(pdfs);
     // Enter workshop link
     if (b.slug) {
       document.getElementById('enterHubLink').href = `/brand-os/hub?slug=${encodeURIComponent(b.slug)}`;
@@ -504,11 +493,9 @@
       slug: document.getElementById('slug').value.trim(),
       password: document.getElementById('password').value,
       assets: {
-        pdfGuidelinesUrl:  document.getElementById('asset_pdf').value.trim(),
-        htmlGuidelinesUrl: document.getElementById('asset_html').value.trim(),
-        claudeDesignUrl:   document.getElementById('asset_claudeDesign').value.trim(),
-        brandAssetsUrl:    document.getElementById('asset_brand').value.trim(),
-        markdownBundle:    readMdList(),
+        assetLibraryUrl:  document.getElementById('asset_library').value.trim(),
+        pdfGuidelines:    readPdfList(),
+        guidelinesZipUrl: document.getElementById('asset_zip').value.trim(),
       },
       model: {
         copywriter: document.getElementById('model_copywriter').value,
@@ -645,37 +632,37 @@
   }
 
   /* ---------- Assets tab ---------- */
-  let __mdCache = [];
-  function renderMdList(list) {
-    __mdCache = Array.isArray(list) ? [...list] : [];
-    const wrap = document.getElementById('mdList');
+  let __pdfCache = [];
+  function renderPdfList(list) {
+    __pdfCache = Array.isArray(list) ? [...list] : [];
+    const wrap = document.getElementById('pdfList');
     wrap.innerHTML = '';
-    if (!__mdCache.length) {
+    if (!__pdfCache.length) {
       const d = document.createElement('div');
       d.className = 'sc-status';
-      d.textContent = 'No markdown files yet.';
+      d.textContent = 'No PDFs yet.';
       wrap.appendChild(d);
       return;
     }
-    __mdCache.forEach((f, i) => {
+    __pdfCache.forEach((f, i) => {
       const row = document.createElement('div');
       row.style.cssText = 'display: grid; grid-template-columns: 1fr 2fr auto; gap: 8px; align-items: center;';
       row.innerHTML = `
-        <input value="${escapeHtml(f.name || '')}" placeholder="voice.md"
+        <input value="${escapeHtml(f.name || '')}" placeholder="Loop X Brand Guidelines.pdf"
                style="background: transparent; color: var(--sc-ink); border: 1px solid var(--sc-hairline); border-radius: 6px; padding: 8px 10px; font-family: var(--font-mono); font-size: 12px;">
         <input value="${escapeHtml(f.url || '')}" placeholder="https://…"
                style="background: transparent; color: var(--sc-ink); border: 1px solid var(--sc-hairline); border-radius: 6px; padding: 8px 10px; font-family: var(--font-mono); font-size: 12px;">
-        <button class="sc-pill mono small" data-remove-md="${i}">×</button>
+        <button class="sc-pill mono small">×</button>
       `;
       const [nameEl, urlEl, rmBtn] = row.querySelectorAll('input, button');
-      nameEl.addEventListener('input', e => __mdCache[i].name = e.target.value);
-      urlEl.addEventListener('input',  e => __mdCache[i].url  = e.target.value);
-      rmBtn.addEventListener('click',  () => { __mdCache.splice(i, 1); renderMdList(__mdCache); });
+      nameEl.addEventListener('input', e => __pdfCache[i].name = e.target.value);
+      urlEl.addEventListener('input',  e => __pdfCache[i].url  = e.target.value);
+      rmBtn.addEventListener('click',  () => { __pdfCache.splice(i, 1); renderPdfList(__pdfCache); });
       wrap.appendChild(row);
     });
   }
-  function readMdList() {
-    return __mdCache.filter(f => (f.name || '').trim() && (f.url || '').trim());
+  function readPdfList() {
+    return __pdfCache.filter(f => (f.url || '').trim()).map(f => ({ name: (f.name || '').trim(), url: f.url.trim() }));
   }
 
   async function uploadBlob(file, prefix) {
@@ -708,11 +695,7 @@
           setAssetsStatus(`Uploading ${file.name}…`);
           try {
             const url = await uploadBlob(file, prefix);
-            const targetId = ({
-              pdf: 'asset_pdf',
-              html: 'asset_html',
-              brand: 'asset_brand',
-            })[slot];
+            const targetId = ({ zip: 'asset_zip' })[slot];
             if (targetId) document.getElementById(targetId).value = url;
             setAssetsStatus(`Uploaded. Remember to save.`, 'ok');
           } catch (e) {
@@ -723,26 +706,26 @@
       });
     });
 
-    // Markdown upload
-    document.getElementById('mdUploadBtn').addEventListener('click', async () => {
+    // PDF upload — append to the pdfList array
+    document.getElementById('pdfUploadBtn').addEventListener('click', async () => {
       const f = document.createElement('input');
-      f.type = 'file'; f.accept = '.md,text/markdown,text/plain'; f.style.display = 'none';
+      f.type = 'file'; f.accept = 'application/pdf'; f.style.display = 'none';
       f.addEventListener('change', async () => {
         const file = f.files?.[0]; if (!file) return;
         setAssetsStatus(`Uploading ${file.name}…`);
         try {
-          const url = await uploadBlob(file, 'brand-os/assets/md');
-          __mdCache.push({ name: file.name, url });
-          renderMdList(__mdCache);
+          const url = await uploadBlob(file, 'brand-os/assets/pdf');
+          __pdfCache.push({ name: file.name, url });
+          renderPdfList(__pdfCache);
           setAssetsStatus('Uploaded. Remember to save.', 'ok');
         } catch (e) { setAssetsStatus(`Upload failed: ${e.message}`, 'err'); }
       });
       document.body.appendChild(f); f.click(); f.remove();
     });
 
-    document.getElementById('mdAddUrlBtn').addEventListener('click', () => {
-      __mdCache.push({ name: '', url: '' });
-      renderMdList(__mdCache);
+    document.getElementById('pdfAddUrlBtn').addEventListener('click', () => {
+      __pdfCache.push({ name: '', url: '' });
+      renderPdfList(__pdfCache);
     });
   }
 

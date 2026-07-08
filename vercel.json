@@ -9,7 +9,8 @@
     { "source": "/brand-os/hub", "destination": "/brand-os/hub.html" },
     { "source": "/brand-os/copywriter", "destination": "/brand-os/copywriter.html" },
     { "source": "/brand-os/art-director", "destination": "/brand-os/art-director.html" },
-    { "source": "/brand-os/admin", "destination": "/brand-os/admin.html" }
+    { "source": "/brand-os/admin", "destination": "/brand-os/admin.html" },
+    { "source": "/loopx", "destination": "/brand-os/login.html?slug=example&brand=Loop%20X" }
   ],
   "functions": {
     "api/scrape-cosmos.js": { "maxDuration": 60, "memory": 1024 },
