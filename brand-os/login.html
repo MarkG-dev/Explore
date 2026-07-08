@@ -82,7 +82,7 @@
       if (!r.ok) { msg.className = 'sc-status err'; msg.textContent = j.error || 'Sign-in failed'; return; }
       msg.className = 'sc-status ok'; msg.textContent = 'OK.';
       if (j.role === 'admin') location.href = next || '/brand-os/admin';
-      else location.href = next || `/brand-os/brand?slug=${encodeURIComponent(j.slug)}`;
+      else location.href = next || `/brand-os/hub?slug=${encodeURIComponent(j.slug)}`;
     } catch (err) {
       msg.className = 'sc-status err'; msg.textContent = err.message;
     }

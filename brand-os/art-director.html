@@ -89,7 +89,7 @@
           <div class="ref-slot">
             <label class="sc-eyebrow" style="color: var(--sc-mist);">Style reference — color, texture, mood</label>
             <div class="ref-drop" id="styleDrop" data-slot="style">
-              <span class="prompt">Drop or click — jpg / png / webp · max 4 MB</span>
+              <span class="prompt">Drop or click — jpg / png / webp · max 100 MB</span>
             </div>
             <input type="file" id="stylePicker" accept="image/*" style="display:none;">
             <input type="hidden" id="styleRef">
@@ -98,7 +98,7 @@
           <div class="ref-slot" style="margin-top: 10px;">
             <label class="sc-eyebrow" style="color: var(--sc-mist);">Structure reference — composition, layout</label>
             <div class="ref-drop" id="structureDrop" data-slot="structure">
-              <span class="prompt">Drop or click — jpg / png / webp · max 4 MB</span>
+              <span class="prompt">Drop or click — jpg / png / webp · max 100 MB</span>
             </div>
             <input type="file" id="structurePicker" accept="image/*" style="display:none;">
             <input type="hidden" id="structureRef">
@@ -143,7 +143,7 @@
   </main>
 
   <footer class="sc-botbar">
-    <div class="left"><a href="#" id="backLink" class="sc-pill small mono">← Workshop</a></div>
+    <div class="left"><a href="#" id="backLink" class="sc-pill small mono">← Hub</a></div>
     <div class="center"></div>
     <div class="right"><a href="#" id="logout" class="sc-pill small mono">Sign out</a></div>
   </footer>
@@ -153,7 +153,7 @@
 <script>
   const params = new URLSearchParams(location.search);
   const slug = params.get('slug');
-  document.getElementById('backLink').href = `/brand-os/brand?slug=${encodeURIComponent(slug || '')}`;
+  document.getElementById('backLink').href = `/brand-os/hub?slug=${encodeURIComponent(slug || '')}`;
 
   const HIST_KEY = `brandos:art-director:${slug}`;
   let activePreset = null;
@@ -301,21 +301,20 @@
 
   async function uploadRef(slot, file) {
     const drop = document.getElementById(slot + 'Drop');
-    const original = drop.innerHTML;
     drop.classList.add('filled');
     drop.innerHTML = `<span class="fname">Uploading ${escapeHtml(file.name)}…</span>`;
     try {
       if (!/^image\//.test(file.type)) throw new Error('Not an image');
-      if (file.size > 4 * 1024 * 1024) throw new Error('Max 4 MB');
-      const r = await fetch(`/api/brand-os/upload-ref?filename=${encodeURIComponent(file.name)}&slug=${encodeURIComponent(slug)}`, {
-        method: 'POST',
-        headers: { 'content-type': file.type },
-        body: file,
-        credentials: 'same-origin',
+      if (file.size > 100 * 1024 * 1024) throw new Error('Max 100 MB');
+      // Client-upload straight to Vercel Blob — bypasses the 4 MB serverless body limit.
+      const mod = await import('https://esm.sh/@vercel/blob@0.27.0/client');
+      const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = `brand-os/refs/${slug}/${safe}`;
+      const blob = await mod.upload(path, file, {
+        access: 'public',
+        handleUploadUrl: '/api/brand-os/blob-token',
       });
-      const j = await r.json();
-      if (!r.ok) throw new Error(j.error || 'Upload failed');
-      fillRefFromUrl(slot, j.url, file.name);
+      fillRefFromUrl(slot, blob.url, file.name);
     } catch (e) {
       const s = document.getElementById('status');
       s.className = 'sc-status err'; s.textContent = e.message;
@@ -337,7 +336,7 @@
     const drop = document.getElementById(slot + 'Drop');
     document.getElementById(slot + 'Ref').value = '';
     drop.classList.remove('filled');
-    drop.innerHTML = `<span class="prompt">Drop or click — jpg / png / webp · max 4 MB</span>`;
+    drop.innerHTML = `<span class="prompt">Drop or click — jpg / png / webp · max 100 MB</span>`;
   }
   window.__clearRef = clearRef;
   function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }

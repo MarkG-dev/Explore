@@ -96,7 +96,7 @@
   </main>
 
   <footer class="sc-botbar">
-    <div class="left"><a href="#" id="backLink" class="sc-pill small mono">← Workshop</a></div>
+    <div class="left"><a href="#" id="backLink" class="sc-pill small mono">← Hub</a></div>
     <div class="center"></div>
     <div class="right"><a href="#" id="logout" class="sc-pill small mono">Sign out</a></div>
   </footer>
@@ -106,7 +106,7 @@
 <script>
   const params = new URLSearchParams(location.search);
   const slug = params.get('slug');
-  document.getElementById('backLink').href = `/brand-os/brand?slug=${encodeURIComponent(slug || '')}`;
+  document.getElementById('backLink').href = `/brand-os/hub?slug=${encodeURIComponent(slug || '')}`;
 
   const HIST_KEY = `brandos:copywriter:${slug}`;
   let activePreset = null;

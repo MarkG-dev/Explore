@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand OS</title>
+<link rel="stylesheet" href="/brand-os/style.css">
+<style>
+  /* Hub-specific styling */
+  .hub-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: var(--space-6);
+    padding-top: var(--space-3);
+  }
+  .hub-title {
+    font-size: clamp(56px, 10vw, 132px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    color: var(--sc-white);
+    font-weight: 400;
+    margin: 0;
+  }
+  .hub-sub {
+    font-family: var(--font-display);
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--sc-mist);
+    max-width: 52ch;
+    margin-top: var(--space-4);
+  }
+  .quick-utils { display: flex; gap: 10px; align-items: center; }
+  .quick-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    border: 1px solid var(--sc-hairline-strong);
+    border-radius: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px; letter-spacing: 0.08em;
+    color: var(--sc-ink);
+    background: transparent;
+    transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  }
+  .quick-icon:hover { background: rgba(255,255,255,0.08); border-color: var(--sc-ink); opacity: 1; }
+  .quick-icon.round { border-radius: 50%; font-size: 16px; }
+  .quick-icon.dead { opacity: 0.35; cursor: not-allowed; }
+
+  /* Section with vertical label on the left */
+  .hub-section {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: var(--space-5);
+    align-items: stretch;
+  }
+  .hub-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--sc-mist);
+    padding: var(--space-2) 0;
+  }
+  .hub-body { display: flex; flex-direction: column; gap: var(--space-4); }
+
+  /* BRAND AGENTS — small square tiles */
+  .agent-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-3);
+  }
+  .agent-tile {
+    aspect-ratio: 1;
+    background: var(--sc-panel);
+    border: 1px solid var(--sc-hairline);
+    border-radius: 18px;
+    padding: var(--space-4);
+    display: flex; flex-direction: column;
+    color: var(--sc-ink); text-decoration: none;
+    transition: border-color var(--dur-fast) var(--ease),
+                background var(--dur-fast) var(--ease),
+                transform var(--dur-fast) var(--ease);
+  }
+  .agent-tile:hover {
+    border-color: var(--sc-ink);
+    background: rgba(255,255,255,0.05);
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  .agent-glyph {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    color: var(--sc-fog);
+    font-family: var(--font-mono); font-size: 44px;
+    letter-spacing: -0.02em;
+  }
+  .agent-glyph svg { width: 46%; height: 46%; }
+  .agent-tile .label {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid var(--sc-hairline);
+    padding-top: 10px;
+  }
+  .agent-tile .label strong {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 20px; text-transform: uppercase; letter-spacing: -0.02em;
+    color: var(--sc-white);
+  }
+  .agent-tile .label span {
+    font-family: var(--font-mono); font-size: 12px; color: var(--sc-mist);
+  }
+
+  /* IDENTITY — wide horizontal panels stacked */
+  .identity-row {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-6);
+    border: 1px solid var(--sc-hairline);
+    border-radius: 14px;
+    color: var(--sc-ink); text-decoration: none;
+    background: var(--sc-panel);
+    transition: border-color var(--dur-fast) var(--ease),
+                background var(--dur-fast) var(--ease);
+    min-height: 82px;
+  }
+  .identity-row:hover {
+    border-color: var(--sc-hairline-strong);
+    background: rgba(255,255,255,0.05);
+    opacity: 1;
+  }
+  .identity-row.dead {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .identity-row.dead:hover { border-color: var(--sc-hairline); background: var(--sc-panel); }
+  .identity-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--sc-hairline-strong);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--sc-mist);
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .identity-body h3 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 22px; margin: 0;
+    letter-spacing: -0.01em; color: var(--sc-white);
+    text-transform: uppercase;
+  }
+  .identity-body .meta {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--sc-mist); margin-top: 4px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .identity-actions { display: flex; gap: 10px; }
+  .row-btn {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 10px 18px; border-radius: 999px;
+    border: 1px solid var(--sc-hairline-strong);
+    color: var(--sc-ink); background: transparent;
+    cursor: pointer;
+  }
+  .row-btn.solid { background: var(--sc-white); color: var(--sc-black); border-color: var(--sc-white); }
+  .row-btn:hover { opacity: 0.62; }
+</style>
+</head>
+<body>
+<div class="sc-page">
+  <header class="sc-topbar">
+    <div class="left"><span class="sc-wordmark">Spacecadet Studio<span class="plus">+</span></span></div>
+    <div class="center" id="brandTag">— · Brand OS</div>
+    <div class="right sc-meta-lines">NYC, Planet Earth
+<span class="sc-clock">00:00:00</span></div>
+  </header>
+
+  <main style="align-self: center; max-width: 1240px; width: 100%; display: flex; flex-direction: column; gap: var(--space-8);">
+    <!-- Big brand identity block + quick utils -->
+    <div class="hub-top">
+      <div>
+        <div class="sc-eyebrow">Brand OS</div>
+        <h1 class="hub-title" id="heroBrand">—</h1>
+        <div class="hub-sub" id="heroSub">Machine-ready brand system.</div>
+      </div>
+      <div class="quick-utils">
+        <a class="quick-icon" id="cdLink" href="#" target="_blank" rel="noreferrer" title="Claude Design">CD</a>
+        <a class="quick-icon" id="sdLink" href="#" target="_blank" rel="noreferrer" title="Sprint Doc / configurable">SD</a>
+        <button class="quick-icon round" id="refreshBtn" title="Refresh brand">↻</button>
+      </div>
+    </div>
+
+    <!-- BRAND AGENTS -->
+    <section class="hub-section">
+      <div class="hub-label">Brand Agents</div>
+      <div class="hub-body">
+        <div class="agent-row">
+          <a class="agent-tile" id="copyTile" href="#">
+            <div class="agent-glyph">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M6 12 L6 34 L26 34 L34 26 L34 12 Z"/>
+                <path d="M12 20 L28 20 M12 26 L24 26"/>
+              </svg>
+            </div>
+            <div class="label"><strong>Copy</strong><span>Write / rewrite</span></div>
+          </a>
+          <a class="agent-tile" id="assetTile" href="#">
+            <div class="agent-glyph">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4">
+                <rect x="6" y="8" width="28" height="24" rx="1"/>
+                <path d="M6 26 L14 18 L22 26 L28 20 L34 26"/>
+                <circle cx="26" cy="15" r="2.4"/>
+              </svg>
+            </div>
+            <div class="label"><strong>Asset</strong><span>Generate imagery</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- IDENTITY -->
+    <section class="hub-section">
+      <div class="hub-label">Identity</div>
+      <div class="hub-body">
+        <a class="identity-row" id="pdfRow" href="#" target="_blank" rel="noreferrer">
+          <div class="identity-icon">PDF</div>
+          <div class="identity-body">
+            <h3>PDF Guidelines</h3>
+            <div class="meta" id="pdfMeta">The printable brand book</div>
+          </div>
+          <div class="identity-actions">
+            <span class="row-btn" id="pdfBtn">Coming soon</span>
+          </div>
+        </a>
+
+        <a class="identity-row" id="mrRow" href="#" target="_blank" rel="noreferrer">
+          <div class="identity-icon">AI</div>
+          <div class="identity-body">
+            <h3>Machine-Ready Guidelines</h3>
+            <div class="meta" id="mrMeta">Structured for agents · Claude Design + JSON</div>
+          </div>
+          <div class="identity-actions">
+            <span class="row-btn" id="mrBtn">Coming soon</span>
+          </div>
+        </a>
+
+        <a class="identity-row" id="libRow" href="#" target="_blank" rel="noreferrer">
+          <div class="identity-icon">LIB</div>
+          <div class="identity-body">
+            <h3>Library Assets</h3>
+            <div class="meta" id="libMeta">Logos, photography, marks, source files</div>
+          </div>
+          <div class="identity-actions">
+            <span class="row-btn solid" id="libBtn">Export</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sc-botbar">
+    <div class="left"><a href="#" id="logout" class="sc-pill small mono">Sign out</a></div>
+    <div class="center"></div>
+    <div class="right"><a href="/" class="sc-pill small mono">← Explore</a></div>
+  </footer>
+</div>
+
+<script src="/brand-os/starfield.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+  if (!slug) location.href = '/brand-os/login';
+
+  document.getElementById('copyTile').href = `/brand-os/copywriter?slug=${encodeURIComponent(slug)}`;
+  document.getElementById('assetTile').href = `/brand-os/art-director?slug=${encodeURIComponent(slug)}`;
+
+  loadHub();
+
+  async function loadHub() {
+    try {
+      // Session guard
+      const s = await fetch('/api/brand-os/session', { credentials: 'same-origin' });
+      if (!s.ok) { location.href = `/brand-os/login?next=${encodeURIComponent(location.pathname + location.search)}`; return; }
+
+      // Public brand config
+      const r = await fetch(`/api/brand-os/hub?slug=${encodeURIComponent(slug)}`, { credentials: 'same-origin' });
+      const b = await r.json();
+      if (!r.ok) throw new Error(b.error || 'Load failed');
+
+      const name = (b.name || slug).toString();
+      document.getElementById('brandTag').textContent = `${name.toUpperCase()} · Brand OS`;
+      document.getElementById('heroBrand').textContent = name;
+      if (b.tagline) document.getElementById('heroSub').textContent = b.tagline;
+
+      const assets = b.assets || {};
+      renderQuickUtils(assets);
+      renderPdfRow(assets);
+      renderMachineReadyRow(assets, b);
+      renderLibraryRow(assets, b);
+    } catch (e) {
+      document.getElementById('heroSub').textContent = 'Error: ' + e.message;
+    }
+  }
+
+  function renderQuickUtils(assets) {
+    const cd = document.getElementById('cdLink');
+    if (assets.claudeDesignUrl) {
+      cd.href = assets.claudeDesignUrl;
+    } else {
+      cd.classList.add('dead');
+      cd.href = '#';
+      cd.addEventListener('click', e => e.preventDefault());
+    }
+    // SD placeholder — admin configures via assets.htmlGuidelinesUrl OR add
+    // a dedicated second-link field. For v1 it points at HTML guidelines if set.
+    const sd = document.getElementById('sdLink');
+    if (assets.htmlGuidelinesUrl) {
+      sd.href = assets.htmlGuidelinesUrl;
+    } else {
+      sd.classList.add('dead');
+      sd.href = '#';
+      sd.addEventListener('click', e => e.preventDefault());
+    }
+    document.getElementById('refreshBtn').addEventListener('click', () => location.reload());
+  }
+
+  function renderPdfRow(assets) {
+    const row = document.getElementById('pdfRow');
+    const btn = document.getElementById('pdfBtn');
+    const meta = document.getElementById('pdfMeta');
+    if (assets.pdfGuidelinesUrl) {
+      row.href = assets.pdfGuidelinesUrl;
+      btn.textContent = 'View →';
+      meta.textContent = 'Ready · click to view';
+    } else {
+      row.classList.add('dead');
+      row.addEventListener('click', e => e.preventDefault());
+      btn.textContent = 'Not yet uploaded';
+    }
+  }
+
+  function renderMachineReadyRow(assets, b) {
+    const row = document.getElementById('mrRow');
+    const btn = document.getElementById('mrBtn');
+    const meta = document.getElementById('mrMeta');
+    // The "machine-ready" entry prefers Claude Design; falls back to
+    // an HTML guidelines URL if set.
+    const target = assets.claudeDesignUrl || assets.htmlGuidelinesUrl;
+    if (target) {
+      row.href = target;
+      btn.textContent = 'Explore →';
+      meta.textContent = assets.claudeDesignUrl
+        ? 'Claude Design system · live'
+        : 'HTML brand book · live';
+    } else {
+      row.classList.add('dead');
+      row.addEventListener('click', e => e.preventDefault());
+      btn.textContent = 'Not yet available';
+    }
+  }
+
+  function renderLibraryRow(assets, b) {
+    const row = document.getElementById('libRow');
+    const btn = document.getElementById('libBtn');
+    const meta = document.getElementById('libMeta');
+    const mds = (assets.markdownBundle || []).length;
+    const hasZip = !!assets.brandAssetsUrl;
+    if (hasZip || mds > 0) {
+      row.href = assets.brandAssetsUrl || (assets.markdownBundle && assets.markdownBundle[0]?.url) || '#';
+      const parts = [];
+      if (hasZip) parts.push('Assets zip');
+      if (mds > 0) parts.push(`${mds} markdown file${mds === 1 ? '' : 's'}`);
+      meta.textContent = parts.join(' · ');
+      btn.textContent = hasZip ? 'Download' : 'Open';
+    } else {
+      row.classList.add('dead');
+      row.addEventListener('click', e => e.preventDefault());
+      btn.textContent = 'Empty';
+      btn.classList.remove('solid');
+    }
+  }
+
+  document.getElementById('logout').addEventListener('click', async (e) => {
+    e.preventDefault();
+    await fetch('/api/brand-os/session', { method: 'DELETE', credentials: 'same-origin' });
+    location.href = '/brand-os';
+  });
+</script>
+</body>
+</html>

@@ -63,7 +63,7 @@
       if (!r.ok) return;
       const { slug, role } = await r.json();
       if (role === 'admin') location.href = '/brand-os/admin';
-      else if (slug) location.href = `/brand-os/brand?slug=${encodeURIComponent(slug)}`;
+      else if (slug) location.href = `/brand-os/hub?slug=${encodeURIComponent(slug)}`;
     } catch {}
   })();
 </script>

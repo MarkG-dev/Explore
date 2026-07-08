@@ -104,9 +104,14 @@
 
     <div class="sc-navrow">
       <button class="sc-pill mono small active" data-tab="fields">Config</button>
+      <button class="sc-pill mono small" data-tab="assets">Assets</button>
       <button class="sc-pill mono small" data-tab="prompts">Prompts</button>
       <button class="sc-pill mono small" data-tab="usage">Usage</button>
       <button class="sc-pill mono small" data-tab="zip">Upload zip</button>
+    </div>
+    <div class="sc-navrow" style="margin-top: 4px;">
+      <a class="sc-pill mono small" id="enterHubLink" href="#">Enter hub →</a>
+      <a class="sc-pill mono small" id="enterWorkshopLink" href="#">Legacy workshop →</a>
     </div>
 
     <section id="tab-zip" style="display: none; flex-direction: column; gap: var(--space-5);">
@@ -126,6 +131,50 @@
         </div>
         <div class="sc-eyebrow">Recognizes headings named Positioning, Audience, Products, Belief / North star, Voice, Photography — anything else is ignored.</div>
       </div>
+    </section>
+
+    <section id="tab-assets" style="display: none; flex-direction: column; gap: var(--space-5);">
+      <div class="sc-card">
+        <div class="sc-eyebrow">Guidelines · three formats of the same brand book</div>
+        <div class="sc-field mono">
+          <label>PDF guidelines URL</label>
+          <div style="display:grid; grid-template-columns: 1fr auto; gap: 8px;">
+            <input id="asset_pdf" placeholder="https://... or upload">
+            <button class="sc-pill mono small" data-upload="pdf" data-accept="application/pdf" data-prefix="brand-os/assets">Upload PDF</button>
+          </div>
+        </div>
+        <div class="sc-field mono">
+          <label>Machine-Ready / HTML guidelines URL</label>
+          <div style="display:grid; grid-template-columns: 1fr auto; gap: 8px;">
+            <input id="asset_html" placeholder="https://... or upload">
+            <button class="sc-pill mono small" data-upload="html" data-accept="text/html,application/zip" data-prefix="brand-os/assets">Upload HTML/ZIP</button>
+          </div>
+        </div>
+        <div class="sc-field mono">
+          <label>Claude Design URL</label>
+          <input id="asset_claudeDesign" placeholder="https://claude.ai/design/p/...">
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-eyebrow">Library assets · logos, photography, source</div>
+        <div class="sc-field mono">
+          <label>Brand assets URL (zip download or Drive link)</label>
+          <div style="display:grid; grid-template-columns: 1fr auto; gap: 8px;">
+            <input id="asset_brand" placeholder="https://... or upload zip">
+            <button class="sc-pill mono small" data-upload="brand" data-accept="application/zip,image/*" data-prefix="brand-os/assets">Upload ZIP</button>
+          </div>
+        </div>
+
+        <div class="sc-eyebrow" style="margin-top: 8px;">Markdown bundle</div>
+        <div id="mdList" style="display: flex; flex-direction: column; gap: 6px;"></div>
+        <div class="sc-row">
+          <button class="sc-pill mono small" id="mdUploadBtn">Upload .md</button>
+          <button class="sc-pill mono small" id="mdAddUrlBtn">Add by URL</button>
+        </div>
+      </div>
+
+      <div class="sc-status" id="assetsStatus"></div>
     </section>
 
     <section id="tab-usage" style="display: none; flex-direction: column; gap: var(--space-5);">
@@ -356,7 +405,7 @@
     document.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => {
       document.querySelectorAll('[data-tab]').forEach(x => x.classList.remove('active'));
       t.classList.add('active');
-      ['fields', 'prompts', 'usage', 'zip'].forEach(name => {
+      ['fields', 'assets', 'prompts', 'usage', 'zip'].forEach(name => {
         const el = document.getElementById('tab-' + name);
         if (!el) return;
         el.style.display = t.dataset.tab === name ? 'flex' : 'none';
@@ -384,6 +433,7 @@
     });
 
     initZipFlow();
+    initAssetsTab();
 
     // Paste box → parse strategy markdown directly
     const parseBtn = document.getElementById('parsePaste');
@@ -404,6 +454,17 @@
   function fillForm(b) {
     document.getElementById('name').value = b.name || '';
     document.getElementById('slug').value = b.slug || '';
+    // Assets
+    document.getElementById('asset_pdf').value = b.assets?.pdfGuidelinesUrl || '';
+    document.getElementById('asset_html').value = b.assets?.htmlGuidelinesUrl || '';
+    document.getElementById('asset_claudeDesign').value = b.assets?.claudeDesignUrl || '';
+    document.getElementById('asset_brand').value = b.assets?.brandAssetsUrl || '';
+    renderMdList(b.assets?.markdownBundle || []);
+    // Enter workshop link
+    if (b.slug) {
+      document.getElementById('enterHubLink').href = `/brand-os/hub?slug=${encodeURIComponent(b.slug)}`;
+      document.getElementById('enterWorkshopLink').href = `/brand-os/brand?slug=${encodeURIComponent(b.slug)}`;
+    }
     document.getElementById('strategy_positioning').value = b.strategy?.positioning || '';
     document.getElementById('strategy_audience').value = b.strategy?.audience || '';
     document.getElementById('strategy_products').value = (b.strategy?.products || []).join('\n');
@@ -442,6 +503,13 @@
       name: document.getElementById('name').value.trim(),
       slug: document.getElementById('slug').value.trim(),
       password: document.getElementById('password').value,
+      assets: {
+        pdfGuidelinesUrl:  document.getElementById('asset_pdf').value.trim(),
+        htmlGuidelinesUrl: document.getElementById('asset_html').value.trim(),
+        claudeDesignUrl:   document.getElementById('asset_claudeDesign').value.trim(),
+        brandAssetsUrl:    document.getElementById('asset_brand').value.trim(),
+        markdownBundle:    readMdList(),
+      },
       model: {
         copywriter: document.getElementById('model_copywriter').value,
         artDirector: document.getElementById('model_artDirector').value,
@@ -573,6 +641,114 @@
 
   function setStatus(text, cls = '') {
     const s = document.getElementById('status');
+    s.textContent = text; s.className = 'sc-status ' + cls;
+  }
+
+  /* ---------- Assets tab ---------- */
+  let __mdCache = [];
+  function renderMdList(list) {
+    __mdCache = Array.isArray(list) ? [...list] : [];
+    const wrap = document.getElementById('mdList');
+    wrap.innerHTML = '';
+    if (!__mdCache.length) {
+      const d = document.createElement('div');
+      d.className = 'sc-status';
+      d.textContent = 'No markdown files yet.';
+      wrap.appendChild(d);
+      return;
+    }
+    __mdCache.forEach((f, i) => {
+      const row = document.createElement('div');
+      row.style.cssText = 'display: grid; grid-template-columns: 1fr 2fr auto; gap: 8px; align-items: center;';
+      row.innerHTML = `
+        <input value="${escapeHtml(f.name || '')}" placeholder="voice.md"
+               style="background: transparent; color: var(--sc-ink); border: 1px solid var(--sc-hairline); border-radius: 6px; padding: 8px 10px; font-family: var(--font-mono); font-size: 12px;">
+        <input value="${escapeHtml(f.url || '')}" placeholder="https://…"
+               style="background: transparent; color: var(--sc-ink); border: 1px solid var(--sc-hairline); border-radius: 6px; padding: 8px 10px; font-family: var(--font-mono); font-size: 12px;">
+        <button class="sc-pill mono small" data-remove-md="${i}">×</button>
+      `;
+      const [nameEl, urlEl, rmBtn] = row.querySelectorAll('input, button');
+      nameEl.addEventListener('input', e => __mdCache[i].name = e.target.value);
+      urlEl.addEventListener('input',  e => __mdCache[i].url  = e.target.value);
+      rmBtn.addEventListener('click',  () => { __mdCache.splice(i, 1); renderMdList(__mdCache); });
+      wrap.appendChild(row);
+    });
+  }
+  function readMdList() {
+    return __mdCache.filter(f => (f.name || '').trim() && (f.url || '').trim());
+  }
+
+  async function uploadBlob(file, prefix) {
+    // Client-upload via @vercel/blob/client
+    const mod = await import('https://esm.sh/@vercel/blob@0.27.0/client');
+    const slug = document.getElementById('slug').value.trim() || 'unknown';
+    const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `${prefix}/${slug}/${safe}`;
+    const blob = await mod.upload(path, file, {
+      access: 'public',
+      handleUploadUrl: '/api/brand-os/blob-token',
+    });
+    return blob.url;
+  }
+
+  function initAssetsTab() {
+    // Bind upload buttons on the guidelines/library rows
+    document.querySelectorAll('[data-upload]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const slot = btn.dataset.upload;
+        const accept = btn.dataset.accept;
+        const prefix = btn.dataset.prefix;
+        const f = document.createElement('input');
+        f.type = 'file';
+        f.accept = accept;
+        f.style.display = 'none';
+        f.addEventListener('change', async () => {
+          const file = f.files?.[0];
+          if (!file) return;
+          setAssetsStatus(`Uploading ${file.name}…`);
+          try {
+            const url = await uploadBlob(file, prefix);
+            const targetId = ({
+              pdf: 'asset_pdf',
+              html: 'asset_html',
+              brand: 'asset_brand',
+            })[slot];
+            if (targetId) document.getElementById(targetId).value = url;
+            setAssetsStatus(`Uploaded. Remember to save.`, 'ok');
+          } catch (e) {
+            setAssetsStatus(`Upload failed: ${e.message}`, 'err');
+          }
+        });
+        document.body.appendChild(f); f.click(); f.remove();
+      });
+    });
+
+    // Markdown upload
+    document.getElementById('mdUploadBtn').addEventListener('click', async () => {
+      const f = document.createElement('input');
+      f.type = 'file'; f.accept = '.md,text/markdown,text/plain'; f.style.display = 'none';
+      f.addEventListener('change', async () => {
+        const file = f.files?.[0]; if (!file) return;
+        setAssetsStatus(`Uploading ${file.name}…`);
+        try {
+          const url = await uploadBlob(file, 'brand-os/assets/md');
+          __mdCache.push({ name: file.name, url });
+          renderMdList(__mdCache);
+          setAssetsStatus('Uploaded. Remember to save.', 'ok');
+        } catch (e) { setAssetsStatus(`Upload failed: ${e.message}`, 'err'); }
+      });
+      document.body.appendChild(f); f.click(); f.remove();
+    });
+
+    document.getElementById('mdAddUrlBtn').addEventListener('click', () => {
+      __mdCache.push({ name: '', url: '' });
+      renderMdList(__mdCache);
+    });
+  }
+
+  function setAssetsStatus(text, cls = '') {
+    const s = document.getElementById('assetsStatus');
+    if (!s) return;
     s.textContent = text; s.className = 'sc-status ' + cls;
   }
 

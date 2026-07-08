@@ -65,6 +65,13 @@ export default async function handler(req, res) {
       copywriter: b.model?.copywriter || 'claude-opus-4-8',
       artDirector: b.model?.artDirector || 'realism',
     },
+    assets: {
+      pdfGuidelinesUrl:  b.assets?.pdfGuidelinesUrl  || '',
+      htmlGuidelinesUrl: b.assets?.htmlGuidelinesUrl || '',
+      claudeDesignUrl:   b.assets?.claudeDesignUrl   || '',
+      brandAssetsUrl:    b.assets?.brandAssetsUrl    || '',
+      markdownBundle:    Array.isArray(b.assets?.markdownBundle) ? b.assets.markdownBundle : [],
+    },
   };
 
   const path = `brands/${b.slug}.json`;

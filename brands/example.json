@@ -71,5 +71,12 @@
   "model": {
     "copywriter": "claude-opus-4-8",
     "artDirector": "realism"
+  },
+  "assets": {
+    "pdfGuidelinesUrl": "",
+    "htmlGuidelinesUrl": "",
+    "claudeDesignUrl": "https://claude.ai/design/p/d0e166df-e5d9-4835-ad85-be4dfaa8e614",
+    "brandAssetsUrl": "",
+    "markdownBundle": []
   }
 }
