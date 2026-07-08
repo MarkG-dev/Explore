@@ -170,6 +170,21 @@
       </div>
 
       <div class="sc-card">
+        <div class="sc-eyebrow">Strategy — what the brand IS</div>
+        <div class="sc-eyebrow" style="color: var(--sc-mist); text-transform: none; letter-spacing: 0; font-family: var(--font-display); font-size: 13px;">
+          Positioning, audience, products, belief. Fed into the Copywriter's system prompt so it can write with facts, not just tone. If left blank, only the voice section informs the output — good for tone, thin on facts.
+        </div>
+        <div class="sc-field"><label>Positioning</label>
+          <textarea id="strategy_positioning" placeholder="Loop X builds machine intelligence for the most uncontrolled environments — mining, dust, dark. Where GPS fails, LiDAR blinds out, and cameras go dark, Loop X sees."></textarea></div>
+        <div class="sc-field"><label>Audience</label>
+          <textarea id="strategy_audience" placeholder="Mine operators, autonomy engineers, heavy-industry ops leads. An operations lead should understand the value on the first scroll." style="min-height: 100px;"></textarea></div>
+        <div class="sc-field"><label>Products (one per line — Name — short description)</label>
+          <textarea id="strategy_products" placeholder="Collision Avoidance System — 360° detection preventing machine-to-machine and machine-to-person incidents."></textarea></div>
+        <div class="sc-field"><label>Core belief / north star</label>
+          <textarea id="strategy_belief" placeholder="Autonomy is won in the dark." style="min-height: 80px;"></textarea></div>
+      </div>
+
+      <div class="sc-card">
         <div class="sc-eyebrow">Voice</div>
         <div class="sc-field"><label>Guidelines</label>
           <textarea id="voice_guidelines" placeholder="Sharp, spare, declarative. Confident, no hype."></textarea></div>
@@ -342,6 +357,10 @@
   function fillForm(b) {
     document.getElementById('name').value = b.name || '';
     document.getElementById('slug').value = b.slug || '';
+    document.getElementById('strategy_positioning').value = b.strategy?.positioning || '';
+    document.getElementById('strategy_audience').value = b.strategy?.audience || '';
+    document.getElementById('strategy_products').value = (b.strategy?.products || []).join('\n');
+    document.getElementById('strategy_belief').value = b.strategy?.belief || '';
     document.getElementById('voice_guidelines').value = b.voice?.guidelines || '';
     document.getElementById('voice_examples').value = (b.voice?.examples || []).join('\n');
     document.getElementById('voice_donot').value = (b.voice?.doNotUse || []).join('\n');
@@ -379,6 +398,12 @@
       model: {
         copywriter: document.getElementById('model_copywriter').value,
         artDirector: document.getElementById('model_artDirector').value,
+      },
+      strategy: {
+        positioning: document.getElementById('strategy_positioning').value.trim(),
+        audience: document.getElementById('strategy_audience').value.trim(),
+        products: splitLines(document.getElementById('strategy_products').value),
+        belief: document.getElementById('strategy_belief').value.trim(),
       },
       voice: {
         guidelines: document.getElementById('voice_guidelines').value.trim(),

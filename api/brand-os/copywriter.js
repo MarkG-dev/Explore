@@ -79,10 +79,20 @@ export default async function handler(req, res) {
 function buildSystemPrompt(brand, taskInstruction) {
   const examples = (brand.voice?.examples || []).map(e => `- ${e}`).join('\n') || '(none provided)';
   const doNotUse = (brand.voice?.doNotUse || []).map(d => `- ${d}`).join('\n') || '(none)';
+  const strategy = brand.strategy || {};
+  const products = (strategy.products || []).map(p => `- ${p}`).join('\n');
+
+  const strategyBlock = [
+    strategy.positioning && `Positioning:\n${strategy.positioning}`,
+    strategy.audience && `Audience:\n${strategy.audience}`,
+    products && `Products:\n${products}`,
+    strategy.belief && `Core belief:\n${strategy.belief}`,
+  ].filter(Boolean).join('\n\n');
+
   return `You are the ${brand.name} copywriter.
 
 Task: ${taskInstruction}
-
+${strategyBlock ? `\nStrategy — what the brand is:\n${strategyBlock}\n` : ''}
 Voice guidelines:
 ${brand.voice?.guidelines || '(unspecified — default to the brand tone examples below)'}
 

@@ -39,6 +39,12 @@ export default async function handler(req, res) {
     slug: b.slug,
     passwordHash,
     createdAt: new Date().toISOString(),
+    strategy: {
+      positioning: b.strategy?.positioning || '',
+      audience: b.strategy?.audience || '',
+      products: b.strategy?.products || [],
+      belief: b.strategy?.belief || '',
+    },
     voice: {
       guidelines: b.voice?.guidelines || '',
       examples: b.voice?.examples || [],

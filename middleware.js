@@ -20,6 +20,7 @@ export const config = {
     '/api/brand-os/save-brand',
     '/api/brand-os/brands',
     '/api/brand-os/preview-prompts',
+    '/api/brand-os/upload-ref',
   ],
 };
 

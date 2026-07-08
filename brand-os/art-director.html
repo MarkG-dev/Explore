@@ -18,13 +18,42 @@
   }
   .history-item:hover { border-color: var(--sc-ink); opacity: 1; }
   .history-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .ref-thumb {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 4px 10px; border-radius: var(--radius-pill);
-    border: 1px solid var(--sc-hairline-strong);
-    font-family: var(--font-mono); font-size: 11px; color: var(--sc-mist);
+  .ref-slot {
+    display: flex; flex-direction: column; gap: 6px;
   }
-  .ref-thumb img { width: 20px; height: 20px; object-fit: cover; border-radius: 50%; }
+  .ref-drop {
+    border: 1px dashed var(--sc-hairline-strong);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease),
+                border-color var(--dur-fast) var(--ease);
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tracking-mono); text-transform: uppercase;
+    color: var(--sc-mist);
+    min-height: 76px;
+  }
+  .ref-drop.hover { background: rgba(255,255,255,0.06); border-color: var(--sc-ink); color: var(--sc-ink); }
+  .ref-drop.filled { padding: 8px 12px; }
+  .ref-drop img {
+    width: 56px; height: 56px; object-fit: cover;
+    border-radius: var(--radius-sm); border: 1px solid var(--sc-hairline);
+  }
+  .ref-drop .fname {
+    flex: 1; color: var(--sc-ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-size: 12px; text-transform: none; letter-spacing: 0;
+    font-family: var(--font-display);
+  }
+  .ref-drop .clear-btn {
+    background: transparent; border: 1px solid var(--sc-hairline-strong);
+    color: var(--sc-mist); cursor: pointer;
+    padding: 4px 10px; border-radius: var(--radius-pill);
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: var(--tracking-mono); text-transform: uppercase;
+  }
+  .ref-drop .clear-btn:hover { color: var(--sc-signal); }
 </style>
 </head>
 <body>
@@ -55,16 +84,25 @@
         </div>
 
         <div>
-          <div class="sc-eyebrow" style="margin-bottom: 8px;">Reference images (URLs)</div>
-          <div class="sc-field mono">
-            <label>Style reference URL (color, texture, mood)</label>
-            <input id="styleRef" placeholder="https://…jpg">
+          <div class="sc-eyebrow" style="margin-bottom: 8px;">Reference images</div>
+
+          <div class="ref-slot">
+            <label class="sc-eyebrow" style="color: var(--sc-mist);">Style reference — color, texture, mood</label>
+            <div class="ref-drop" id="styleDrop" data-slot="style">
+              <span class="prompt">Drop or click — jpg / png / webp · max 4 MB</span>
+            </div>
+            <input type="file" id="stylePicker" accept="image/*" style="display:none;">
+            <input type="hidden" id="styleRef">
           </div>
-          <div class="sc-field mono" style="margin-top: 8px;">
-            <label>Structure reference URL (composition, layout)</label>
-            <input id="structureRef" placeholder="https://…jpg">
+
+          <div class="ref-slot" style="margin-top: 10px;">
+            <label class="sc-eyebrow" style="color: var(--sc-mist);">Structure reference — composition, layout</label>
+            <div class="ref-drop" id="structureDrop" data-slot="structure">
+              <span class="prompt">Drop or click — jpg / png / webp · max 4 MB</span>
+            </div>
+            <input type="file" id="structurePicker" accept="image/*" style="display:none;">
+            <input type="hidden" id="structureRef">
           </div>
-          <div class="sc-eyebrow" style="margin-top: 4px;">Paste a public URL (imgbb, imgur, cdn). File upload coming next.</div>
         </div>
 
         <div id="adminModelRow" style="display:none;">
@@ -209,8 +247,7 @@
 
   document.getElementById('clear').addEventListener('click', () => {
     document.getElementById('prompt').value = '';
-    document.getElementById('styleRef').value = '';
-    document.getElementById('structureRef').value = '';
+    clearRef('style'); clearRef('structure');
     document.getElementById('frame').innerHTML = 'No image yet';
     document.getElementById('status').textContent = '';
     document.getElementById('download').style.pointerEvents = 'none';
@@ -222,10 +259,10 @@
   });
   document.getElementById('reroll').addEventListener('click', () => document.getElementById('go').click());
   document.getElementById('useAsStyle').addEventListener('click', () => {
-    if (lastImageUrl) document.getElementById('styleRef').value = lastImageUrl;
+    if (lastImageUrl) fillRefFromUrl('style', lastImageUrl, 'previous result');
   });
   document.getElementById('useAsStructure').addEventListener('click', () => {
-    if (lastImageUrl) document.getElementById('structureRef').value = lastImageUrl;
+    if (lastImageUrl) fillRefFromUrl('structure', lastImageUrl, 'previous result');
   });
   document.getElementById('clearHist').addEventListener('click', () => {
     sessionStorage.removeItem(HIST_KEY); renderHistory();
@@ -244,6 +281,66 @@
   function readHistory() {
     try { return JSON.parse(sessionStorage.getItem(HIST_KEY) || '[]'); } catch { return []; }
   }
+
+  /* ---------- Reference image upload ---------- */
+  ['style', 'structure'].forEach(slot => {
+    const drop = document.getElementById(slot + 'Drop');
+    const picker = document.getElementById(slot + 'Picker');
+    drop.addEventListener('click', () => picker.click());
+    ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('hover'); }));
+    ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, () => drop.classList.remove('hover')));
+    drop.addEventListener('drop', e => {
+      e.preventDefault();
+      const f = e.dataTransfer.files?.[0]; if (f) uploadRef(slot, f);
+    });
+    picker.addEventListener('change', e => {
+      const f = e.target.files?.[0]; if (f) uploadRef(slot, f);
+      e.target.value = '';
+    });
+  });
+
+  async function uploadRef(slot, file) {
+    const drop = document.getElementById(slot + 'Drop');
+    const original = drop.innerHTML;
+    drop.classList.add('filled');
+    drop.innerHTML = `<span class="fname">Uploading ${escapeHtml(file.name)}…</span>`;
+    try {
+      if (!/^image\//.test(file.type)) throw new Error('Not an image');
+      if (file.size > 4 * 1024 * 1024) throw new Error('Max 4 MB');
+      const r = await fetch(`/api/brand-os/upload-ref?filename=${encodeURIComponent(file.name)}&slug=${encodeURIComponent(slug)}`, {
+        method: 'POST',
+        headers: { 'content-type': file.type },
+        body: file,
+        credentials: 'same-origin',
+      });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || 'Upload failed');
+      fillRefFromUrl(slot, j.url, file.name);
+    } catch (e) {
+      const s = document.getElementById('status');
+      s.className = 'sc-status err'; s.textContent = e.message;
+      clearRef(slot);
+    }
+  }
+
+  function fillRefFromUrl(slot, url, label) {
+    const drop = document.getElementById(slot + 'Drop');
+    document.getElementById(slot + 'Ref').value = url;
+    drop.classList.add('filled');
+    drop.innerHTML = `
+      <img src="${url}" alt="">
+      <span class="fname">${escapeHtml(label || url)}</span>
+      <button class="clear-btn" onclick="event.stopPropagation(); window.__clearRef('${slot}')">×</button>
+    `;
+  }
+  function clearRef(slot) {
+    const drop = document.getElementById(slot + 'Drop');
+    document.getElementById(slot + 'Ref').value = '';
+    drop.classList.remove('filled');
+    drop.innerHTML = `<span class="prompt">Drop or click — jpg / png / webp · max 4 MB</span>`;
+  }
+  window.__clearRef = clearRef;
+  function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
   function renderHistory() {
     const wrap = document.getElementById('history');
     const items = readHistory();
@@ -261,8 +358,10 @@
       d.title = it.prompt;
       d.onclick = () => {
         document.getElementById('prompt').value = it.prompt || '';
-        document.getElementById('styleRef').value = it.styleRef || '';
-        document.getElementById('structureRef').value = it.structureRef || '';
+        if (it.styleRef) fillRefFromUrl('style', it.styleRef, 'from history');
+        else clearRef('style');
+        if (it.structureRef) fillRefFromUrl('structure', it.structureRef, 'from history');
+        else clearRef('structure');
         document.getElementById('frame').innerHTML = `<img src="${it.imageUrl}" alt="">`;
         lastImageUrl = it.imageUrl;
         const dl = document.getElementById('download');

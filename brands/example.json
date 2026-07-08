@@ -3,6 +3,16 @@
   "slug": "example",
   "passwordHash": "$2b$10$pJ7aYcvE0271ov2n40Oh9OZjPMDfVz0lP56BreTo6hYBNZF7IKgPi",
   "createdAt": "2026-07-07T00:00:00.000Z",
+  "strategy": {
+    "positioning": "Loop X builds machine intelligence for the most uncontrolled environments — mining, underground, dust, glare, total dark. Thermal perception that works with no tag, no map, and no light required. Where GPS fails, LiDAR blinds out, and cameras go dark, Loop X sees.",
+    "audience": "Mine operators, autonomy engineers, and heavy-industry ops leads responsible for machine safety, uptime, and productivity in visibility-hostile environments. An operations lead should understand the value on the first scroll.",
+    "products": [
+      "Collision Avoidance System — 360° detection preventing machine-to-machine and machine-to-person incidents in low-visibility conditions.",
+      "Load Sight System — real-time load monitoring for haul trucks and loaders in dust and dark.",
+      "LoopX SLAM — thermal-fused SLAM for autonomous navigation without GPS or optical reference."
+    ],
+    "belief": "Autonomy is won in the dark. The most dangerous environments deserve the most intelligence."
+  },
   "voice": {
     "guidelines": "Intelligence-led authority. Confident, spare, declarative. Two registers held together: the grounded (precise, material, data-dense) and the expansive (ambitious, frontier-facing). Collective 'we'. Clarity as a value — an operations lead gets it on the first scroll. Display / headlines set UPPERCASE; body sentence case; labels UPPERCASE mono. Em dashes for asides. Short paragraphs. No exclamation. Technical specificity is welcome.",
     "examples": [
