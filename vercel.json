@@ -12,8 +12,6 @@
     { "source": "/:slug([a-z][a-z0-9-]{1,40})", "destination": "/brand-os/login.html?slug=:slug" }
   ],
   "functions": {
-    "api/scrape-cosmos.js": { "maxDuration": 60, "memory": 1024 },
-    "api/magnific.js": { "maxDuration": 60 },
     "api/brand-os/art-director.js": { "maxDuration": 60 }
   }
 }
