@@ -78,7 +78,7 @@
       let displayName = brandName;
       if (!displayName) {
         try {
-          const r = await fetch(`/api/brand-os/brand-name?slug=${encodeURIComponent(presetSlug)}`);
+          const r = await fetch(`/api/brand-os/hub?slug=${encodeURIComponent(presetSlug)}`);
           if (r.ok) {
             const j = await r.json();
             displayName = j.name || presetSlug;

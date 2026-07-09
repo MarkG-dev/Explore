@@ -21,7 +21,6 @@ export const config = {
     '/api/brand-os/brands',
     '/api/brand-os/preview-prompts',
     '/api/brand-os/blob-token',
-    '/api/brand-os/hub',
     '/api/brand-os/usage',
   ],
 };

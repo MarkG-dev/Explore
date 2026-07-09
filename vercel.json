@@ -2,7 +2,6 @@
   "rewrites": [
     { "source": "/wifi", "destination": "/wifi.html" },
     { "source": "/lifetracker", "destination": "/lifetracker.html" },
-    { "source": "/brand", "destination": "/brand.html" },
     { "source": "/brand-os", "destination": "/brand-os/index.html" },
     { "source": "/brand-os/login", "destination": "/brand-os/login.html" },
     { "source": "/brand-os/brand", "destination": "/brand-os/brand.html" },
