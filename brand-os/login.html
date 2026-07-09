@@ -70,10 +70,29 @@
     // Client-shareable link: pre-fill the slug, hide the field, and treat as a single-password prompt.
     f1.value = presetSlug;
     f1.parentElement.style.display = 'none';
-    const displayName = brandName || presetSlug;
-    label.textContent = `${displayName.toUpperCase()} · Brand OS`;
+    label.textContent = 'Brand OS';
     title.textContent = 'Enter to continue.';
     modeSwitch.style.display = 'none';
+    // Fetch the real display name so header reads "Loop X · Brand OS" not "LOOPX".
+    (async () => {
+      let displayName = brandName;
+      if (!displayName) {
+        try {
+          const r = await fetch(`/api/brand-os/brand-name?slug=${encodeURIComponent(presetSlug)}`);
+          if (r.ok) {
+            const j = await r.json();
+            displayName = j.name || presetSlug;
+          } else if (r.status === 404) {
+            label.textContent = 'Brand not found';
+            title.textContent = 'No brand at this URL.';
+            document.getElementById('loginForm').style.display = 'none';
+            return;
+          }
+        } catch {}
+      }
+      displayName = displayName || presetSlug;
+      label.textContent = `${displayName} · Brand OS`;
+    })();
   }
 
   document.getElementById('loginForm').addEventListener('submit', async (e) => {
