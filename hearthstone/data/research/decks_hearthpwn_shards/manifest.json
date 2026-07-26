@@ -1,0 +1,36 @@
+{
+  "description": "Lossless 4-way gzip shard of the normalised HearthPwn deck archive (346,232 ranked+unranked decklists, 2013-05 to 2017-03). Concatenating the shards in order reproduces the original file byte for byte.",
+  "original_file": "decks_NJacobsohn-Hearthstone-Data-Analysis.ndjson",
+  "original_lines": 346232,
+  "original_bytes": 321528230,
+  "original_sha256": "c6269f724a8896b400a824f15a63d26e6454fd9b7d48d4e1246bd5c0c8c6391e",
+  "n_shards": 4,
+  "shards": [
+    {
+      "file": "decks_hearthpwn.part01.ndjson.gz",
+      "lines": 86558,
+      "gz_bytes": 9264878,
+      "sha256_of_lines": "930c971cb00066d946cf3bd1e43bec3e9eeb8fd05b15984d42aaf30e859fc173"
+    },
+    {
+      "file": "decks_hearthpwn.part02.ndjson.gz",
+      "lines": 86558,
+      "gz_bytes": 9402793,
+      "sha256_of_lines": "b182e77f161325070e363b436c004559e5fb6d948c0b57993c63134f505bb71e"
+    },
+    {
+      "file": "decks_hearthpwn.part03.ndjson.gz",
+      "lines": 86558,
+      "gz_bytes": 8205631,
+      "sha256_of_lines": "cd99b167363e0bafce9faf6add5660c55983ff2a97c71d9d1b657dabe557843e"
+    },
+    {
+      "file": "decks_hearthpwn.part04.ndjson.gz",
+      "lines": 86558,
+      "gz_bytes": 8515761,
+      "sha256_of_lines": "7ea3d713d32e0058267540d7a8654db50f5ee1e99bed872259efd232f8387734"
+    }
+  ],
+  "reassemble": "python3 scripts/shard_decks.py --restore out.ndjson",
+  "reassemble_shell": "zcat decks_hearthpwn.part*.ndjson.gz > out.ndjson"
+}

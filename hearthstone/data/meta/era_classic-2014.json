@@ -1,0 +1,670 @@
+{
+  "era_key": "classic-2014",
+  "era_title": "The Unrotating Year: Classic Launch, Curse of Naxxramas and Goblins vs Gnomes",
+  "date_range": "2014-03-11 (1.0 launch, build 4944) to 2015-04-01 (eve of Blackrock Mountain). Beta prelude from 2013-08-16 open beta; the balance decisions of the January 2014 beta patch (build 4458) set the launch board state and are included as context.",
+  "expansions": [
+    {
+      "name": "Basic (Core set as it then was) - the free cards every account owned",
+      "release_date": "2014-03-11 (public 1.0 launch; present in dated client builds from 2013-01-13)",
+      "set_enum": "BASIC"
+    },
+    {
+      "name": "Expert / Classic - the permanent craftable set; 245 collectible cards in the local DB",
+      "release_date": "2014-03-11 (public 1.0 launch; present in dated client builds from 2013-01-13)",
+      "set_enum": "EXPERT1"
+    },
+    {
+      "name": "Curse of Naxxramas - the first paid content and the first Adventure: 5 wings, 30 cards, no packs. Arachnid Quarter free during the launch event; the other four wings 700 gold or $6.99 each. Wings unlocked weekly; the full adventure was playable 2014-08-20.",
+      "release_date": "2014-07-22 (Americas; 2014-07-23 Europe). Card data shipped in build 6024 dated 2014-07-22.",
+      "set_enum": "NAXX"
+    },
+    {
+      "name": "Goblins vs Gnomes - the first true expansion: 123 collectible cards, introduced the Mech minion type and Spare Parts, and shipped Spectator Mode. Announced at BlizzCon 2014 (Nov 7); Arena-only launch event 4-8 December.",
+      "release_date": "2014-12-08 (Americas; 9-10 December elsewhere). Card data shipped in build 7234 dated 2014-12-04.",
+      "set_enum": "GVG"
+    }
+  ],
+  "defining_decks": [
+    {
+      "archetype": "Zoolock (Aggro Warlock)",
+      "class": "Warlock",
+      "tier": "Tier 1 for the whole era; the single most reliable ladder deck of 2014",
+      "why_it_mattered": "The benchmark aggro deck and the reason Warlock led class share in almost every measured window. Life Tap turned an aggressive curve-out deck into one that never ran out of gas, so Zoo could lose the board and still win the resource war. Naxxramas made it materially stronger: Haunted Creeper and Nerubian Egg gave it bodies that survived board clears, meaning the era's best aggro deck was also the era's most resilient. It set the ceiling every other deck had to beat, and it was cheap - no legendaries required - so it dominated the low-to-mid ladder as well as high legend.",
+      "key_cards": ["Flame Imp", "Voidwalker", "Argent Squire", "Knife Juggler", "Haunted Creeper", "Nerubian Egg", "Soulfire", "Power Overwhelming", "Dark Iron Dwarf", "Abusive Sergeant", "Defender of Argus", "Doomguard", "Loatheb"],
+      "notable_pilots": ["Reynad", "Firebat", "Trump"],
+      "empirical_share": "49.4% of all posted ranked Warlock decks pre-Naxx (2014-03-11..2014-07-21), 41.4% early Naxx, 35.5% late Naxx, 28.5% at GvG launch, 28.0% post-Undertaker-nerf - recomputed by this historian from the HearthPwn ranked-deck corpus (decks_NJacobsohn NDJSON) using the signature 'Warlock + (Voidwalker or Flame Imp) + Knife Juggler, no Mountain Giant'. Measures deck POSTING behaviour, not ladder playrate and not winrate.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Handlock (Giants Control Warlock)",
+      "class": "Warlock",
+      "tier": "Tier 1 all era; the premier skill-expression control deck",
+      "why_it_mattered": "The era's clearest example of a deck built on a rules exploit rather than a card: Life Tap converted health and cards into an engine, so a Handlock deliberately dropped itself to 12-15 life to make Molten Giant (20 mana, 8/8, costs 1 less per damage taken) cost nothing and Mountain Giant (12 mana, 8/8) cost 4-5. Ancient Watcher plus Sunfury Protector or Defender of Argus turned a dead card into a 4/5 taunt on turn 4. It beat every midrange deck on raw stats and was the reason Big Game Hunter (then a 3-mana 4/2) was a mandatory neutral inclusion for the entire era. Its weakness - it had to be low on life to function - is exactly what made Undertaker Hunter and Zoo its nightmare.",
+      "key_cards": ["Mountain Giant", "Molten Giant", "Twilight Drake", "Ancient Watcher", "Sunfury Protector", "Defender of Argus", "Hellfire", "Shadowflame", "Siphon Soul", "Sludge Belcher", "Lord Jaraxxus", "Leeroy Jenkins"],
+      "notable_pilots": ["Gaara", "Kolento", "Amaz"],
+      "empirical_share": "21.6% of posted ranked Warlock decks pre-Naxx, 14.2% early Naxx, 21.1% late Naxx, 22.4% at GvG launch, 18.9% post-Undertaker-nerf (signature 'Warlock + Mountain Giant + Molten Giant'). Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Miracle Rogue (Auctioneer Rogue)",
+      "class": "Rogue",
+      "tier": "Tier 1 until July 2014; Tier 2 by October; effectively dead by January 2015",
+      "why_it_mattered": "The most technically demanding deck of the era and the one Blizzard killed most deliberately. Gadgetzan Auctioneer (then 5 mana) plus 0-cost Preparation, 0-cost Shadowstep and 1-cost Conceal produced 6-10 card turns, ending in a Leeroy Jenkins (then 4 mana 6/2) plus Shadowstep plus double Cold Blood burst that could deal well over 20 from an empty board. It was arguably the best deck in the game until Loatheb arrived; Loatheb (Battlecry: enemy spells cost 5 more next turn) was the first card in Hearthstone history printed as a structural answer to a combo deck, and it worked. Three separate interventions - Loatheb in July, the Leeroy nerf in September, the Auctioneer nerf in December - were needed to finish it. It also produced the era's signature esports moment: Firebat's double-Auctioneer turns against DTwo in the BlizzCon semifinal.",
+      "key_cards": ["Gadgetzan Auctioneer", "Preparation", "Shadowstep", "Conceal", "Cold Blood", "Leeroy Jenkins", "Edwin VanCleef", "SI:7 Agent", "Blade Flurry", "Deadly Poison", "Azure Drake", "Bloodmage Thalnos", "Violet Teacher"],
+      "notable_pilots": ["Reynad", "Kolento", "Firebat"],
+      "empirical_share": "46.0% of posted ranked Rogue decks pre-Naxx, 35.6% early Naxx, 40.4% late Naxx, then 11.2% at GvG launch and 15.3% post-Undertaker-nerf (signature 'Rogue + Gadgetzan Auctioneer'). Auctioneer's overall inclusion across all posted ranked decks fell 12.0% pre-Naxx -> 1.9% at GvG launch. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Buzzard / Unleash Midrange Hunter",
+      "class": "Hunter",
+      "tier": "Tier 1-2 until 22 September 2014, then extinct",
+      "why_it_mattered": "The dominant Hunter build of the launch metagame and the cleanest before/after case study in the whole dataset. Starving Buzzard (2 mana 2/1, draw on every Beast summon) plus Unleash the Hounds (which summons one Charge Hound per enemy minion) was simultaneously a mass-removal spell, a burst finisher and a hand refill for 4 total mana - it punished any deck that developed a board at all. Blizzard's stated reason for the 22 September change was that 'the amount of cards Starving Buzzard allowed Hunter players to draw ultimately ended up being too excessive for its low cost'. Moving Buzzard to 5 mana 3/2 did not weaken the deck, it deleted it.",
+      "key_cards": ["Starving Buzzard", "Unleash the Hounds", "Savannah Highmane", "Animal Companion", "Eaglehorn Bow", "Kill Command", "Explosive Trap", "Hunter's Mark", "Leeroy Jenkins"],
+      "notable_pilots": [],
+      "empirical_share": "76.8% of posted ranked Hunter decks pre-Naxx and 74.6% in early Naxx ran both Starving Buzzard and Unleash the Hounds; 6.8% in the window after the 22 September nerf and 4.0% by February-March 2015. Buzzard's overall inclusion across all posted ranked decks: 7.6% -> 6.8% -> 0.9% -> 0.5%. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Undertaker Hunter (Deathrattle Hunter, and its 'Face Hunter' variant)",
+      "class": "Hunter",
+      "tier": "Tier 0 from roughly October 2014 to 29 January 2015 - the most dominant single deck of the era",
+      "why_it_mattered": "The defining balance failure of 2014. Undertaker was a 1-mana 1/2 that gained +1/+1 (both stats) for every Deathrattle minion summoned; Naxxramas simultaneously supplied Webspinner, Haunted Creeper and Nerubian Egg, so a turn-1 Undertaker could be a 3/4 or 4/5 by turn 3 with the board still full of sticky bodies. Nothing in the card pool answered a 4/5 on turn 3 profitably. The deck was cheap, fast, immune to board clears, and it also won long games on Deathrattle value - it had aggro's clock and midrange's resilience at once. Blizzard publicly said in December 2014 that they were not worried and hoped GvG would dilute it; Ben Brode's line was that Undertaker 'feels really powerful when he's hurting you, but if you draw him late in the game he's pretty terrible'. GvG did not dilute it. The 29 January 2015 change to '+1 Attack' ended it overnight.",
+      "key_cards": ["Undertaker", "Webspinner", "Haunted Creeper", "Nerubian Egg", "Mad Scientist", "Leper Gnome", "Eaglehorn Bow", "Explosive Trap", "Animal Companion", "Savannah Highmane", "Kill Command", "Piloted Shredder"],
+      "notable_pilots": [],
+      "empirical_share": "Undertaker appeared in 1.0% of posted ranked Hunter decks pre-Naxx, 18.0% in the first two months of Naxx, 57.4% after the September nerfs, 57.5% at GvG launch, and 6.2% after the 29 January 2015 change. Across ALL posted ranked decks its inclusion ran 0.8% -> 13.4% -> 22.5% -> 14.0% -> 1.8%. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only. Secondary, softer figure: community/wiki retrospectives put Undertaker Hunter at 'around 25% of the entire meta' before the nerf - recollection-grade, not a measured ladder statistic.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Combo Druid (Force of Nature + Savage Roar)",
+      "class": "Druid",
+      "tier": "Tier 1 all era; the most consistent tournament deck of 2014",
+      "why_it_mattered": "The most-banned and most-brought deck in tournament play, and the deck Firebat won the first World Championship with. Force of Nature (6 mana, three 2/2 Charge Treants that die at end of turn) plus Savage Roar (3 mana, +2 Attack to your characters) was 14 damage from an empty board for 9 mana - reachable on turn 9, or turn 8 with Innervate, or turn 7 with two. Because Druid also had the best on-curve minions in the game (Keeper of the Grove, Druid of the Claw, Ancient of Lore as a 7-mana 5/5 that drew two cards), the combo was not a build-around: it was a free win condition bolted onto the best midrange deck. That combination - unavoidable reach on top of a fair board deck - is the archetype-shape Blizzard has been trying to un-print ever since.",
+      "key_cards": ["Force of Nature", "Savage Roar", "Innervate", "Wild Growth", "Keeper of the Grove", "Druid of the Claw", "Ancient of Lore", "Swipe", "Sylvanas Windrunner", "Cenarius", "Dr. Boom", "Loatheb"],
+      "notable_pilots": ["Firebat", "StrifeCro", "Kolento"],
+      "empirical_share": "50.9% of posted ranked Druid decks pre-Naxx ran both Force of Nature and Savage Roar; 52.9% early Naxx, 61.8% late Naxx, 52.3% GvG launch, 59.2% post-Undertaker-nerf. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Control Warrior",
+      "class": "Warrior",
+      "tier": "Tier 2 pre-Naxx, Tier 1 from GvG onward",
+      "why_it_mattered": "The era's designated aggro-killer, and the deck that most visibly improved with each release. Pre-Naxx it lost to Miracle Rogue and had thin removal. Naxxramas gave it Death's Bite (4 mana 4/2 weapon whose break deals 1 to all minions - two removals in one card, and a free Enrage/Grommash trigger); GvG gave it Shieldmaiden (5 mana 5/5, gain 5 armor) and Dr. Boom, and armor gain plus Shield Slam made it the hardest deck in the game to burn down. It was also the most expensive deck of the era - a full list wanted six or more legendaries - which is why its posted share understates its high-legend presence.",
+      "key_cards": ["Fiery War Axe", "Execute", "Shield Slam", "Death's Bite", "Shieldmaiden", "Brawl", "Sludge Belcher", "Baron Geddon", "Alexstrasza", "Grommash Hellscream", "Ysera", "Dr. Boom", "Big Game Hunter"],
+      "notable_pilots": ["Sjow", "Kolento"],
+      "empirical_share": "29.8% of posted ranked Warrior decks pre-Naxx ran Shield Slam + Alexstrasza; 34.8% early Naxx, 37.4% late Naxx, 48.7% at GvG launch, 33.8% post-Undertaker-nerf. Death's Bite inclusion across all posted ranked decks rose 0.4% (pre-Naxx, i.e. absent) -> 5.5% -> 7.7% -> 8.7%. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Freeze Mage",
+      "class": "Mage",
+      "tier": "Tier 2 on ladder, Tier 1 in tournament lineups",
+      "why_it_mattered": "The purest 'inevitability' deck of the era and a tournament staple far above its ladder share, because it hard-beat the slow control decks (Handlock, Control Warrior) that people brought to beat everything else. Naxxramas transformed it: Mad Scientist (2-mana 2/2, Deathrattle: put a Secret from your deck onto the battlefield) meant Ice Block came down for free and consistently, converting a fragile 30-card lottery into a deck with a reliable extra turn. The kill was Alexstrasza to 15 followed by Fireball/Frostbolt/Ice Lance/Pyroblast, protected by Ice Block and Doomsayer. It is also the deck the community consistently named the hardest to pilot.",
+      "key_cards": ["Ice Block", "Mad Scientist", "Doomsayer", "Frost Nova", "Blizzard", "Frostbolt", "Fireball", "Ice Lance", "Pyroblast", "Alexstrasza", "Archmage Antonidas", "Loatheb", "Acolyte of Pain"],
+      "notable_pilots": ["Kolento", "Rdu"],
+      "empirical_share": "14.7% of posted ranked Mage decks pre-Naxx ran both Ice Block and Alexstrasza; 20.4% early Naxx, 20.5% late Naxx, 15.1% GvG launch, 14.6% post-Undertaker-nerf. Mad Scientist inclusion across all posted ranked decks: 0.3% -> 8.8% -> 15.0% -> 12.2% -> 15.4%. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Mech Mage (successor to Tempo/Mana Wyrm Mage)",
+      "class": "Mage",
+      "tier": "Tier 1 from GvG launch through the end of the era",
+      "why_it_mattered": "The archetype GvG was designed to create, and the one that actually landed. Mechwarper (2 mana 2/3, your Mechs cost 1 less) turned a hand of cheap Mechs into three- and four-card turns, and the Spare Parts generated by Clockwork Gnome and Tinkertown Technician were free spell triggers for Mana Wyrm and Archmage Antonidas - a class synergy that no other class could copy. It inherited the tempo-Mage shell that had been the most common Mage build at launch (55.0% of posted Mage decks pre-Naxx ran Mana Wyrm without Ice Block) and gave it a curve that could kill on turn 6. Mage led posted class share in the post-Undertaker window at 14.6%.",
+      "key_cards": ["Mechwarper", "Cogmaster", "Clockwork Gnome", "Annoy-o-Tron", "Snowchugger", "Spider Tank", "Tinkertown Technician", "Goblin Blastmage", "Unstable Portal", "Mana Wyrm", "Archmage Antonidas", "Dr. Boom", "Piloted Shredder"],
+      "notable_pilots": ["Brian Kibler"],
+      "empirical_share": "Mechwarper appeared in 36.0% of posted ranked Mage decks at GvG launch and 30.7% in the post-Undertaker-nerf window; 18.3% and 13.5% of ALL posted ranked decks respectively. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Oil Rogue",
+      "class": "Rogue",
+      "tier": "Tier 1 from GvG launch through the end of the era",
+      "why_it_mattered": "The resurrection of a class that the Auctioneer nerf was widely expected to have killed - and the strongest single-card archetype flip in the dataset. Tinker's Sharpsword Oil (4 mana: weapon +3 Attack, Combo: a random friendly minion also gets +3) turned a weapon into a repeatable threat, and because Blade Flurry still hit the enemy hero in this era (2 mana, deal your weapon's damage to all enemies), an oiled and poisoned weapon plus Blade Flurry was a 12-to-16-point reach spell. Rogue went from a class people were writing obituaries for in mid-December to 72.4% of its own posted decks being Oil builds by February.",
+      "key_cards": ["Tinker's Sharpsword Oil", "Blade Flurry", "Deadly Poison", "Southsea Deckhand", "SI:7 Agent", "Violet Teacher", "Piloted Shredder", "Azure Drake", "Sprint", "Antique Healbot", "Dr. Boom"],
+      "notable_pilots": [],
+      "empirical_share": "53.9% of posted ranked Rogue decks at GvG launch ran Tinker's Sharpsword Oil, rising to 72.4% post-Undertaker-nerf (6.4% then 7.2% of ALL posted ranked decks). Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only. Caveat: 55 'Oil' decks fall in my late-Naxx bucket because it ends 2014-12-07 and so includes the 4-7 December theorycraft window.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Muster / Midrange Paladin",
+      "class": "Paladin",
+      "tier": "Tier 1 from GvG launch through the end of the era",
+      "why_it_mattered": "The most dramatic class transformation of the era, and proof that curve gaps matter more than legendaries. Before GvG, Paladin had no playable 2-drop and no way to contest a board before turn 4; it survived on Divine Favor draw and burst. GvG printed Shielded Minibot (2 mana 2/2 Divine Shield - functionally unkillable by the era's ping and 2-damage removal) and Muster for Battle (3 mana: three 1/1s plus a 1/4 weapon), and suddenly Paladin had the best turn 2 and the best turn 3 in the game, plus Quartermaster as a one-card board buff and Coghammer for a free Divine Shield/Taunt. Two commons and a rare took the class from a joke to a pillar.",
+      "key_cards": ["Shielded Minibot", "Muster for Battle", "Coghammer", "Quartermaster", "Aldor Peacekeeper", "Truesilver Champion", "Consecration", "Equality", "Sludge Belcher", "Sylvanas Windrunner", "Dr. Boom", "Tirion Fordring"],
+      "notable_pilots": [],
+      "empirical_share": "Muster for Battle appeared in 0.6% of posted ranked Paladin decks pre-Naxx (i.e. it did not exist), 12.5% in the 4-7 December theorycraft window, then 64.0% at GvG launch and 70.9% post-Undertaker-nerf. Shielded Minibot: 8.0% then 9.6% of ALL posted ranked decks. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "high"
+    },
+    {
+      "archetype": "Demonlock / Voidcaller Warlock",
+      "class": "Warlock",
+      "tier": "Tier 2 on ladder, Tier 1 in the first major of 2015",
+      "why_it_mattered": "The era's best example of a tournament innovation that ladder had not yet found. Voidcaller (NAXX, 4 mana 3/4, Deathrattle: put a random Demon from your hand onto the battlefield) cheated out Mal'Ganis (9 mana 9/7: your hero is Immune, other Demons +2/+2) or Doomguard on turn 5, which is unanswerable tempo for the era's removal suite. It combined Handlock's giants-and-taunts shell with a Deathrattle threat that could not be traded with. SilentStorm won the first ESL Hearthstone Legendary Series on the back of a Demonlock deck, beating Chakki in the grand final for $8,000.",
+      "key_cards": ["Voidcaller", "Mal'Ganis", "Doomguard", "Imp-losion", "Darkbomb", "Sludge Belcher", "Sylvanas Windrunner", "Dr. Boom", "Mountain Giant", "Molten Giant"],
+      "notable_pilots": ["SilentStorm"],
+      "empirical_share": "Voidcaller + Mal'Ganis appeared in 0.5% of posted ranked Warlock decks early Naxx, 12.7% late Naxx, 23.7% at GvG launch and 23.6% post-Undertaker-nerf. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "medium"
+    },
+    {
+      "archetype": "Control / Auchenai Priest",
+      "class": "Priest",
+      "tier": "Tier 3 on ladder for most of the era despite very high posting volume",
+      "why_it_mattered": "Priest is the era's cautionary tale about the gap between what players build and what wins. Priest was the second-most-posted class in the Naxx window (12.3% of posted ranked decks per deck_aggregate.json) and Auchenai Soulpriest plus Circle of Healing appeared in 70.6% of posted Priest decks in late 2014 - yet Priest produced almost no high-legend or tournament results in this era. The class had premium removal (Shadow Word: Death, Lightbomb from GvG) and no way to develop a board or close a game; Northshire Cleric draw was contingent on healing, and Auchenai/Circle was a 4-mana sweeper that also killed your own board. It is the clearest evidence that HearthPwn posting volume measures enthusiasm, not power.",
+      "key_cards": ["Northshire Cleric", "Circle of Healing", "Auchenai Soulpriest", "Injured Blademaster", "Dark Cultist", "Shadow Word: Death", "Holy Nova", "Lightbomb", "Velen's Chosen", "Cabal Shadow Priest", "Sludge Belcher", "Sylvanas Windrunner"],
+      "notable_pilots": ["Amaz", "Zetalot"],
+      "empirical_share": "Auchenai Soulpriest + Circle of Healing in 53.5% of posted ranked Priest decks pre-Naxx, 50.8% early Naxx, 70.6% late Naxx, 63.4% GvG launch, 57.3% post-Undertaker-nerf. Priest posted class share peaked at 12.8% (early Naxx). Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "medium"
+    },
+    {
+      "archetype": "Midrange Shaman, then Mech Shaman",
+      "class": "Shaman",
+      "tier": "Tier 3 for the era",
+      "why_it_mattered": "Included because it is the era's control case: a class with a coherent, popular build that never mattered. Feral Spirit, Fire Elemental, Lightning Storm and Rockbiter formed a sensible curve, and GvG gave Shaman Whirling Zap-o-matic (2 mana 3/2 Windfury) and Powermace, which briefly produced a real Mech Shaman aggro deck. But Overload made Shaman's tempo turns non-consecutive, and no Shaman card in Naxxramas or GvG addressed that. Shaman posted the lowest class share of the post-Undertaker window (9.4%) and produced no notable era results.",
+      "key_cards": ["Feral Spirit", "Fire Elemental", "Lightning Storm", "Rockbiter Weapon", "Hex", "Whirling Zap-o-matic", "Powermace", "Crackle", "Al'Akir the Windlord", "Sludge Belcher"],
+      "notable_pilots": [],
+      "empirical_share": "Midrange signature (Fire Elemental + Feral Spirit) in 79.0% of posted ranked Shaman decks pre-Naxx, falling to 41.2% at GvG launch and 36.5% after; Mech Shaman (Whirling Zap-o-matic) reached 33.6% of posted Shaman decks at GvG launch. Recomputed from the HearthPwn ranked-deck corpus; posting behaviour only.",
+      "playrate_or_winrate": "",
+      "representative_decklist": [],
+      "confidence": "medium"
+    }
+  ],
+  "defining_cards": [
+    {
+      "card": "Undertaker",
+      "set": "NAXX",
+      "why": "1 mana 1/2: 'Whenever you summon a minion with Deathrattle, gain +1/+1'. A free-growing 1-drop in a set that also printed three cheap Deathrattle bodies. Grew both stats, so it outran every removal spell and every trade in the format. The most dominant card of the era and the one that forced Blizzard's most consequential nerf.",
+      "inclusion_rate": "22.5% of all posted ranked decks in the late-Naxx window (2014-09-22..2014-12-07); 57.4% of posted Hunter decks then and 57.5% at GvG launch. Fell to 1.8% overall / 6.2% of Hunter after 2015-01-29. Recomputed from the HearthPwn ranked-deck corpus.",
+      "fate": "Nerfed 2015-01-29 (patch 2.1.0.7628, build 7628) to '+1 Attack'. Reverted to '+1/+1' on 2021-03-30 when it was Wild-only and irrelevant.",
+      "confidence": "high"
+    },
+    {
+      "card": "Sludge Belcher",
+      "set": "NAXX",
+      "why": "5 mana 3/5 Taunt, Deathrattle: summon a 1/2 Taunt Slime. The single most-included card of the Naxxramas era and the reason aggro stalled. A two-body taunt that demanded two removals or two attacks; it invalidated the entire class of vanilla taunt minions and it was neutral, so every class got it at once.",
+      "inclusion_rate": "43.0% of all posted ranked decks in the late-Naxx window, 41.6% post-Undertaker-nerf; deck_aggregate.json's own 'Naxx Launch' era figure is 35.4% and 'Undertaker Nerf' era 41.5%.",
+      "fate": "Untouched in this era; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Loatheb",
+      "set": "NAXX",
+      "why": "5 mana 5/5, 'Battlecry: Enemy spells cost (5) more next turn'. The first card printed as a direct structural answer to combo, and the card that ended Miracle Rogue's reign. It was also a fine 5/5 body, so it cost nothing to include - a 'hate card' with no downside, which is why it went into every deck rather than into the decks that needed it.",
+      "inclusion_rate": "39.4% of all posted ranked decks in the late-Naxx window; 25.4% early Naxx, 27.5% GvG launch, 34.0% post-Undertaker-nerf.",
+      "fate": "Untouched; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Mad Scientist",
+      "set": "NAXX",
+      "why": "2 mana 2/2, 'Deathrattle: put a Secret from your deck into the battlefield'. Made Secrets free and consistent, single-handedly creating viable Freeze Mage (free Ice Block) and Secret Hunter, and pushing Eaglehorn Bow durability for nothing. A 2-drop that generated a card, a body and a trade all at once.",
+      "inclusion_rate": "15.0% of all posted ranked decks late Naxx, 15.4% post-Undertaker-nerf, up from 0.3% pre-Naxx.",
+      "fate": "Untouched; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Haunted Creeper",
+      "set": "NAXX",
+      "why": "2 mana 1/2, Deathrattle: summon two 1/1 Spectral Spiders. Three bodies for 2 mana. It made every aggro deck immune to single-target removal, fed Undertaker, fed Knife Juggler, and made board clears unprofitable. The most quietly format-warping common of the era.",
+      "inclusion_rate": "27.4% of all posted ranked decks late Naxx; 26.1% early Naxx, 17.4% GvG launch, 16.2% post-Undertaker-nerf.",
+      "fate": "Untouched; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Nerubian Egg",
+      "set": "NAXX",
+      "why": "2 mana 0/2, Deathrattle: summon a 4/4. Created the 'Egg' package with Power Overwhelming, Defender of Argus and Reincarnate that let Zoo and Druid put a 4/4 on the board on turn 3. Its rise and fall inside the era is unusually sharp: it was one of the most-played cards of the first Naxx months and then GvG's random damage (Boom Bots, Explosive Sheep, Imp-losion) made a 0/2 unplayable.",
+      "inclusion_rate": "27.0% of all posted ranked decks early Naxx; 11.8% late Naxx, 6.6% GvG launch, 7.1% post-Undertaker-nerf.",
+      "fate": "Untouched; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Zombie Chow",
+      "set": "NAXX",
+      "why": "1 mana 2/3, Deathrattle: restore 5 Health to the enemy hero. The era's index of how scared the format was of aggro: a 1-drop with an actively harmful drawback that people played anyway because a 2/3 on turn 1 was the only way to survive Zoo and Undertaker Hunter. Its inclusion rate rising monotonically through the era is a direct measurement of aggro pressure.",
+      "inclusion_rate": "5.8% early Naxx -> 10.8% late Naxx -> 11.8% GvG launch -> 18.9% post-Undertaker-nerf, across all posted ranked decks.",
+      "fate": "Untouched in this era; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Death's Bite",
+      "set": "NAXX",
+      "why": "4 mana 4/2 weapon, 'Deathrattle: deal 1 damage to all minions'. Two removal effects, a weapon, and a free Whirlwind to trigger Enrage and Grommash Hellscream, all on one card. It is the single card that turned Control Warrior from a Tier 2 deck into the era's premier anti-aggro deck.",
+      "inclusion_rate": "5.5% early Naxx -> 7.7% late Naxx -> 8.7% post-Undertaker-nerf across all posted ranked decks; ~50-90% of Control Warrior lists.",
+      "fate": "Untouched; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Dr. Boom",
+      "set": "GVG",
+      "why": "7 mana 7/7, Battlecry: summon two 1/1 Boom Bots that deal 1-4 damage to a random enemy on death. Nine stats plus 2-8 damage for 7 mana with no build restriction and no downside. The first neutral legendary that was strictly, obviously better than every other card at its slot, and the card that made 'power creep' a mainstream community complaint. Its 7/7 body was also carefully under the Big Game Hunter threshold of 7 or more Attack - the design constraint that shaped the whole top end of the era.",
+      "inclusion_rate": "43.6% of all posted ranked decks in the post-Undertaker window (deck_aggregate.json's independent figure for its 'Undertaker Nerf' era: 43.8%); 26.4% at GvG launch. The highest inclusion rate of any card in the era.",
+      "fate": "Untouched in this era; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Piloted Shredder",
+      "set": "GVG",
+      "why": "4 mana 4/3, Deathrattle: summon a random 2-cost minion. The era's other universal neutral: a 4-drop that always traded up and always left a body. Because the 2-drop pool was almost uniformly reasonable, the 'random' outcome had essentially no downside - random-but-always-fine, which is a stat discount dressed as variance. Widely cited afterwards as the textbook example of true power creep, because it deleted the design space for every other 4-mana neutral.",
+      "inclusion_rate": "27.3% at GvG launch, 37.3% post-Undertaker-nerf (deck_aggregate's 'Undertaker Nerf' figure: 37.5%), across all posted ranked decks.",
+      "fate": "Untouched in this era; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Antique Healbot",
+      "set": "GVG",
+      "why": "5 mana 3/3, Battlecry: restore 8 Health to your hero. The anti-aggro and anti-burn tax card of the GvG era. Every control and midrange deck ran one or two, which both blunted Undertaker Hunter and pushed Freeze Mage toward needing two Alexstrasza-cycle turns. It is the clearest measurement of how hard aggro was pressing.",
+      "inclusion_rate": "21.1% at GvG launch, 26.7% post-Undertaker-nerf, across all posted ranked decks.",
+      "fate": "Untouched in this era; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Mechwarper",
+      "set": "GVG",
+      "why": "2 mana 2/3, 'Your Mechs cost (1) less'. A cost-reduction aura on a 2-drop with a survivable body. If it lived past turn 2 the following turn was three or four minions. The engine of Mech Mage and Mech Shaman, and the reason GvG's Mech tribe mattered at all.",
+      "inclusion_rate": "18.3% at GvG launch, 13.5% post-Undertaker-nerf, across all posted ranked decks; 36.0% of posted Mage decks at GvG launch.",
+      "fate": "Untouched in this era; rotated to Wild in April 2016. Much later nerfed to 4 mana 4/4 (2024-03-19) for Wild.",
+      "confidence": "high"
+    },
+    {
+      "card": "Shielded Minibot",
+      "set": "GVG",
+      "why": "2 mana 2/2 Divine Shield. Trivial-looking, and one of the two cards that rebuilt an entire class. Divine Shield made it immune to every 1-and-2-damage effect in the format (Knife Juggler, hero powers, Whirlwind, Consecration), so it beat every other 2-drop in the game in combat. Paladin had no playable 2-drop before it.",
+      "inclusion_rate": "8.0% at GvG launch, 9.6% post-Undertaker-nerf across all posted ranked decks - which understates it: it was near-universal within Paladin.",
+      "fate": "Untouched; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Muster for Battle",
+      "set": "GVG",
+      "why": "3 mana: summon three 1/1 Silver Hand Recruits and equip a 1/4 weapon. Four permanents for 3 mana, plus a Quartermaster payoff and an Equality/Consecration board. It gave Paladin the best turn-3 play in the game and is the single card responsible for the largest archetype swing in the local deck data.",
+      "inclusion_rate": "7.3% at GvG launch and 8.6% post-Undertaker-nerf of all posted ranked decks; 64.0% then 70.9% of posted Paladin decks, up from 0.6% pre-GvG.",
+      "fate": "Untouched; rotated to Wild in April 2016.",
+      "confidence": "high"
+    },
+    {
+      "card": "Tinker's Sharpsword Oil",
+      "set": "GVG",
+      "why": "4 mana: your weapon gets +3 Attack; Combo: a random friendly minion also gets +3. Resurrected Rogue three weeks after the Auctioneer nerf was supposed to have buried it. Combined with the pre-2015 Blade Flurry (2 mana, damage to ALL enemies including the hero), it turned a weapon into a burn spell.",
+      "inclusion_rate": "6.4% at GvG launch and 7.2% post-Undertaker-nerf of all posted ranked decks; 53.9% then 72.4% of posted Rogue decks.",
+      "fate": "Untouched in this era; rotated to Wild in April 2016. Blade Flurry itself was nerfed in September 2015, after this era.",
+      "confidence": "high"
+    },
+    {
+      "card": "Gadgetzan Auctioneer",
+      "set": "EXPERT1",
+      "why": "Then 5 mana 4/4, 'Whenever you cast a spell, draw a card'. The engine of Miracle Rogue and the era's most contested nerf. Because Rogue had 0-cost spells (Preparation, Shadowstep) the effective draw rate was uncapped, and the deck converted cards into a one-turn kill. Nerfing it to 6 was widely criticised as removing combo decks from a game that had few, and it worked exactly as intended.",
+      "inclusion_rate": "12.0% of all posted ranked decks pre-Naxx, 4.7% early Naxx, 6.8% late Naxx, then 1.9% at GvG launch and 2.1% after.",
+      "fate": "Nerfed 5 -> 6 mana on 2014-12-04 (patch 2.0.0.7234, build 7234). Nerfed again to 7 in 2023.",
+      "confidence": "high"
+    },
+    {
+      "card": "Leeroy Jenkins",
+      "set": "EXPERT1",
+      "why": "Then 4 mana 6/2 Charge. The reach card that every combo deck in the format was built to reach: Leeroy + Shadowstep + double Cold Blood was reported as roughly 26 damage from an empty board, and Handlock used him as a finisher too. Blizzard's stated reason for the nerf: 'taking 20+ damage in one turn is not very fun or interactive.' The disenchant value was temporarily raised to full craft cost, an early acknowledgement that permanent nerfs are a tax on players.",
+      "inclusion_rate": "24.9% of all posted ranked decks pre-Naxx, 19.1% early Naxx, then 3.7% after the nerf and 2.0% at GvG launch.",
+      "fate": "Nerfed 4 -> 5 mana on 2014-09-22 (patch 1.2.0.6485, build 6485).",
+      "confidence": "high"
+    },
+    {
+      "card": "Starving Buzzard",
+      "set": "BASIC (tagged LEGACY in current card data)",
+      "why": "Then 2 mana 2/1, 'Whenever you summon a Beast, draw a card'. Paired with Unleash the Hounds it was removal, burst and refill for 4 mana - the most efficient draw engine ever printed in Hearthstone. The nerf is the most complete deletion of an archetype in the local dataset.",
+      "inclusion_rate": "7.6% of all posted ranked decks pre-Naxx, 6.8% early Naxx, then 0.9% and 0.5%. Within Hunter: 76.8% -> 6.8%.",
+      "fate": "Nerfed 2014-09-22 from 2 mana 2/1 to 5 mana 3/2 (patch 1.2.0.6485, build 6485). Reverted to 2 mana 2/1 in 2021 as a Wild-only card.",
+      "confidence": "high"
+    },
+    {
+      "card": "Sylvanas Windrunner",
+      "set": "EXPERT1",
+      "why": "6 mana 5/5, Deathrattle: take control of a random enemy minion. The pre-eminent neutral legendary of the era and the reason board-based decks could not simply out-stat each other: Sylvanas plus Brawl, Sylvanas plus Shadowflame, or just Sylvanas into a single big minion, flipped games. It had already been nerfed from 5 to 6 mana in the January 2014 beta patch before the game even launched.",
+      "inclusion_rate": "9.6% pre-Naxx, 17.8% early Naxx, 27.1% late Naxx, 28.2% GvG launch, 32.0% post-Undertaker-nerf, across all posted ranked decks.",
+      "fate": "Nerfed 5 -> 6 mana on 2014-01-16 (build 4458, pre-launch). Untouched thereafter in this era.",
+      "confidence": "high"
+    },
+    {
+      "card": "Big Game Hunter",
+      "set": "EXPERT1",
+      "why": "Then 3 mana 4/2, 'Battlecry: destroy a minion with 7 or more Attack'. Not a deck's win condition but the era's most important invisible design constraint: any minion with 7 or more Attack was answered for 3 mana plus a 4/2 body, so the top end of the format was pushed toward large-health or exactly-under-7 shapes (Ysera 4/12, Sludge Belcher 3/5, Dr. Boom 7/7, Piloted Sky Golem 6/4). Handlock's Giants were what made it mandatory.",
+      "inclusion_rate": "14.8% pre-Naxx, 7.1% early Naxx, 12.2% late Naxx, 22.1% GvG launch, 29.2% post-Undertaker-nerf, across all posted ranked decks.",
+      "fate": "Untouched in this era. Nerfed 3 -> 5 mana on 2016-04-25, precisely because of this dynamic.",
+      "confidence": "high"
+    }
+  ],
+  "balance_actions": [
+    {
+      "card_or_change": "Defender of Argus (3/3 -> 2/3), Novice Engineer (1/2 -> 1/1), Pyroblast (8 -> 10 mana), Sylvanas Windrunner (5 -> 6 mana), Unleash the Hounds (4 -> 2 mana, redesigned to summon one Hound per enemy minion), Warsong Commander (from 'Your other minions have Charge' to 'Whenever you summon a minion with 3 or less Attack, give it Charge'), Blood Imp (aura removed), Charge (redesigned to +2 Attack and Charge, now costs 3)",
+      "action": "Pre-launch beta rebalance - the patch that set the board state Hearthstone 1.0 shipped with",
+      "date_or_patch": "2014-01-16, build 4458",
+      "reason": "The last large-scale beta rebalance. Warsong Commander was changed away from a global Charge aura specifically because unlimited Charge on any minion is an OTK enabler - a change that would come back to haunt the design team with Grim Patron in 2015. Unleash the Hounds was simultaneously cheapened and redesigned into the mass-Charge form that, combined with Starving Buzzard, defined Hunter at launch.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Tinkmaster Overspark (2/2 -> 3/3; 'Transform a minion' -> 'Transform another random minion')",
+      "action": "Nerf (functional) / stat buff",
+      "date_or_patch": "2014-03-11, build 4944 - the 1.0 launch patch",
+      "reason": "Removing targeting turned a 3-mana hard removal for any minion into a coin flip you could not aim. This was the only Constructed-relevant card change shipped with launch.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Unleash the Hounds (2 -> 3 mana)",
+      "action": "Nerf",
+      "date_or_patch": "2014-05-08, build 5314 (patch 1.0.0.5314)",
+      "reason": "At 2 mana, Unleash plus Starving Buzzard was a 4-mana sweeper-plus-refill; at 3 it no longer combined with Buzzard and a Kill Command on the same turn as easily. The first live-era Constructed nerf.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Leeroy Jenkins (4 -> 5 mana)",
+      "action": "Nerf",
+      "date_or_patch": "2014-09-22, build 6485 (patch 1.2.0.6485)",
+      "reason": "Blizzard's stated reason: 'Leeroy Jenkins created a strategy that revolved around trying to defeat your opponent in one turn without requiring any cards on the board. We like having a variety of deck types but taking 20+ damage in one turn is not very fun or interactive.' Disenchant value was temporarily raised to full craft cost.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Starving Buzzard (2 mana 2/1 -> 5 mana 3/2)",
+      "action": "Nerf (severe; archetype-deleting)",
+      "date_or_patch": "2014-09-22, build 6485 (patch 1.2.0.6485)",
+      "reason": "Blizzard's stated reason: 'The amount of cards Starving Buzzard allowed Hunter players to draw ultimately ended up being too excessive for its low cost.' Measured effect in the local deck corpus: the Buzzard+Unleash Hunter build fell from 74.6% of posted Hunter decks to 6.8%. It did not rebalance the deck, it removed it, and Hunter players migrated straight to the far more dominant Undertaker build.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Soulfire (0 -> 1 mana)",
+      "action": "Nerf",
+      "date_or_patch": "2014-12-04, build 7234 (patch 2.0.0.7234, the GvG patch)",
+      "reason": "A 0-mana 'deal 4 damage, discard a random card' was free reach and free removal for Zoo and Handlock. Measured effect: Soulfire inclusion across posted ranked decks fell 10.2% -> 3.0% -> 1.8%.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Flare (1 -> 2 mana)",
+      "action": "Nerf",
+      "date_or_patch": "2014-12-04, build 7234 (patch 2.0.0.7234)",
+      "reason": "Per the patch notes, Flare gave Hunter a cheap blowout against Secret decks while also cycling for almost nothing. This was arguably an anti-Freeze-Mage-protection change as much as a Hunter nerf: it made the Mad Scientist Secret packages safer.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Gadgetzan Auctioneer (5 -> 6 mana)",
+      "action": "Nerf (archetype-killing)",
+      "date_or_patch": "2014-12-04, build 7234 (patch 2.0.0.7234)",
+      "reason": "The final blow to Miracle Rogue after Loatheb and the Leeroy nerf. Community reaction was substantially negative: critics argued Rogue was already among the least-represented classes, that Miracle was already weakened, and that removing the format's only real combo deck reduced diversity. Measured effect: Auctioneer inclusion fell from 6.8% to 1.9% of posted ranked decks and Auctioneer Rogue from 40.4% to 11.2% of posted Rogue decks.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Undertaker ('gain +1/+1' -> 'gain +1 Attack')",
+      "action": "Nerf (the era's decisive intervention)",
+      "date_or_patch": "2015-01-29, build 7628 (patch 2.1.0.7628)",
+      "reason": "Removing the Health growth meant Undertaker could no longer outgrow removal, only outgrow trades. Blizzard had publicly declined to act in December 2014, hoping GvG's new cards would dilute the deck; they did not. Measured effect: Undertaker went from 57.5% of posted Hunter decks to 6.2% in the following window, and Mage rose to lead posted class share (14.6%).",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Intervention cadence itself: four patches touched a live Constructed card between the 11 March 2014 launch and 1 April 2015 (2014-05-08, 2014-09-22, 2014-12-04, 2015-01-29). There was a 137-day gap with zero balance changes between 8 May and 22 September 2014, and a 62-day gap with none after 29 January 2015.",
+      "action": "Meta-observation about balance policy, derived from changelog.json / balance_changes",
+      "date_or_patch": "2014-03-11 to 2015-04-01",
+      "reason": "Only wording/templating edits were shipped in the interim (e.g. the 2014-07-22 and 2015-03-31 text passes). This is the empirical basis for the era's central design criticism: problems were allowed to run for months.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Note on things NOT nerfed in this era: Dr. Boom, Piloted Shredder, Sludge Belcher, Loatheb, Mad Scientist, Haunted Creeper, Big Game Hunter, Force of Nature + Savage Roar, Warsong Commander (post-Jan-2014 form), Ancient of Lore, Mountain Giant, Molten Giant.",
+      "action": "No action taken",
+      "date_or_patch": "n/a - all first addressed in 2015-2016 (Warsong 2015-10-20; Big Game Hunter, Ancient of Lore, Force of Nature, Molten Giant, Knife Juggler, Leper Gnome, Ironbeak Owl all 2016-04-25 alongside the Standard/Wild split)",
+      "reason": "The era's problem cards were overwhelmingly solved later by rotation rather than by nerfs, which is the strongest argument that the missing tool in 2014 was rotation, not a heavier nerf hand.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    }
+  ],
+  "issues": [
+    {
+      "issue": "No rotation. Every card ever printed was legal against every other card, permanently. The Standard/Wild split was still 13 months away.",
+      "evidence": "Verified structurally: Standard did not exist until 2016-04-26, and the local balance_changes table shows that the cards which most warped 2014 were mostly never nerfed in 2014 - Big Game Hunter, Ancient of Lore, Force of Nature, Molten Giant, Knife Juggler, Leper Gnome and Ironbeak Owl were all changed on 2016-04-25, the day the split shipped. In 2014 the only available lever was a permanent nerf, and Blizzard pulled it six times on cards players had crafted, once with a temporary full-value disenchant (Leeroy) as compensation.",
+      "design_lesson": "Rotation is a balance tool, not just a business or accessibility tool. Without it, every correction is a permanent confiscation of value from the people who invested in the card, so designers under-nerf and delay - and the format ossifies around whatever the strongest permanent cards happen to be."
+    },
+    {
+      "issue": "Neutral auto-includes compressed deckbuilding. A very large fraction of every 30-card deck was the same neutral package regardless of class or strategy.",
+      "evidence": "In the post-Undertaker window, across all posted ranked decks: Dr. Boom 43.6%, Sludge Belcher 41.6%, Piloted Shredder 37.3%, Loatheb 34.0%, Sylvanas 32.0%, Big Game Hunter 29.2%, Antique Healbot 26.7%, Zombie Chow 18.9%. Eight neutral cards, all above 18%, most of them mandatory in any deck slower than Zoo. deck_aggregate.json's independent aggregation for the same era agrees within 0.3 points on Dr. Boom (43.8%) and Piloted Shredder (37.5%).",
+      "design_lesson": "When a neutral card is strictly better than any class card at its slot, it does not create a choice, it creates a checklist. Power should be pushed onto class cards, where it differentiates decks; neutral cards should be conditional or narrow so that including them costs something."
+    },
+    {
+      "issue": "A free-growing one-drop with no answer window (Undertaker). Games were decided by whether one player drew a specific 1-mana card in their opening hand.",
+      "evidence": "Undertaker grew +1/+1 per Deathrattle summon, and Naxxramas printed Webspinner (1 mana), Haunted Creeper (2 mana) and Nerubian Egg (2 mana) in the same set. Measured trajectory in the posted-deck corpus: 1.0% -> 18.0% -> 57.4% -> 57.5% of Hunter decks, ending at 6.2% the moment the Health growth was removed. Blizzard's public position in December 2014 was that the card was only strong drawn early - which is precisely the problem, since 'drawn early' describes a large fraction of games.",
+      "design_lesson": "A growth engine that costs one mana, needs no activation cost, and grows in the stat that dodges removal (Health) has no answer window. Growth must be gated - by mana, by a cost paid per trigger, or by growing only the stat that trades rather than the stat that survives."
+    },
+    {
+      "issue": "Aggro that also won the value game. Deathrattle aggro had a fast clock AND resilience to board clears AND late-game card advantage.",
+      "evidence": "Undertaker Hunter and Egg Zoo both ran Haunted Creeper (three bodies for 2), Nerubian Egg (a 4/4 for 2 through Power Overwhelming or Argus) and Webspinner (a card for 1). Defensive tech inclusion climbed all era in response rather than solving it: Zombie Chow 5.8% -> 18.9%, Antique Healbot 0.3% -> 26.7%, Sludge Belcher up to 43.0%.",
+      "design_lesson": "Aggro should buy its speed by mortgaging the late game. When sticky, self-replacing bodies are also the cheapest bodies, aggro stops having a weakness and control's only counterplay is more taxes - which homogenises every non-aggro deck instead of creating counterplay."
+    },
+    {
+      "issue": "Draw engines priced against the average spell, not the cheapest one.",
+      "evidence": "Gadgetzan Auctioneer at 5 mana drew a card per spell in a class with 0-mana Preparation and Shadowstep and a 1-mana Cold Blood, producing 6-10 card turns. Starving Buzzard at 2 mana 2/1 drew a card per Beast summon in a class whose Unleash the Hounds could summon four or five Beasts for 2-3 mana. Both were eventually nerfed by cost, not by capping the effect.",
+      "design_lesson": "Cost a per-trigger draw engine against the cheapest enabler in its class, not the average one. Otherwise the class's own cost-reduction and token cards silently uncap the effect."
+    },
+    {
+      "issue": "Burst from an empty board. Multiple decks could deal 14-26 damage in one turn with no board presence, meaning the losing player's board control was irrelevant.",
+      "evidence": "Blizzard's own nerf note for Leeroy Jenkins cites a strategy 'to defeat your opponent in one turn without requiring any cards on the board' and 'taking 20+ damage in one turn'. Force of Nature (then 6 mana) plus Savage Roar was 14 from empty for 9 mana, reachable earlier with Innervate; the combo appeared in 50.9-61.8% of posted Druid decks throughout the era and won the 2014 World Championship. It survived the era untouched.",
+      "design_lesson": "Reach that does not require a board removes the entire interactive layer of the game - the opponent cannot play around what they cannot see or block. Either cap total burst below a full life total, or require the burst to route through minions the opponent can answer."
+    },
+    {
+      "issue": "One cheap unconditional answer silently deleted a stat band. Big Game Hunter at 3 mana dictated the shape of every large minion in the format.",
+      "evidence": "Big Game Hunter (3 mana 4/2, destroy a minion with 7 or more Attack) reached 29.2% inclusion across all posted ranked decks. The era's successful big minions cluster conspicuously under or around the threshold: Dr. Boom 7/7, Sludge Belcher 3/5, Ysera 4/12, Sneed's Old Shredder 5/7, Piloted Sky Golem 6/4, Force-Tank MAX 7/7. Handlock's 8/8 Giants were the reason it was mandatory, and Blizzard eventually moved it to 5 mana in April 2016.",
+      "design_lesson": "An efficient, unconditional, low-cost answer keyed to a specific numeric threshold does not just answer cards, it forbids them. Designers then cannot print anything above the line, so the answer quietly owns a whole region of the design space."
+    },
+    {
+      "issue": "The Adventure model made new power universal rather than optional.",
+      "evidence": "Curse of Naxxramas delivered 30 cards for 700 gold or $6.99 per wing (4 paid wings; the first was free during the launch event), with no packs and no randomness. Within two months of launch, Sludge Belcher was in 29.7% and Loatheb in 25.4% of posted ranked decks; by the late-Naxx window those were 43.0% and 39.4%. GvG, sold in random packs, produced a slower ramp for its own staples (Dr. Boom 26.4% at launch, 43.6% two months later).",
+      "design_lesson": "Guaranteed, cheap, non-random distribution is excellent for accessibility and terrible for diversity: it means every player gets the same new best cards at the same time, so a strong Adventure card becomes mandatory almost instantly. If content is going to be universally owned, its cards must be sidegrades and enablers, not upgrades."
+    },
+    {
+      "issue": "Balance cadence far slower than the metagame. Known problems ran for months while the team waited for the next release to solve them.",
+      "evidence": "Four Constructed-affecting patches in 13 months (2014-05-08, 2014-09-22, 2014-12-04, 2015-01-29), with a 137-day zero-change gap over the summer - all confirmed in the local balance_changes table. Undertaker Hunter was over half of all posted Hunter decks from late September 2014 and was not changed until 29 January 2015; Blizzard stated in December that they hoped the GvG cards would dilute it.",
+      "design_lesson": "'The next set will fix it' is not a balance plan. New cards add to the pool, so they can only dilute a dominant deck if they specifically answer it - and if they are powerful they usually join it instead (GvG's Piloted Shredder went straight into Undertaker Hunter). Correct on the timescale of the problem, not the release calendar."
+    },
+    {
+      "issue": "Randomness used as a value discount rather than as genuine variance.",
+      "evidence": "Piloted Shredder (random 2-drop), Dr. Boom's Boom Bots (random 1-4 damage to a random enemy), Imp-losion (2-4 damage plus that many Imps), Unstable Portal (random minion, 3 cheaper) were among GvG's most-played cards - Shredder 37.3% and Dr. Boom 43.6% inclusion. In each case every possible outcome was acceptable, so the 'random' text functioned as a stat discount with upside and no downside.",
+      "design_lesson": "Random-but-always-good is not variance, it is a cheaper card with flavour text. For randomness to be a real cost, the distribution has to contain outcomes the caster genuinely does not want."
+    },
+    {
+      "issue": "Class viability was determined by curve gaps, not by headline cards - and the design team addressed classes with legendaries when they needed commons.",
+      "evidence": "Paladin's transformation came from a common (Shielded Minibot) and a rare (Muster for Battle), not from its GvG legendary (Bolvar Fordragon, which saw negligible play): Muster went from absent to 64.0% and then 70.9% of posted Paladin decks. Rogue's revival came from a common (Tinker's Sharpsword Oil): 53.9% then 72.4% of posted Rogue decks. Meanwhile Shaman received Whirling Zap-o-matic and Powermace but nothing addressing Overload's real problem - non-consecutive tempo turns - and posted the lowest class share (9.4%) at the end of the era.",
+      "design_lesson": "Diagnose a weak class by the hole in its curve or in its mechanic, then fill exactly that hole with an accessible card. A splashy legendary does not fix a class that cannot survive turn 2; two commons can flip it to Tier 1."
+    },
+    {
+      "issue": "Posting volume and deck popularity diverged sharply from deck strength, and there was no public winrate data to correct anyone.",
+      "evidence": "Priest was the second-most-posted class in the Naxx window (12.3% per deck_aggregate.json) with Auchenai+Circle in up to 70.6% of its lists, and produced essentially no notable era results. Conversely Control Warrior - one of the strongest decks of the GvG period - posted only 8.3% class share at GvG launch, plausibly because a full list needed six or more legendaries. No public aggregate winrate service existed for this era (HSReplay and the vS Data Reaper both post-date it), so tier lists were pure expert opinion.",
+      "design_lesson": "Absent measurement, the community's tier list is a popularity ranking with a confidence interval nobody can see. For historians this means posted-deck counts must never be read as playrate or strength; for designers it means the absence of telemetry-informed public discourse lets bad metagames persist because nobody can prove they are bad."
+    }
+  ],
+  "pro_scene": {
+    "summary": "2014 is the year Hearthstone esports was invented, and it was structurally different from everything after: no official circuit points system beyond the road to BlizzCon, tournaments run by third parties (DreamHack, ESL, Viagame, TaKeTV) on ad-hoc formats, no spectator mode until December 2014 (so pre-GvG broadcasts were literally a camera on a player's screen or a delayed stream), and no public winrate data - so 'best deck' was an argument between personalities, not a statistic. The scene's centre of gravity was Twitch: Trump and Amaz built the first large audiences, and Reynad turned a streamer following into an organisation, founding Tempo Storm in 2014. The competitive year peaked at BlizzCon on 8 November 2014 with the first Hearthstone World Championship, a 16-player event with four seats each for Americas, Europe, China and Asia (Korea/Taiwan), won by the then-little-known Firebat over Tiddler Celestial. Kolento was the consensus best player of the year - he took DreamHack Winter and the Viagame House Cup - and his quarterfinal loss to Kranich at BlizzCon is the era's canonical upset. Class and deck choice in tournaments diverged noticeably from ladder: conquest-style lineups rewarded Combo Druid, Control Warrior, Handlock and Freeze Mage over the aggro decks that dominated ranked.",
+    "players": [
+      {
+        "name": "Firebat (James Kostesich)",
+        "why_notable": "First Hearthstone World Champion. Beat Tiddler Celestial 3-0 in the BlizzCon 2014 grand final for $100,000, closing the series with Druid after beating Kaor in the quarterfinal and DTwo in the semifinal.",
+        "signature_decks": ["Ramp/Combo Druid", "Miracle Rogue", "Zoolock", "Hunter"],
+        "achievements": "2014 Hearthstone World Champion (BlizzCon, 2014-11-08), $100,000."
+      },
+      {
+        "name": "Kolento (Aleksandr Malsh)",
+        "why_notable": "The consensus strongest player of the era and the pre-tournament favourite at BlizzCon 2014, where he was eliminated by Kranich in the quarterfinals. Won both DreamHack Winter 2014 and the Viagame House Cup.",
+        "signature_decks": ["Miracle Rogue", "Handlock", "Combo Druid", "Control Warrior", "Freeze Mage"],
+        "achievements": "DreamHack Winter 2014 champion (4-2 over ThijsNL, $10,000); Viagame House Cup #1 champion (5-3 over Amaz, $8,000 of a $20,000 pool, Stockholm, 18-19 October 2014); World Championship quarterfinalist."
+      },
+      {
+        "name": "Tiddler Celestial (Wang Xieyu)",
+        "why_notable": "Runner-up at the first World Championship and the face of the Chinese scene's early strength. Beat Tarei in the quarterfinals before losing the final 0-3 to Firebat.",
+        "signature_decks": [],
+        "achievements": "2014 Hearthstone World Championship runner-up."
+      },
+      {
+        "name": "Rdu (Dima Radu)",
+        "why_notable": "17-year-old Romanian who won the largest prize in professional Hearthstone at the time, going 5-1 in series at DreamHack Summer 2014 through Darkwonyx, Ekop, Reynad and Amaz.",
+        "signature_decks": ["Freeze Mage", "Handlock", "Miracle Rogue"],
+        "achievements": "DreamHack Summer 2014 champion, $10,000 (then the biggest cheque in Hearthstone)."
+      },
+      {
+        "name": "Amaz (Jason Chan)",
+        "why_notable": "One of the largest streamers of the era and described at the time as the most popular Priest streamer; reached two major finals in 2014 and lost both.",
+        "signature_decks": ["Control Priest", "Handlock"],
+        "achievements": "DreamHack Summer 2014 runner-up (lost to Rdu); Viagame House Cup #1 runner-up (3-5 to Kolento, $4,000)."
+      },
+      {
+        "name": "StrifeCro (Cong Shu)",
+        "why_notable": "The era's best-regarded Druid player and a BlizzCon 2014 competitor, eliminated in the quarterfinals by DTwo. Won the first SeatStory Cup.",
+        "signature_decks": ["Combo Druid", "Ramp Druid"],
+        "achievements": "SeatStory Cup I champion; 2014 World Championship quarterfinalist."
+      },
+      {
+        "name": "Savjz (Janne Mikkonen)",
+        "why_notable": "Won SeatStory Cup II, one of the largest prize pools of the year at $22,000, at TaKeTV's studio in Krefeld.",
+        "signature_decks": [],
+        "achievements": "SeatStory Cup II champion (event started 2014-10-15, $22,000 prize pool)."
+      },
+      {
+        "name": "Gaara (Petar Stevanovic)",
+        "why_notable": "Won DreamHack Bucharest 2014 (NESCAFE 3in1 Hearthstone tournament); associated in community memory with Handlock, though the citable fact here is the title, not the deck.",
+        "signature_decks": ["Handlock"],
+        "achievements": "DreamHack Bucharest 2014 champion."
+      },
+      {
+        "name": "SilentStorm (Sebastian Fabritz)",
+        "why_notable": "Won the first ESL Hearthstone Legendary Series - the first major Hearthstone tournament of 2015 - on the back of a Demonlock deck that was a genuine tournament-scene innovation rather than a ladder import.",
+        "signature_decks": ["Demonlock (Voidcaller/Mal'Ganis Warlock)"],
+        "achievements": "ESL Hearthstone Legendary Series Season 1 champion, defeating Chakki in the grand final, $8,000."
+      },
+      {
+        "name": "Chakki (Keaton Gill)",
+        "why_notable": "Runner-up in the first ESL Legendary Series final; one of the strongest North American players of the era.",
+        "signature_decks": [],
+        "achievements": "ESL Hearthstone Legendary Series Season 1 runner-up."
+      },
+      {
+        "name": "ThijsNL (Thijs Molendijk)",
+        "why_notable": "Reached the DreamHack Winter 2014 grand final, losing 2-4 to Kolento - his breakout result.",
+        "signature_decks": [],
+        "achievements": "DreamHack Winter 2014 runner-up."
+      },
+      {
+        "name": "Reynad (Andrey Yanyuk)",
+        "why_notable": "The era's most influential deckbuilder-personality. Widely credited with creating and popularising Zoolock and with popularising Miracle Rogue - the two decks that most defined the launch metagame - and he founded Tempo Storm in 2014, which went on to produce the community's standard Meta Snapshot tier list.",
+        "signature_decks": ["Zoolock", "Miracle Rogue"],
+        "achievements": "Won Blizzard's first-ever Arena tournament, beating Amaz, TidesofTime, Trump and MaSsan (Arena, not Constructed - noted for completeness). Founded Tempo Storm, 2014. Top-8 at DreamHack Summer 2014 (eliminated by Rdu)."
+      },
+      {
+        "name": "Trump (Jeffrey Shih)",
+        "why_notable": "One of the first large Hearthstone streamers and the era's most influential teacher; his educational content shaped how a whole generation of ladder players evaluated cards and plays.",
+        "signature_decks": [],
+        "achievements": "Influence and audience rather than a citable 2014 Constructed title."
+      },
+      {
+        "name": "Kranich",
+        "why_notable": "Authored the era's defining upset by eliminating Kolento, the tournament favourite, in the BlizzCon 2014 quarterfinals.",
+        "signature_decks": [],
+        "achievements": "2014 World Championship semifinalist."
+      },
+      {
+        "name": "DTwo",
+        "why_notable": "Little-known entering BlizzCon 2014, knocked out StrifeCro in the quarterfinals and pushed Firebat to a close semifinal - the series that produced the era's most-replayed Miracle Rogue sequence (double Gadgetzan Auctioneer).",
+        "signature_decks": [],
+        "achievements": "2014 World Championship semifinalist."
+      },
+      {
+        "name": "Sjow (Jon Berg)",
+        "why_notable": "The pilot most associated with Control Warrior in this era; his lists circulated as the reference version of the archetype. Flagged as recollection plus HearthPwn deck attributions rather than a citable 2014 tournament placement.",
+        "signature_decks": ["Control Warrior"],
+        "achievements": ""
+      },
+      {
+        "name": "Zetalot",
+        "why_notable": "The era's dedicated Priest specialist, notable precisely because he was extracting results from what the data shows was the era's most-posted underperforming class. Recollection-grade; no citable 2014 placement found.",
+        "signature_decks": ["Control Priest"],
+        "achievements": ""
+      }
+    ],
+    "events": [
+      {
+        "event": "DreamHack Bucharest 2014 (NESCAFE 3in1 Hearthstone Tournament)",
+        "year": "2014",
+        "winner": "Gaara",
+        "notable_decks": "Launch-era metagame: Miracle Rogue, Handlock, Zoolock, Buzzard Midrange Hunter. Pre-Naxxramas card pool."
+      },
+      {
+        "event": "SeatStory Cup I (TaKeTV, Krefeld)",
+        "year": "2014",
+        "winner": "StrifeCro",
+        "notable_decks": "Pre-Naxxramas: Combo/Ramp Druid, Miracle Rogue, Handlock."
+      },
+      {
+        "event": "DreamHack Summer 2014",
+        "year": "2014",
+        "winner": "Rdu (5-1 in series; beat Darkwonyx, Ekop, Reynad, then Amaz in the final; $10,000)",
+        "notable_decks": "Pre-Naxxramas pool. Freeze Mage, Handlock, Miracle Rogue and Combo Druid were the standard lineup shapes."
+      },
+      {
+        "event": "Viagame House Cup #1 (Stockholm)",
+        "year": "2014 (18-19 October)",
+        "winner": "Kolento (5-3 over Amaz; $8,000 of a $20,000 pool, 16 competitors)",
+        "notable_decks": "Peak Naxxramas metagame, post-Leeroy/Buzzard nerf: Combo Druid, Handlock, Control Warrior, Freeze Mage, Zoo."
+      },
+      {
+        "event": "SeatStory Cup II (TaKeTV, Krefeld)",
+        "year": "2014 (from 15 October)",
+        "winner": "Savjz ($22,000 prize pool)",
+        "notable_decks": "Naxxramas metagame."
+      },
+      {
+        "event": "2014 Hearthstone World Championship (BlizzCon)",
+        "year": "2014 (8 November)",
+        "winner": "Firebat (3-0 over Tiddler Celestial; $100,000)",
+        "notable_decks": "Firebat closed the final with Ramp/Combo Druid and also brought Hunter; his semifinal against DTwo featured the era's signature double-Gadgetzan-Auctioneer Miracle Rogue turns. 16 players, 4 per region (Americas, Europe, China, Asia). Round of 16 group deciders and the Round of 8 onward were played at BlizzCon; the rest at Burbank Studio. Bracket: Kranich beat Kolento; DTwo beat StrifeCro; Firebat beat Kaor; Tiddler Celestial beat Tarei; Firebat beat DTwo; Tiddler Celestial beat Kranich."
+      },
+      {
+        "event": "DreamHack Winter 2014",
+        "year": "2014 (late November)",
+        "winner": "Kolento (4-2 over ThijsNL; $10,000)",
+        "notable_decks": "Late-Naxxramas metagame, days before the GvG patch."
+      },
+      {
+        "event": "ESL Hearthstone Legendary Series Season 1 Finals",
+        "year": "2015",
+        "winner": "SilentStorm (beat Chakki in the grand final; $8,000)",
+        "notable_decks": "SilentStorm's Demonlock (Voidcaller into Mal'Ganis/Doomguard) was the tournament's innovation. First major of 2015; GvG-era pool. The series ran as a 12-week format with two cups per week, sponsored by Newegg."
+      }
+    ]
+  },
+  "narrative": "Hearthstone's first year of live play is the only era in the game's history with no rotation, no Standard format, and almost no balance intervention. From the 1.0 launch on 11 March 2014 to the eve of Blackrock Mountain on 2 April 2015, exactly four patches touched a live Constructed card - 8 May, 22 September and 4 December 2014, and 29 January 2015 - with a 137-day stretch over the summer in which nothing was changed at all. Every card ever printed was legal against every other card, forever, and the only lever available was a permanent nerf to something players had paid to craft. Almost everything that happened in 2014 follows from those two facts.\n\nThe launch metagame was a solved four-corner board. Zoolock was the benchmark: Life Tap meant the cheapest aggro deck in the game also never ran out of cards, so it set the floor every other deck had to clear, and at 49.4% of all posted ranked Warlock decks it was the most reliable thing you could queue. Handlock was its mirror image, exploiting the same hero power in the opposite direction - deliberately dropping to 12 life to make a 20-mana 8/8 free. Miracle Rogue was the skill ceiling, converting 0-cost spells and a 5-mana Gadgetzan Auctioneer into 6-to-10-card turns and a Leeroy burst reported at 26 damage from an empty board. Buzzard Hunter was the punisher: Starving Buzzard at 2 mana plus Unleash the Hounds was mass removal, burst and hand refill for four mana, and it appeared in 76.8% of all posted Hunter decks. Behind them, Combo Druid quietly had the best of both worlds - the format's best on-curve minions plus a 14-damage combo bolted on - which is why it won the World Championship and never got nerfed.\n\nCurse of Naxxramas in July did not add a fifth corner; it made the existing ones harder to kill. As the first Adventure it delivered 30 cards for gold or a few dollars, no packs and no randomness, which meant every player received the same power at the same moment. The result is visible in the numbers: within two months Sludge Belcher was in 29.7% and Loatheb in 25.4% of posted ranked decks, and by November those were 43.0% and 39.4%. Loatheb is the more interesting of the two, because it is the first card Blizzard ever printed as a structural answer to a specific archetype - and because it was also a perfectly fine 5/5, so it went into every deck rather than only the decks that needed it. It broke Miracle Rogue's back. The set's real crime, though, was arithmetic: Undertaker gained +1/+1 per Deathrattle summon, and the same 30 cards supplied Webspinner, Haunted Creeper and Nerubian Egg. A turn-one Undertaker could be a 4/5 by turn three, growing in the stat that dodges removal, in a format with no answer to a 4/5 on turn three.\n\nThe 22 September patch shows how badly a single intervention can be aimed. Blizzard nerfed the two burst-and-draw cards they had identified - Leeroy to 5 mana, Starving Buzzard to 5 mana - and both changes worked completely: Leeroy fell from 19.1% to 3.7% inclusion, and Buzzard/Unleash Hunter collapsed from 74.6% to 6.8% of Hunter decks. But Hunter players did not stop playing Hunter. They walked straight into the Undertaker build, which went from 18.0% to 57.4% of posted Hunter decks in the same window. Blizzard had removed the deck they understood and left standing the deck they had not yet diagnosed.\n\nGoblins vs Gnomes in December was the era's other structural mistake, and a more forgivable one. As the first real expansion it did what expansions are supposed to do: it rebuilt two classes with commons. Shielded Minibot and Muster for Battle gave Paladin the best turn two and turn three in the game, taking Muster from nonexistent to 64.0% and then 70.9% of posted Paladin decks - the largest archetype swing anywhere in the data. Tinker's Sharpsword Oil resurrected a Rogue class everyone had just buried, reaching 72.4% of posted Rogue lists. Mechwarper created Mech Mage. Voidcaller into Mal'Ganis created Demonlock, which won the first major of 2015 in SilentStorm's hands. But GvG also printed Dr. Boom and Piloted Shredder, and those two cards taught the community the phrase 'power creep'. Dr. Boom ended the era at 43.6% inclusion across every posted ranked deck, Shredder at 37.3%; both are corroborated to within a third of a point by the independent deck_aggregate roll-up. Neither had a build restriction, neither had a downside, and their random text was a stat discount rather than genuine variance, because no outcome was bad. Combined with Sludge Belcher, Loatheb, Sylvanas, Big Game Hunter, Antique Healbot and Zombie Chow - all above 18% - the reality of a 2014 deck was roughly eight compulsory neutrals and twenty-two slots of actual choice.\n\nBig Game Hunter deserves its own note as the era's invisible hand. A 3-mana 4/2 that unconditionally destroyed anything with 7 or more Attack reached 29.2% inclusion, and it did not merely answer cards, it forbade them. Look at what survived: Dr. Boom 7/7, Ysera 4/12, Sludge Belcher 3/5, Piloted Sky Golem 6/4. The whole top end of the format was designed around a common's threshold.\n\nGvG did not dilute Undertaker Hunter - Piloted Shredder simply joined it. Blizzard said in December they were not worried, and Ben Brode's public line was that Undertaker was only frightening drawn early, which is exactly the objection. On 29 January 2015 the Health growth was removed and the deck evaporated overnight, from 57.5% to 6.2% of posted Hunter decks. Mage rose to lead posted class share, Oil Rogue and Muster Paladin took over, and the era ended with the format's most-included card being a legendary that nobody would nerf for another year, because rotation would handle it instead. That is the era's real lesson: the missing tool in 2014 was never a heavier nerf hand. It was a rotation.",
+  "evidence_notes": "GROUNDED IN LOCAL DATA (high confidence). (1) Every card name, set, mana cost, statline and text in this dossier was verified against /home/user/Explore/hearthstone/data/cards.sqlite, and era-accurate values were reconstructed by reading each card's full row in balance_changes rather than trusting the cards table, which stores CURRENT values. Corrections I made to my own recollection this way: Sludge Belcher was 3/5 in this era (6 health is a 2023 buff); Big Game Hunter was 3 mana (not 5); Knife Juggler was a 2-mana 3/2 (nerfed to 3/2->2/2 only in 2016); Ancient of Lore was a 7-mana 5/5 drawing 2; Force of Nature cost 6 with Charge Treants that die at end of turn; Molten Giant cost 20 (25 only from 2016); Leper Gnome was 2/1; Ironbeak Owl cost 2; Blade Flurry still hit the enemy hero and cost 2; Mechwarper was 2 mana 2/3; Savannah Highmane was 6/5. Also note the cards table shows several modern keywords retro-applied to 2014 cards (Flame Leviathan 'Rush' was Charge; Queen of Pain 'Lifesteal' was longhand text; Arcane Nullifier's 'Elusive'), so I did not quote 2014 card text from those rows. (2) All eleven balance actions listed are individually confirmed rows in the balance_changes table with their build numbers, and the claim that only four patches in the era touched a live Constructed card is derived by enumerating that table for 2014-03-11..2015-04-01 and discarding pure wording/templating passes (2014-07-22 build 6024 and 2015-03-31 build 8311 were text-only). (3) sets_first_seen.json gives GVG data-ship 2014-12-04 (build 7234) and NAXX 2014-07-22 (build 6024) - both a few days ahead of public release, as expected. WARNING about an artifact in that file: it lists NAXX first_date as 2013-06-22 with n_cards_at_first_build=1. That is a single card (Zombie Chow) carrying a NAXX set id in a 2013 beta build; the other 29 NAXX cards all have data_first_seen 2014-07-22. I used 2014-07-22 and flagged the artifact rather than reporting 2013.\n\nRECOMPUTED BY ME FROM THE RAW CORPUS (high confidence in the arithmetic, with the source's own biases). deck_aggregate.json covers this era well for class share and top-40 card inclusion, and I used its figures where quoted. But its top_archetypes field is useless here - only 15 archetype labels exist for the entire 11,959-deck 'Naxx Launch' era, the largest with 2 decks - because HearthPwn archetype tags are author-entered and sparse. So I streamed /home/user/Explore/hearthstone/data/research/decks_NJacobsohn-Hearthstone-Data-Analysis.ndjson myself, filtered extra.deck_type == 'Ranked Deck', bucketed into five patch windows (pre-Naxx 2014-03-11..07-21 n=8205; early Naxx 07-22..09-21 n=7077; late Naxx 09-22..12-07 n=5570; GvG launch 12-08..2015-01-28 n=8400; post-Undertaker-nerf 01-29..04-01 n=6539) and computed archetype membership from CARD SIGNATURES (e.g. Handlock = Warlock + Mountain Giant + Molten Giant; Buzzard Hunter = Hunter + Starving Buzzard + Unleash the Hounds). Every empirical_share and inclusion_rate figure in this dossier is from that computation unless attributed to deck_aggregate.json. Two independent cross-checks agree: my Dr. Boom 43.6% vs deck_aggregate's 43.8%, and my Piloted Shredder 37.3% vs its 37.5%, for the same window.\n\nWHAT THESE NUMBERS DO AND DO NOT MEASURE. They measure the share of user-submitted HearthPwn decklists tagged 'Ranked Deck' whose card list matches a signature. They are NOT ladder playrate, NOT games played, and NOT winrate - the source has no rank, no games and no result field at all. They carry survivorship bias (deleted HearthPwn pages are absent), self-selection bias (posting a deck takes effort, so budget and meme decks are over-represented), and a well-documented class flatness that proves they measure posting enthusiasm: Priest is the second-most-posted class of the Naxx window despite being one of the era's weakest. Signature-based archetype assignment can also double-count a deck across two signatures and will mislabel edge cases; the late-Naxx bucket ends 2014-12-07 and so absorbs the 4-7 December GvG theorycraft window, which is why 55 'Oil Rogue' decks appear before GvG was playable. I have flagged that inline.\n\nRECOLLECTION AND SINGLE-SOURCE WEB CLAIMS (medium confidence, no local corroboration possible). Tournament results and quotations come from WebSearch snippets only - WebFetch is 403-blocked on every Hearthstone site including the official patch-note pages, hearthstone.wiki.gg, Liquipedia and the Wayback Machine, so I could not read primary sources end-to-end. Medium-confidence items: Firebat 3-0 over Tiddler Celestial for $100,000 at BlizzCon on 2014-11-08 and the full quarterfinal/semifinal bracket; Kolento winning DreamHack Winter 4-2 over ThijsNL and Viagame House Cup #1 5-3 over Amaz; Rdu winning DreamHack Summer with the stated path; StrifeCro winning SeatStory Cup I; Savjz winning SeatStory Cup II; Gaara winning DreamHack Bucharest; SilentStorm beating Chakki in the ESL Legendary Series Season 1 final on Demonlock for $8,000. The Blizzard nerf-reasoning quotations for Leeroy Jenkins and Starving Buzzard, and the Ben Brode Undertaker quotation, are snippet-sourced; the changes themselves are locally confirmed. Naxxramas pricing (700 gold / $6.99 per wing) and the weekly wing cadence to 2014-08-20 are snippet-sourced; I deliberately did NOT assert individual wing dates because no source I could read confirmed them. The 'Undertaker Hunter was around 25% of the entire meta' figure is community/wiki retrospective and I have labelled it recollection-grade rather than data - my own measured figure for the same period is 57.4% of posted Hunter decks and 22.5% Undertaker inclusion overall, which is a different quantity.\n\nCLAIMS I DROPPED AFTER CHECKING. I had intended to report that the one-legendary-per-deck rule arrived with the GvG patch; searching found no support and the rule appears to predate launch, so I removed it rather than guess. I also could not find a citable 2014 Constructed placement for Sjow or Zetalot, so their achievements fields are empty and their entries are explicitly marked recollection. No decklist in this dossier is reproduced as 30 cards: the sources I could reach give partial card lists (e.g. a 16-card excerpt of a May 2014 Handlock) without counts, so every representative_decklist field is empty by design and the core cards are in key_cards instead."
+}
