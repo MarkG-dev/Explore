@@ -245,6 +245,7 @@
   <section class="panel" id="p-cards"></section>
   <section class="panel" id="p-mechanics"></section>
   <section class="panel" id="p-balance"></section>
+  <section class="panel" id="p-decks"></section>
   <section class="panel" id="p-eras"></section>
   <section class="panel" id="p-issues"></section>
   <section class="panel" id="p-pros"></section>
@@ -490,8 +491,8 @@ let rzT; addEventListener('resize',()=>{ clearTimeout(rzT); rzT=setTimeout(()=>w
 /* ---------------- tabs ---------------- */
 const TABS = [
   ['overview','Overview'], ['timeline','Set timeline'], ['cards','Card browser'],
-  ['mechanics','Mechanics'], ['balance','Balance history'], ['eras','Meta eras'],
-  ['issues','Design issues'], ['pros','Pro scene'], ['data','Download'],
+  ['mechanics','Mechanics'], ['balance','Balance history'], ['decks','Ladder evidence'],
+  ['eras','Meta eras'], ['issues','Design issues'], ['pros','Pro scene'], ['data','Download'],
 ];
 function buildTabs(){
   const nav = $('#tabs');
@@ -534,15 +535,15 @@ function rowsToObjs(lite){
 }
 
 (async function main(){
-  const [manifest, lite, mechIdx, setsSeen, changelog] = await Promise.all([
+  const [manifest, lite, mechIdx, setsSeen, changelog, deckAgg] = await Promise.all([
     jget('manifest.json'), jget('cards_lite.json'), jget('mechanics_index.json'),
-    jget('sets_first_seen.json'), jget('changelog.json'),
+    jget('sets_first_seen.json'), jget('changelog.json'), jget('deck_aggregate.json'),
   ]);
   S.manifest = manifest; S.cards = rowsToObjs(lite); S.mechIdx = mechIdx;
-  S.setsSeen = setsSeen; S.changelog = changelog || [];
+  S.setsSeen = setsSeen; S.changelog = changelog || []; S.deckAgg = deckAgg;
 
   renderTiles(); renderOverview(); renderTimeline(); renderBrowser();
-  renderMechanics(); renderBalance(); renderDownloads();
+  renderMechanics(); renderBalance(); renderDecks(); renderDownloads();
 
   // research payloads land later; render whatever exists
   const [spine, mechanics, issues, pros, creep, synth, brief] = await Promise.all([
@@ -900,6 +901,76 @@ function renderBalance(){
     tb.appendChild(tr);
   });
   tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+}
+
+/* ---------- ladder evidence (empirical deck archive) ---------- */
+function renderDecks(){
+  const p=$('#p-decks'); p.innerHTML='';
+  p.appendChild(el('h2','','Ladder evidence'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='The one place this study has <strong>hard deck data</strong> rather than recollection: '+
+    '202,375 ranked decks published to HearthPwn between May 2013 and March 2017, aggregated by patch era.';
+  p.appendChild(sub);
+
+  const ag=S.deckAgg;
+  if(!ag||!Array.isArray(ag.eras)){ p.appendChild(el('div','loading','Deck aggregate unavailable.')); return; }
+
+  const warn=el('div','callout');
+  warn.innerHTML='<strong>Read this before quoting any number here.</strong> This measures what players '+
+    '<em>published to HearthPwn</em>, not what was queued on ladder, and there is no winrate or rank field '+
+    'anywhere in the source. Class shares are suspiciously flat precisely because posting behaviour is flatter '+
+    'than real ladder representation. Coverage also stops dead at 2017-03-19 — roughly nine of Hearthstone’s '+
+    'thirteen years have no decklist coverage from any source reachable here. Treat inclusion rates as '+
+    '“how often deckbuilders reached for this card”, which is genuinely informative, and nothing more.';
+  p.appendChild(warn);
+
+  // eras big enough to mean anything
+  const big=ag.eras.filter(e=>e.decks>=1000);
+  // Axis labels use the era's start month: several eras share a truncation-identical
+  // name ("Live Patch 5506" / "Live Patch 5834"), and dates also carry the ordering.
+  const axisK = e => ((e.date_range||[])[0]||'').slice(0,7);
+  const axisFull = e => e.era+' · '+((e.date_range||[])[0]||'')+' → '+((e.date_range||[])[1]||'');
+  const host=el('div'); p.appendChild(host);
+  columnChart(host,{
+    title:'Ranked decks published per patch era',
+    note:'Labelled by the era’s first month. Only eras with 1,000+ decks are charted; smaller beta-era buckets (1–225 decks) are in the download but are noise.',
+    data:big.map(e=>({k:axisK(e),full:axisFull(e),v:e.decks})),
+    yLabel:'Decks', xLabel:'Patch era', unit:'decks', height:180, xEvery:1,
+  });
+
+  // the Dr. Boom arc: one card's grip on deckbuilding, era by era
+  const track='Dr. Boom';
+  const arc=big.map(e=>{
+    const hit=(e.top_cards||[]).find(c=>c.card===track);
+    return {k:axisK(e), full:axisFull(e)+(hit?'':' — outside this era’s top 40'),
+            v:hit?Math.round(hit.inclusion_rate*100):0};
+  });
+  if(arc.some(a=>a.v>0)){
+    const h2=el('div'); h2.style.marginTop='16px'; p.appendChild(h2);
+    columnChart(h2,{
+      title:'Share of published ranked decks running Dr. Boom',
+      note:'One neutral legendary going from absent, to a quarter of all decks, to half of them — then to nothing when it left Standard in the April 2016 rotation. Zero here means it fell outside that era’s top 40 cards, not necessarily zero decks.',
+      data:arc, yLabel:'% of decks', xLabel:'Patch era', unit:'% of decks', height:170, xEvery:1,
+    });
+  }
+
+  p.appendChild(el('h3','','Era by era'));
+  big.slice().reverse().forEach(e=>{
+    const c=el('div','card'); c.style.marginTop='14px';
+    const cls=Object.entries(e.class_share||{}).slice(0,10);
+    let h='<div style="font-size:11px;color:var(--ink-muted)">'+esc((e.date_range||[])[0])+' → '+esc((e.date_range||[])[1])+'</div>'+
+      '<h3 style="margin:2px 0 4px">'+esc(e.era)+'</h3>'+
+      '<div style="font-size:12px;color:var(--ink-muted);margin-bottom:10px">'+nf(e.decks)+' ranked decks</div>';
+    if(cls.length) h+='<div style="font-size:12.5px;color:var(--ink-2);margin-bottom:8px"><strong style="color:var(--ink)">Class share of posts:</strong> '+
+      cls.map(([k,v])=>esc(titleCase(k))+' '+(v*100).toFixed(0)+'%').join(' · ')+'</div>';
+    if(Array.isArray(e.top_archetypes)&&e.top_archetypes.length)
+      h+='<div style="font-size:12.5px;color:var(--ink-2);margin-bottom:8px"><strong style="color:var(--ink)">Most-published archetypes:</strong> '+
+        e.top_archetypes.slice(0,8).map(a=>esc(a.archetype)+' ('+nf(a.decks)+')').join(' · ')+'</div>';
+    if(Array.isArray(e.top_cards)&&e.top_cards.length)
+      h+='<div style="font-size:12.5px;color:var(--ink-2)"><strong style="color:var(--ink)">Most-included cards:</strong> '+
+        e.top_cards.slice(0,12).map(x=>esc(x.card)+' '+(x.inclusion_rate*100).toFixed(0)+'%').join(' · ')+'</div>';
+    c.innerHTML=h; p.appendChild(c);
+  });
 }
 
 /* ---------- eras (research) ---------- */
