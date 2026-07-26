@@ -100,3 +100,36 @@ Card data is datamined from the Hearthstone client via
 [HearthSim/hsdata](https://github.com/HearthSim/hsdata). Not affiliated with or
 endorsed by Blizzard Entertainment. Hearthstone is a trademark of Blizzard
 Entertainment, Inc.
+
+## Getting the rest of the data in (local ingest)
+
+The meta half of this study is limited by network access, not by effort. Every source
+that knows what top-legend players actually play — HSReplay, Vicious Syndicate, HSGuru,
+hearthstone-decks.net, metastats.net, Icy Veins, Reddit — blocks datacenter IP ranges,
+so none of them are reachable from a cloud environment. They work fine from an ordinary
+home connection.
+
+`ingest/` is a runnable kit for exactly that gap:
+
+```bash
+cd hearthstone/ingest
+pip install hearthstone
+python3 fetch_reddit_competitivehs.py --limit 200 --with-comments
+python3 fetch_legend_decks.py --all --pages 5 --dump
+python3 normalize_legend.py
+```
+
+Output lands in `data/ingested/legend_decks.json`, which the website picks up
+automatically and renders as a Top-Legend section. Until then the site says so
+explicitly rather than showing an empty panel.
+
+Two things worth knowing before running it. **These scripts have never made a
+successful request** — every target host is unreachable from where they were written,
+so expect to adjust selectors on the first run; `--dump` shows what is matching. And
+they parse **deckstrings, not HTML**: every deck site publishes Blizzard's `AAEB...`
+codes, which decode to exact card lists against `cards.sqlite`, so a site redesign
+breaks the scraped titles but not the decks.
+
+`ingest/README.md` covers etiquette (robots.txt is honoured, one request per host every
+2s, everything cached), why there is deliberately no HSReplay aggregate scraper, and
+what the resulting data can and cannot support.

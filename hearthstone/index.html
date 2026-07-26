@@ -544,6 +544,8 @@ function rowsToObjs(lite){
   S.manifest = manifest; S.cards = rowsToObjs(lite); S.mechIdx = mechIdx;
   S.setsSeen = setsSeen; S.changelog = changelog || []; S.deckAgg = deckAgg;
   S.deep = await jget('deep_analysis.json');
+  // produced by the local ingest kit (hearthstone/ingest); absent until it is run
+  S.legend = await jget('ingested/legend_decks.json');
 
   renderTiles(); renderOverview(); renderTimeline(); renderBrowser();
   renderMechanics(); renderBalance(); renderDecks(); renderAnalysis(); renderDownloads();
@@ -906,6 +908,72 @@ function renderBalance(){
   tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
 }
 
+/* ---------- top-legend decks (from the local ingest kit) ---------- */
+function renderLegendSection(p){
+  const L=S.legend;
+  if(!L||!Array.isArray(L.decks)||!L.decks.length){
+    // Not an error state: this data only exists once someone runs the ingest kit
+    // from an unblocked network, since every deck site blocks datacenter IPs.
+    const box=el('div','card');
+    box.innerHTML='<h3 style="margin-top:0">Top-legend decks — not ingested yet</h3>'+
+      '<p style="font-size:13px;color:var(--ink-2)">Modern top-legend decklists are not in this '+
+      'dataset because every source that publishes them (HSReplay, Vicious Syndicate, HSGuru, '+
+      'hearthstone-decks.net, metastats.net, Icy Veins, Reddit) blocks datacenter IP ranges. '+
+      'They are reachable from an ordinary home connection.</p>'+
+      '<p style="font-size:13px;color:var(--ink-2);margin-top:9px">Run '+
+      '<code>hearthstone/ingest/</code> locally and this section fills in automatically with '+
+      'rank-tagged decklists and high-legend writeups. See <code>ingest/README.md</code>.</p>';
+    p.appendChild(box);
+    return;
+  }
+  p.appendChild(el('h3','','Top-legend decks'));
+  const meta=el('p','sec-sub');
+  meta.innerHTML=nf(L.n_decks)+' decklists ingested, '+nf(L.n_with_legend_rank)+
+    ' carrying a legend rank. Card lists are exact — decoded from Blizzard deckstrings, not scraped from HTML.';
+  p.appendChild(meta);
+  if(Array.isArray(L.limits)&&L.limits.length){
+    const w=el('div','callout');
+    w.innerHTML='<strong>What this is and is not.</strong> '+L.limits.map(esc).join(' ');
+    p.appendChild(w);
+  }
+  const ranked=(L.top_ranked_decks||[]).slice(0,60);
+  if(ranked.length){
+    const t=el('div','card'); const tbl=el('table','dt');
+    tbl.innerHTML='<thead><tr><th>Rank</th><th>Deck</th><th>Class</th><th>Format</th><th>Source</th></tr></thead>';
+    const tb=el('tbody');
+    ranked.forEach(d=>{ const tr=el('tr');
+      tr.appendChild(el('td','num','#'+d.legend_rank));
+      tr.appendChild(el('td',null,d.label||'(untitled)'));
+      tr.appendChild(el('td',null,titleCase(d.class||'')));
+      tr.appendChild(el('td',null,(d.format||'').replace('FT_','')));
+      tr.appendChild(el('td',null,d.source||'')); tb.appendChild(tr); });
+    tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+  }
+  if(L.by_class&&Object.keys(L.by_class).length){
+    const h=el('div'); h.style.marginTop='16px'; p.appendChild(h);
+    barChartH(h,{title:'Ingested top-legend decks by class',
+      note:'Class inferred from the decoded card list, not from a scraped label.',
+      data:Object.entries(L.by_class).map(([k,v])=>({k:titleCase(k),v})).sort((a,b)=>b.v-a.v),
+      yLabel:'Decks',xLabel:'Class',unit:'decks',labelWidth:118});
+  }
+  const w=(L.writeups||[]).slice(0,20);
+  if(w.length){
+    p.appendChild(el('h3','','High-legend writeups'));
+    const s=el('p','sec-sub');
+    s.textContent='Players explaining why they chose a deck and what they teched — the reasoning behind the rankings.';
+    p.appendChild(s);
+    const g=el('div','grid2');
+    w.forEach(x=>{ const c=el('div','cd');
+      c.innerHTML='<div class="cd-name">'+esc(x.title||'')+'</div>'+
+        '<div class="cd-meta">'+esc(x.author||'')+' · '+nf(x.score)+' points · '+nf(x.n_comments)+' comments</div>'+
+        '<div class="cd-text">'+esc((x.excerpt||'').slice(0,320))+'…</div>'+
+        (x.permalink?'<div class="cd-tags"><a class="tag" href="'+esc(x.permalink)+'" target="_blank" rel="noopener">read</a></div>':'');
+      g.appendChild(c); });
+    p.appendChild(g);
+  }
+  p.appendChild(el('h3','','Historical archive (2013–2017)'));
+}
+
 /* ---------- ladder evidence (empirical deck archive) ---------- */
 function renderDecks(){
   const p=$('#p-decks'); p.innerHTML='';
@@ -914,6 +982,8 @@ function renderDecks(){
   sub.innerHTML='The one place this study has <strong>hard deck data</strong> rather than recollection: '+
     '202,375 ranked decks published to HearthPwn between May 2013 and March 2017, aggregated by patch era.';
   p.appendChild(sub);
+
+  renderLegendSection(p);
 
   const ag=S.deckAgg;
   if(!ag||!Array.isArray(ag.eras)){ p.appendChild(el('div','loading','Deck aggregate unavailable.')); return; }
