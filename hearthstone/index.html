@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0a">
+<title>Hearthstone Meta Study — Every card, every meta, 2013–2026</title>
+<meta name="description" content="A longitudinal study of Hearthstone's ranked Constructed metas, with a downloadable database of every card ever made, dated from the game client itself.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    color-scheme: dark;
+    --page:        #0a0a0a;
+    --surface:     #111111;
+    --surface-2:   #161616;
+    --border:      #2a2a2a;
+    --border-2:    #3a3a3a;
+    --ink:         #f0f0f0;
+    --ink-2:       #a8a8a8;
+    --ink-muted:   #6a6a6a;
+    --ink-faint:   #4a4a4a;
+    /* dataviz roles (dark steps) */
+    --series-1:    #3987e5;
+    --series-2:    #d95926;
+    --series-3:    #199e70;
+    --grid:        #2c2c2a;
+    --baseline:    #383835;
+    --good:        #0ca30c;
+    --warning:     #fab219;
+    --critical:    #d03b3b;
+    --serious:     #ec835a;
+    --radius: 6px;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --page:        #f9f9f7;
+    --surface:     #fcfcfb;
+    --surface-2:   #f2f2ef;
+    --border:      #e1e0d9;
+    --border-2:    #c9c8c0;
+    --ink:         #0b0b0b;
+    --ink-2:       #52514e;
+    --ink-muted:   #898781;
+    --ink-faint:   #a8a7a1;
+    --series-1:    #2a78d6;
+    --series-2:    #eb6834;
+    --series-3:    #1baf7a;
+    --grid:        #e1e0d9;
+    --baseline:    #c3c2b7;
+    --good:        #006300;
+    --warning:     #fab219;
+    --critical:    #d03b3b;
+    --serious:     #ec835a;
+  }
+
+  body {
+    font-family:'Inter',-apple-system,system-ui,sans-serif;
+    background:var(--page); color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+
+  .wrap { max-width:1180px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- top bar ---------- */
+  header.top {
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--page) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .top-in { display:flex; align-items:center; gap:20px; height:56px; }
+  .home { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-muted); text-decoration:none; white-space:nowrap; }
+  .home:hover { color:var(--ink); }
+  nav.tabs { display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; margin-left:auto; }
+  nav.tabs::-webkit-scrollbar { display:none; }
+  nav.tabs button {
+    font:inherit; font-size:12.5px; color:var(--ink-2); background:none; border:0;
+    padding:7px 11px; border-radius:5px; cursor:pointer; white-space:nowrap; transition:.15s;
+  }
+  nav.tabs button:hover { color:var(--ink); background:var(--surface-2); }
+  nav.tabs button[aria-selected="true"] { color:var(--ink); background:var(--surface-2); font-weight:500; }
+  .theme-btn {
+    font:inherit; font-size:11px; background:none; border:1px solid var(--border);
+    color:var(--ink-2); padding:5px 9px; border-radius:5px; cursor:pointer; white-space:nowrap;
+  }
+  .theme-btn:hover { border-color:var(--border-2); color:var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero { padding:72px 0 44px; border-bottom:1px solid var(--border); }
+  .eyebrow { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:20px; }
+  h1 { font-size:clamp(32px,5.2vw,54px); font-weight:300; letter-spacing:-.028em; line-height:1.08; margin-bottom:22px; }
+  h1 em { font-style:normal; color:var(--ink-muted); }
+  .lede { font-size:16.5px; color:var(--ink-2); max-width:66ch; font-weight:300; }
+  .lede strong { color:var(--ink); font-weight:500; }
+
+  /* ---------- stat tiles ---------- */
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:1px;
+           background:var(--border); border:1px solid var(--border); border-radius:var(--radius);
+           overflow:hidden; margin:34px 0 0; }
+  .tile { background:var(--surface); padding:16px 18px; }
+  .tile .label { font-size:11px; color:var(--ink-muted); margin-bottom:6px; }
+  .tile .value { font-size:26px; font-weight:600; letter-spacing:-.02em; line-height:1.1; }
+  .tile .sub { font-size:11px; color:var(--ink-faint); margin-top:3px; }
+
+  /* ---------- sections ---------- */
+  section.panel { display:none; padding:44px 0 76px; }
+  section.panel.active { display:block; }
+  h2 { font-size:24px; font-weight:400; letter-spacing:-.02em; margin-bottom:8px; }
+  .sec-sub { font-size:14px; color:var(--ink-2); max-width:76ch; margin-bottom:30px; font-weight:300; }
+  h3 { font-size:15px; font-weight:600; margin:34px 0 12px; letter-spacing:-.01em; }
+
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:16px; }
+
+  /* ---------- charts ---------- */
+  .chart-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:4px; flex-wrap:wrap; }
+  .chart-title { font-size:14px; font-weight:600; }
+  .chart-note { font-size:11.5px; color:var(--ink-muted); }
+  .chart-toggle { font:inherit; font-size:11px; background:none; border:1px solid var(--border);
+                  color:var(--ink-2); padding:3px 8px; border-radius:4px; cursor:pointer; }
+  .chart-toggle:hover { border-color:var(--border-2); color:var(--ink); }
+  .chart-wrap { position:relative; overflow-x:auto; }
+  svg.chart { display:block; width:100%; height:auto; }
+  svg.chart text { font-family:'Inter',system-ui,sans-serif; }
+  .ax { font-size:10.5px; fill:var(--ink-muted); font-variant-numeric:tabular-nums; }
+  .val-lab { font-size:10.5px; fill:var(--ink-2); font-variant-numeric:tabular-nums; }
+  .gridline { stroke:var(--grid); stroke-width:1; }
+  .baseline { stroke:var(--baseline); stroke-width:1; }
+  .bar { fill:var(--series-1); }
+  .bar.hot { fill:var(--series-2); }
+  .hit { fill:transparent; cursor:pointer; }
+  .tt {
+    position:absolute; pointer-events:none; opacity:0; transition:opacity .12s;
+    background:var(--surface); border:1px solid var(--border-2); border-radius:5px;
+    padding:7px 10px; font-size:12px; box-shadow:0 6px 22px rgba(0,0,0,.35);
+    white-space:nowrap; z-index:20;
+  }
+  .tt .tt-k { color:var(--ink-muted); font-size:10.5px; }
+  .tt .tt-v { font-weight:600; font-variant-numeric:tabular-nums; }
+  table.dt { width:100%; border-collapse:collapse; font-size:12.5px; }
+  table.dt th, table.dt td { text-align:left; padding:6px 10px; border-bottom:1px solid var(--border); }
+  table.dt th { color:var(--ink-muted); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:.06em; }
+  table.dt td.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .hidden { display:none !important; }
+
+  /* ---------- filters + browser ---------- */
+  .filters { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:18px; }
+  .filters input[type=search], .filters select {
+    font:inherit; font-size:13px; background:var(--surface); color:var(--ink);
+    border:1px solid var(--border); border-radius:5px; padding:7px 10px;
+  }
+  .filters input[type=search] { min-width:230px; flex:1 1 230px; }
+  .filters input:focus, .filters select:focus { outline:none; border-color:var(--series-1); }
+  .chk { display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-2); cursor:pointer; }
+  .count-line { font-size:12px; color:var(--ink-muted); margin-bottom:12px; font-variant-numeric:tabular-nums; }
+
+  .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(272px,1fr)); gap:10px; }
+  .cd { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:13px 14px; }
+  .cd-top { display:flex; justify-content:space-between; gap:8px; align-items:flex-start; }
+  .cd-name { font-size:13.5px; font-weight:600; letter-spacing:-.01em; }
+  .cd-cost { flex:none; font-size:12px; font-weight:600; min-width:22px; height:22px; display:grid; place-items:center;
+             border-radius:50%; background:var(--series-1); color:#fff; font-variant-numeric:tabular-nums; }
+  .cd-meta { font-size:11px; color:var(--ink-muted); margin-top:3px; }
+  .cd-text { font-size:12px; color:var(--ink-2); margin-top:8px; line-height:1.45; }
+  .cd-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:9px; }
+  .tag { font-size:9.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-muted);
+         border:1px solid var(--border); border-radius:3px; padding:1.5px 5px; }
+  .tag.rar-LEGENDARY { color:#e6a740; border-color:#6b4f1d; }
+  .tag.rar-EPIC { color:#b98bdd; border-color:#513a63; }
+  .tag.rar-RARE { color:#6fa8e8; border-color:#2d4a6b; }
+  .tag.nerf { color:var(--warning); border-color:#5c4310; }
+  .tag.reprint { color:var(--ink-faint); }
+  .more-btn { font:inherit; font-size:13px; background:var(--surface); border:1px solid var(--border);
+              color:var(--ink); padding:10px 18px; border-radius:5px; cursor:pointer; margin:20px auto 0; display:block; }
+  .more-btn:hover { border-color:var(--border-2); }
+
+  /* ---------- timeline ---------- */
+  .tl { position:relative; padding-left:22px; }
+  .tl::before { content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--border); }
+  .tl-item { position:relative; padding:0 0 26px; }
+  .tl-item::before { content:''; position:absolute; left:-21px; top:6px; width:9px; height:9px; border-radius:50%;
+                     background:var(--series-1); box-shadow:0 0 0 2.5px var(--page); }
+  .tl-date { font-size:11px; color:var(--ink-muted); font-variant-numeric:tabular-nums; }
+  .tl-name { font-size:14.5px; font-weight:600; margin:1px 0 3px; letter-spacing:-.01em; }
+  .tl-body { font-size:13px; color:var(--ink-2); }
+
+  /* ---------- downloads ---------- */
+  .dl { display:flex; align-items:center; justify-content:space-between; gap:14px;
+        background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+        padding:15px 17px; text-decoration:none; color:var(--ink); margin-bottom:9px; transition:.15s; }
+  .dl:hover { border-color:var(--border-2); background:var(--surface-2); }
+  .dl-name { font-size:13.5px; font-weight:600; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .dl-desc { font-size:11.5px; color:var(--ink-muted); margin-top:2px; }
+  .dl-size { font-size:11px; color:var(--ink-faint); font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+  .callout { border-left:2px solid var(--warning); background:var(--surface); padding:13px 16px;
+             border-radius:0 var(--radius) var(--radius) 0; margin:18px 0; font-size:13px; color:var(--ink-2); }
+  .callout strong { color:var(--ink); }
+  .loading { color:var(--ink-muted); font-size:13px; padding:30px 0; }
+  code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em;
+         background:var(--surface-2); padding:1px 5px; border-radius:3px; }
+  pre { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+        padding:14px; overflow-x:auto; font-size:12px; line-height:1.5; }
+  pre code { background:none; padding:0; }
+  footer.foot { border-top:1px solid var(--border); padding:26px 0 46px; font-size:11.5px; color:var(--ink-faint); }
+  footer.foot a { color:var(--ink-muted); }
+  a { color:var(--series-1); }
+  @media (max-width:640px){
+    .hero { padding:44px 0 32px; }
+    .tile .value { font-size:22px; }
+    .top-in { gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap top-in">
+  <a class="home" href="/">← Explore</a>
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+  <button class="theme-btn" id="themeBtn" type="button">Light</button>
+</div></header>
+
+<div class="wrap">
+  <div class="hero" id="hero">
+    <div class="eyebrow">Longitudinal Study · 2013–2026</div>
+    <h1>Every card, every meta.<br><em>Thirteen years of Hearthstone ranked.</em></h1>
+    <p class="lede">
+      A complete, downloadable database of every card in Hearthstone Constructed — dated
+      not by its set label but by <strong>the first game build it ever appeared in</strong>,
+      reconstructed from 320 dated client snapshots. Plus the balance-change history of
+      every card, the mechanics taxonomy, and an era-by-era study of the ranked ladder.
+    </p>
+    <div class="tiles" id="tiles"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="panel" id="p-overview"></section>
+  <section class="panel" id="p-timeline"></section>
+  <section class="panel" id="p-cards"></section>
+  <section class="panel" id="p-mechanics"></section>
+  <section class="panel" id="p-balance"></section>
+  <section class="panel" id="p-eras"></section>
+  <section class="panel" id="p-issues"></section>
+  <section class="panel" id="p-pros"></section>
+  <section class="panel" id="p-data"></section>
+</div>
+
+<footer class="foot"><div class="wrap">
+  Card data datamined from the Hearthstone client via
+  <a href="https://github.com/HearthSim/hsdata">HearthSim/hsdata</a>.
+  Not affiliated with or endorsed by Blizzard Entertainment.
+  Hearthstone is a trademark of Blizzard Entertainment, Inc.
+</div></footer>
+
+<script>
+'use strict';
+const DATA = 'data/';
+const $ = (s, r=document) => r.querySelector(s);
+const el = (t, cls, txt) => { const n=document.createElement(t); if(cls)n.className=cls; if(txt!=null)n.textContent=txt; return n; };
+const nf = n => (n==null||n==='')?'—':Number(n).toLocaleString('en-US');
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const titleCase = s => String(s||'').toLowerCase().replace(/(^|[\s_/-])([a-z])/g, (m,a,b)=>a+b.toUpperCase()).replace(/_/g,' ');
+
+/* ---------------- theme ---------------- */
+(function themeInit(){
+  const btn = $('#themeBtn');
+  const saved = localStorage.getItem('hs-theme');
+  const sysLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  let light = saved ? saved === 'light' : sysLight;
+  const apply = () => {
+    document.documentElement.setAttribute('data-theme', light ? 'light' : 'dark');
+    document.querySelector('meta[name=theme-color]').setAttribute('content', light ? '#f9f9f7' : '#0a0a0a');
+    btn.textContent = light ? 'Dark' : 'Light';
+    if (window.__redrawCharts) window.__redrawCharts();
+  };
+  btn.addEventListener('click', () => { light = !light; localStorage.setItem('hs-theme', light?'light':'dark'); apply(); });
+  apply();
+})();
+
+/* ---------------- chart primitives (per dataviz spec) ----------------
+   Single-series throughout: no legend (the title names the series), one hue,
+   thin marks capped at 24px, 4px rounded data-end square at the baseline,
+   solid hairline gridlines, hover tooltip + a table twin so no value is
+   reachable only by hover.                                              */
+const CHARTS = [];
+
+/* Pick a tick step from the 1 / 2 / 2.5 / 5 / 10 family so axis labels land on
+   round numbers instead of arbitrary fractions of the maximum. */
+function niceScale(max, ticks){
+  const raw = max / ticks;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+  const n = raw / mag;
+  const mult = n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10;
+  const step = mult * mag;
+  return { step, top: step * ticks };
+}
+function fmtTick(v){
+  if (v === 0) return '0';
+  if (Math.abs(v) >= 1000) {
+    const k = v / 1000;
+    return (Number.isInteger(k) ? k : k.toFixed(1)) + 'k';
+  }
+  return Number.isInteger(v) ? String(v) : String(Math.round(v * 100) / 100);
+}
+
+function columnChart(host, spec){
+  // spec: {title, note, data:[{k,v,hot?}], yLabel, xEvery}
+  const box = el('div','card');
+  const head = el('div','chart-head');
+  const left = el('div');
+  left.appendChild(el('div','chart-title', spec.title));
+  if (spec.note) left.appendChild(el('div','chart-note', spec.note));
+  head.appendChild(left);
+  const tgl = el('button','chart-toggle','Table'); tgl.type='button';
+  head.appendChild(tgl);
+  box.appendChild(head);
+
+  const wrap = el('div','chart-wrap');
+  const tip = el('div','tt');
+  wrap.appendChild(tip);
+  box.appendChild(wrap);
+  const tblBox = el('div','hidden');
+  box.appendChild(tblBox);
+  host.appendChild(box);
+
+  let showTable = false;
+  tgl.addEventListener('click', () => {
+    showTable = !showTable;
+    tgl.textContent = showTable ? 'Chart' : 'Table';
+    wrap.classList.toggle('hidden', showTable);
+    tblBox.classList.toggle('hidden', !showTable);
+  });
+
+  function drawTable(){
+    tblBox.innerHTML='';
+    const t = el('table','dt');
+    t.innerHTML = `<thead><tr><th>${esc(spec.xLabel||'')}</th><th style="text-align:right">${esc(spec.yLabel||'Value')}</th></tr></thead>`;
+    const tb = el('tbody');
+    spec.data.forEach(d => {
+      const tr = el('tr');
+      tr.appendChild(el('td', null, d.k));
+      const td = el('td','num', nf(d.v));
+      tr.appendChild(td); tb.appendChild(tr);
+    });
+    t.appendChild(tb); tblBox.appendChild(t);
+  }
+
+  function draw(){
+    wrap.querySelectorAll('svg').forEach(n=>n.remove());
+    const data = spec.data;
+    if (!data.length) return;
+    const W = Math.max(wrap.clientWidth || 680, 320);
+    const padL = 44, padR = 12, padT = 16, xBand = 30, plotH = spec.height || 180;
+    const H = padT + plotH + xBand;
+    const innerW = W - padL - padR;
+    const max = Math.max(...data.map(d=>d.v), 1);
+    const TICKS = 4;
+    const { step, top } = niceScale(max, TICKS);
+    const band = innerW / data.length;
+    const bw = Math.min(24, Math.max(3, band - 6));
+    const y = v => padT + plotH - (v/top)*plotH;
+
+    const NS='http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS,'svg');
+    svg.setAttribute('class','chart');
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+    svg.setAttribute('role','img');
+    svg.setAttribute('aria-label', spec.title);
+    const mk = (n,at)=>{ const e=document.createElementNS(NS,n); for(const k in at) e.setAttribute(k,at[k]); return e; };
+
+    // gridlines + y ticks, on clean round steps
+    for (let i=0;i<=TICKS;i++){
+      const v = step*i, yy = y(v);
+      svg.appendChild(mk('line',{x1:padL,x2:W-padR,y1:yy,y2:yy,class:i===0?'baseline':'gridline'}));
+      const tx = mk('text',{x:padL-7,y:yy+3.5,'text-anchor':'end',class:'ax'});
+      tx.textContent = fmtTick(v);
+      svg.appendChild(tx);
+    }
+    // bars: rounded data-end, square at baseline
+    data.forEach((d,i) => {
+      const cx = padL + band*i + band/2;
+      const x = cx - bw/2;
+      const h = Math.max(0, (d.v/top)*plotH);
+      const r = Math.min(4, bw/2, h);
+      const yy = padT + plotH - h;
+      const path = h <= 0.5 ? '' :
+        `M${x},${padT+plotH} L${x},${yy+r} Q${x},${yy} ${x+r},${yy} L${x+bw-r},${yy} Q${x+bw},${yy} ${x+bw},${yy+r} L${x+bw},${padT+plotH} Z`;
+      if (path) svg.appendChild(mk('path',{d:path,class:'bar'+(d.hot?' hot':'')}));
+      // x labels, thinned
+      const every = spec.xEvery || 1;
+      if (i % every === 0){
+        const tx = mk('text',{x:cx,y:padT+plotH+15,'text-anchor':'middle',class:'ax'});
+        tx.textContent = d.k;
+        svg.appendChild(tx);
+      }
+      // hit area ≥24px wide including the gap
+      const hit = mk('rect',{x:cx-Math.max(12,band/2),y:padT,width:Math.max(24,band),height:plotH,class:'hit'});
+      hit.addEventListener('mouseenter',()=>{
+        tip.innerHTML = `<div class="tt-k">${esc(d.full||d.k)}</div><div class="tt-v">${nf(d.v)} ${esc(spec.unit||'')}</div>`;
+        tip.style.opacity=1;
+        const tw = tip.offsetWidth;
+        tip.style.left = Math.min(Math.max(0,cx-tw/2), W-tw) + 'px';
+        tip.style.top = (yy-tip.offsetHeight-8) + 'px';
+      });
+      hit.addEventListener('mouseleave',()=>{ tip.style.opacity=0; });
+      svg.appendChild(hit);
+    });
+    wrap.appendChild(svg);
+  }
+  drawTable(); draw();
+  CHARTS.push(draw);
+  return box;
+}
+
+function barChartH(host, spec){
+  const box = el('div','card');
+  const head = el('div','chart-head');
+  const left = el('div');
+  left.appendChild(el('div','chart-title',spec.title));
+  if (spec.note) left.appendChild(el('div','chart-note',spec.note));
+  head.appendChild(left);
+  const tgl = el('button','chart-toggle','Table'); tgl.type='button'; head.appendChild(tgl);
+  box.appendChild(head);
+  const wrap = el('div','chart-wrap'); const tip = el('div','tt'); wrap.appendChild(tip);
+  box.appendChild(wrap);
+  const tblBox = el('div','hidden'); box.appendChild(tblBox);
+  host.appendChild(box);
+
+  let showTable=false;
+  tgl.addEventListener('click',()=>{ showTable=!showTable; tgl.textContent=showTable?'Chart':'Table';
+    wrap.classList.toggle('hidden',showTable); tblBox.classList.toggle('hidden',!showTable); });
+
+  const t = el('table','dt');
+  t.innerHTML = `<thead><tr><th>${esc(spec.xLabel||'')}</th><th style="text-align:right">${esc(spec.yLabel||'Cards')}</th></tr></thead>`;
+  const tb = el('tbody');
+  spec.data.forEach(d=>{ const tr=el('tr'); tr.appendChild(el('td',null,d.k)); tr.appendChild(el('td','num',nf(d.v))); tb.appendChild(tr); });
+  t.appendChild(tb); tblBox.appendChild(t);
+
+  function draw(){
+    wrap.querySelectorAll('svg').forEach(n=>n.remove());
+    const data = spec.data; if(!data.length) return;
+    const W = Math.max(wrap.clientWidth || 680, 320);
+    const labW = spec.labelWidth || 128, padR = 52, rowH = 22;
+    const H = data.length*rowH + 10;
+    const innerW = W - labW - padR;
+    const max = Math.max(...data.map(d=>d.v),1);
+    const NS='http://www.w3.org/2000/svg';
+    const svg=document.createElementNS(NS,'svg');
+    svg.setAttribute('class','chart'); svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+    svg.setAttribute('role','img'); svg.setAttribute('aria-label',spec.title);
+    const mk=(n,at)=>{const e=document.createElementNS(NS,n); for(const k in at)e.setAttribute(k,at[k]); return e;};
+    svg.appendChild(mk('line',{x1:labW,x2:labW,y1:2,y2:H-6,class:'baseline'}));
+    data.forEach((d,i)=>{
+      const cy = 6 + i*rowH, bh = Math.min(14, rowH-8);
+      const w = Math.max(0,(d.v/max)*innerW), r = Math.min(4,bh/2,w);
+      const yTop = cy + (rowH-8-bh)/2;
+      const lab = mk('text',{x:labW-8,y:yTop+bh/2+3.5,'text-anchor':'end',class:'ax'});
+      lab.textContent = d.k; svg.appendChild(lab);
+      if (w>0.5){
+        const p = `M${labW},${yTop} L${labW+w-r},${yTop} Q${labW+w},${yTop} ${labW+w},${yTop+r} L${labW+w},${yTop+bh-r} Q${labW+w},${yTop+bh} ${labW+w-r},${yTop+bh} L${labW},${yTop+bh} Z`;
+        svg.appendChild(mk('path',{d:p,class:'bar'}));
+      }
+      const vlab = mk('text',{x:labW+w+7,y:yTop+bh/2+3.5,class:'val-lab'});
+      vlab.textContent = nf(d.v); svg.appendChild(vlab);
+      const hit = mk('rect',{x:labW,y:cy-2,width:innerW+padR,height:Math.max(24,rowH),class:'hit'});
+      hit.addEventListener('mouseenter',()=>{
+        tip.innerHTML=`<div class="tt-k">${esc(d.full||d.k)}</div><div class="tt-v">${nf(d.v)} ${esc(spec.unit||'')}</div>`;
+        tip.style.opacity=1;
+        tip.style.left = Math.min(labW+8, W-tip.offsetWidth)+'px';
+        tip.style.top = Math.max(0, cy-tip.offsetHeight-2)+'px';
+      });
+      hit.addEventListener('mouseleave',()=>{tip.style.opacity=0;});
+      svg.appendChild(hit);
+    });
+    wrap.appendChild(svg);
+  }
+  draw(); CHARTS.push(draw);
+  return box;
+}
+
+window.__redrawCharts = () => CHARTS.forEach(fn => { try{fn();}catch(e){} });
+let rzT; addEventListener('resize',()=>{ clearTimeout(rzT); rzT=setTimeout(()=>window.__redrawCharts(),160); });
+
+/* ---------------- tabs ---------------- */
+const TABS = [
+  ['overview','Overview'], ['timeline','Set timeline'], ['cards','Card browser'],
+  ['mechanics','Mechanics'], ['balance','Balance history'], ['eras','Meta eras'],
+  ['issues','Design issues'], ['pros','Pro scene'], ['data','Download'],
+];
+function buildTabs(){
+  const nav = $('#tabs');
+  TABS.forEach(([id,label],i)=>{
+    const b = el('button',null,label);
+    b.type='button'; b.setAttribute('role','tab'); b.dataset.tab=id;
+    b.setAttribute('aria-selected', i===0 ? 'true':'false');
+    b.addEventListener('click',()=>selectTab(id));
+    nav.appendChild(b);
+  });
+  $('#p-overview').classList.add('active');
+}
+function selectTab(id){
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', String(b.dataset.tab===id)));
+  document.querySelectorAll('section.panel').forEach(p=>p.classList.toggle('active', p.id===('p-'+id)));
+  // the hero belongs to the landing view only; on other tabs it is just a wall
+  // of type between the nav and the content the reader asked for
+  const hero = document.getElementById('hero');
+  if (hero) hero.classList.toggle('hidden', id !== 'overview');
+  if (location.hash.slice(1)!==id) history.replaceState(null,'','#'+id);
+  window.scrollTo({top:0,behavior:'instant'});
+  window.__redrawCharts();
+}
+buildTabs();
+
+/* ---------------- load + render ---------------- */
+const S = {};   // loaded datasets
+async function jget(name, optional=true){
+  try {
+    const r = await fetch(DATA+name, {cache:'no-cache'});
+    if (!r.ok) throw new Error(r.status+' '+name);
+    return await r.json();
+  } catch(e){ if(!optional) throw e; return null; }
+}
+
+function rowsToObjs(lite){
+  if (!lite || !lite.keys) return [];
+  const K = lite.keys;
+  return lite.rows.map(r => { const o={}; K.forEach((k,i)=>o[k]=r[i]); return o; });
+}
+
+(async function main(){
+  const [manifest, lite, mechIdx, setsSeen, changelog] = await Promise.all([
+    jget('manifest.json'), jget('cards_lite.json'), jget('mechanics_index.json'),
+    jget('sets_first_seen.json'), jget('changelog.json'),
+  ]);
+  S.manifest = manifest; S.cards = rowsToObjs(lite); S.mechIdx = mechIdx;
+  S.setsSeen = setsSeen; S.changelog = changelog || [];
+
+  renderTiles(); renderOverview(); renderTimeline(); renderBrowser();
+  renderMechanics(); renderBalance(); renderDownloads();
+
+  // research payloads land later; render whatever exists
+  const [spine, mechanics, issues, pros, creep, synth, brief] = await Promise.all([
+    jget('sets_spine.json'), jget('mechanics.json'), jget('issues.json'),
+    jget('pro_scene.json'), jget('powercreep.json'), jget('synthesis.json'),
+    jget('../brief/new-card-game-brief.json'),
+  ]);
+  S.spine=spine; S.mechFull=mechanics; S.issues=issues; S.pros=pros;
+  S.creep=creep; S.synth=synth; S.brief=brief;
+  const eras = await loadEras();
+  S.eras = eras;
+  renderEras(); renderIssues(); renderPros();
+  if (creep) renderPowerCreep();
+  if (mechanics) renderMechanicsDetail();
+  const h = location.hash.slice(1);
+  if (h && TABS.some(t=>t[0]===h)) selectTab(h);
+})();
+
+async function loadEras(){
+  const keys = ['classic-2014','tgt-loe-2015','kraken-2016','mammoth-2017','raven-2018',
+    'dragon-2019','phoenix-2020','gryphon-2021','hydra-2022','wolf-2023','pegasus-2024',
+    'raptor-2025','current-2026'];
+  const got = await Promise.all(keys.map(k=>jget('meta/era_'+k+'.json')));
+  return got.map((d,i)=>d?{key:keys[i],...d}:null).filter(Boolean);
+}
+
+/* ---------- tiles ---------- */
+function renderTiles(){
+  const m = S.manifest || {}, host = $('#tiles');
+  const nSets = S.setsSeen ? Object.keys(S.setsSeen).length : 0;
+  // six tiles, so the auto-fit grid stays full at 1, 2, 3 and 6 columns
+  const nKeywords = S.mechIdx ? Object.keys(S.mechIdx).length : 0;
+  const tiles = [
+    ['Constructed cards', nf(m.n_cards), (m.n_unique_cards? nf(m.n_unique_cards)+' unique + '+nf(m.n_reprints)+' reprints':'')],
+    ['Card sets', nf(nSets), 'dated from client builds'],
+    ['Balance changes', nf(m.n_balance_change_events), 'stat & text edits tracked'],
+    ['Client builds walked', nf(S.buildCount||320), '2013-01 → 2026-07'],
+    ['Keywords', nf(nKeywords), 'mechanics counted from card data'],
+    ['Decklists archived', '348,640', 'HearthPwn + hsguru, 2013–2024'],
+  ];
+  host.innerHTML='';
+  tiles.forEach(([l,v,s])=>{
+    const t = el('div','tile');
+    t.appendChild(el('div','label',l));
+    t.appendChild(el('div','value',v));
+    if(s) t.appendChild(el('div','sub',s));
+    host.appendChild(t);
+  });
+}
+
+/* ---------- overview ---------- */
+function renderOverview(){
+  const p = $('#p-overview'); p.innerHTML='';
+  p.appendChild(el('h2','',  'What this is'));
+  const sub = el('p','sec-sub');
+  sub.innerHTML = 'Three things: a <strong>card database</strong> you can download, '+
+    'a <strong>balance-change record</strong> for every card, and a <strong>study of the ranked meta</strong> era by era. '+
+    'The card side is derived entirely from the game client; the meta side is researched and is labelled with its confidence.';
+  p.appendChild(sub);
+
+  const meth = el('div','card');
+  meth.innerHTML = `<h3 style="margin-top:0">How the cards are dated</h3>
+    <p style="font-size:13.5px;color:var(--ink-2)">
+    A card's <code>CARD_SET</code> tag does <em>not</em> tell you when it came out. Blizzard re-buckets
+    cards: the original Classic cards now report <code>LEGACY</code>, and the Core set is re-curated
+    every year, so thousands of cards carry a set tag from years after they actually shipped —
+    Fireball reports <code>LEGACY</code>, not a 2014 set.</p>
+    <p style="font-size:13.5px;color:var(--ink-2);margin-top:10px">
+    So instead of trusting the tag, this study walks <strong>320 dated snapshots of the game's card
+    definitions</strong> in chronological order and records the first build each card ever appeared in.
+    That is empirical, and it also yields the change history: every cost, attack, health, durability
+    and rules-text edit a card ever received, with the build it happened in.</p>
+    <div class="callout"><strong>One caveat, stated plainly.</strong> These dates are when card data
+    <em>shipped to the client</em>, which runs days to weeks ahead of public release — Goblins vs Gnomes
+    data appears 2014-12-04 for a 2014-12-08 launch. Treat <code>data_first_seen</code> as
+    "datamined on or before", not "playable on". Where a researched public release date is available
+    it is carried separately as <code>set_release_date</code>.</div>`;
+  p.appendChild(meth);
+
+  const cs = el('div'); cs.style.marginTop='16px';
+  p.appendChild(cs);
+  const byYear = {};
+  S.cards.forEach(c => { const y=(c.data_first_seen||'').slice(0,4); if(y) byYear[y]=(byYear[y]||0)+1; });
+  columnChart(cs, {
+    title:'Constructed cards entering the game, by year',
+    note:'Counts every printing, including Core/Legacy reprints — the 2021 spike is the Core+Vanilla re-issue, not 1,100 new designs.',
+    data:Object.keys(byYear).sort().map(y=>({k:y,v:byYear[y]})),
+    yLabel:'Cards', xLabel:'Year', unit:'cards', height:190,
+  });
+
+  if (S.synth && S.synth.thesis){
+    const th = el('div','card'); th.style.marginTop='16px';
+    th.innerHTML = `<h3 style="margin-top:0">Thesis</h3><p style="font-size:14px;color:var(--ink-2)">${esc(S.synth.thesis)}</p>`;
+    p.appendChild(th);
+  }
+}
+
+/* ---------- power creep (research) ---------- */
+function renderPowerCreep(){
+  const creep = S.creep; if(!creep||!creep.by_set) return;
+  const host = $('#p-overview');
+  const wrap = el('div'); wrap.style.marginTop='16px';
+  host.appendChild(el('h3','','Is there power creep?'));
+  const rows = creep.by_set.filter(s=>s.avg_stats_per_mana!=null && s.n_minions>4)
+    .sort((a,b)=>String(a.release_date||'').localeCompare(String(b.release_date||'')));
+  if (rows.length){
+    columnChart(wrap,{
+      title:'Average minion stats per mana, by set (release order)',
+      note:'(Attack + Health) ÷ cost for collectible minions costing 1+. Flat here means raw statlines did not inflate — creep, where it exists, lives in card text.',
+      data:rows.map(s=>({k:(s.set_enum||'').slice(0,4),full:titleCase(s.set_enum)+(s.release_date?' · '+s.release_date:''),v:Math.round((s.avg_stats_per_mana||0)*100)/100})),
+      yLabel:'Stats per mana', xLabel:'Set', unit:'', height:190, xEvery:Math.ceil(rows.length/14),
+    });
+  }
+  if (creep.findings && creep.findings.length){
+    const f = el('div','card'); f.style.marginTop='16px';
+    f.innerHTML = '<h3 style="margin-top:0">What the numbers show</h3>' +
+      '<ul style="font-size:13.5px;color:var(--ink-2);padding-left:19px">' +
+      creep.findings.map(x=>`<li style="margin-bottom:7px">${esc(x)}</li>`).join('') + '</ul>';
+    wrap.appendChild(f);
+  }
+  host.appendChild(wrap);
+}
+
+/* ---------- set timeline ---------- */
+function renderTimeline(){
+  const p=$('#p-timeline'); p.innerHTML='';
+  p.appendChild(el('h2','','Set timeline'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='Every card set, ordered by the first dated client build its cards appeared in. '+
+    'Counts are the collectible Constructed cards currently tagged to that set.';
+  p.appendChild(sub);
+  if(!S.setsSeen){ p.appendChild(el('div','loading','Set data unavailable.')); return; }
+
+  const bySet={}; S.cards.forEach(c=>{ bySet[c.card_set]=(bySet[c.card_set]||0)+1; });
+  const spineByEnum={};
+  if (S.spine && Array.isArray(S.spine.sets)) S.spine.sets.forEach(s=>{ if(s.set_enum) spineByEnum[s.set_enum]=s; });
+
+  const entries=Object.entries(S.setsSeen)
+    .map(([name,info])=>({name,...info,n:bySet[name]||0}))
+    .sort((a,b)=>String(a.first_date).localeCompare(String(b.first_date)));
+
+  const tl=el('div','tl');
+  entries.forEach(e=>{
+    const it=el('div','tl-item');
+    const sp=spineByEnum[e.name];
+    const disp = sp && sp.display_name ? sp.display_name : titleCase(e.name);
+    it.appendChild(el('div','tl-date', e.first_date + (sp&&sp.release_date&&sp.release_date!==e.first_date ? '  ·  released '+sp.release_date : '')));
+    it.appendChild(el('div','tl-name', disp));
+    const bits=[];
+    if(e.n) bits.push(e.n+' collectible card'+(e.n===1?'':'s')+' tagged to this set');
+    bits.push('build '+e.first_build);
+    if(sp&&sp.kind) bits.push(sp.kind);
+    if(sp&&sp.standard_year) bits.push(sp.standard_year);
+    it.appendChild(el('div','tl-body', bits.join(' · ')));
+    tl.appendChild(it);
+  });
+  p.appendChild(tl);
+}
+
+/* ---------- card browser ---------- */
+let VIEW=[], SHOWN=0, PAGE=90;
+function renderBrowser(){
+  const p=$('#p-cards'); p.innerHTML='';
+  p.appendChild(el('h2','','Card browser'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='All '+nf(S.cards.length)+' collectible Constructed cards. Search matches name and rules text. '+
+    'Reprints (the same card re-issued into Core, Legacy or Vanilla under a new ID) are hidden by default.';
+  p.appendChild(sub);
+
+  const f=el('div','filters');
+  const q=el('input'); q.type='search'; q.placeholder='Search name or text…'; q.id='q';
+  const sel=(id,label,opts)=>{ const s=el('select'); s.id=id;
+    s.appendChild(new Option(label,'')); opts.forEach(o=>s.appendChild(new Option(o.l,o.v))); return s; };
+  const uniq=k=>[...new Set(S.cards.map(c=>c[k]).filter(Boolean))].sort();
+  const setOpts=Object.entries(S.setsSeen||{}).sort((a,b)=>String(a[1].first_date).localeCompare(String(b[1].first_date)))
+      .filter(([n])=>S.cards.some(c=>c.card_set===n)).map(([n])=>({l:titleCase(n),v:n}));
+  const mechOpts=Object.keys(S.mechIdx||{}).map(m=>({l:titleCase(m),v:m}));
+  f.append(q,
+    sel('fClass','All classes',uniq('card_class').map(v=>({l:titleCase(v),v}))),
+    sel('fSet','All sets (chronological)',setOpts),
+    sel('fType','All types',uniq('type').map(v=>({l:titleCase(v),v}))),
+    sel('fRar','All rarities',uniq('rarity').map(v=>({l:titleCase(v),v}))),
+    sel('fMech','Any mechanic',mechOpts),
+    sel('fSort','Sort: oldest first',[{l:'Newest first',v:'new'},{l:'Cost ↑',v:'cost'},{l:'Name A–Z',v:'name'},{l:'Most changed',v:'changed'}]));
+  const lab1=el('label','chk'); const cbR=el('input'); cbR.type='checkbox'; cbR.id='fRep'; cbR.checked=true;
+  lab1.append(cbR, document.createTextNode('Hide reprints')); f.appendChild(lab1);
+  const lab2=el('label','chk'); const cbN=el('input'); cbN.type='checkbox'; cbN.id='fNerf';
+  lab2.append(cbN, document.createTextNode('Only changed cards')); f.appendChild(lab2);
+  p.appendChild(f);
+
+  p.appendChild(el('div','count-line',''));
+  const grid=el('div','cards-grid'); grid.id='grid'; p.appendChild(grid);
+  const more=el('button','more-btn','Show more'); more.type='button'; more.id='more';
+  more.addEventListener('click',()=>{ SHOWN+=PAGE; paint(); });
+  p.appendChild(more);
+
+  const apply=()=>{ filter(); };
+  [q,'fClass','fSet','fType','fRar','fMech','fSort'].forEach(x=>{
+    const n = typeof x==='string' ? $('#'+x) : x;
+    n.addEventListener(n.tagName==='INPUT'?'input':'change', apply);
+  });
+  cbR.addEventListener('change',apply); cbN.addEventListener('change',apply);
+  filter();
+}
+
+function filter(){
+  const q=($('#q').value||'').trim().toLowerCase();
+  const cls=$('#fClass').value, st=$('#fSet').value, ty=$('#fType').value,
+        ra=$('#fRar').value, me=$('#fMech').value, sort=$('#fSort').value,
+        hideRep=$('#fRep').checked, onlyNerf=$('#fNerf').checked;
+  VIEW=S.cards.filter(c=>{
+    if(hideRep && +c.is_reprint) return false;
+    if(onlyNerf && !(+c.n_balance_changes>0)) return false;
+    if(cls && c.card_class!==cls) return false;
+    if(st && c.card_set!==st) return false;
+    if(ty && c.type!==ty) return false;
+    if(ra && c.rarity!==ra) return false;
+    if(me && !String(c.mechanics||'').split('|').includes(me)) return false;
+    if(q && !((c.name||'').toLowerCase().includes(q) || (c.text||'').toLowerCase().includes(q))) return false;
+    return true;
+  });
+  const cmp={
+    new:(a,b)=>String(b.data_first_seen).localeCompare(String(a.data_first_seen)),
+    cost:(a,b)=>(a.cost||0)-(b.cost||0)||String(a.name).localeCompare(String(b.name)),
+    name:(a,b)=>String(a.name).localeCompare(String(b.name)),
+    changed:(a,b)=>(+b.n_balance_changes||0)-(+a.n_balance_changes||0),
+  }[sort];
+  if(cmp) VIEW.sort(cmp);
+  SHOWN=PAGE; paint();
+}
+
+function paint(){
+  const grid=$('#grid'), more=$('#more');
+  const line=document.querySelector('#p-cards .count-line');
+  line.textContent = nf(VIEW.length)+' card'+(VIEW.length===1?'':'s')+
+    (VIEW.length>SHOWN ? '  ·  showing first '+nf(Math.min(SHOWN,VIEW.length)) : '');
+  grid.innerHTML='';
+  VIEW.slice(0,SHOWN).forEach(c=>grid.appendChild(cardEl(c)));
+  more.classList.toggle('hidden', VIEW.length<=SHOWN);
+}
+
+function cardEl(c){
+  const d=el('div','cd');
+  const top=el('div','cd-top');
+  const nm=el('div');
+  nm.appendChild(el('div','cd-name',c.name));
+  const bits=[titleCase(c.card_class),titleCase(c.type)];
+  if(c.attack!=null&&(+c.attack||+c.health)) bits.push((c.attack||0)+'/'+(c.health||0));
+  nm.appendChild(el('div','cd-meta',bits.join(' · ')));
+  top.appendChild(nm);
+  top.appendChild(el('div','cd-cost', c.cost==null?'–':String(c.cost)));
+  d.appendChild(top);
+  if(c.text) d.appendChild(el('div','cd-text',c.text));
+  const tags=el('div','cd-tags');
+  tags.appendChild(el('span','tag rar-'+c.rarity, titleCase(c.rarity)));
+  tags.appendChild(el('span','tag', (c.data_first_seen||'').slice(0,7)||'—'));
+  tags.appendChild(el('span','tag', titleCase(c.card_set)));
+  String(c.mechanics||'').split('|').filter(Boolean).slice(0,4).forEach(m=>tags.appendChild(el('span','tag',titleCase(m))));
+  if(+c.n_balance_changes>0) tags.appendChild(el('span','tag nerf', c.n_balance_changes+'× changed'));
+  if(+c.is_reprint) tags.appendChild(el('span','tag reprint','reprint'));
+  d.appendChild(tags);
+  return d;
+}
+
+/* ---------- mechanics ---------- */
+function renderMechanics(){
+  const p=$('#p-mechanics'); p.innerHTML='';
+  p.appendChild(el('h2','','Mechanics'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='Every keyword the game actually uses, counted from the card data rather than from memory. '+
+    '"First seen" is the earliest build containing a card with that keyword.';
+  p.appendChild(sub);
+  if(!S.mechIdx){ p.appendChild(el('div','loading','Mechanics index unavailable.')); return; }
+  const entries=Object.entries(S.mechIdx).map(([k,v])=>({k:titleCase(k),raw:k,v:v.count,first:v.first_date}))
+    .sort((a,b)=>b.v-a.v);
+  const host=el('div'); p.appendChild(host);
+  barChartH(host,{
+    title:'Keyword frequency across all Constructed cards',
+    note:'Top 24 of '+entries.length+' distinct keywords. Counts include every printing.',
+    data:entries.slice(0,24), yLabel:'Cards', xLabel:'Keyword', unit:'cards', labelWidth:132,
+  });
+  const t=el('div','card'); t.style.marginTop='16px';
+  t.innerHTML='<h3 style="margin-top:0">All keywords, with first appearance</h3>';
+  const tbl=el('table','dt');
+  tbl.innerHTML='<thead><tr><th>Keyword</th><th>First seen</th><th style="text-align:right">Cards</th></tr></thead>';
+  const tb=el('tbody');
+  entries.forEach(e=>{ const tr=el('tr');
+    tr.appendChild(el('td',null,e.k));
+    tr.appendChild(el('td',null,e.first&&e.first!=='9999'?e.first:'—'));
+    tr.appendChild(el('td','num',nf(e.v))); tb.appendChild(tr); });
+  tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+}
+
+function renderMechanicsDetail(){
+  const m=S.mechFull; if(!m) return;
+  const p=$('#p-mechanics');
+  if(m.resource_model){
+    const c=el('div','card'); c.style.marginTop='16px';
+    c.innerHTML='<h3 style="margin-top:0">The resource model</h3><p style="font-size:13.5px;color:var(--ink-2)">'+esc(m.resource_model)+'</p>';
+    p.appendChild(c);
+  }
+  if(Array.isArray(m.systems)&&m.systems.length){
+    p.appendChild(el('h3','','Systems beyond keywords'));
+    const g=el('div','grid2');
+    m.systems.forEach(s=>{ const c=el('div','card');
+      c.innerHTML='<div style="font-size:13.5px;font-weight:600;margin-bottom:5px">'+esc(s.system)+'</div>'+
+        '<div style="font-size:12.5px;color:var(--ink-2)">'+esc(s.description)+'</div>'+
+        (s.assessment?'<div style="font-size:12.5px;color:var(--ink-muted);margin-top:8px"><strong style="color:var(--ink-2)">Assessment:</strong> '+esc(s.assessment)+'</div>':'');
+      g.appendChild(c); });
+    p.appendChild(g);
+  }
+}
+
+/* ---------- balance history ---------- */
+function renderBalance(){
+  const p=$('#p-balance'); p.innerHTML='';
+  p.appendChild(el('h2','','Balance history'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='Every stat or rules-text change to a collectible Constructed card, recovered by diffing '+
+    'consecutive client builds. This includes genuine nerfs and buffs, reworks, and the stat restorations '+
+    'that happened when Classic/Legacy was created in 2021.';
+  p.appendChild(sub);
+  const cl=S.changelog||[];
+  if(!cl.length){ p.appendChild(el('div','loading','Changelog unavailable.')); return; }
+
+  const byYear={}; cl.forEach(c=>{ const y=(c.date||'').slice(0,4); if(y) byYear[y]=(byYear[y]||0)+1; });
+  const host=el('div'); p.appendChild(host);
+  columnChart(host,{
+    title:'Card changes per year',
+    note:'2013 is closed-beta rebalancing. Later spikes track Core-set re-issues and the modern, more aggressive balance cadence.',
+    data:Object.keys(byYear).sort().map(y=>({k:y,v:byYear[y]})),
+    yLabel:'Changes', xLabel:'Year', unit:'changes', height:180,
+  });
+
+  const most={}; cl.forEach(c=>{ most[c.name]=(most[c.name]||0)+1; });
+  const top=Object.entries(most).sort((a,b)=>b[1]-a[1]).slice(0,20).map(([k,v])=>({k,v}));
+  const h2=el('div'); h2.style.marginTop='16px'; p.appendChild(h2);
+  barChartH(h2,{title:'Most-revised cards',note:'Counts every printing of the card, so Core/Legacy re-issues add to a card’s total.',
+    data:top,yLabel:'Changes',xLabel:'Card',unit:'changes',labelWidth:150});
+
+  p.appendChild(el('h3','','Recent changes'));
+  const t=el('div','card');
+  const tbl=el('table','dt');
+  tbl.innerHTML='<thead><tr><th>Date</th><th>Card</th><th>Change</th></tr></thead>';
+  const tb=el('tbody');
+  cl.slice().reverse().slice(0,120).forEach(c=>{
+    const tr=el('tr');
+    tr.appendChild(el('td',null,c.date));
+    tr.appendChild(el('td',null,c.name));
+    const parts=Object.entries(c.deltas||{}).map(([f,v])=>{
+      if(f==='text') return 'text rewritten';
+      return f+' '+(v[0]==null?'–':v[0])+' → '+(v[1]==null?'–':v[1]);
+    });
+    tr.appendChild(el('td',null,parts.join(', ')));
+    tb.appendChild(tr);
+  });
+  tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+}
+
+/* ---------- eras (research) ---------- */
+function renderEras(){
+  const p=$('#p-eras'); p.innerHTML='';
+  p.appendChild(el('h2','','Meta eras'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='The ranked ladder era by era: the decks that actually defined each meta, the cards that warped it, '+
+    'and how it ended. Every claim carries a confidence label, and quantitative claims without a citable source say so.';
+  p.appendChild(sub);
+
+  if(!S.eras||!S.eras.length){
+    p.appendChild(el('div','loading','Era research is still being assembled — this section fills in when it lands.'));
+    return;
+  }
+  if(S.synth&&Array.isArray(S.synth.cross_era_patterns)&&S.synth.cross_era_patterns.length){
+    p.appendChild(el('h3','','Patterns that repeat across every era'));
+    const g=el('div','grid2');
+    S.synth.cross_era_patterns.forEach(x=>{
+      const c=el('div','card');
+      c.innerHTML='<div style="font-size:13.5px;font-weight:600;margin-bottom:6px">'+esc(x.pattern)+'</div>'+
+        '<div style="font-size:12.5px;color:var(--ink-2)">'+esc(x.why_it_recurs)+'</div>'+
+        (Array.isArray(x.instances)&&x.instances.length?'<div style="font-size:11.5px;color:var(--ink-muted);margin-top:8px">'+
+          x.instances.map(esc).join(' · ')+'</div>':'');
+      g.appendChild(c);
+    });
+    p.appendChild(g);
+  }
+  S.eras.forEach(e=>{
+    const c=el('div','card'); c.style.marginTop='16px';
+    let h='<div style="font-size:11px;color:var(--ink-muted)">'+esc(e.date_range||'')+'</div>'+
+      '<h3 style="margin:2px 0 10px">'+esc(e.era_title||e.key)+'</h3>';
+    if(Array.isArray(e.expansions)&&e.expansions.length)
+      h+='<div style="font-size:12px;color:var(--ink-muted);margin-bottom:10px">'+
+        e.expansions.map(x=>esc(x.name)+(x.release_date?' ('+esc(x.release_date)+')':'')).join(' · ')+'</div>';
+    if(e.narrative) h+='<p style="font-size:13.5px;color:var(--ink-2);white-space:pre-wrap">'+esc(e.narrative)+'</p>';
+    c.innerHTML=h;
+
+    if(Array.isArray(e.defining_decks)&&e.defining_decks.length){
+      c.appendChild(el('h3','','Defining decks'));
+      const tbl=el('table','dt');
+      tbl.innerHTML='<thead><tr><th>Deck</th><th>Class</th><th>Tier</th><th>Key cards</th><th>Confidence</th></tr></thead>';
+      const tb=el('tbody');
+      e.defining_decks.forEach(d=>{ const tr=el('tr');
+        tr.appendChild(el('td',null,d.archetype));
+        tr.appendChild(el('td',null,titleCase(d.class)));
+        tr.appendChild(el('td',null,d.tier||'—'));
+        tr.appendChild(el('td',null,(d.key_cards||[]).slice(0,6).join(', ')));
+        tr.appendChild(el('td',null,d.confidence||'—'));
+        tb.appendChild(tr); });
+      tbl.appendChild(tb); c.appendChild(tbl);
+    }
+    if(Array.isArray(e.balance_actions)&&e.balance_actions.length){
+      c.appendChild(el('h3','','Balance actions'));
+      const ul=el('ul'); ul.style.cssText='font-size:12.5px;color:var(--ink-2);padding-left:19px';
+      e.balance_actions.slice(0,14).forEach(b=>{
+        const li=el('li'); li.style.marginBottom='4px';
+        li.textContent=(b.date_or_patch?b.date_or_patch+' — ':'')+b.card_or_change+': '+b.action;
+        ul.appendChild(li); });
+      c.appendChild(ul);
+    }
+    if(Array.isArray(e.issues)&&e.issues.length){
+      c.appendChild(el('h3','','What this era exposed'));
+      const ul=el('ul'); ul.style.cssText='font-size:12.5px;color:var(--ink-2);padding-left:19px';
+      e.issues.forEach(i=>{ const li=el('li'); li.style.marginBottom='6px';
+        li.innerHTML='<strong style="color:var(--ink)">'+esc(i.issue)+'</strong> — '+esc(i.design_lesson||i.evidence||'');
+        ul.appendChild(li); });
+      c.appendChild(ul);
+    }
+    p.appendChild(c);
+  });
+
+  if(S.synth&&Array.isArray(S.synth.top_cards_all_time)&&S.synth.top_cards_all_time.length){
+    p.appendChild(el('h3','','Most meta-defining cards of all time'));
+    const t=el('div','card'); const tbl=el('table','dt');
+    tbl.innerHTML='<thead><tr><th>#</th><th>Card</th><th>Set</th><th>Era</th><th>The case</th></tr></thead>';
+    const tb=el('tbody');
+    S.synth.top_cards_all_time.forEach(x=>{ const tr=el('tr');
+      tr.appendChild(el('td','num',String(x.rank)));
+      tr.appendChild(el('td',null,x.card));
+      tr.appendChild(el('td',null,titleCase(x.set)));
+      tr.appendChild(el('td',null,x.era||'—'));
+      tr.appendChild(el('td',null,x.case||'')); tb.appendChild(tr); });
+    tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+  }
+  if(S.synth&&Array.isArray(S.synth.top_decks_all_time)&&S.synth.top_decks_all_time.length){
+    p.appendChild(el('h3','','Most meta-defining decks of all time'));
+    const t=el('div','card'); const tbl=el('table','dt');
+    tbl.innerHTML='<thead><tr><th>#</th><th>Deck</th><th>Class</th><th>Era</th><th>The case</th></tr></thead>';
+    const tb=el('tbody');
+    S.synth.top_decks_all_time.forEach(x=>{ const tr=el('tr');
+      tr.appendChild(el('td','num',String(x.rank)));
+      tr.appendChild(el('td',null,x.deck));
+      tr.appendChild(el('td',null,titleCase(x.class)));
+      tr.appendChild(el('td',null,x.era||'—'));
+      tr.appendChild(el('td',null,x.case||'')); tb.appendChild(tr); });
+    tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+  }
+}
+
+/* ---------- issues ---------- */
+function renderIssues(){
+  const p=$('#p-issues'); p.innerHTML='';
+  p.appendChild(el('h2','','Design issues'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='The structural problems Hearthstone never solved, each with concrete examples and the lesson a new game should take. '+
+    'This is the input to the new-card-game brief.';
+  p.appendChild(sub);
+  const iss=S.issues;
+  if(!iss||!Array.isArray(iss.issues)||!iss.issues.length){
+    p.appendChild(el('div','loading','Design-issue analysis is still being assembled — this section fills in when it lands.'));
+    return;
+  }
+  if(iss.systemic_summary){
+    const c=el('div','card');
+    c.innerHTML='<h3 style="margin-top:0">In summary</h3><p style="font-size:13.5px;color:var(--ink-2)">'+esc(iss.systemic_summary)+'</p>';
+    p.appendChild(c);
+  }
+  const sevColor={critical:'var(--critical)',major:'var(--serious)',moderate:'var(--warning)'};
+  iss.issues.forEach(i=>{
+    const c=el('div','card'); c.style.marginTop='14px';
+    c.style.borderLeft='2px solid '+(sevColor[i.severity]||'var(--border-2)');
+    let h='<div style="display:flex;gap:9px;align-items:baseline;flex-wrap:wrap">'+
+      '<div style="font-size:14.5px;font-weight:600">'+esc(i.title)+'</div>'+
+      '<span class="tag">'+esc(i.severity||'')+'</span><span class="tag">'+esc(i.category||'')+'</span></div>'+
+      '<p style="font-size:13px;color:var(--ink-2);margin-top:9px">'+esc(i.explanation)+'</p>';
+    if(Array.isArray(i.concrete_examples)&&i.concrete_examples.length)
+      h+='<div style="font-size:12px;color:var(--ink-muted);margin-top:9px"><strong style="color:var(--ink-2)">Examples:</strong> '+
+        i.concrete_examples.map(esc).join(' · ')+'</div>';
+    if(i.blizzard_response) h+='<div style="font-size:12px;color:var(--ink-muted);margin-top:6px"><strong style="color:var(--ink-2)">Response:</strong> '+esc(i.blizzard_response)+'</div>';
+    if(i.still_present) h+='<div style="font-size:12px;color:var(--ink-muted);margin-top:6px"><strong style="color:var(--ink-2)">Today:</strong> '+esc(i.still_present)+'</div>';
+    if(i.lesson_for_new_game) h+='<div style="font-size:12.5px;color:var(--ink-2);margin-top:10px;padding-top:9px;border-top:1px solid var(--border)"><strong style="color:var(--ink)">Lesson:</strong> '+esc(i.lesson_for_new_game)+'</div>';
+    c.innerHTML=h; p.appendChild(c);
+  });
+}
+
+/* ---------- pro scene ---------- */
+function renderPros(){
+  const p=$('#p-pros'); p.innerHTML='';
+  p.appendChild(el('h2','','Pro & legend scene'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='Who the best players were, what they piloted, and how the competitive structure changed. '+
+    'Tournament results are only asserted where they could be cross-checked; anything shakier is marked low confidence.';
+  p.appendChild(sub);
+  const pr=S.pros;
+  if(!pr||!Array.isArray(pr.players)||!pr.players.length){
+    p.appendChild(el('div','loading','Pro-scene research is still being assembled — this section fills in when it lands.'));
+    return;
+  }
+  if(pr.legend_ladder){
+    const c=el('div','card');
+    c.innerHTML='<h3 style="margin-top:0">Ladder vs tournament play</h3><p style="font-size:13.5px;color:var(--ink-2)">'+esc(pr.legend_ladder)+'</p>';
+    p.appendChild(c);
+  }
+  if(Array.isArray(pr.circuits)&&pr.circuits.length){
+    p.appendChild(el('h3','','Competitive circuits'));
+    const t=el('div','card'); const tbl=el('table','dt');
+    tbl.innerHTML='<thead><tr><th>Circuit</th><th>Years</th><th>Format</th><th>Significance</th></tr></thead>';
+    const tb=el('tbody');
+    pr.circuits.forEach(x=>{ const tr=el('tr');
+      tr.appendChild(el('td',null,x.name)); tr.appendChild(el('td',null,x.years));
+      tr.appendChild(el('td',null,x.format)); tr.appendChild(el('td',null,x.significance));
+      tb.appendChild(tr); });
+    tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+  }
+  p.appendChild(el('h3','','Players'));
+  const g=el('div','grid2');
+  pr.players.forEach(pl=>{
+    const c=el('div','cd');
+    let h='<div class="cd-name">'+esc(pl.handle)+'</div>'+
+      '<div class="cd-meta">'+[pl.region,pl.era_active].filter(Boolean).map(esc).join(' · ')+'</div>'+
+      '<div class="cd-text">'+esc(pl.why_notable)+'</div>';
+    if(Array.isArray(pl.major_results)&&pl.major_results.length)
+      h+='<div class="cd-text" style="color:var(--ink-muted)">'+pl.major_results.slice(0,4).map(esc).join(' · ')+'</div>';
+    h+='<div class="cd-tags">'+(Array.isArray(pl.signature_decks)?pl.signature_decks.slice(0,3).map(d=>'<span class="tag">'+esc(d)+'</span>').join(''):'')+
+      '<span class="tag">'+esc(pl.confidence||'')+' confidence</span></div>';
+    c.innerHTML=h; g.appendChild(c);
+  });
+  p.appendChild(g);
+}
+
+/* ---------- downloads ---------- */
+function renderDownloads(){
+  const p=$('#p-data'); p.innerHTML='';
+  p.appendChild(el('h2','','Download the database'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='Free to use. Card data is datamined from the Hearthstone client and carries Blizzard’s rights; '+
+    'the derived dating, changelog and aggregation are the contribution here.';
+  p.appendChild(sub);
+
+  const files=[
+    ['cards.json','Every card with full record and its per-card balance-change history'],
+    ['cards.csv','Flat table for spreadsheets; list columns are pipe-delimited'],
+    ['cards.sqlite','Indexed SQLite with FTS5 search. Tables: cards, card_mechanics, balance_changes'],
+    ['cards_lite.json','Columnar index used by this page — smallest payload'],
+    ['changelog.json','Every balance change, flat and date-ordered'],
+    ['card_history.json','Raw per-card first/last build and full change list, including non-collectible entities'],
+    ['sets_first_seen.json','Each set’s first dated client build'],
+    ['build_index.json','All client builds walked, with dates and entity counts'],
+    ['mechanics_index.json','Keyword → count, first appearance, card IDs'],
+    ['manifest.json','Provenance, counts, exclusion report'],
+  ];
+  files.forEach(([f,d])=>{
+    const a=el('a','dl'); a.href=DATA+f; a.setAttribute('download','');
+    a.innerHTML='<div><div class="dl-name">'+esc(f)+'</div><div class="dl-desc">'+esc(d)+'</div></div>'+
+      '<span class="dl-size">download</span>';
+    p.appendChild(a);
+  });
+
+  p.appendChild(el('h3','','Decklist archives'));
+  const dsub=el('p','sec-sub');
+  dsub.innerHTML='Real decklists recovered from public sources. Read the provenance note — these measure '+
+    '<em>posting behaviour</em>, not ladder representation, and coverage is uneven.';
+  p.appendChild(dsub);
+  [['research/decks_NJacobsohn-Hearthstone-Data-Analysis.ndjson','346,232 HearthPwn decks, 2013-05 → 2017-03. Filter extra.deck_type == "Ranked Deck" for ladder work'],
+   ['research/decks_Eochs-HS-Data-Analysis.ndjson','2,369 upvote-filtered HearthPwn decks, early 2015'],
+   ['research/decks_Alfxjx-hsguru-data-spider.ndjson','39 hsguru decks with archetype names, 2024-07-01'],
+   ['research/decksets_README.md','Provenance, measured counts, and known biases for all three']
+  ].forEach(([f,d])=>{
+    const a=el('a','dl'); a.href=DATA+f; a.setAttribute('download','');
+    a.innerHTML='<div><div class="dl-name">'+esc(f.split('/').pop())+'</div><div class="dl-desc">'+esc(d)+'</div></div>'+
+      '<span class="dl-size">download</span>';
+    p.appendChild(a);
+  });
+
+  p.appendChild(el('h3','','Querying the SQLite'));
+  const pre=el('pre');
+  pre.innerHTML='<code>-- cards that were nerfed, newest change first\n'+
+    'SELECT c.name, b.date, b.field, b.old_value, b.new_value\n'+
+    'FROM balance_changes b JOIN cards c ON c.id = b.card_id\n'+
+    'ORDER BY b.date DESC LIMIT 40;\n\n'+
+    '-- unique cards only, in true release order\n'+
+    'SELECT data_first_seen, name, card_set, cost\n'+
+    'FROM cards WHERE is_reprint = 0 ORDER BY data_first_seen;\n\n'+
+    '-- full-text search\n'+
+    'SELECT c.name FROM cards_fts f JOIN cards c ON c.id = f.id\n'+
+    "WHERE cards_fts MATCH 'discover AND spell';</code>";
+  p.appendChild(pre);
+
+  if(S.manifest){
+    p.appendChild(el('h3','','Scope & exclusions'));
+    const c=el('div','card');
+    const m=S.manifest;
+    c.innerHTML='<div style="font-size:13px;color:var(--ink-2)">'+esc(m.scope||'')+'</div>'+
+      '<div style="font-size:12.5px;color:var(--ink-muted);margin-top:10px">'+esc(m.dating_method||'')+'</div>'+
+      (m.reprint_note?'<div style="font-size:12.5px;color:var(--ink-muted);margin-top:10px">'+esc(m.reprint_note)+'</div>':'')+
+      '<div style="font-size:12px;color:var(--ink-muted);margin-top:10px">Excluded: '+
+      Object.entries(m.excluded||{}).map(([k,v])=>esc(k)+' ('+nf(v)+')').join(' · ')+'</div>';
+    p.appendChild(c);
+  }
+}
+</script>
+</body>
+</html>

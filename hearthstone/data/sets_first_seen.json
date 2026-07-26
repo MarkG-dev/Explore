@@ -1,0 +1,320 @@
+{
+  "BASIC": {
+    "set_id": 2,
+    "first_build": "4442",
+    "first_date": "2013-01-13",
+    "n_cards_at_first_build": 392
+  },
+  "EXPERT1": {
+    "set_id": 3,
+    "first_build": "4442",
+    "first_date": "2013-01-13",
+    "n_cards_at_first_build": 392
+  },
+  "HOF": {
+    "set_id": 4,
+    "first_build": "4442",
+    "first_date": "2013-01-13",
+    "n_cards_at_first_build": 392
+  },
+  "PROMO": {
+    "set_id": 11,
+    "first_build": "4442",
+    "first_date": "2013-01-13",
+    "n_cards_at_first_build": 392
+  },
+  "NAXX": {
+    "set_id": 12,
+    "first_build": "3388",
+    "first_date": "2013-06-22",
+    "n_cards_at_first_build": 1
+  },
+  "GVG": {
+    "set_id": 13,
+    "first_build": "7234",
+    "first_date": "2014-12-04",
+    "n_cards_at_first_build": 123
+  },
+  "BRM": {
+    "set_id": 14,
+    "first_build": "8311",
+    "first_date": "2015-03-31",
+    "n_cards_at_first_build": 31
+  },
+  "HERO_SKINS": {
+    "set_id": 17,
+    "first_build": "9166",
+    "first_date": "2015-06-15",
+    "n_cards_at_first_build": 3
+  },
+  "TGT": {
+    "set_id": 15,
+    "first_build": "9786",
+    "first_date": "2015-08-18",
+    "n_cards_at_first_build": 132
+  },
+  "LOE": {
+    "set_id": 20,
+    "first_build": "10833",
+    "first_date": "2015-11-10",
+    "n_cards_at_first_build": 45
+  },
+  "OG": {
+    "set_id": 21,
+    "first_build": "12574",
+    "first_date": "2016-04-25",
+    "n_cards_at_first_build": 134
+  },
+  "KARA": {
+    "set_id": 23,
+    "first_build": "13921",
+    "first_date": "2016-08-09",
+    "n_cards_at_first_build": 45
+  },
+  "GANGS": {
+    "set_id": 25,
+    "first_build": "15590",
+    "first_date": "2016-11-29",
+    "n_cards_at_first_build": 132
+  },
+  "UNGORO": {
+    "set_id": 27,
+    "first_build": "18336",
+    "first_date": "2017-04-04",
+    "n_cards_at_first_build": 136
+  },
+  "ICECROWN": {
+    "set_id": 1001,
+    "first_build": "20457",
+    "first_date": "2017-08-08",
+    "n_cards_at_first_build": 136
+  },
+  "LOOTAPALOOZA": {
+    "set_id": 1004,
+    "first_build": "22115",
+    "first_date": "2017-11-06",
+    "n_cards_at_first_build": 1
+  },
+  "GILNEAS": {
+    "set_id": 1125,
+    "first_build": "23966",
+    "first_date": "2018-04-10",
+    "n_cards_at_first_build": 136
+  },
+  "BOOMSDAY": {
+    "set_id": 1127,
+    "first_build": "25770",
+    "first_date": "2018-08-02",
+    "n_cards_at_first_build": 135
+  },
+  "TROLL": {
+    "set_id": 1129,
+    "first_build": "27845",
+    "first_date": "2018-11-30",
+    "n_cards_at_first_build": 135
+  },
+  "DALARAN": {
+    "set_id": 1130,
+    "first_build": "29933",
+    "first_date": "2019-04-05",
+    "n_cards_at_first_build": 135
+  },
+  "ULDUM": {
+    "set_id": 1158,
+    "first_build": "32708",
+    "first_date": "2019-07-26",
+    "n_cards_at_first_build": 135
+  },
+  "WILD_EVENT": {
+    "set_id": 1439,
+    "first_build": "34670",
+    "first_date": "2019-10-02",
+    "n_cards_at_first_build": 32
+  },
+  "DRAGONS": {
+    "set_id": 1347,
+    "first_build": "35747",
+    "first_date": "2019-10-30",
+    "n_cards_at_first_build": 2
+  },
+  "YEAR_OF_THE_DRAGON": {
+    "set_id": 1403,
+    "first_build": "39954",
+    "first_date": "2020-01-18",
+    "n_cards_at_first_build": 35
+  },
+  "TB": {
+    "set_id": 18,
+    "first_build": "42174",
+    "first_date": "2020-02-19",
+    "n_cards_at_first_build": 1
+  },
+  "BLACK_TEMPLE": {
+    "set_id": 1414,
+    "first_build": "43246",
+    "first_date": "2020-03-11",
+    "n_cards_at_first_build": 2
+  },
+  "DEMON_HUNTER_INITIATE": {
+    "set_id": 1463,
+    "first_build": "44222",
+    "first_date": "2020-03-21",
+    "n_cards_at_first_build": 173
+  },
+  "SCHOLOMANCE": {
+    "set_id": 1443,
+    "first_build": "53261",
+    "first_date": "2020-07-08",
+    "n_cards_at_first_build": 2
+  },
+  "DARKMOON_FAIRE": {
+    "set_id": 1466,
+    "first_build": "63160",
+    "first_date": "2020-10-17",
+    "n_cards_at_first_build": 2
+  },
+  "THE_BARRENS": {
+    "set_id": 1525,
+    "first_build": "74257",
+    "first_date": "2021-02-10",
+    "n_cards_at_first_build": 3
+  },
+  "CORE": {
+    "set_id": 1637,
+    "first_build": "77662",
+    "first_date": "2021-03-30",
+    "n_cards_at_first_build": 762
+  },
+  "VANILLA": {
+    "set_id": 1646,
+    "first_build": "77662",
+    "first_date": "2021-03-30",
+    "n_cards_at_first_build": 762
+  },
+  "STORMWIND": {
+    "set_id": 1578,
+    "first_build": "86601",
+    "first_date": "2021-07-01",
+    "n_cards_at_first_build": 8
+  },
+  "ALTERAC_VALLEY": {
+    "set_id": 1626,
+    "first_build": "126299",
+    "first_date": "2021-11-15",
+    "n_cards_at_first_build": 13
+  },
+  "THE_SUNKEN_CITY": {
+    "set_id": 1658,
+    "first_build": "133923",
+    "first_date": "2022-03-12",
+    "n_cards_at_first_build": 6
+  },
+  "PLACEHOLDER_202204": {
+    "set_id": 1810,
+    "first_build": "137436",
+    "first_date": "2022-04-25",
+    "n_cards_at_first_build": 226
+  },
+  "REVENDRETH": {
+    "set_id": 1691,
+    "first_build": "142295",
+    "first_date": "2022-06-21",
+    "n_cards_at_first_build": 12
+  },
+  "RETURN_OF_THE_LICH_KING": {
+    "set_id": 1776,
+    "first_build": "154203",
+    "first_date": "2022-10-27",
+    "n_cards_at_first_build": 136
+  },
+  "PATH_OF_ARTHAS": {
+    "set_id": 1869,
+    "first_build": "158725",
+    "first_date": "2022-11-23",
+    "n_cards_at_first_build": 219
+  },
+  "BATTLE_OF_THE_BANDS": {
+    "set_id": 1809,
+    "first_build": "168788",
+    "first_date": "2023-03-08",
+    "n_cards_at_first_build": 7
+  },
+  "TITANS": {
+    "set_id": 1858,
+    "first_build": "179020",
+    "first_date": "2023-06-19",
+    "n_cards_at_first_build": 5
+  },
+  "WONDERS": {
+    "set_id": 1898,
+    "first_build": "183876",
+    "first_date": "2023-08-16",
+    "n_cards_at_first_build": 154
+  },
+  "WILD_WEST": {
+    "set_id": 1892,
+    "first_build": "187190",
+    "first_date": "2023-10-03",
+    "n_cards_at_first_build": 7
+  },
+  "EVENT": {
+    "set_id": 1941,
+    "first_build": "193541",
+    "first_date": "2024-02-02",
+    "n_cards_at_first_build": 31
+  },
+  "WHIZBANGS_WORKSHOP": {
+    "set_id": 1897,
+    "first_build": "193541",
+    "first_date": "2024-02-02",
+    "n_cards_at_first_build": 31
+  },
+  "LEGACY": {
+    "set_id": 1635,
+    "first_build": "195635",
+    "first_date": "2024-03-19",
+    "n_cards_at_first_build": 282
+  },
+  "ISLAND_VACATION": {
+    "set_id": 1905,
+    "first_build": "201108",
+    "first_date": "2024-06-17",
+    "n_cards_at_first_build": 10
+  },
+  "SPACE": {
+    "set_id": 1935,
+    "first_build": "208591",
+    "first_date": "2024-10-12",
+    "n_cards_at_first_build": 177
+  },
+  "EMERALD_DREAM": {
+    "set_id": 1946,
+    "first_build": "216423",
+    "first_date": "2025-02-18",
+    "n_cards_at_first_build": 18
+  },
+  "THE_LOST_CITY": {
+    "set_id": 1952,
+    "first_build": "221908",
+    "first_date": "2025-06-02",
+    "n_cards_at_first_build": 13
+  },
+  "TIME_TRAVEL": {
+    "set_id": 1957,
+    "first_build": "228587",
+    "first_date": "2025-09-29",
+    "n_cards_at_first_build": 14
+  },
+  "CATACLYSM": {
+    "set_id": 1980,
+    "first_build": "235290",
+    "first_date": "2026-02-09",
+    "n_cards_at_first_build": 17
+  },
+  "ESCAPEFROM_VIOLET_HOLD": {
+    "set_id": 1988,
+    "first_build": "243002",
+    "first_date": "2026-06-02",
+    "n_cards_at_first_build": 13
+  }
+}

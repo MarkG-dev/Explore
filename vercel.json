@@ -9,6 +9,7 @@
     { "source": "/brand-os/copywriter", "destination": "/brand-os/copywriter.html" },
     { "source": "/brand-os/art-director", "destination": "/brand-os/art-director.html" },
     { "source": "/brand-os/admin", "destination": "/brand-os/admin.html" },
+    { "source": "/hearthstone", "destination": "/hearthstone/index.html" },
     { "source": "/:slug([a-z][a-z0-9-]{1,40})", "destination": "/brand-os/login.html?slug=:slug" }
   ],
   "functions": {

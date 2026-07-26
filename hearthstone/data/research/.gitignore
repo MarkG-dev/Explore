@@ -1,0 +1,9 @@
+# The normalised HearthPwn archive is ~307 MB — too large to commit (GitHub
+# rejects files over 100 MB) and fully reproducible from its public source.
+# The committed, analytically useful form is ../deck_aggregate.json, built by
+# ../../scripts/aggregate_decks.py.
+#
+# To regenerate the raw file:
+#   git clone --depth 1 https://github.com/NJacobsohn/Hearthstone-Data-Analysis
+#   # then normalise data/hearthstone_decks.csv to NDJSON (see decksets_README.md)
+decks_NJacobsohn-Hearthstone-Data-Analysis.ndjson
