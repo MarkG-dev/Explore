@@ -1,0 +1,692 @@
+{
+  "era_key": "tgt-loe-2015",
+  "era_title": "Patron, Challenger, Reno: Blackrock Mountain through The League of Explorers (the last year with no rotation)",
+  "date_range": "2015-04-02 (Blackrock Mountain wing 1) -> 2016-04-25 (last day of the pre-Standard card pool; Standard + the Basic/Classic nerf batch went live 2016-04-26)",
+  "expansions": [
+    {
+      "name": "Blackrock Mountain (adventure, 31 collectible cards, 5 weekly wings: Blackrock Depths, Molten Core, Blackwing Lair, Upper Blackrock Spire, Blackwing Descent)",
+      "release_date": "2015-04-02 (Americas; 2015-04-03 EU/KR/TW/CN; final wing 2015-04-30). Local cards.sqlite first sees BRM data in client build 8311 dated 2015-03-31.",
+      "set_enum": "BRM"
+    },
+    {
+      "name": "The Grand Tournament (expansion, 132 collectible cards; introduced Inspire and jousting)",
+      "release_date": "2015-08-24 (~10am PDT). Local cards.sqlite first sees TGT data in client build 9786 dated 2015-08-18.",
+      "set_enum": "TGT"
+    },
+    {
+      "name": "The League of Explorers (adventure, 45 collectible cards, 4 wings: Temple of Orsis, Uldaman, The Ruined City, Hall of Explorers; introduced Discover)",
+      "release_date": "2015-11-12 (wing 1) -> 2015-12-10 (wing 4; one week's break for US Thanksgiving). Local cards.sqlite first sees LOE data in client build 10833 dated 2015-11-10.",
+      "set_enum": "LOE"
+    }
+  ],
+  "defining_decks": [
+    {
+      "archetype": "Grim Patron Warrior (Patron Warrior / 'Warsong Patron')",
+      "class": "Warrior",
+      "tier": "Tier 1 and format-defining 2015-04 to 2015-10-21; the combo was deleted by the Warsong Commander nerf, after which a Grim Patron midrange/value shell persisted as Tier 1-2 to the end of the era",
+      "empirical_share": "30.5% of the 2,370 ranked Warrior decks published on HearthPwn in the Blackrock Launch window (2015-04-02 -> 2015-08-24) ran Grim Patron AND Warsong Commander; 54% of Warrior decks posted in April 2015 ran Warsong Commander at all. Post-nerf: 0 of 256 Warrior decks posted 2015-10-21..10-31 ran the pair. Measures deck-POSTING behaviour on HearthPwn, not ladder playrate and not winrate.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Grim Patron", "Warsong Commander", "Frothing Berserker", "Whirlwind", "Inner Rage", "Death's Bite", "Unstable Ghoul", "Emperor Thaurissan", "Battle Rage", "Acolyte of Pain", "Armorsmith", "Execute", "Slam", "Fiery War Axe", "Shield Slam", "Cruel Taskmaster", "Gnomish Inventor"],
+      "notable_pilots": ["Forsen", "Ostkaka", "Purple (Ryan Murphy-Root)", "muirhead01 (HearthPwn author of the most-upvoted era Patron list)", "P4wnyhof"],
+      "representative_decklist": [
+        "2x Acolyte of Pain", "2x Armorsmith", "2x Battle Rage", "2x Death's Bite", "1x Emperor Thaurissan", "2x Execute", "1x Fiery War Axe", "2x Frothing Berserker", "2x Gnomish Inventor", "2x Grim Patron", "2x Inner Rage", "2x Shield Block", "2x Slam", "2x Unstable Ghoul", "2x Warsong Commander", "2x Whirlwind"
+      ],
+      "why_it_mattered": "The era's defining skill-test and its defining balance problem. A 5-mana 3/3 from a 31-card adventure combined with a 2013 Basic card to produce a deck that could deal 30+ damage from an empty board on turn 8-9 while also out-grinding Control Warrior. Its enabler sat in the permanent Basic set, so it could not be rotated out - it had to be destroyed. SOURCE of the representative list: HearthPwn ranked deck id 280069, 'Top8Patron' by user muirhead01, dated 2015-07-27, 454 upvotes; verified 30 cards and verified era-legal (every card's set had shipped by that date). This is a real posted list of the period, not a tournament-certified list.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Secret Paladin ('Secretdin')",
+      "class": "Paladin",
+      "tier": "Tier 1 from 2015-08-24 until Standard rotation on 2016-04-26; the single most-complained-about deck of the era",
+      "empirical_share": "26.5% of the 2,434 ranked Paladin decks posted in the TGT Launch window ran Mysterious Challenger, rising to 33.7% of Paladin posts in the 11 days after the Warsong nerf and holding 23.8% across the whole Explorers window. Murloc Knight appears in 51.8% of TGT-era Paladin posts. Paladin's share of ALL ranked posts rose to 16.7% in the TGT window - the highest single-class share of any window we measure between 2015-04 and 2016-04. HearthPwn posting behaviour, not playrate.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Mysterious Challenger", "Secretkeeper", "Avenge", "Noble Sacrifice", "Competitive Spirit", "Redemption", "Repentance", "Muster for Battle", "Shielded Minibot", "Coghammer", "Knife Juggler", "Haunted Creeper", "Piloted Shredder", "Divine Favor", "Truesilver Champion", "Keeper of Uldaman", "Tirion Fordring", "Dr. Boom"],
+      "notable_pilots": ["PurpleLum", "Jackker (top-4 EU legend guide)", "Zardock94", "LLLmaDe (#3 legend EU)"],
+      "representative_decklist": [
+        "2x Avenge", "1x Competitive Spirit", "2x Noble Sacrifice", "2x Secretkeeper", "1x Redemption", "1x Repentance", "1x Divine Favor", "1x Ironbeak Owl", "2x Shielded Minibot", "2x Knife Juggler", "1x Haunted Creeper", "2x Muster for Battle", "1x Coghammer", "1x Blessing of Kings", "1x Truesilver Champion", "2x Consecration", "2x Piloted Shredder", "2x Mysterious Challenger", "1x Loatheb", "1x Dr. Boom", "1x Tirion Fordring"
+      ],
+      "why_it_mattered": "The first Hearthstone deck built entirely around one deterministic turn. In this era Mysterious Challenger was a 6-mana 6/6 (it was only changed to 5-mana 5/5 in August 2023), so the play was a turn-6 6/6 that also deployed five or six distinct Secrets face-up at once. It was not random, it was not answerable by removal, and Paladin already owned the best 2- and 3-drop tempo in the game plus Divine Favor to refill. Blizzard never nerfed it; it left via rotation. SOURCE of representative list: HearthPwn ranked deck id 371423, '[S20] Legendary Secredin From 20 to Legend' by Zardock94, 2015-11-17, 551 upvotes; verified 30 cards and era-legal.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Midrange / Combo Druid (Force of Nature + Savage Roar)",
+      "class": "Druid",
+      "tier": "Tier 1-2 for the entire era; the most consistently present non-aggro deck on ladder",
+      "empirical_share": "Force of Nature + Savage Roar together appear in 54.2% of BRM-era Druid posts, 58.6% of TGT-era, 65.2% of the Warsong-nerf window and 49.9% of the Explorers window. Darnassus Aspirant went from 11.7% to 66.9% of Druid posts across the TGT launch, peaking at 76.7%. After the 2016-04-26 nerf batch, FoN+Roar sits at 4.6% of the 194 Druid posts in the two-day 'Classic Nerfs' window (tiny sample; direction unambiguous). HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Force of Nature", "Savage Roar", "Innervate", "Wild Growth", "Darnassus Aspirant", "Living Roots", "Wrath", "Keeper of the Grove", "Swipe", "Druid of the Claw", "Shade of Naxxramas", "Azure Drake", "Ancient of Lore", "Emperor Thaurissan", "Dr. Boom", "Piloted Shredder"],
+      "notable_pilots": ["Kolento", "wingsofwaxiii", "Comeback_khv (#5 EU legend)", "Bloor"],
+      "representative_decklist": [
+        "2x Innervate", "1x Living Roots", "2x Wrath", "2x Wild Growth", "2x Darnassus Aspirant", "2x Shade of Naxxramas", "2x Keeper of the Grove", "2x Swipe", "2x Piloted Shredder", "2x Druid of the Claw", "2x Savage Roar", "2x Force of Nature", "2x Azure Drake", "1x Emperor Thaurissan", "2x Ancient of Lore", "1x Ancient of War", "1x Dr. Boom"
+      ],
+      "why_it_mattered": "The era's reference 'fair deck that isn't fair': a curve-out midrange body plus a 9-mana (or 8 with Emperor, 6 with Innervate) 14-damage-from-hand finisher that no class could reliably prevent. It is the deck the April 2016 Classic nerfs were most obviously aimed at. SOURCE of representative list: HearthPwn ranked deck id 333452, 'Kolento Legend #1 Druid' posted by user Kolento, 2015-09-17, 575 upvotes; verified 30 cards and era-legal. Two card names in the source corpus reflect later in-game renames (Wrath appears as \"Nature's Wrath\"); restored here.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Aggro Shaman and Midrange Shaman (Tunnel Trogg + Totem Golem)",
+      "class": "Shaman",
+      "tier": "Tier 1 from November 2015 to the end of the era; the deck that replaced Face Hunter as ladder's default aggro",
+      "empirical_share": "Tunnel Trogg + Totem Golem appear together in 46.3% of the 3,129 ranked Shaman decks posted in the Explorers window and 57.3% in the final pre-Standard window. Tunnel Trogg goes 2.1% of Shaman posts (Oct 1-20, 2015) -> 39.9% (Nov 12-30, 2015) -> 61% (April 2016). Shaman rose from the least-posted class of the BRM era (9.1% of all posts) to the most-posted class of the 2016-04-24/25 window (15.5%). HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Tunnel Trogg", "Totem Golem", "Tuskarr Totemic", "Lightning Bolt", "Rockbiter Weapon", "Feral Spirit", "Flametongue Totem", "Lava Shock", "Crackle", "Doomhammer", "Fireguard Destroyer", "Fire Elemental", "Ancestral Knowledge", "Unbound Elemental", "Lava Burst", "Sir Finley Mrrgglton", "Leper Gnome", "Argent Horserider"],
+      "notable_pilots": ["DarkClaw20 (top-5 NA)", "Likeabawse1925", "Trump and Kripparrian popularised the Trogg/Golem aggro shell on stream (recollection)"],
+      "representative_decklist": [
+        "2x Tunnel Trogg", "2x Totem Golem", "1x Tuskarr Totemic", "2x Lightning Bolt", "1x Crackle", "1x Earth Shock", "2x Haunted Creeper", "2x Flametongue Totem", "2x Feral Spirit", "1x Ironbeak Owl", "1x Jeweled Scarab", "1x Lightning Storm", "1x Defender of Argus", "2x Fireguard Destroyer", "1x Hex", "2x Azure Drake", "1x Piloted Shredder", "1x Unbound Elemental", "2x Fire Elemental", "1x Bloodlust", "1x Dr. Boom"
+      ],
+      "why_it_mattered": "Tunnel Trogg is a 1-mana 1/3 that grows by the number of Mana Crystals you Overload; Totem Golem is a 2-mana 3/4. Together they gave Shaman the strongest turn-1-into-turn-2 curve in the game, in a class whose whole card pool was built around the Overload 'drawback'. Neither was ever nerfed in this era (Tuskarr Totemic's 'ANY random Totem' was only cut to basic totems in October 2016). SOURCE of representative list: HearthPwn ranked deck id 374208, '[UPDATED] Top 5 NA Shaman' by DarkClaw20, 2015-11-20, 927 upvotes; verified 30 cards and era-legal.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Reno Warlock ('Renolock', including Reno Handlock and Demon Reno)",
+      "class": "Warlock",
+      "tier": "Tier 1-2 from 2015-11-12 to the end of the era; the era's premier greedy control deck",
+      "empirical_share": "Reno Jackson appears in 32.6% of the 3,656 ranked Warlock decks posted in the Explorers window (and Reno + Molten Giant together in 19.0%). Reno appears in 16.9% of ALL ranked decks posted in that window - 20.8% of Mage, 20.1% of Warrior, 16.6% of Paladin, 12.0% of Priest posts. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Reno Jackson", "Brann Bronzebeard", "Emperor Thaurissan", "Dark Peddler", "Imp Gang Boss", "Molten Giant", "Twilight Drake", "Hellfire", "Shadowflame", "Siphon Soul", "Mortal Coil", "Lord Jaraxxus", "Sylvanas Windrunner", "Antique Healbot", "Big Game Hunter", "Mind Control Tech", "Twisting Nether", "Dr. Boom", "Sludge Belcher", "Zombie Chow"],
+      "notable_pilots": ["hcm1008 (#1 Asia S21)", "sigmasrb", "Purple (Malygos Warlock variant at DreamHack Winter 2015)", "Xzirez"],
+      "representative_decklist": [
+        "1x Mortal Coil", "1x Zombie Chow", "1x Acidic Swamp Ooze", "1x Darkbomb", "1x Dark Peddler", "1x Imp-losion", "1x Demonwrath", "1x Imp Gang Boss", "1x Brann Bronzebeard", "1x Power Overwhelming", "1x Twilight Drake", "1x Hellfire", "1x Shadowflame", "1x Defender of Argus", "1x Ironbeak Owl", "1x Antique Healbot", "1x Big Game Hunter", "1x Mind Control Tech", "1x Refreshment Vendor", "1x Loatheb", "1x Siphon Soul", "1x Sludge Belcher", "1x Stalagg", "1x Feugen", "1x Sylvanas Windrunner", "1x Emperor Thaurissan", "1x Reno Jackson", "1x Molten Giant", "1x Lord Jaraxxus", "1x Dr. Boom"
+      ],
+      "why_it_mattered": "Reno Jackson was the first card that paid you for a deckbuilding constraint (no duplicates) rather than for mana, and the payoff was 'undo all damage taken so far'. It single-handedly made greedy singleton control playable in a format that had been aggro-defined, and it introduced the Highlander deckbuilding axis that has warped Wild ever since. SOURCE of representative list: HearthPwn ranked deck id 388371, '[S21 Asia #1] 100% win rate 21WIN-0LOSE' by hcm1008, 2015-12-07, 750 upvotes; verified 30 cards, verified singleton, era-legal.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Oil Rogue (and its Face/Burst Rogue cousin)",
+      "class": "Rogue",
+      "tier": "Tier 1-2 through 2015; declined through the Explorers window; killed outright by the 2016-04-26 Blade Flurry nerf",
+      "empirical_share": "Tinker's Sharpsword Oil + Blade Flurry appear together in 51.1% of BRM-era Rogue posts, 49.5% (TGT), 42.9% (Warsong nerf), 29.0% (Explorers), 4.7% (post-nerf window). Blade Flurry alone: 80.5% of BRM-era Rogue posts -> 14.7% after the nerf. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Tinker's Sharpsword Oil", "Blade Flurry", "Deadly Poison", "SI:7 Agent", "Eviscerate", "Cold Blood", "Preparation", "Azure Drake", "Violet Teacher", "Sprint", "Piloted Shredder", "Loatheb", "Tomb Pillager", "Southsea Deckhand", "Leper Gnome", "Arcane Golem"],
+      "notable_pilots": ["Ostkaka (won the 2015 World Championship with Oil Rogue in his three-class lineup)", "Hotform (the only other Rogue at BlizzCon 2015)", "wingsofwaxiii", "Thundresso"],
+      "representative_decklist": [
+        "2x Leper Gnome", "2x Argent Squire", "2x Deadly Poison", "2x Blade Flurry", "2x Cold Blood", "2x Eviscerate", "2x Goblin Auto-Barber", "1x Defias Ringleader", "1x Southsea Deckhand", "2x SI:7 Agent", "2x Ironbeak Owl", "1x Coldlight Oracle", "2x Arcane Golem", "2x Tinker's Sharpsword Oil", "2x Piloted Shredder", "1x Loatheb", "1x Assassin's Blade", "1x Sap"
+      ],
+      "why_it_mattered": "Rogue's only competitive deck of the era and the reason Blade Flurry was eventually taken to 4 mana and minions-only: a 2-mana spell that turned an oiled dagger into a board wipe plus 8+ face damage. Rogue was nevertheless the least-posted class in the BRM (7.7%) and TGT (7.4%) windows - a clean illustration of a class carried by exactly one shell. SOURCE of representative list: HearthPwn ranked deck id 263019, 'Burst Rogue - Legend Grinder - RACE HUNTERS' by wingsofwaxiii, 2015-06-18, 760 upvotes; verified 30 cards and era-legal. This is the aggressive Oil build, not the Gadgetzan Auctioneer control-Oil build.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Face Hunter",
+      "class": "Hunter",
+      "tier": "Tier 1 entering the era (inherited from GvG/Undertaker-nerf ladder), Tier 2-3 by TGT, largely displaced by Secret Paladin and then Aggro Shaman",
+      "empirical_share": "Leeroy Jenkins + Arcane Golem (the Face Hunter burst signature) appear in 8.0% of BRM-era Hunter posts, falling to 3.0% (TGT), 3.6% (Warsong nerf), 3.4% (Explorers), 0/207 in the post-nerf window. Savannah Highmane - the midrange marker - rose the other way, 57.0% -> 66.9% of Hunter posts. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Leper Gnome", "Abusive Sergeant", "Worgen Infiltrator", "Glaivezooka", "Mad Scientist", "Explosive Trap", "Eaglehorn Bow", "Animal Companion", "Kill Command", "Quick Shot", "Unleash the Hounds", "Knife Juggler", "Arcane Golem", "Leeroy Jenkins", "Argent Horserider", "Ironbeak Owl"],
+      "notable_pilots": ["C4mlann", "7Vanguard7 (#1 legend NA S15)", "tylerootd"],
+      "representative_decklist": [
+        "2x Leper Gnome", "2x Abusive Sergeant", "2x Worgen Infiltrator", "1x Glaivezooka", "2x Mad Scientist", "1x Explosive Trap", "1x Snake Trap", "1x Bear Trap", "2x Knife Juggler", "2x Quick Shot", "2x Eaglehorn Bow", "2x Ironbeak Owl", "2x Animal Companion", "2x Kill Command", "2x Unleash the Hounds", "2x Argent Horserider", "1x Arcane Golem", "1x Leeroy Jenkins"
+      ],
+      "why_it_mattered": "Face Hunter is the deck the whole era was reacting against, and its decline is the clearest measurable consequence of TGT: Secret Paladin's Minibot/Divine Shield/Muster board plus healing simply beat it, and once LoE arrived Aggro Shaman did the same job better. SOURCE of representative list: HearthPwn ranked deck id 332289, 'S21 multiple Legend C4mlann SMOrc' by C4mlann, 2015-09-15, 382 upvotes; verified 30 cards and era-legal.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Control Warrior (Justicar / fatigue Warrior; later Reno Warrior)",
+      "class": "Warrior",
+      "tier": "Tier 1-2 all era; the benchmark 'slow' deck and the deck Patron was designed to beat",
+      "empirical_share": "Shield Slam + Brawl appear in 44.7% of BRM-era Warrior posts, 62.6% (TGT), 55.8% (Explorers). Justicar Trueheart adoption after TGT: 8.9% -> 41.3% of Warrior posts (TGT window) -> 51.1% (Explorers window). Reno Jackson reaches 20.1% of Explorers-era Warrior posts. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Justicar Trueheart", "Shield Slam", "Shield Block", "Brawl", "Execute", "Fiery War Axe", "Death's Bite", "Slam", "Armorsmith", "Revenge", "Bash", "Shieldmaiden", "Sludge Belcher", "Baron Geddon", "Grommash Hellscream", "Alexstrasza", "Ysera", "Sylvanas Windrunner", "Dr. Boom", "Harrison Jones"],
+      "notable_pilots": ["Kolento", "MarioHS", "lokshadow (top-5 NA legend Reno Warrior)", "Firebat (Reno Dragon Warrior)"],
+      "representative_decklist": [
+        "2x Fiery War Axe", "2x Execute", "1x Bash", "2x Armorsmith", "2x Cruel Taskmaster", "2x Shield Slam", "2x Shield Block", "1x Slam", "2x Death's Bite", "1x Big Game Hunter", "2x Brawl", "2x Shieldmaiden", "2x Sludge Belcher", "1x Justicar Trueheart", "1x Baron Geddon", "1x Sylvanas Windrunner", "1x Alexstrasza", "1x Grommash Hellscream", "1x Ysera", "1x Dr. Boom"
+      ],
+      "why_it_mattered": "TGT's single most quietly influential card was Justicar Trueheart (in this era a 6-mana 6/3), which turned Warrior's Hero Power into 4 armour a turn and made pure attrition a real plan for the first time. SOURCE of representative list: HearthPwn ranked deck id 355100, '[TOP 1] Legend Control Warrior (S19)' posted by user Kolento, 2015-10-29, 450 upvotes; verified 30 cards and era-legal.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Tempo Mage (Flamewaker Mage)",
+      "class": "Mage",
+      "tier": "Tier 2 for most of the era, spiking to Tier 1-2 in windows where Secret Paladin was heaviest",
+      "empirical_share": "Flamewaker (a BRM card) appears in 38.1% of BRM-era Mage posts, 45.2% (TGT), 43.6% (Warsong nerf), 39.1% (Explorers). Archmage Antonidas is in 37.6% -> 52.7% of Mage posts across the same span. Mage was the most-posted class in three of the four windows. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Flamewaker", "Mana Wyrm", "Sorcerer's Apprentice", "Arcane Missiles", "Mirror Image", "Frostbolt", "Arcane Blast", "Arcane Intellect", "Unstable Portal", "Flamecannon", "Fireball", "Mad Scientist", "Mirror Entity", "Counterspell", "Archmage Antonidas", "Ethereal Conjurer", "Azure Drake"],
+      "notable_pilots": ["Andedroga", "FR0G1123 (#1 legend S22)", "Reynad and Kibler promoted Flamewaker tempo shells on stream (recollection)"],
+      "representative_decklist": [
+        "2x Mana Wyrm", "2x Arcane Missiles", "1x Mirror Image", "1x Arcane Blast", "2x Sorcerer's Apprentice", "2x Frostbolt", "2x Mad Scientist", "1x Counterspell", "1x Mirror Entity", "1x Clockwork Gnome", "1x Flamecannon", "2x Unstable Portal", "2x Arcane Intellect", "2x Flamewaker", "2x Fireball", "2x Piloted Shredder", "2x Azure Drake", "1x Archmage Antonidas", "1x Dr. Boom"
+      ],
+      "why_it_mattered": "Flamewaker was BRM's quietest hit and the direct ancestor of every 'cheap spells into a body' Mage deck since. SOURCE of representative list: HearthPwn ranked deck id 359404, 'FAST LEGEND TEMPO MAGE 90% Win' by Andedroga, 2015-11-04, 625 upvotes; verified 30 cards and era-legal. The '90% win' in the title is the author's claim, not a measurement.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Freeze Mage",
+      "class": "Mage",
+      "tier": "Tier 2 with tournament-level relevance all era; the deck that won the 2015 World Championship",
+      "empirical_share": "Alexstrasza + Ice Block appear in 15.9% of BRM- and TGT-era Mage posts and 20.6% of the Explorers window; Ice Block alone rises from 27.4% to 42.5% of Mage posts as Reno-era control grew. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Ice Block", "Doomsayer", "Frost Nova", "Blizzard", "Ice Lance", "Frostbolt", "Fireball", "Pyroblast", "Alexstrasza", "Acolyte of Pain", "Loot Hoarder", "Arcane Intellect", "Bloodmage Thalnos", "Emperor Thaurissan", "Mad Scientist", "Forgotten Torch"],
+      "notable_pilots": ["Ostkaka (2015 World Champion; Freeze Mage was one of his three classes)", "Fightup", "Majin_Cyanure"],
+      "representative_decklist": [
+        "2x Ice Lance", "1x Bloodmage Thalnos", "2x Frostbolt", "2x Doomsayer", "2x Ice Barrier", "2x Ice Block", "2x Mad Scientist", "2x Loot Hoarder", "1x Acolyte of Pain", "2x Arcane Intellect", "2x Frost Nova", "2x Blizzard", "2x Fireball", "1x Emperor Thaurissan", "1x Flamestrike", "1x Archmage Antonidas", "1x Alexstrasza", "1x Antique Healbot", "1x Pyroblast"
+      ],
+      "why_it_mattered": "Freeze Mage was the era's proof that a pure spell-burn combo deck could beat both Patron and Secret Paladin in a tournament format, and it is the deck Ostkaka rode to the world title. SOURCE of representative list: HearthPwn ranked deck id 351813, 'S19[Legend]FreezeMage,Detailed for Meta' by Fightup, 2015-10-23, 401 upvotes; verified 30 cards and era-legal. This is NOT Ostkaka's BlizzCon list - his exact 30 could not be sourced from a reachable page in this environment.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Dragon Priest",
+      "class": "Priest",
+      "tier": "Tier 2-3, but the first genuinely playable proactive Priest deck in the game's history",
+      "empirical_share": "Twilight Whelp appears in 17.5% of BRM-era Priest posts and 32.4% of TGT-era Priest posts (peak 34.3% in the Warsong-nerf window). Twilight Whelp + Blackwing Technician together: 19.9% of TGT-era Priest posts. Confessor Paletress hit 26.1% of TGT-era Priest posts. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Twilight Whelp", "Wyrmrest Agent", "Blackwing Technician", "Twilight Guardian", "Blackwing Corruptor", "Chillmaw", "Azure Drake", "Northshire Cleric", "Power Word: Shield", "Velen's Chosen", "Shadow Word: Death", "Holy Nova", "Cabal Shadow Priest", "Museum Curator", "Entomb", "Ysera"],
+      "notable_pilots": ["Reynad (posted the era's most-upvoted Dragon Priest list)", "BrodosEU", "Legendonger", "Zetalot (the era's signature Priest streamer - recollection)"],
+      "representative_decklist": [
+        "2x Twilight Whelp", "2x Northshire Cleric", "2x Power Word: Shield", "2x Wyrmrest Agent", "2x Shrinkmeister", "2x Blackwing Technician", "2x Dark Cultist", "1x Dragonkin Sorcerer", "2x Shadow Word: Death", "2x Shadow Madness", "2x Twilight Guardian", "2x Blackwing Corruptor", "2x Holy Nova", "2x Cabal Shadow Priest", "2x Azure Drake", "1x Chillmaw"
+      ],
+      "why_it_mattered": "BRM's Twilight Whelp plus TGT's Wyrmrest Agent and Twilight Guardian gave Priest a real curve for the first time, ending five sets of Priest being purely reactive. SOURCE of representative list: HearthPwn ranked deck id 308694, \"Reynad's OP Dragon Priest\" posted by user Reynad on TGT launch day 2015-08-24, 991 upvotes; verified 30 cards and era-legal. Being a launch-day list it is closer to informed theorycraft than a refined ladder list.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Midrange / Deathrattle Hunter",
+      "class": "Hunter",
+      "tier": "Tier 2 for most of the era, strongest in the LoE window",
+      "empirical_share": "Savannah Highmane appears in 66.9% of the 2,994 Explorers-era Hunter posts (85.5% in the two-day post-nerf window); Savannah Highmane + Unleash the Hounds in 55.7%. Quick Shot (a BRM card) sits at 56-69% of Hunter posts in every window. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Savannah Highmane", "Unleash the Hounds", "Animal Companion", "Eaglehorn Bow", "Kill Command", "Houndmaster", "Haunted Creeper", "Webspinner", "Mad Scientist", "Knife Juggler", "Quick Shot", "King's Elekk", "Tomb Spider", "Bear Trap", "Freezing Trap", "Sir Finley Mrrgglton", "Loatheb", "Dr. Boom"],
+      "notable_pilots": ["Sparkaz", "EAldanaJHS"],
+      "representative_decklist": [
+        "2x Webspinner", "1x Hunter's Mark", "2x Haunted Creeper", "2x Mad Scientist", "2x Knife Juggler", "2x Bear Trap", "1x Snake Trap", "2x Eaglehorn Bow", "2x Animal Companion", "2x Kill Command", "2x Unleash the Hounds", "1x Ironbeak Owl", "2x Tomb Spider", "2x Houndmaster", "1x Tundra Rhino", "2x Savannah Highmane", "1x Loatheb", "1x Dr. Boom"
+      ],
+      "why_it_mattered": "Hunter's pivot from face to midrange is the era's clearest example of a class rebuilding around a hostile metagame rather than a new card. SOURCE of representative list: HearthPwn ranked deck id 376579, '[Spark] Beast Master (S20)' by Sparkaz, 2015-11-22, 668 upvotes; verified 30 cards and era-legal.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Zoolock (Imp Gang Boss Zoo)",
+      "class": "Warlock",
+      "tier": "Tier 2 all era; the default budget-to-legend deck",
+      "empirical_share": "Imp Gang Boss (a BRM card) appears in 50.2% of BRM-era Warlock posts, 49.7% (TGT), 69.1% (Explorers), 79.8% (post-nerf window). Molten Giant - the Handlock marker - sits at 25-30% of Warlock posts until the 2016-04-26 nerf takes it to 7.0%. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Imp Gang Boss", "Voidwalker", "Flame Imp", "Abusive Sergeant", "Knife Juggler", "Haunted Creeper", "Nerubian Egg", "Imp-losion", "Dark Peddler", "Power Overwhelming", "Defender of Argus", "Voidcaller", "Doomguard", "Mal'Ganis", "Sea Giant", "Dr. Boom"],
+      "notable_pilots": ["Kolento", "sigmasrb", "thedeadgoldfish (top-20 NA legend)", "Reynad (the Zoo archetype's original architect - recollection)"],
+      "representative_decklist": [
+        "2x Voidwalker", "2x Flame Imp", "2x Abusive Sergeant", "2x Dire Wolf Alpha", "2x Dark Peddler", "2x Knife Juggler", "2x Haunted Creeper", "2x Nerubian Egg", "2x Imp-losion", "2x Imp Gang Boss", "2x Power Overwhelming", "1x Ironbeak Owl", "1x Dark Iron Dwarf", "1x Brann Bronzebeard", "2x Defender of Argus", "1x Loatheb", "2x Doomguard"
+      ],
+      "why_it_mattered": "Imp Gang Boss made Zoo resilient to the exact sweepers (Consecration, Whirlwind, Lightning Storm) that the era's best decks leaned on, keeping the cheapest competitive deck in the game relevant for four straight sets. SOURCE of representative list: HearthPwn ranked deck id 400241, '[top20] Kolento Zoo' posted by user Kolento, 2015-12-22, 637 upvotes; verified 30 cards and verified era-legal against every card's empirical first-seen client build.",
+      "confidence": "high"
+    },
+    {
+      "archetype": "Malygos Warlock ('Malylock')",
+      "class": "Warlock",
+      "tier": "Tier 3 on ladder, but a genuine tournament weapon - it won DreamHack Winter 2015",
+      "empirical_share": "Malygos appears in 4.5-6.1% of Warlock posts in every window of the era (118/2639 BRM, 80/1316 TGT, 182/3656 Explorers). Small but stable - a real fringe deck, not a meme. HearthPwn posting behaviour.",
+      "playrate_or_winrate": "",
+      "key_cards": ["Malygos", "Soulfire", "Darkbomb", "Mortal Coil", "Power Overwhelming", "Emperor Thaurissan", "Twilight Drake", "Antique Healbot", "Big Game Hunter", "Dark Peddler", "Imp Gang Boss", "Blackwing Corruptor", "Azure Drake", "Hellfire"],
+      "notable_pilots": ["Purple (Ryan Murphy-Root) - used a Malygos Warlock in his DreamHack Winter 2015 winning lineup", "jeannohs", "Xzirez (#3 legend)"],
+      "representative_decklist": [
+        "1x Abusive Sergeant", "2x Zombie Chow", "1x Soulfire", "2x Mortal Coil", "2x Dark Peddler", "2x Darkbomb", "1x Ironbeak Owl", "2x Imp Gang Boss", "2x Twilight Drake", "2x Big Game Hunter", "2x Blackwing Corruptor", "2x Hellfire", "2x Twilight Guardian", "2x Azure Drake", "2x Antique Healbot", "1x Brann Bronzebeard", "1x Emperor Thaurissan", "1x Malygos"
+      ],
+      "why_it_mattered": "Proof that the era's tournament metagame diverged materially from ladder: a deck at 5% of posted Warlock lists took a $12,500 DreamHack title in the hands of a top pro. SOURCE of representative list: HearthPwn ranked deck id 414079, '[77% Legend] Malygos Warlock Detailed Guide' by jeannohs, 2016-01-13, 178 upvotes; verified 30 cards and era-legal. This is NOT Purple's DreamHack list, which could not be sourced from a reachable page here.",
+      "confidence": "medium"
+    }
+  ],
+  "defining_cards": [
+    {
+      "card": "Grim Patron",
+      "set": "BRM",
+      "why": "5-mana 3/3, 'whenever this minion survives damage, summon another Grim Patron'. Unchanged statline all era. The engine of the era's best and hardest deck, and the reason a 2013 Basic card had to be destroyed.",
+      "inclusion_rate": "34.0% of BRM-era ranked Warrior posts; still 16.8% of Explorers-era Warrior posts after the combo died (HearthPwn posting behaviour)",
+      "fate": "Never touched. Its enabler was nerfed instead. Rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Warsong Commander",
+      "set": "Basic/Free Warrior (now bucketed LEGACY in the card DB)",
+      "why": "'Whenever you summon a minion with 3 or less Attack, give it Charge' - a 2013 Basic card that turned Grim Patron into a one-turn kill. The clearest case in Hearthstone history of a combo enabler sitting in the never-rotating set.",
+      "inclusion_rate": "35.4% of BRM-era Warrior posts; 54% of Warrior posts in April 2015 alone; 2.9% in the Warsong-nerf window; 0.9% across the Explorers window",
+      "fate": "Rewritten to 'Your Charge minions have +1 Attack' in the client build dated 2015-10-20 (live patch 3.2.0, 21 October 2015; announced 13 October). Confirmed in balance_changes.",
+      "confidence": "high"
+    },
+    {
+      "card": "Emperor Thaurissan",
+      "set": "BRM",
+      "why": "In this era a 6-mana 5/5 (only reduced to 5-mana 4/4 in August 2023). 'At the end of your turn, reduce the Cost of cards in your hand by (1)' - the universal combo tax-break. Patron, Combo Druid, Freeze Mage, Renolock, Malylock and Anyfin Paladin all needed it.",
+      "inclusion_rate": "35.2% of ALL BRM-era ranked posts across nine classes; 53.3% of BRM-era Warrior posts",
+      "fate": "Untouched all era; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Mysterious Challenger",
+      "set": "TGT",
+      "why": "In this era a 6-mana 6/6 (changed to 5-mana 5/5 only in August 2023). 'Battlecry: Put one of each Secret from your deck into the battlefield.' Deterministic, un-removable, five-to-six cards of value in one battlecry, in the class with the best cheap board already.",
+      "inclusion_rate": "26.5% of TGT-era Paladin posts, peaking at 33.7% in the 11 days after the Warsong nerf; 23.8% across the Explorers window",
+      "fate": "NEVER nerfed. Blizzard let Standard rotation solve it on 2016-04-26. Verified: the card's only balance change in the local DB is dated 2023-08-16.",
+      "confidence": "high"
+    },
+    {
+      "card": "Murloc Knight",
+      "set": "TGT",
+      "why": "4-mana 3/4 'Inspire: Summon a random Murloc' - by a wide margin the most successful Inspire card, and the reason Paladin's hero power stopped being a throwaway. Also the era's most notorious RNG grenade (Old Murk-Eye / Sir Finley off a hero power).",
+      "inclusion_rate": "51.8% of TGT-era Paladin posts; 48.1% in the Warsong-nerf window; 31.9% in the Explorers window",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Totem Golem",
+      "set": "TGT",
+      "why": "2-mana 3/4 with Overload (1). The best raw-stat 2-drop in the game at the time and half of the curve that resurrected Shaman.",
+      "inclusion_rate": "61.0% of TGT-era Shaman posts, 66.6% of Explorers-era, 78.3% in the final pre-Standard window",
+      "fate": "Never functionally changed in this era (only text-punctuation edits in 2016). Rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Tuskarr Totemic",
+      "set": "TGT",
+      "why": "In this era a 3-mana 3/2 whose battlecry read 'Summon ANY random Totem' - meaning it could roll Totem Golem itself. A 3-mana 6/6 spread across two bodies, some of the time.",
+      "inclusion_rate": "61.0%/55% of TGT-era Shaman posts (55% measured on the launch window), 44.4% of Explorers-era Shaman posts",
+      "fate": "Nerfed to 'a random basic Totem' on 2016-10-03 - i.e. AFTER this era, in the Karazhan/Gadgetzan Shaman crisis. Confirmed in balance_changes.",
+      "confidence": "high"
+    },
+    {
+      "card": "Darnassus Aspirant",
+      "set": "TGT",
+      "why": "2-mana 2/3 that ramps a mana crystal. Turned Combo Druid from a slow ramp deck into a tempo deck that could still hold the FoN+Roar kill.",
+      "inclusion_rate": "66.9% of TGT-era Druid posts, peaking at 76.7% in the Warsong-nerf window",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Justicar Trueheart",
+      "set": "TGT",
+      "why": "In this era a 6-mana 6/3 (changed to 5-mana 6/4 in 2024). Permanently upgraded your hero power: Warrior to 4 armour, Priest to 4 heal, Paladin to 2/2 Recruits. TGT's most quietly structural card - it made attrition a plan.",
+      "inclusion_rate": "3.0% of all BRM-era posts -> 13.5% of all TGT-era posts; within Warrior 8.9% -> 41.3% -> 51.1% across the three windows",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Living Roots",
+      "set": "TGT",
+      "why": "1-mana Choose One: 2 damage, or two 1/1s. The most flexible one-drop printed to that point, and a permanent fixture of Druid for years.",
+      "inclusion_rate": "51.1% of TGT-era Druid posts; 63.6% of Explorers-era Druid posts (highest-inclusion TGT card in the LoE window)",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Tunnel Trogg",
+      "set": "LOE (Uldaman, wing 2, 2015-11-19)",
+      "why": "1-mana 1/3, 'Whenever you Overload, gain +1 Attack per locked Mana Crystal'. A one-drop that converts its own class's designed drawback into unbounded stat growth. With Totem Golem it produced the strongest turn-1/turn-2 sequence in the game.",
+      "inclusion_rate": "50.0% of Explorers-era Shaman posts, 59.7% in the final pre-Standard window; 2.1% -> 39.9% of Shaman posts across the three weeks either side of its release",
+      "fate": "Never nerfed. Blizzard later stated it was 'very close' to being nerfed in patch 6.1.3 (October 2016) - after this era. Rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Reno Jackson",
+      "set": "LOE (Temple of Orsis, wing 1, 2015-11-12)",
+      "why": "6-mana 4/6, 'Battlecry: If your deck contains no more than 1 of any card, fully heal your hero.' The first card to pay you for a deckbuilding constraint instead of a mana cost, and a binary counter to every aggressive deck in the game.",
+      "inclusion_rate": "16.9% of ALL ranked decks posted in the Explorers window; 32.6% of Warlock, 20.8% of Mage, 20.1% of Warrior, 16.6% of Paladin, 12.0% of Priest posts",
+      "fate": "Untouched (only a text rewording in Nov 2016). Rotated to Wild 2016-04-26, where singleton Reno decks distorted the format for years.",
+      "confidence": "high"
+    },
+    {
+      "card": "Brann Bronzebeard",
+      "set": "LOE (Uldaman, wing 2)",
+      "why": "3-mana 2/4, 'Your Battlecries trigger twice.' A neutral legendary that doubled the best battlecry in every class - the era's second Highlander/greed enabler and a permanent design headache.",
+      "inclusion_rate": "17.3% of all ranked decks posted in the Explorers window",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Entomb",
+      "set": "LOE (Priest class challenge reward)",
+      "why": "6-mana 'shuffle an enemy minion into your deck' - the first truly permanent, un-Silenceable answer to a single big threat, and the card that let Control Priest exist alongside Reno.",
+      "inclusion_rate": "60.8% of Explorers-era Priest posts (8% in Nov 2015 -> 63% in Dec 2015 as the wing unlocked -> 77% in April 2016)",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Tomb Pillager",
+      "set": "LOE (The Ruined City, wing 3)",
+      "why": "In this era a 4-mana 5/4 with 'Deathrattle: Add a Coin to your hand' (buffed to 6/4 in 2023). Statted above curve AND fuelled Rogue's Oil/combo turns.",
+      "inclusion_rate": "32.0% of Explorers-era Rogue posts, 57.6% in the final pre-Standard window",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Dark Peddler",
+      "set": "LOE",
+      "why": "In this era a 2-mana 2/2 'Discover a 1-Cost card'. The highest-inclusion card of the entire LoE set - a perfect example of Discover succeeding by making a filler 2-drop into a flexible one.",
+      "inclusion_rate": "72.2% of Explorers-era Warlock posts - the highest in-class inclusion rate of any card from BRM, TGT or LOE in its own release window",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Flamewaker",
+      "set": "BRM",
+      "why": "3-mana 2/4, 'After you cast a spell, deal 2 damage randomly split among all enemies.' BRM's quietest hit and the direct ancestor of every Tempo Mage since.",
+      "inclusion_rate": "38.1% of BRM-era Mage posts, 45.2% of TGT-era Mage posts",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Imp Gang Boss",
+      "set": "BRM",
+      "why": "3-mana 2/4 that spawns 1/1s when damaged - the card that made Zoo immune to the sweepers the era's best decks relied on.",
+      "inclusion_rate": "50.2% of BRM-era Warlock posts; 69.1% of Explorers-era Warlock posts",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Quick Shot",
+      "set": "BRM",
+      "why": "2-mana 'Deal 3 damage. If your hand is empty, draw a card.' The most-adopted BRM card in its own release window, and the reason empty-hand Hunter kept functioning after Face Hunter's decline.",
+      "inclusion_rate": "57.9% of BRM-era Hunter posts, 58.8% (TGT), 56.8% (Explorers), 69.1% in the final window",
+      "fate": "Untouched; rotated to Wild 2016-04-26.",
+      "confidence": "high"
+    },
+    {
+      "card": "Dr. Boom",
+      "set": "GVG (not from this era's sets - included because it warped it)",
+      "why": "The single most-played card of the era despite being a set old. A 7-mana 7/7 that also produced two random-targeting bombs - the top of every curve in every class, and the strongest evidence for how badly the format needed rotation.",
+      "inclusion_rate": "44.6% of ALL 79,830 ranked decks posted across the era (41.4% BRM window, 45.4% TGT, 49.9% Warsong-nerf, 44.6% Explorers). For comparison: Piloted Shredder 33.6%, Sludge Belcher 33.2%, Big Game Hunter 28.8%, Loatheb 26.0%.",
+      "fate": "Untouched; rotated to Wild 2016-04-26, which is exactly how Blizzard chose to solve it.",
+      "confidence": "high"
+    }
+  ],
+  "balance_actions": [
+    {
+      "card_or_change": "Undertaker",
+      "action": "Nerf (pre-era boundary): 'gain +1/+1' -> 'gain +1 Attack'",
+      "date_or_patch": "2015-01-29 (client build 7628), patch 2.5",
+      "reason": "Included as the era's opening condition, not as an era action: it broke Undertaker Hunter and left Face Hunter and Mech Mage as ladder's aggro defaults going into Blackrock Mountain.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Warsong Commander",
+      "action": "Nerf / functional rewrite: 'Whenever you summon a minion with 3 or less Attack, give it Charge' -> 'Your Charge minions have +1 Attack'",
+      "date_or_patch": "Announced 2015-10-13; client build 10604 dated 2015-10-20 in the local DB; live as patch 3.2.0 on 2015-10-21",
+      "reason": "To delete the Grim Patron one-turn-kill. Blizzard's stated rationale was to 'expand both future design space and to stand by our overarching game philosophy that battles between minions and fighting for board control is what makes Hearthstone fun and compelling'. Measured effect: Patron+Warsong went from 10.3% of Warrior posts in the 20 days before the patch to 0 of 256 in the 11 days after.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Mysterious Challenger",
+      "action": "NO ACTION TAKEN - verified",
+      "date_or_patch": "n/a; the card's only balance change in the local DB is 2023-08-16 (6-mana 6/6 -> 5-mana 5/5, long after rotation)",
+      "reason": "The strongest deck of the second half of the era was never balance-patched. Blizzard chose to solve it with the Standard rotation on 2016-04-26 instead. This is the single most important 'negative' fact about the era's balance policy.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Tunnel Trogg / Totem Golem / Tuskarr Totemic",
+      "action": "NO ACTION TAKEN during this era - verified",
+      "date_or_patch": "Tuskarr Totemic was only nerfed on 2016-10-03 ('ANY random Totem' -> 'a random basic Totem'); Tunnel Trogg and Totem Golem were never functionally changed",
+      "reason": "The Shaman aggro curve that dominated the last five months of the era was left entirely alone and rotated to Wild intact.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Secret templating pass (Mirror Entity, Repentance, Snipe, Sacred Trial, Dart Trap) 'When' -> 'After'",
+      "action": "Functional-clarity text change, not a power change",
+      "date_or_patch": "2016-03-14 (client build 12051)",
+      "reason": "Included so it is not mistaken for a Secret Paladin nerf. It is a templating/trigger-timing cleanup. A comparable pass hit Djinni of Zephyrs, Ship's Cannon and Sword of Justice on 2015-12-04.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Ancient of Lore",
+      "action": "Nerf: 'Draw 2 cards' -> 'Draw a card'",
+      "date_or_patch": "2016-04-25 in the local DB (client build 12574); live with patch 5.0 / Standard on 2016-04-26",
+      "reason": "Druid's card-advantage crutch; part of the batch aimed at Combo Druid. Era statline was 7-mana 5/5.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Force of Nature",
+      "action": "Nerf: 6 -> 5 mana, but 'three 2/2 Treants with Charge that die at the end of the turn' -> 'Summon three 2/2 Treants'",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Explicitly to remove the Force of Nature + Savage Roar one-turn kill. Measured effect in the two days the deck corpus covers after the change: FoN+Roar fell from 49.9% to 4.6% of posted Druid decks (n=194 posts; small sample, unambiguous direction).",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Keeper of the Grove",
+      "action": "Nerf: health 4 -> 2 (4-mana 2/4 becomes 2/2)",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Druid's flexible Silence/ping was too efficient a tempo card for a class that also held the best finisher.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Blade Flurry",
+      "action": "Nerf: 2 -> 4 mana, and 'deal its damage to all enemies' -> 'to all enemy minions'",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Removed Oil Rogue's simultaneous board-wipe-plus-burn. Measured effect: Blade Flurry fell from 58.7% (Explorers window) to 14.7% of posted Rogue decks; the Oil+Flurry pair from 29.0% to 4.7%.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Big Game Hunter",
+      "action": "Nerf: 3 -> 5 mana",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "A 3-mana hard answer to every big minion in the game suppressed high-cost design space. BGH was in 28.8% of all Explorers-era posts.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Knife Juggler",
+      "action": "Nerf: Attack 3 -> 2",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Universal aggro/tempo staple (20.6% of all Explorers-era posts) present in Secret Paladin, Zoo, Face Hunter and Aggro Druid alike.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Leper Gnome",
+      "action": "Nerf: Attack 2 -> 1",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Aggro reach tax; ~10% of all posted decks across the era.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Arcane Golem",
+      "action": "Nerf: loses Charge; health 2 -> 4",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Burst-from-hand enabler in Face Hunter and Oil/Burst Rogue.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Molten Giant",
+      "action": "Nerf: 20 -> 25 mana",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Handlock's payoff for going low; it was in 29.7% of Explorers-era Warlock posts and became doubly strong alongside Reno Jackson (Reno + Molten Giant together in 19.0% of them).",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Ironbeak Owl",
+      "action": "Nerf: 2 -> 3 mana",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "A 2-mana Silence with a body was a universal, near-free answer (22-25% of all posts across the era) that suppressed 'big drawback, big payoff' design.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Hunter's Mark",
+      "action": "Nerf: 0 -> 1 mana",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Free removal for anything, at any size, in the most aggressive class.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Master of Disguise",
+      "action": "Nerf: permanent Stealth -> 'Stealth until your next turn'",
+      "date_or_patch": "2016-04-25 (build 12574); live 2016-04-26",
+      "reason": "Included for completeness: it is the only other functional change in the Standard-launch batch and it never mattered on 2015 ladder.",
+      "confidence": "high",
+      "confirmed_in_local_db": true
+    },
+    {
+      "card_or_change": "Standard format introduction (Year of the Kraken)",
+      "action": "Structural: Naxxramas, GvG, and the whole 2013-2014 core stop being legal in the new Standard format; BRM/TGT/LOE remain legal for one more year",
+      "date_or_patch": "Announced 2016-02-02; live 2016-04-26 with patch 5.0 / Whispers of the Old Gods",
+      "reason": "The era's real balance action. Instead of nerfing Mysterious Challenger, Dr. Boom, Piloted Shredder, Sludge Belcher, Muster for Battle and Shielded Minibot, Blizzard removed the whole layer. Every 'never nerfed' entry above resolves here.",
+      "confidence": "high",
+      "confirmed_in_local_db": false
+    }
+  ],
+  "issues": [
+    {
+      "issue": "A combo enabler living in the permanent, never-rotating Basic set",
+      "evidence": "Warsong Commander (Basic Warrior, printed 2013) plus Grim Patron (BRM, 2015) produced 30+ damage from an empty board. The Basic set cannot rotate, so the only available fix was to rewrite the 2013 card into something functionally unrelated ('Your Charge minions have +1 Attack'), which Blizzard did on 2015-10-21. Confirmed in balance_changes.",
+      "design_lesson": "Anything in a set that never rotates is a permanent liability: every future card must be designed against it forever. Keep Charge-granting, cost-reduction and infinite-summon effects out of the evergreen pool - or accept that you will eventually have to delete the card rather than tune it."
+    },
+    {
+      "issue": "Deterministic multi-card battlecries have no counterplay curve",
+      "evidence": "Mysterious Challenger (a 6-mana 6/6 in this era) deployed five or six distinct Secrets at once, face-up, with no randomness and no way to interact before it resolved. It reached 26.5% of TGT-era Paladin posts and 33.7% right after the Warsong nerf; Paladin's overall posting share hit 16.7%, the highest single-class share we measure in the whole era. It was never nerfed.",
+      "design_lesson": "The power of a 'cheat cards onto the board' battlecry scales with the NUMBER of cards it deploys, not their individual strength - so it cannot be balanced by tuning any one of them. Cap the count, or make the deployment random/conditional, or don't print it."
+    },
+    {
+      "issue": "Shipping a keyword the design team no longer believed in",
+      "evidence": "TGT's headline mechanic, Inspire, produced 21 collectible cards whose MEDIAN in-class inclusion rate during the TGT launch window was 2.3%; only four cleared 25% (Murloc Knight 52%, Thunder Bluff Valiant 44%, Savage Combatant 33%, Confessor Paletress 26%) and eight sat below 1.5%. Ben Brode later said publicly that the team 'weren't sold on the gameplay of Inspire' by the time TGT entered development, had no time to redesign it, and deliberately lowered the power level instead. The jousting cards fared the same: 8 cards, median 2.3%, 6 of 8 below 4%.",
+      "design_lesson": "Deliberately underpowering a mechanic you have lost faith in does not de-risk the set - it produces a set nobody can build with. Cut the mechanic and reprint the slots, or fix it; do not ship a hedge."
+    },
+    {
+      "issue": "Neutral power creep from a previous set compressing all nine classes",
+      "evidence": "Across all 79,830 ranked decks posted in this era, Dr. Boom appears in 44.6%, Piloted Shredder 33.6%, Sludge Belcher 33.2%, Big Game Hunter 28.8%, Azure Drake 26.8%, Loatheb 26.0%, Emperor Thaurissan 25.2%, Antique Healbot 24.4%, Ironbeak Owl 23.4%. None of those are from BRM, TGT or LOE. New class cards had to beat a fixed neutral tax before they could be considered.",
+      "design_lesson": "Best-in-slot neutrals at the top of the curve are nine-times-worse than best-in-slot class cards, because they crowd out nine classes at once. TGT's explicit response - pushing power into class cards - was correct; the structural response, rotation, was necessary."
+    },
+    {
+      "issue": "Turning a class drawback into an uncapped scaler",
+      "evidence": "Tunnel Trogg (1-mana 1/3) gains +1 Attack per Mana Crystal Overloaded - and Shaman's whole card pool is built out of Overload. Trogg + Totem Golem reached 46.3% of Explorers-era Shaman posts (57.3% in the final window) and moved Shaman from the least-posted class of the BRM era (9.1% of posts) to the most-posted class of the last pre-Standard window (15.5%). Neither card was ever nerfed.",
+      "design_lesson": "A payoff that rewards paying a cost must be priced as if the cost were free, because the deck will only ever be built to pay it. 'Drawback' mechanics need payoffs with a hard ceiling."
+    },
+    {
+      "issue": "Binary hard counters to an entire strategy polarize rather than balance",
+      "evidence": "Reno Jackson healed a hero to full for 6 mana in exchange for a deckbuilding restriction. It appeared in 16.9% of ALL ranked decks posted in the Explorers window and up to 32.6% of Warlock posts. Contemporary coverage argued it did not just counter aggro but 'removes it from the meta completely'. Notably, only about half the decks that ran it actually satisfied its condition: in November 2015, 16.8% of posted decks contained Reno while just 8.6% had no duplicates at all.",
+      "design_lesson": "A card that reverses a whole axis of the game (all damage dealt so far) converts matchups into coin flips decided by whether it is drawn in time. Counters should shift a matchup's percentage, not decide it - and if you make a card free at the cost of a deckbuilding constraint, expect players to break the constraint chasing the effect."
+    },
+    {
+      "issue": "Card count is not the same as impact - a 45-card adventure outperformed a 132-card expansion",
+      "evidence": "In their own release windows: LOE (45 cards) put 4 cards above 50% in-class inclusion and 10 above 25%; TGT (132 cards) put 5 above 50% and 24 above 25%, while 57 of its 132 cards - 43% - sat below 5% inclusion even within their own class. Normalised, LoE's hit rate was roughly 22% of cards at 25%+ against TGT's 18%, from a third of the card count, and LoE also reshaped two classes (Shaman, Priest) plus the whole control archetype.",
+      "design_lesson": "Design density beats card count. A big set of deliberately weak cards produces less play and less goodwill than a small set of sharply focused ones - and players notice: TGT is still cited as the least-loved set of that period while LoE is remembered fondly."
+    },
+    {
+      "issue": "The end state was polarization, not balance: aggro curve vs full-heal control, with midrange squeezed",
+      "evidence": "In the final five months of the era the two most successful new decks pulled in opposite directions - Trogg/Golem Shaman (46.3% of Shaman posts) and Reno control (16.9% of ALL posts) - while Combo Druid retained an unpreventable 14-damage finisher (FoN+Roar in 49.9% of Druid posts) and Secret Paladin retained an unanswerable turn 6. Class posting shares stayed within a 5-point band, but the DECKS became far more extreme.",
+      "design_lesson": "Flat class representation is not evidence of a healthy metagame. When every class's best deck is either 'kill by turn 7' or 'undo the first seven turns', the format is bimodal and games stop being decided in the midgame - which is where the game is most interesting."
+    },
+    {
+      "issue": "Expansion payoffs distributed unevenly across classes",
+      "evidence": "TGT's high-impact cards were concentrated in Shaman (Totem Golem, Tuskarr Totemic, Healing Wave 49%, Thunder Bluff Valiant 44%, Ancestral Knowledge 35%), Druid (Darnassus Aspirant 67%, Living Roots 51%) and Paladin (Mysterious Challenger, Murloc Knight 52%, Competitive Spirit 36%). Rogue's TGT cards produced nothing: Rogue remained the least-posted class in both the BRM (7.7%) and TGT (7.4%) windows and was still riding a GvG card (Tinker's Sharpsword Oil) plus a Classic card (Blade Flurry) as its only competitive shell.",
+      "design_lesson": "A per-class power audit has to be part of set sign-off. A class that receives no viable payoff in a 132-card set has to wait a full year - and its players simply stop playing it."
+    }
+  ],
+  "pro_scene": {
+    "summary": "This is the era in which Hearthstone esports had prize money and prestige but no unified circuit yet: Blizzard's own HCT ran regional qualifiers into three Regional Championships (four players each from Europe, Americas, Asia-Pacific plus additional seats) feeding a 16-player World Championship at BlizzCon, while third-party organisers (DreamHack, ESL, Kinguin, Archon, SeatStory) ran the bulk of the calendar. Format was Conquest with three submitted classes and a required win with each deck. Competitively the era is remembered for two things: Grim Patron Warrior as the era's ultimate skill-expression deck (and Blizzard's willingness to delete it mid-season, three weeks before the World Championship), and Ostkaka's title run with a Freeze Mage / Oil Rogue / post-nerf Patron Warrior lineup.",
+    "players": [
+      {
+        "name": "Ostkaka (Sebastian Engwall, SWE)",
+        "why_notable": "2015 Hearthstone World Champion. Beat Hotform in the BlizzCon 2015 final on 2015-11-07 for $100,000.",
+        "signature_decks": ["Freeze Mage", "Oil Rogue", "Midrange (post-nerf) Patron Warrior"],
+        "achievements": "1st, 2015 Hearthstone World Championship (BlizzCon, Anaheim, 2015-11-06/07). Qualified via the 2015 Europe Regional Championship. He and Hotform were the only two players at the event to bring Rogue, and they met in the final."
+      },
+      {
+        "name": "Hotform (Jon Nicholas Sundberg / 'Hotform', CAN)",
+        "why_notable": "Runner-up at the 2015 World Championship; one of only two Rogue pilots at the event.",
+        "signature_decks": ["Oil Rogue"],
+        "achievements": "2nd, 2015 Hearthstone World Championship. Qualified via the Americas Regional Championship."
+      },
+      {
+        "name": "Thijs (Thijs Molendijk, NLD)",
+        "why_notable": "2015 HCT Europe Regional Champion and a member of the Nihilum roster that won the first Archon Team League Championship.",
+        "signature_decks": ["Midrange Druid", "Secret Paladin", "Patron Warrior"],
+        "achievements": "2015 European Championship title (October 2015); 2015 Archon Team League Championship with Nihilum; competed at the 2015 World Championship."
+      },
+      {
+        "name": "Lifecoach (Adrian Koy, DEU)",
+        "why_notable": "Widely called the best player in the world in the first half of 2015; the archetypal 'rope' technical player and a vocal critic of TGT's power level.",
+        "signature_decks": ["Patron Warrior", "Handlock", "Freeze Mage"],
+        "achievements": "Runner-up, Kinguin Pro League 2015 Season 1 (lost the 7-game final to Kolento); 2015 Archon Team League Championship with Nihilum; competed at the 2015 World Championship."
+      },
+      {
+        "name": "Kolento (Aleksandr Malsh, UKR)",
+        "why_notable": "The era's most consistent tournament player; his HearthPwn-posted #1 legend Control Warrior and Druid lists are among the most-upvoted era lists in the corpus.",
+        "signature_decks": ["Control Warrior", "Midrange/Combo Druid", "Oil Rogue"],
+        "achievements": "Winner, Kinguin Pro League 2015 Season 1 (beat Lifecoach in the final, ~May 2015). Posted '[TOP 1] Legend Control Warrior (S19)' (HearthPwn 355100, 2015-10-29) and 'Kolento Legend #1 Druid' (333452, 2015-09-17)."
+      },
+      {
+        "name": "Purple (Ryan Murphy-Root, CAN)",
+        "why_notable": "Won DreamHack Winter 2015 three weeks after the Warsong nerf by going 6-0 with POST-nerf Patron Warrior - the clearest demonstration that Grim Patron survived the loss of its combo.",
+        "signature_decks": ["Patron Warrior (post-nerf)", "Malygos Warlock", "Midrange Druid"],
+        "achievements": "1st, DreamHack Winter 2015 (Jönköping, 2015-11-26/28), beating Ersee 3-1 in the final for $12,500 of a $40,000 pool. Competed at the 2015 World Championship via the Americas region."
+      },
+      {
+        "name": "Forsen (Sebastian Fors, SWE)",
+        "why_notable": "The streamer most identified with Grim Patron Warrior; his ladder climbs with the deck made it the era's aspirational skill-check and drove enormous adoption.",
+        "signature_decks": ["Grim Patron Warrior"],
+        "achievements": "One of the four most-watched Hearthstone streamers of 2015 (peaks around 45,000 concurrent viewers, per contemporary coverage). Tournament palmares are not the point here - his influence was on what ladder played."
+      },
+      {
+        "name": "TiddlerCelestial (Xieyu Wang, CHN)",
+        "why_notable": "Won the biggest open event of the Blackrock Mountain metagame.",
+        "signature_decks": [],
+        "achievements": "1st, DreamHack Summer 2015 Hearthstone Grand Prix (2015-06-13/15, 128 players, $40,000 pool, $12,500 first prize)."
+      },
+      {
+        "name": "Reynad (Andrey Yanyuk, USA)",
+        "why_notable": "Tempo Storm founder and the era's most influential deckbuilder-commentator; his TGT-launch Dragon Priest list is the most-upvoted Priest list in the corpus (991 upvotes) and Tempo Storm's Meta Snapshots were the community's default tier list.",
+        "signature_decks": ["Dragon Priest", "Zoolock", "Tempo Mage"],
+        "achievements": "Deckbuilding and meta-analysis influence rather than a 2015 title; also the source of the 'matchmaking' controversy that Ben Brode answered publicly in 2016."
+      },
+      {
+        "name": "RDU (Dima Halash, ROU)",
+        "why_notable": "Third member of the Nihilum trio that took the largest team prize of the year.",
+        "signature_decks": ["Patron Warrior", "Secret Paladin"],
+        "achievements": "2015 Archon Team League Championship winner with Nihilum (Lifecoach, Thijs, RDU), 6-2 over Cloud9, $150,000 team prize (September 2015)."
+      },
+      {
+        "name": "Ersee (Juho Hyodynmaa, FIN)",
+        "why_notable": "DreamHack Winter 2015 finalist; brought Control Warrior into the final against Purple.",
+        "signature_decks": ["Control Warrior"],
+        "achievements": "2nd, DreamHack Winter 2015 ($7,500)."
+      },
+      {
+        "name": "Firebat (James Kostesich, USA)",
+        "why_notable": "The 2014 World Champion remained an era fixture; his Reno Dragon Warrior list appears in the corpus (HearthPwn 418533, 2016-01-22), illustrating how quickly top players folded Reno into existing control shells.",
+        "signature_decks": ["Reno Dragon Warrior", "Control Warrior"],
+        "achievements": "2014 World Champion (prior era); active competitor and content creator throughout 2015-2016."
+      }
+    ],
+    "events": [
+      {
+        "event": "Kinguin Pro League 2015 Season 1",
+        "year": "2015 (finals ~May 10)",
+        "winner": "Kolento (def. Lifecoach in a 7-game final)",
+        "notable_decks": "Blackrock Mountain metagame - Patron Warrior, Handlock, Oil Rogue, Midrange Druid"
+      },
+      {
+        "event": "DreamHack Summer 2015 Hearthstone Grand Prix (Jönköping)",
+        "year": "2015-06-13/15",
+        "winner": "TiddlerCelestial (Xieyu Wang) - $12,500 of a $40,000 pool, 128 players",
+        "notable_decks": "Peak Patron Warrior / Oil Rogue / Face Hunter era"
+      },
+      {
+        "event": "Archon Team League Championship (ATLC) 2015",
+        "year": "2015 (September)",
+        "winner": "Nihilum (Lifecoach, Thijs, RDU) - 6-2 over Cloud9, $150,000 team prize",
+        "notable_decks": "Immediately post-TGT: Secret Paladin, Patron Warrior, Midrange Druid, Control Warrior"
+      },
+      {
+        "event": "2015 HCT Regional Championships (Europe / Americas / Asia-Pacific)",
+        "year": "2015 (autumn, pre-BlizzCon)",
+        "winner": "Europe: Thijs. The 12+ qualifiers who advanced to BlizzCon included Thijs, Neirea, Lifecoach and Ostkaka (EU), Hotform, Purple, JAB and nias (Americas), and Kranich (APAC).",
+        "notable_decks": "TGT metagame - Secret Paladin, Patron Warrior (still pre-nerf for most of the qualifying), Midrange Druid, Freeze Mage, Control Warrior"
+      },
+      {
+        "event": "2015 Hearthstone World Championship (BlizzCon, Anaheim)",
+        "year": "2015-11-06/07",
+        "winner": "Ostkaka (def. Hotform in the final) - $100,000 of a $250,000 pool, 16 players",
+        "notable_decks": "Ostkaka's three classes: Freeze Mage, Oil Rogue, Midrange Patron Warrior (post-Warsong-nerf). Ostkaka and Hotform were the only two Rogue pilots in the field. Format: Conquest, three submitted classes, one win required with each deck. Played on the post-nerf, pre-LoE patch."
+      },
+      {
+        "event": "DreamHack Winter 2015 (Jönköping)",
+        "year": "2015-11-26/28",
+        "winner": "Purple (Ryan Murphy-Root) - def. Ersee 3-1; $12,500 of a $40,000 pool. 3rd-4th: Hoej and Greensheep ($5,000 each).",
+        "notable_decks": "Purple went 6-0 with post-nerf Patron Warrior through the quarter- and semi-finals and also brought Malygos Warlock and Midrange Druid; Ersee brought Control Warrior. Played on the patch where LoE wing 1-2 had just opened."
+      }
+    ]
+  },
+  "narrative": "The year that starts on 2 April 2015 is the last year of Hearthstone in which nothing rotated. Every card ever printed was legal and the pool had only just digested Goblins vs Gnomes. That single fact explains most of what follows: Blackrock Mountain, The Grand Tournament and The League of Explorers were not competing with each other, they were competing with Naxxramas and GvG - and mostly losing. Across the 79,830 ranked decks published on HearthPwn in this window, Dr. Boom appears in 44.6%, Piloted Shredder in 33.6%, Sludge Belcher in 33.2%, Big Game Hunter in 28.8%, Loatheb in 26.0%. Those are all cards from the previous two sets. The neutral tax was the real metagame and every new archetype had to pay it before it could be good.\n\nBRM shipped 31 cards over five weekly wings, and the two that mattered most were engine pieces rather than payoffs. Emperor Thaurissan - in this era a 6-mana 5/5, not the 5-mana 4/4 the card database shows today - made every combo deck in the game one mana cheaper and turns up in 35.2% of all BRM-era posts. And Grim Patron, a 5-mana 3/3 that copies itself when it survives damage, plugged into a Warrior Basic card printed in 2013. Warsong Commander gave Charge to anything with 3 or less Attack. Warrior owned every cheap ping in the game - Whirlwind, Inner Rage, Death's Bite, Unstable Ghoul - plus Frothing Berserker, plus Emperor. The result could deal thirty-plus damage from an empty board and simultaneously out-grind Control Warrior, and it was genuinely hard to play, which made it prestigious. The data shows how total the takeover was: 54% of every ranked Warrior deck posted in April 2015 ran Warsong Commander, and 30.5% of all BRM-era Warrior posts ran the Patron+Warsong pair.\n\nTGT (24 August 2015; 132 cards) was meant to reset that. Blizzard deliberately moved power out of neutrals and into class cards, and hung the set on Inspire, which paid you for using your hero power. Inspire failed, measurably: of 21 Inspire cards the median in-class inclusion rate during the launch window was 2.3%, and only four cleared 25%. Jousting was no better - 8 cards, median 2.3%, and the two successes (Healing Wave, King's Elekk) worked because their floor was fine, not because the minigame was. Ben Brode later admitted the team had lost faith in Inspire mid-development, had no time to redesign it, and lowered its power level as a hedge. What TGT actually delivered was three unglamorous class packages: Shaman got Totem Golem and Tuskarr Totemic (then a 3-mana 3/2 that could roll any totem, including another Totem Golem), Druid got Darnassus Aspirant and Living Roots, and Paladin got a 6-mana 6/6 called Mysterious Challenger.\n\nSecret Paladin was the first Hearthstone deck built entirely around one deterministic turn. Challenger deployed every distinct Secret in the deck at once, face-up, un-removable before it resolved - five or six cards of stats and deterrents for six mana on top of a 6/6 body, in the class that already had Muster for Battle, Shielded Minibot, Coghammer and Divine Favor. It went from nothing to 26.5% of all posted ranked Paladin decks in the TGT window, and Paladin's share of all posted decks rose to 16.7%, the single highest class share in any window we measure between April 2015 and April 2016. Blizzard never nerfed it. It left the game by rotation, thirteen months later.\n\nPatron did get nerfed. On 13 October 2015 Blizzard announced that Warsong Commander would read 'Your Charge minions have +1 Attack', citing the philosophy that 'battles between minions and fighting for board control is what makes Hearthstone fun and compelling'. The patch went live on 21 October; the local card database dates the client build carrying it to 20 October. The kill was clinical: in the twenty days before the patch, 10.3% of posted Warrior lists ran the Patron+Warsong pair; in the eleven days after, 0 of 256 did. Grim Patron itself survived at 16-22% as a midrange value engine - Purple went 6-0 with post-nerf Patron on the way to winning DreamHack Winter, and Ostkaka won the World Championship with a Midrange Patron list three weeks after the change - but the combo, and with it the most technically demanding deck the game had produced, was gone.\n\nThen LoE, and the era's second reshaping. Forty-five cards, four wings, 12 November to 10 December. Its hit rate embarrasses TGT: four cards above 50% in-class inclusion (Dark Peddler 72%, Entomb 61%, Keeper of Uldaman 54%, Tunnel Trogg 50%) from a third of the card count. Two changed the game's shape. Tunnel Trogg, a 1-mana 1/3 that grows by however much you Overload, gave Shaman the best two-turn curve in the game when followed by Totem Golem; Shaman went from the least-posted class of the BRM era (9.1%) to the most-posted class of the final pre-Standard window (15.5%), and Trogg+Golem appear in 46.3% of Explorers-era Shaman posts. Tunnel Trogg was never nerfed. And Reno Jackson healed you to full for six mana if your deck had no duplicates - the first card to charge a deckbuilding constraint instead of mana. Reno appears in 16.9% of every ranked deck posted in the Explorers window, including 32.6% of Warlock, 20.8% of Mage and 20.1% of Warrior posts. Tellingly, only about half the decks that ran him actually met his condition: in November 2015, 16.8% of posted decks contained Reno while just 8.6% had no duplicates at all. Players wanted the effect badly enough to run it illegally.\n\nThe end state in early 2016 was polarized, not balanced. Class posting shares stayed within a five-point band all year, which looks healthy and wasn't: by February the format's best plans were 'win by turn seven with a Trogg curve or a turn-6 Challenger' and 'undo the first seven turns with Reno', with Combo Druid still holding an unpreventable fourteen damage from hand and Control Warrior grinding to fatigue behind Justicar Trueheart. Blizzard's answer was structural rather than surgical. Standard was announced on 2 February 2016 and arrived on 26 April with the largest Basic/Classic nerf batch in the game's history: Ancient of Lore to a single card, Force of Nature stripped of Charge, Blade Flurry to four mana and minions only, Big Game Hunter to five, Molten Giant to twenty-five, Ironbeak Owl to three, Keeper of the Grove to a 2/2, Knife Juggler to 2 Attack, Leper Gnome to 1, Arcane Golem without Charge, Hunter's Mark to one mana. The deck corpus only covers two days after that patch, but the direction is unmistakable: Force of Nature + Savage Roar falls from 49.9% to 4.6% of posted Druid decks and the Oil+Blade Flurry pair from 29.0% to 4.7%.\n\nWhat the era taught, Blizzard then institutionalised: rotation as the primary balance lever rather than nerfs; class-card-first power distribution; and a permanent suspicion of any battlecry that cheats more than one card onto the board. Mysterious Challenger, Dr. Boom, Piloted Shredder, Muster for Battle and Shielded Minibot were never patched. They were simply moved out of the room.",
+  "evidence_notes": "GROUNDED IN LOCAL DATA (high confidence).\n(1) Set dates: /home/user/Explore/hearthstone/data/sets_first_seen.json gives the DATA-SHIP builds - BRM build 8311 (2015-03-31), TGT build 9786 (2015-08-18), LOE build 10833 (2015-11-10). Public release dates (2015-04-02, 2015-08-24, 2015-11-12) come from web sources and are days-to-weeks later, exactly as the file warns.\n(2) Card text and statlines: every card named in this dossier was verified to exist in cards.sqlite in the set claimed. Crucially, the `cost/attack/health/text` columns are CURRENT values, so I reconstructed ERA statlines by rolling back every balance_changes row dated after 2016-04-01. That corrected several things I would otherwise have got wrong: Mysterious Challenger was a 6-mana 6/6 in this era (not 5/5/5 - that change is dated 2023-08-16); Emperor Thaurissan was a 6-mana 5/5; Justicar Trueheart a 6-mana 6/3; Tuskarr Totemic a 3-mana 3/2 summoning ANY totem; Tomb Pillager a 4-mana 5/4; Keeper of Uldaman 4 mana; Blackwing Corruptor dealt 3 damage not 5; Astral Communion cost 4; Molten Giant cost 20; Blade Flurry cost 2 and hit face; Keeper of the Grove was a 2/4.\n(3) Balance actions: every entry with confirmed_in_local_db=true was read out of the balance_changes table. The Warsong Commander rewrite is at build 10604 dated 2015-10-20; the Standard-launch batch is dated 2016-04-25 (build 12574). NOTE: the 2016-04-25 rows also contain ~30 spurious 'None -> 0' / '0 -> None' atk/cost pairs (Wisp, Doomsayer, Innervate, Preparation, Nerubian Egg, etc.) which are null-vs-zero artefacts of the data-shipping pipeline, NOT balance changes; I excluded them. Likewise the 2015-12-04 and 2016-03-14 'Whenever -> After' passes are templating, not power changes.\n(4) EMPIRICAL DECK NUMBERS: every percentage in empirical_share / inclusion_rate was computed by me from the raw corpus /home/user/Explore/hearthstone/data/research/decks_NJacobsohn-Hearthstone-Data-Analysis.ndjson, filtered to extra.deck_type == 'Ranked Deck' and to the era tags Blackrock Launch (21,233 decks, 2015-04-02..08-24), TGT Launch (14,607, 08-24..10-20), Warsong Nerf (4,185, 10-20..11-12), Explorers (31,747, 2015-11-12..2016-04-23) and Classic Nerfs (1,634, 2016-04-24..25) - 79,830 ranked decks total, of which I also cut finer windows by date (e.g. 2015-10-01..10-20 vs 10-21..10-31 to isolate the Warsong nerf).\n\nWHAT THESE NUMBERS ARE NOT. They measure what players PUBLISHED on HearthPwn, not what was queued on ladder, and there is no games-played, no rank and no winrate field anywhere in the source. Popular archetypes are over-represented right after a set launches (August 2015 alone has 10,230 posts) and budget/meme decks are over-represented generally. Class shares in this corpus are suspiciously flat (never worse than ~7.4% for the least-posted class), which is itself proof it measures posting, not play. Treat every share as a RELATIVE signal within a class and window, which is how I have used them (e.g. 'X% of Paladin decks posted in window W'), and treat cross-window deltas as the strongest evidence - the Warsong nerf showing up as 10.3% -> 0.0% over eleven days is far more robust than any single absolute number.\n\nI DELIBERATELY DID NOT USE deck_aggregate.json's top_archetypes lists. Only 42.7% of ranked rows carry an author-entered archetype label, the vocabulary drifts with HearthPwn's taxonomy, and the labels are demonstrably retro-edited: the Blackrock Launch window (April-August 2015) contains 5 decks tagged \"N'Zoth Paladin\" and 1 tagged 'Yogg Druid', a year before either card existed. All resulting archetype shares in that file are ~0.0002-0.002, i.e. noise. I used class_share (which agrees exactly with my own recount) and built archetype shares myself from card signatures instead.\n\nTWO CORPUS TRAPS I MEASURED AND HANDLED.\n(a) Anachronism / pre-release theorycraft / post-hoc edits: measured strictly against each card's empirical data_first_seen (the first dated client build containing it), 9,231 of the 79,830 era decks (11.6%) contain at least one card that did not yet exist on the deck's own date; measured against PUBLIC release dates instead - which run days-to-weeks after the data ship - the figure is about 20%. The offenders are overwhelmingly next-set theorycraft posted under the 'Ranked Deck' tag: C'Thun 1,209 times, Beckoner of Evil 1,037, N'Zoth 618 in April-2016-dated posts; Justicar Trueheart 521 in posts predating the TGT data ship. Some decks were also clearly EDITED long after posting - one April-2016-dated list contains Barnes, a Karazhan card from August 2016, and the most-upvoted 'April 2015' Zoo list contains Dark Peddler from November 2015. Every representative_decklist in this dossier was therefore validated card-by-card against min(data_first_seen) at the deck's own date, and only era-legal, exactly-30-card lists were kept; where a well-known list failed that test I substituted a different, verified one and said so. Note for anyone re-running this: a naive validator that maps a card name to any of its printings will silently pass anachronisms, because many 2015 cards were later re-bucketed into CORE/LEGACY/VANILLA with modern set dates - the join must be on min(data_first_seen), not on the current CARD_SET.\n(b) Renames: five card names in the corpus do not resolve against cards.sqlite because the corpus was built from dbfId lookups at patch 36.0.3 (July 2026) and Blizzard has since renamed some Classic Druid spells - \"Nature's Wrath\" (6,057 occurrences) = Wrath, 'Stellar Drift' (978) = Starfall, \"Nature's Defense\" (242) = Mark of Nature; 'Awakened' (757) and \"Tiger's Fury\" (302) I could not resolve with confidence and did not use. Era-correct names are restored in all published decklists.\n\nRECOLLECTION / WEB-SOURCED, NOT LOCALLY VERIFIABLE (medium confidence unless noted). All release dates for public launches, the 13 October 2015 nerf announcement and Blizzard's quoted rationale, the Ben Brode statements about Inspire's power level being deliberately lowered, and every tournament result and placement in pro_scene come from WebSearch result summaries. WebFetch is Cloudflare-403'd on essentially every Hearthstone site in this environment (hsreplay, vicioussyndicate, hsguru, tempostorm, hearthstonetopdecks, liquipedia, fandom, playhearthstone, esportsearnings, web.archive.org all refused), so I could not open primary tournament pages or read a single vS/HSReplay data report. Consequences: (i) there is NO citable ladder playrate or winrate anywhere in this dossier - Vicious Syndicate's Data Reaper did not yet exist in this period and hsreplay.net data for it is unreachable, so playrate_or_winrate is empty for every deck by design rather than by omission; (ii) I could not obtain Ostkaka's or Purple's exact 30-card tournament lists, so the representative lists for Freeze Mage, Oil Rogue and Malygos Warlock are era-correct HearthPwn ladder lists explicitly labelled as such, NOT the tournament lists; (iii) tier placements are my judgement informed by the corpus shares plus contemporary commentary, not quotations from a published tier list. Hotform's and Ostkaka's real names, and the exact composition of the 16-player BlizzCon field, are medium confidence - the placements (Ostkaka 1st, Hotform 2nd, $100,000, 2015-11-07) and the DreamHack Winter result (Purple def. Ersee 3-1, Hoej and Greensheep 3rd-4th, $40,000 pool) are the best-corroborated. Forsen's association with Patron Warrior and Zetalot's with Priest are community lore, flagged as recollection in the text."
+}

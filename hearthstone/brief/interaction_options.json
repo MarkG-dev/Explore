@@ -1,0 +1,153 @@
+{
+  "title": "Opponent-turn interaction: an option study",
+  "date": "2026-07-26",
+  "problem_statement": "In a competitive digital CCG built for mobile, how does the defending player affect the outcome of the opponent's turn? Hearthstone's answer is Secrets: pre-committed triggers, not reactions. Magic's answer is a full priority stack, which is exactly what Hearthstone removed to get short, one-thumb matches. The question is what sits between them.",
+  "measured_baseline": {
+    "source": "/home/user/Explore/hearthstone/data/cards.sqlite (7,367 collectible Constructed cards, reconstructed from 320 dated client builds)",
+    "secret_cards_total": 118,
+    "secret_share_of_collectible_pool": "1.6%",
+    "secret_cards_by_class": {"HUNTER": 39, "MAGE": 37, "PALADIN": 22, "ROGUE": 20},
+    "classes_with_zero_secrets": "7 of 11",
+    "secret_cost_distribution": {"1": 22, "2": 59, "3": 37},
+    "max_secret_cost": 3,
+    "cards_whose_text_mentions_opponent_and_turn": 70,
+    "counterspell_balance_changes": "2 rows in balance_changes, both 2013-06 wording edits ('your opponent' -> 'an opponent' and back). Zero power nerfs in the DB.",
+    "ice_block_balance_changes": 0,
+    "corpus_balance_changes": "3,432 changes across 1,785 cards",
+    "deck_posting_evidence": {
+      "source": "/home/user/Explore/hearthstone/data/deck_aggregate.json - 202,375 ranked HearthPwn decks, 2013-05 to 2017-03",
+      "finding": "No Secret appears in the top-40 most-included cards of any era with more than 1,000 decks. The per-era top-40 cut-off sits around 9-10% inclusion. The only Secrets that surface at all are Explosive Trap at 10.2% in a 225-deck beta era and Avenge/Redemption in a 2-deck era.",
+      "caveat": "This measures deck-POSTING behaviour on HearthPwn. It is not ladder playrate and not winrate. The source has no games-played, rank or winrate field, and coverage ends 2017-03."
+    },
+    "interpretation": "Hearthstone's entire opponent-turn interaction surface is 118 cards (1.6% of the pool), locked to 4 of 11 classes, universally priced at 3 mana or less, and structurally weak enough that the game's only true counterspell has never needed a power nerf in twelve years. Pre-committed triggers are not a counterplay layer. They are a flavour layer."
+  },
+  "design_constraints": [
+    "Match length target ~8 minutes. Hearthstone's turn timer is 75 seconds (shortened to roughly 45s for the first two turns in patch 10.2).",
+    "One thumb, one hand, on a phone, while the player is doing something else.",
+    "No information leak: whether a prompt appears must not reveal what is in hand. MTG Arena's auto-pass has exactly this bug -- if you hold no instants the client passes for you, so permission decks cannot bluff.",
+    "No unbounded wall-clock cost: every response window is time the non-acting player can burn.",
+    "The defender must be able to affect a combo turn. This is the specific Hearthstone failure and any option that does not address it fails the brief."
+  ],
+  "options": [
+    {
+      "id": 1,
+      "name": "Open mana instants (a real fast-spell layer)",
+      "verdict": "reject",
+      "how_it_works": "Cards carry a speed. Fast cards can be cast from hand during the opponent's turn using mana you deliberately left unspent. The engine offers a priority window at action boundaries.",
+      "fixes": "Everything, in principle. The combo is answerable, held mana is a bluffing surface, and the skill ceiling is genuinely deep.",
+      "costs": "Requires solving the stop problem, and every solution is bad on mobile. Eternal's approach is instructive: it pauses whenever you hold ANY fast card, not only when you can actually cast one, precisely because a conditional pause would leak your hand. The community workaround is to mash the pass button instantly so the opponent cannot read the hesitation. MTG Arena went the other way with auto-pass plus a Ctrl/Ctrl-Shift full-control mode -- a keyboard modifier, which does not exist on a phone.",
+      "pacing_impact": "Worst case in the set. Two priority passes per action, an unbounded number of actions per turn. This is the mechanism Hearthstone removed to hit 8 minutes, and re-adding it gets you Eternal's pacing.",
+      "mobile_viability": "Poor. Full control needs a modifier key. Auto-pass leaks. Always-pause is a tap tax on every single opponent action.",
+      "prior_art": "Magic (Arena: auto-pass, priority stops, full-control mode). Eternal Card Game (fast spells, smart stops, documented pause-on-any-fast-card rule). Eternal was well reviewed by Magic players as a middle ground between Magic's clunky priority and Hearthstone's zero interaction, and it stayed niche. Direwolf's own advanced rules PDF documents the priority machinery.",
+      "failure_modes": [
+        "Hesitation tells: the length of a pause reads as hand information regardless of what the engine does.",
+        "Rope abuse doubles -- both players can now burn clock on both turns.",
+        "Latency disputes over who acted first at an action boundary.",
+        "Deck-building tax: holding mana is a cost paid every turn against decks that have no fast cards, and against a face deck the correct line is always to tap out, which makes the whole layer matchup-dependent dead weight."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "One defender-timed Response per opponent turn (the Interrupt buzzer)",
+      "verdict": "recommend",
+      "how_it_works": "During the opponent's turn each action resolves through a short, discrete telegraph beat. The defender has one Response per opponent turn: a single lit button. Tapping it pauses the game at the current telegraph and lets the defender resolve exactly one response, then the button is spent until the opponent's next turn. Hard 8-second decision clock, default is pass. Each player also gets a match-level response bank (roughly 90 seconds total) so a player cannot burn clock by interrupting late every turn.",
+      "fixes": "Directly kills the Hearthstone failure. The combo cannot resolve uninterrupted, because the break-in point is chosen by the defender rather than scripted by a card. It also caps the cost: one interaction per turn cycle per player is a bounded, designable quantity rather than an open stack.",
+      "costs": "Every opponent action needs a discrete interruptible boundary, which constrains animation pacing and rules out long auto-resolving flourish sequences. It also imposes an attention tax: the defender has to watch the opponent's turn, which is a cost paid on the exact axis Hearthstone optimised for.",
+      "pacing_impact": "Bounded and small. Worst case roughly 8 seconds per turn cycle, plus ~0.5-1.0s of telegraph beat per opponent action. Realistically 10-15% on match length: an 8-minute match becomes 9 to 9.5.",
+      "mobile_viability": "Strong. One lit button, one thumb, once per turn. No modifier keys, no priority chain, no stop configuration screen.",
+      "prior_art": "Closest live analogue is Legends of Runeterra's alternating action passing inside a round, which gives real back-and-forth without a Magic stack. Riot deliberately made most spells Burst -- non-interactable, resolving instantly -- specifically to avoid a deep stack and the tedium that comes with it, and reported in dev commentary that tightening Burst restrictions improved both gameplay and balance in playtesting. LoR proves the interaction layer is buildable on mobile; it also proves it is not sufficient commercially. Riot cut the team in January 2024, and PvP has been in maintenance since -- no new multiplayer cards, ranked rewards, the tournament circuit and Gauntlet removed, with development redirected to the single-player Path of Champions.",
+      "failure_modes": [
+        "Latency and reaction-time disputes at the telegraph boundary. Fix: server-authoritative resolution honouring the client timestamp, plus a generous ~1.5s telegraph.",
+        "The attention tax. A player who looks away loses their Response. Fix: an optional pre-armed auto-fire condition (fire if I would take lethal) as an accessibility and AFK fallback.",
+        "Interrupt-as-clock-abuse. Fix: the match-level response bank.",
+        "Designing around 'one per turn' pushes the metagame toward a single unanswerable haymaker per turn rather than many small threats."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Flexible Secrets (pre-paid, effect chosen at trigger time)",
+      "verdict": "viable-with-changes",
+      "how_it_works": "A face-down card is played and paid for on your own turn, exactly like a Hearthstone Secret. The difference is that it does not name a single trigger. It fires at the first qualifying moment and presents the holder with a 2-3 option menu chosen live: counter this spell, bounce this minion, or gain the armour.",
+      "fixes": "The rigidity problem. A Hearthstone Secret is a lottery ticket that either matches the opponent's line or is a dead card, and can be baited off for one cheap play. A menu card is never fully dead and cannot be cleanly baited, because the opponent does not know which of the three branches they are walking into.",
+      "costs": "It is still pre-committed as to WHEN it fires. The card, not the player, decides the moment, so a combo that never trips the trigger condition still resolves uninterrupted. It softens the Hearthstone flaw; it does not remove it.",
+      "pacing_impact": "Nearly free. A prompt only appears when a face-down card the opponent has already seen actually triggers, so the pause is expected by both players and adds maybe 3 seconds a handful of times per match.",
+      "mobile_viability": "Excellent. This is the cheapest option in the set. A 2-3 button modal on a card the opponent already knows exists.",
+      "prior_art": "Hearthstone's own 118 Secrets are the degenerate one-option case (measured: 4 classes, all 1-3 mana, none in the top-40 of any large deck-posting era). Yu-Gi-Oh set traps are the same shape with a larger cost. The Elder Scrolls: Legends' Prophecy is a closer cousin -- a genuine free reactive play, but triggered by a rune breaking rather than by player choice. Notably it has zero information leak by construction, which is the property options 1 and 5 have to work hardest to buy.",
+      "failure_modes": [
+        "Menu bloat: three modes per card means three times the balance surface and three times the tooltip.",
+        "Still bait-able in the limit -- with enough knowledge the opponent picks the line that walks into the least bad branch.",
+        "Does not touch the combo case. A Time Warp / mill / OTK line that plays no minions and attacks nothing never trips anything.",
+        "The face-down card is public, so it telegraphs 'do not overcommit' even when it is a bluff-free known quantity."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Simultaneous blind turns (Marvel Snap)",
+      "verdict": "reject",
+      "how_it_works": "Both players commit their plays privately, then both reveal at once. There is no opponent turn to react to because there is no opponent turn. A priority rule decides reveal order -- in Snap, the player currently winning the most locations reveals first, ties broken on point differential, initial tie broken randomly.",
+      "fixes": "Dissolves the problem instead of solving it. There is no uninterrupted opposing turn because both turns are the same turn. Ben Brode's stated rationale is that it removes the half of the match you spend watching, and replaces reaction with prediction and level-based mind games.",
+      "costs": "It buys the removal of dead time by removing reaction entirely. You cannot respond; you can only guess. For a competitive game with a persistent board and combat, that trade is enormous -- reveal order becomes a resource, and tech cards swing wildly on who holds priority.",
+      "pacing_impact": "The best in the set by a distance. Snap's 6-turn matches run 3-5 minutes. Turn length is halved because turns overlap.",
+      "mobile_viability": "Best in class. This is the most mobile-native structure anyone has shipped.",
+      "prior_art": "Marvel Snap, commercially the most successful of everything on this list. It is also the strongest evidence that the interaction problem can be side-stepped rather than solved. The counter-evidence is that Snap achieves this by having almost no board combat, no attacking, no targeting, and 12-card decks.",
+      "failure_modes": [
+        "Priority becomes the single most swingy hidden variable in the game and it is not directly controllable.",
+        "Blind reveal punishes knowledge asymmetry brutally -- a new player cannot predict what they have never seen.",
+        "It forecloses the entire design space of combat, targeting, and response, which is most of what a competitive CCG is.",
+        "For this brief it is not an option so much as a decision to build a different genre."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "A separate reaction-only resource",
+      "verdict": "viable-with-changes",
+      "how_it_works": "A second, publicly visible pool -- call it Guard -- accrues from mana you decline to spend, capped at a small number, and can only be spent on the opponent's turn. It cannot be converted back into proactive plays.",
+      "fixes": "The main tax on holding mana open. In Magic, keeping two up costs you a full turn of development against a deck that never makes you use it. A separate pool removes the raw opportunity cost and, because it is public, it removes the hesitation-tell problem entirely: the opponent can see your reaction capacity and plan around it, so the bluff moves from 'do you have mana' to 'do you have a card'.",
+      "costs": "On its own this is a resource, not a mechanic. It answers 'what do you pay with' and leaves 'when do you act' unanswered. It also adds a second number to the HUD, which is real cognitive load on a 6-inch screen.",
+      "pacing_impact": "Neutral by itself. Its impact is entirely determined by whichever window mechanism it funds.",
+      "mobile_viability": "Good. One extra pip row, publicly rendered, no hidden state.",
+      "prior_art": "Legends of Runeterra's spell mana is the shipped version: up to 3 unspent mana carries over each round, is usable only for spells, and is visible to both players. It is widely cited as one of LoR's cleanest innovations -- it recycles wasted mana rather than punishing you for holding it.",
+      "failure_modes": [
+        "Balance cliff: because the resource is useless proactively, decks with no reaction cards receive nothing and decks stuffed with them get a free second economy.",
+        "Cap tuning is brittle -- too high and every turn ends with a held response, too low and it is decorative.",
+        "Public information removes bluffing depth relative to Magic's hidden untapped lands. That is a deliberate trade, not a bug, but it is a real loss."
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Banked standing orders (player-authored if-then)",
+      "verdict": "reject",
+      "how_it_works": "On your own turn you bank an action and attach a condition drawn from a list: if my hero would drop below 10, if a minion with 5 or more attack is played, if a spell targets my hero. The action fires automatically on the opponent's turn with no prompt.",
+      "fixes": "Zero wall-clock cost, zero attention tax, zero information leak at trigger time, and it is more expressive than a fixed Secret. In principle it lets a defender program a genuine response to a combo turn.",
+      "costs": "The authoring UI. Every added condition multiplies the configuration space, and this configuration has to happen on a phone during a 75-second turn. It also moves the interesting decision out of the tense moment and into a menu, which is the opposite of what a reaction is for emotionally.",
+      "pacing_impact": "Free on the opponent's turn, expensive on your own -- authoring time lands squarely inside your turn timer and will cause roping.",
+      "prior_art": "This is Hearthstone Secrets with the trigger list exposed to the player, and MTG Online's stop configuration screens are the closest shipped analogue -- widely regarded as the worst part of that client's UX. No successful mobile CCG has shipped player-authored conditionals.",
+      "mobile_viability": "Poor. Condition pickers are the single most hostile UI pattern on a small screen.",
+      "failure_modes": [
+        "Combinatorial UI explosion.",
+        "Players mis-author conditions and lose to their own logic, which reads as the game cheating.",
+        "Deterministic and therefore fully solvable -- opponents learn the standard condition set within a week and route around it.",
+        "It relocates drama into a settings menu."
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Intent telegraphing / wind-up threats (answer it on your own clock)",
+      "verdict": "viable-with-changes",
+      "how_it_works": "No opponent-turn interaction at all. Instead the dangerous plays are made slow by rule: a combo finisher, a large burn spell or an OTK piece enters as a visible wind-up that resolves at the start of the caster's next turn. The defender sees exactly what is coming and gets a full, normal turn of their own to answer it.",
+      "fixes": "The combo problem, cleanly, at zero wall-clock cost. A resolved combo can no longer come out of nowhere, because the fuse is publicly lit a turn early. It preserves every one of Hearthstone's pacing properties.",
+      "costs": "It provides counterplay but not interaction. There is no moment of reaction, no gotcha, no held-breath. Emotionally it is a different product. It also creates a new bad state: a telegraphed lethal you provably cannot answer, which is watching your own death arrive for 75 seconds -- strictly worse than being surprised by it.",
+      "pacing_impact": "Zero added time. This is the only option in the set that costs nothing.",
+      "mobile_viability": "Perfect. No new input at all.",
+      "prior_art": "Slay the Spire's enemy intent icons are the purest proof that telegraphing creates real counterplay without any interaction latency. Hearthstone's own 30 Quest cards and its Galakrond/C'Thun style build-ups are partial versions, and they are widely enjoyed for exactly this reason -- you can see it coming. Gwent's cross-round structure achieves something similar by making the whole round a telegraphed resource commitment. Legends of Runeterra's Slow spells, which cannot be played during combat and can be responded to, are the spell-level version.",
+      "failure_modes": [
+        "Does not cover everything. A single burn spell to the face needs no wind-up and would feel absurd with one.",
+        "Unanswerable telegraphed lethal is a worse experience than a surprise one.",
+        "Applied broadly it makes every game legible a turn in advance and drains tension from the topdeck.",
+        "Card designers will route around it -- any effect not classified as a wind-up becomes strictly better, so the classification boundary becomes the balance problem."
+      ]
+    }
+  ],
+  "recommendation": "Option 2, the defender-timed single Response, funded by Option 5's public reaction resource, and delivered through Option 3's card form: cards played face-down and pre-paid on your own turn, whose effect is chosen from a small menu at the moment you fire them. One Response per opponent turn, 8-second hard clock, default pass, plus a 90-second match-level response bank. Ship Option 7's wind-up telegraphing alongside it as the safety net for the handful of effects that should never be answerable by a single card.",
+  "recommendation_rationale": "The three sub-parts each remove one failure mode of the others. Pre-paying the cost on your own turn kills the whole information-leak class that sinks Option 1: there is no hidden mana math, so there is no hesitation tell, no auto-pass bug, and no need for Eternal's pause-on-every-fast-card tax. Making the held card publicly face-down converts what would be a leak into a designed bluffing surface -- the opponent knows a response exists and must play around it, exactly as they do around a Hearthstone Secret, but they cannot bait it for free because the effect is not fixed until it fires. Making the firing moment defender-chosen is the part that actually solves the stated problem: a combo turn cannot resolve uninterrupted, because the break-in point is not scripted by a card the designer wrote two years ago. And capping it at one Response per turn cycle is what keeps this a mobile game -- the total wall-clock exposure is bounded, designable and roughly 10-15% on match length, not the unbounded stack that Hearthstone was built to escape.\n\nThe local data is what pushes me off the cheaper answer. Hearthstone's entire counterplay layer is 118 cards, 1.6% of a 7,367-card pool, confined to 4 of 11 classes, priced at 3 mana or less without exception, and so structurally weak that Counterspell's only two recorded changes in twelve years are wording edits and Ice Block has no balance change rows at all. Across 202,375 posted ranked decks from 2013 to 2017 not one Secret cracks the top-40 most-included cards of any era with more than 1,000 decks. Pre-commitment alone is not a counterplay layer. Option 3 on its own is a better Secret, not a fix.\n\nWhat I am knowingly giving up. First, the stack: held cards resolve immediately and cannot themselves be responded to, the way LoR Burst spells cannot. No counterspell wars, no split-second, no four-card exchange on the stack. Riot arrived at the same restriction deliberately and reported it improved both gameplay and balance in playtesting, but it is a genuine loss of ceiling versus Magic. Second, hidden-resource bluffing -- the Magic tension of two untapped lands and an unknown hand is replaced by a public face-down card, which is a shallower bluff. Third, match length: roughly 10-15%, taking an 8-minute match to about 9.5. Fourth, animation freedom, because every opponent action now needs a discrete interruptible boundary. Fifth and most seriously, an attention tax on exactly the axis Hearthstone optimised for -- the defender has to watch the opponent's turn, and a distracted mobile player will miss Responses. The optional pre-armed auto-fire condition mitigates this but does not eliminate it.\n\nThe sobering context for all of it: Legends of Runeterra shipped the best interaction system on mobile that anyone has built, and it did not save the game. Riot cut the team in January 2024 and PvP has been in maintenance since -- no new multiplayer cards, ranked rewards and the tournament circuit removed, development moved to single-player Path of Champions. Marvel Snap, which deleted the problem rather than solving it, is the commercial winner. Interaction depth is worth building, but it is a competitive-integrity feature, not a growth feature, and it should be budgeted as such."
+}

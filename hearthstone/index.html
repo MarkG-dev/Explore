@@ -246,6 +246,7 @@
   <section class="panel" id="p-mechanics"></section>
   <section class="panel" id="p-balance"></section>
   <section class="panel" id="p-decks"></section>
+  <section class="panel" id="p-analysis"></section>
   <section class="panel" id="p-eras"></section>
   <section class="panel" id="p-issues"></section>
   <section class="panel" id="p-pros"></section>
@@ -492,7 +493,8 @@ let rzT; addEventListener('resize',()=>{ clearTimeout(rzT); rzT=setTimeout(()=>w
 const TABS = [
   ['overview','Overview'], ['timeline','Set timeline'], ['cards','Card browser'],
   ['mechanics','Mechanics'], ['balance','Balance history'], ['decks','Ladder evidence'],
-  ['eras','Meta eras'], ['issues','Design issues'], ['pros','Pro scene'], ['data','Download'],
+  ['analysis','Deep analysis'], ['eras','Meta eras'], ['issues','Design issues'],
+  ['pros','Pro scene'], ['data','Download'],
 ];
 function buildTabs(){
   const nav = $('#tabs');
@@ -541,9 +543,10 @@ function rowsToObjs(lite){
   ]);
   S.manifest = manifest; S.cards = rowsToObjs(lite); S.mechIdx = mechIdx;
   S.setsSeen = setsSeen; S.changelog = changelog || []; S.deckAgg = deckAgg;
+  S.deep = await jget('deep_analysis.json');
 
   renderTiles(); renderOverview(); renderTimeline(); renderBrowser();
-  renderMechanics(); renderBalance(); renderDecks(); renderDownloads();
+  renderMechanics(); renderBalance(); renderDecks(); renderAnalysis(); renderDownloads();
 
   // research payloads land later; render whatever exists
   const [spine, mechanics, issues, pros, creep, synth, brief] = await Promise.all([
@@ -971,6 +974,154 @@ function renderDecks(){
         e.top_cards.slice(0,12).map(x=>esc(x.card)+' '+(x.inclusion_rate*100).toFixed(0)+'%').join(' · ')+'</div>';
     c.innerHTML=h; p.appendChild(c);
   });
+}
+
+/* ---------- deep analysis (computed) ---------- */
+function renderAnalysis(){
+  const p=$('#p-analysis'); p.innerHTML='';
+  p.appendChild(el('h2','','Deep analysis'));
+  const sub=el('p','sec-sub');
+  sub.innerHTML='Everything on this page is <strong>computed</strong>, not recalled — from 7,367 cards across '+
+    '320 client builds and 202,375 ranked decklists. Where a number has a statistical trap in it, the trap is stated next to the number.';
+  p.appendChild(sub);
+  const d=S.deep;
+  if(!d){ p.appendChild(el('div','loading','Deep analysis unavailable.')); return; }
+
+  /* --- finding 1: power creep vs complexity creep --- */
+  const c=d.creep_analysis||{};
+  p.appendChild(el('h3','','1. “Power creep” is a myth. Complexity creep is real.'));
+  const f1=el('p','sec-sub');
+  f1.innerHTML='The most repeated complaint about Hearthstone is power creep — that cards keep getting '+
+    'statistically bigger. Measured across '+nf(c.n_sets_in_trend)+' sets in release order, that is simply not what happened. '+
+    'Raw statlines are essentially flat. What actually inflated is how much a card <em>does</em>.';
+  p.appendChild(f1);
+
+  const tiles=el('div','tiles'); tiles.style.margin='0 0 18px';
+  [['Stats per mana','+1.3%','2.04 → 2.07 over 12 years · r = '+c.corr_time_vs_stats_per_mana],
+   ['Rules-text length','+42%','50.8 → 71.9 characters · r = '+c.corr_time_vs_text_length],
+   ['Keywords per card','rising','r = '+c.corr_time_vs_keywords],
+   ['Vanilla cards','falling','r = '+c.corr_time_vs_pct_vanilla+' — plain statline cards are disappearing']
+  ].forEach(([l,v,s])=>{
+    const t=el('div','tile'); t.appendChild(el('div','label',l));
+    t.appendChild(el('div','value',v)); t.appendChild(el('div','sub',s)); tiles.appendChild(t);
+  });
+  p.appendChild(tiles);
+
+  const trend=(d.card_pool_by_set||[]).filter(r=>!r.is_reprint_bucket&&r.release_date&&r.avg_stats_per_mana);
+  const g1=el('div','grid2'); p.appendChild(g1);
+  const a1=el('div'), a2=el('div'); g1.append(a1,a2);
+  // deliberately two charts, never one dual-axis plot: the two measures have
+  // different units and overlaying them would invent a relationship
+  columnChart(a1,{
+    title:'Minion stats per mana, by set',
+    note:'(Attack + Health) ÷ cost, collectible minions costing 1+. Flat for twelve years.',
+    data:trend.map(r=>({k:r.release_date.slice(2,7),full:titleCase(r.set_enum)+' · '+r.release_date,v:r.avg_stats_per_mana})),
+    yLabel:'Stats/mana', xLabel:'Set', unit:'stats per mana', height:170, xEvery:Math.ceil(trend.length/9),
+  });
+  columnChart(a2,{
+    title:'Average rules-text length, by set',
+    note:'Characters of card text. This is where the inflation actually went.',
+    data:trend.map(r=>({k:r.release_date.slice(2,7),full:titleCase(r.set_enum)+' · '+r.release_date,v:Math.round(r.avg_text_chars)})),
+    yLabel:'Characters', xLabel:'Set', unit:'characters', height:170, xEvery:Math.ceil(trend.length/9),
+  });
+
+  /* --- finding 2: rotation broke the staple stranglehold --- */
+  const eras=d.deck_eras||[];
+  if(eras.length){
+    p.appendChild(el('h3','','2. Standard rotation worked — and here is the number'));
+    const f2=el('p','sec-sub');
+    f2.innerHTML='A “staple” here is a card appearing in at least 25% of an era’s ranked decks — the '+
+      '“every deck runs the same neutral package” problem. It peaked at <strong>9 staples</strong> in the Blackrock era, '+
+      'when Dr. Boom (41%), Sludge Belcher (37%), Emperor Thaurissan (35%), Piloted Shredder, Sylvanas, Big Game Hunter, '+
+      'Azure Drake, Loatheb and Antique Healbot were near-mandatory. The first Standard rotation in April 2016 cut it to '+
+      '<strong>2</strong>, and it never went back up.';
+    p.appendChild(f2);
+    const s1=el('div'); p.appendChild(s1);
+    columnChart(s1,{
+      title:'Near-mandatory cards per era (in ≥25% of ranked decks)',
+      note:'The drop at Old Gods (2016-04) is the first Standard rotation removing Naxxramas and Goblins vs Gnomes from the format.',
+      data:eras.map(e=>({k:(e.date_range[0]||'').slice(2,7),full:e.era+' · '+e.date_range[0],
+                         v:e.n_staples_25pct, hot:e.era==='Old Gods'})),
+      yLabel:'Staples', xLabel:'Era', unit:'staple cards', height:165, xEvery:1,
+    });
+    const s2=el('div'); s2.style.marginTop='16px'; p.appendChild(s2);
+    columnChart(s2,{
+      title:'Card concentration (Gini) per era',
+      note:'0 = every card played equally, 1 = all play concentrated in a few cards. Peaks at 0.736 in the Blackrock/Dr. Boom era.',
+      data:eras.map(e=>({k:(e.date_range[0]||'').slice(2,7),full:e.era,v:Math.round(e.card_gini*1000)/1000})),
+      yLabel:'Gini', xLabel:'Era', unit:'Gini', height:165, xEvery:1,
+    });
+  }
+
+  /* --- finding 3: synergy structure --- */
+  const withPairs=eras.filter(e=>(e.top_synergy_pairs||[]).length);
+  if(withPairs.length){
+    p.appendChild(el('h3','','3. Which cards actually belonged together'));
+    const f3=el('p','sec-sub');
+    f3.innerHTML='Co-occurrence lift: how much more often two cards appear in the same deck than chance would predict. '+
+      'High lift recovers real packages without anyone labelling them — the Kabal shell, the Reno shell, the quest packages.';
+    p.appendChild(f3);
+    const t=el('div','card'); const tbl=el('table','dt');
+    tbl.innerHTML='<thead><tr><th>Era</th><th>Pair</th><th style="text-align:right">Lift</th><th style="text-align:right">Decks</th></tr></thead>';
+    const tb=el('tbody');
+    withPairs.slice().reverse().forEach(e=>{
+      (e.top_synergy_pairs||[]).slice(0,4).forEach((pr,i)=>{
+        const tr=el('tr');
+        tr.appendChild(el('td',null,i===0?e.era:''));
+        tr.appendChild(el('td',null,pr.a+'  +  '+pr.b));
+        tr.appendChild(el('td','num','×'+pr.lift));
+        tr.appendChild(el('td','num',nf(pr.co_decks)));
+        tb.appendChild(tr);
+      });
+    });
+    tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+  }
+
+  /* --- finding 4: nerf latency, with the censoring warning --- */
+  const nl=(d.nerf_latency||{}).by_release_year||[];
+  if(nl.length){
+    p.appendChild(el('h3','','4. Balance response time — read this one carefully'));
+    const warn=el('div','callout');
+    warn.innerHTML='<strong>This measure is right-censored, so the trend overstates itself.</strong> A card shipped in 2016 '+
+      'had ten years in which it could be changed; a card shipped in 2026 has had months, so its wait <em>cannot</em> be long. '+
+      'Read each row as “of the cards from this year that were ever changed, the median wait was X”, not as a clean measure of '+
+      'how fast Blizzard reacts. The one conclusion the data does support is the <em>floor</em>: same-week emergency nerfs '+
+      '(6–8 days) exist from 2018 onward and did not exist before.';
+    p.appendChild(warn);
+    const t=el('div','card'); const tbl=el('table','dt');
+    tbl.innerHTML='<thead><tr><th>Cards shipped in</th><th style="text-align:right">Later changed</th>'+
+      '<th style="text-align:right">Median wait</th><th style="text-align:right">Fastest</th></tr></thead>';
+    const tb=el('tbody');
+    nl.forEach(r=>{ const tr=el('tr');
+      tr.appendChild(el('td',null,r.year));
+      tr.appendChild(el('td','num',nf(r.n_cards_changed)));
+      tr.appendChild(el('td','num',nf(r.median_days_to_first_change)+' d'));
+      tr.appendChild(el('td','num',nf(r.fastest_days)+' d'));
+      tb.appendChild(tr); });
+    tbl.appendChild(tb); t.appendChild(tbl); p.appendChild(t);
+
+    const fast=(d.nerf_latency||{}).fastest_20||[];
+    if(fast.length){
+      p.appendChild(el('h3','','Fastest emergency nerfs on record'));
+      const t2=el('div','card'); const tb2=el('table','dt');
+      tb2.innerHTML='<thead><tr><th>Card</th><th>Shipped</th><th>Changed</th><th style="text-align:right">Days</th></tr></thead>';
+      const body=el('tbody');
+      fast.slice(0,12).forEach(r=>{ const tr=el('tr');
+        tr.appendChild(el('td',null,r.card)); tr.appendChild(el('td',null,r.shipped));
+        tr.appendChild(el('td',null,r.first_change)); tr.appendChild(el('td','num',r.days));
+        body.appendChild(tr); });
+      tb2.appendChild(body); t2.appendChild(tb2); p.appendChild(t2);
+    }
+  }
+
+  /* --- caveats, stated not buried --- */
+  if(Array.isArray(d.caveats)&&d.caveats.length){
+    p.appendChild(el('h3','','What these numbers cannot tell you'));
+    const c2=el('div','card');
+    c2.innerHTML='<ul style="font-size:12.5px;color:var(--ink-2);padding-left:19px;margin:0">'+
+      d.caveats.map(x=>'<li style="margin-bottom:8px">'+esc(x)+'</li>').join('')+'</ul>';
+    p.appendChild(c2);
+  }
 }
 
 /* ---------- eras (research) ---------- */
