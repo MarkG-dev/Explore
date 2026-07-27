@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d0d0d">
+<title>PARRY — playable prototype</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --page:#0d0d0d; --surface:#161616; --surface-2:#1e1e1e; --border:#2c2c2c; --border-2:#3d3d3d;
+    --ink:#f2f2f2; --ink-2:#a9a9a9; --ink-muted:#6d6d6d;
+    --me:#3987e5; --foe:#d95926; --resp:#199e70; --warn:#fab219; --bad:#d03b3b;
+  }
+  body{font-family:'Inter',-apple-system,system-ui,sans-serif;background:var(--page);color:var(--ink);
+       min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  a{color:var(--me)}
+  header{display:flex;align-items:center;gap:14px;padding:9px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+  .brand{font-weight:700;letter-spacing:.16em;font-size:13px}
+  .tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);
+       border:1px solid var(--border);border-radius:3px;padding:2px 6px}
+  header .sp{margin-left:auto;display:flex;gap:7px}
+  button{font:inherit;cursor:pointer;background:var(--surface-2);color:var(--ink);
+         border:1px solid var(--border-2);border-radius:5px;padding:6px 12px;font-size:12.5px;transition:.13s}
+  button:hover:not(:disabled){border-color:var(--ink-muted)}
+  button:disabled{opacity:.4;cursor:default}
+  button.primary{background:var(--me);border-color:var(--me);color:#fff;font-weight:600}
+  button.resp{background:var(--resp);border-color:var(--resp);color:#fff;font-weight:600}
+  button.ghost{background:none}
+
+  main{flex:1;display:grid;grid-template-columns:1fr 290px;gap:0;min-height:0}
+  .field{display:flex;flex-direction:column;padding:12px 16px;gap:9px;min-width:0}
+  aside{border-left:1px solid var(--border);display:flex;flex-direction:column;min-height:0}
+
+  /* hero bars */
+  .hero{display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--border);
+        border-radius:7px;padding:9px 12px;flex-wrap:wrap}
+  .hero.foe{border-color:#4a2a1c}
+  .hero.me{border-color:#1c3a5e}
+  .hero.tgt{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad);cursor:crosshair}
+  .hp{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;min-width:38px}
+  .hero .who{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted)}
+  .pip{font-size:11px;color:var(--ink-2);display:flex;align-items:center;gap:4px;
+       border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-variant-numeric:tabular-nums}
+  .pip b{color:var(--ink);font-weight:600}
+  .pip.guard{border-color:#3a3a1c;color:var(--warn)}
+  .pip.armed{border-color:var(--resp);color:var(--resp);font-weight:600}
+  .pip.mana{border-color:#1c3a5e;color:#7ab4f0}
+
+  /* boards */
+  .board{display:flex;gap:8px;min-height:104px;align-items:center;flex-wrap:wrap;
+         border:1px dashed var(--border);border-radius:7px;padding:9px}
+  .board.empty::after{content:'empty board';font-size:11px;color:var(--ink-muted);letter-spacing:.06em}
+  .unit{width:78px;background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;
+        padding:7px 6px;text-align:center;position:relative;transition:.12s;user-select:none}
+  .unit .nm{font-size:10.5px;font-weight:600;line-height:1.2;margin-bottom:5px;height:25px;overflow:hidden}
+  .unit .st{display:flex;justify-content:space-between;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+  .unit .st .a{color:var(--warn)} .unit .st .h{color:#e06666}
+  .unit .kw{font-size:8.5px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.04em;margin-top:3px;height:11px;overflow:hidden}
+  .unit.can{border-color:var(--me);box-shadow:0 0 0 1px var(--me)}
+  .unit.sel{border-color:#fff;box-shadow:0 0 0 2px #fff}
+  .unit.tgt{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad);cursor:crosshair}
+  .unit.sick{opacity:.55}
+  .unit .badge{position:absolute;top:-6px;right:-6px;font-size:8px;background:var(--resp);color:#fff;
+               border-radius:3px;padding:1px 4px;font-weight:700;letter-spacing:.04em}
+
+  /* hand */
+  .hand{display:flex;gap:8px;flex-wrap:wrap;min-height:132px;align-items:flex-end}
+  .card{width:118px;background:var(--surface);border:1px solid var(--border);border-radius:7px;
+        padding:9px 8px;position:relative;transition:.13s;user-select:none;cursor:default}
+  .card.playable{border-color:var(--me);cursor:pointer}
+  .card.playable:hover{transform:translateY(-4px)}
+  .card.armable{border-color:var(--resp);cursor:pointer}
+  .card.sel{border-color:#fff;box-shadow:0 0 0 2px #fff}
+  .card .cost{position:absolute;top:-7px;left:-7px;width:22px;height:22px;border-radius:50%;
+              background:var(--me);color:#fff;display:grid;place-items:center;font-size:11.5px;font-weight:700}
+  .card.R .cost{background:var(--resp)}
+  .card .nm{font-size:11px;font-weight:600;line-height:1.25;margin:2px 0 4px}
+  .card .ty{font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
+  .card .tx{font-size:10px;color:var(--ink-2);line-height:1.35;margin-top:5px;min-height:26px}
+  .card .sb{display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums}
+  .card .sb .a{color:var(--warn)} .card .sb .h{color:#e06666}
+  .card.locked{opacity:.62;border-style:dashed}
+  .card .lock{font-size:9px;letter-spacing:.03em;text-transform:uppercase;color:var(--warn);margin-top:5px}
+
+  /* response prompt */
+  .prompt{border:1px solid var(--resp);background:linear-gradient(180deg,rgba(25,158,112,.14),rgba(25,158,112,.05));
+          border-radius:8px;padding:13px 15px}
+  .prompt h3{font-size:13.5px;margin-bottom:3px}
+  .prompt .sub{font-size:11.5px;color:var(--ink-2);margin-bottom:10px}
+  .prompt .modes{display:flex;gap:8px;flex-wrap:wrap}
+  .mode{text-align:left;max-width:290px}
+  .mode .mn{font-weight:700;font-size:12px}
+  .mode .md{font-size:10px;opacity:.85;font-weight:400;margin-top:2px}
+  .banner{font-size:12px;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);
+          border-radius:6px;padding:9px 12px;min-height:36px;display:flex;align-items:center;gap:8px}
+  .banner.turn{border-color:#1c3a5e;color:#9cc8f5}
+  .banner.win{border-color:var(--resp);color:var(--resp);font-weight:600}
+  .banner.lose{border-color:var(--bad);color:#f09393;font-weight:600}
+
+  /* log */
+  aside h4{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-muted);
+           padding:11px 13px 7px;border-bottom:1px solid var(--border)}
+  .log{flex:1;overflow-y:auto;padding:9px 13px;font-size:11.5px;line-height:1.5;min-height:0}
+  .log div{padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04);color:var(--ink-2)}
+  .log .t{color:#7ab4f0} .log .r{color:var(--resp);font-weight:600} .log .d{color:#e58} .log .g{color:var(--warn)}
+  .rules{padding:11px 13px;border-top:1px solid var(--border);font-size:11px;color:var(--ink-muted);line-height:1.5}
+  .rules b{color:var(--ink-2)}
+  @media (max-width:860px){ main{grid-template-columns:1fr} aside{border-left:0;border-top:1px solid var(--border);max-height:230px} }
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">PARRY</span>
+  <span class="tag">prototype</span>
+  <span class="tag" id="seedTag">seed —</span>
+  <span class="sp">
+    <button id="newGame">New game</button>
+    <button class="ghost" id="autoBtn" title="Let the AI play both sides">Watch AI</button>
+    <a href="../" style="text-decoration:none"><button class="ghost">← Study</button></a>
+  </span>
+</header>
+
+<main>
+  <section class="field">
+    <div class="hero foe" id="foeHero"></div>
+    <div class="board" id="foeBoard"></div>
+    <div id="center"></div>
+    <div class="board" id="myBoard"></div>
+    <div class="hero me" id="myHero"></div>
+    <div class="hand" id="myHand"></div>
+  </section>
+  <aside>
+    <h4>Action log</h4>
+    <div class="log" id="log"></div>
+    <div class="rules">
+      <b>The one new rule.</b> A <span style="color:var(--resp)">Response</span> is armed face-down on
+      your own turn, paid for with <b>Guard</b>. On your opponent's turn you get exactly one chance to
+      fire it, and you choose <i>which</i> of its two modes at that moment — that choice is the thing
+      Hearthstone's pre-committed Secrets never let you make.<br><br>
+      <b>Getting Guard is the real cost.</b> Guard comes only from mana you <i>did not spend</i>:
+      at end of turn, every 2 unspent mana becomes 1 Guard, capped at 3. So holding a Response means
+      deliberately underdeveloping. That lossy 2:1 rate is what stops "always hold Guard" being
+      free value.<br><br>
+      Your opponent always sees your Guard total and whether you are armed — but never which card.
+      That visibility is the point: it is what lets them play around you.
+    </div>
+  </aside>
+</main>
+
+<script type="module">
+import * as E from './engine.js';
+import { chooseAction } from './ai.js';
+
+const $ = s => document.querySelector(s);
+const el = (t,c,x) => { const n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n; };
+const ME='A', FOE='B';
+/* The engine stores its card registry as { byId: {...} }, not a flat map. One
+   helper so a shape change is a one-line fix rather than a hunt. */
+const card = id => (S && S.cards && S.cards.byId ? S.cards.byId[id] : null) || null;
+/* players[x].response is an object ({card:'id'}), not a bare id. Normalising here
+   rather than at each use site -- getting this wrong silently blanks the mode names
+   on the Response prompt, which is the one screen that has to be legible. */
+const armedId = p => (p && p.response) ? (typeof p.response === 'string' ? p.response : p.response.card) : null;
+const armedOf = p => card(armedId(p));
+
+let DB=null, S=null, seed=1, sel=null, targets=null, auto=false, busy=false;
+
+/* Response cards encode modes in their effect string:
+   RESPONSE|Parry@STRIKE>DEAL:2:TRIGGER|Spark@ANY>DEAL:1:ENEMY_HERO
+   -> [{name:'Parry', window:'STRIKE', eff:'DEAL:2:TRIGGER'}, ...] */
+function parseModes(card){
+  if(!card || card.type!=='RESPONSE' || !card.effect) return [];
+  return card.effect.split('|').slice(1).map(part=>{
+    const at=part.indexOf('@'), gt=part.indexOf('>');
+    if(at<0||gt<0) return {name:part, window:'', eff:part};
+    return {name:part.slice(0,at), window:part.slice(at+1,gt), eff:part.slice(gt+1)};
+  });
+}
+const humanEff = s => s
+  .replace(/DEAL:(\d+):TRIGGER/,'deal $1 to the trigger')
+  .replace(/DEAL:(\d+):ENEMY_HERO/,'deal $1 to the enemy hero')
+  .replace(/DEAL:(\d+)/,'deal $1')
+  .replace(/COUNTER/,'counter it')
+  .replace(/CANCEL_ATTACK/,'cancel the attack')
+  .replace(/STUN:TRIGGER/,'stun it')
+  .replace(/RETURN:TRIGGER/,'bounce it')
+  .replace(/SUMMON:(\d+)\/(\d+):(\w+):?(\w+)?/,'summon a $1/$2 $3')
+  .replace(/ARMOR:(\d+)/,'gain $1 armor')
+  .replace(/HEAL:(\d+):T/,'heal 4')
+  .replace(/TARGET:ALLY_UNIT;?/,'')
+  .replace(/DRAW:(\d+)/,'draw $1')
+  .replace(/;/,', ').toLowerCase();
+
+function log(msg, cls){ const d=el('div',cls,msg); $('#log').prepend(d); }
+
+async function boot(){
+  DB = await (await fetch('./cards.json',{cache:'no-cache'})).json();
+  $('#newGame').onclick = ()=>{ seed = (Date.now()%100000)|0; auto=false; $('#autoBtn').textContent='Watch AI'; start(); };
+  $('#autoBtn').onclick = ()=>{ auto=!auto; $('#autoBtn').textContent = auto?'Stop AI':'Watch AI'; if(auto) tick(); };
+  start();
+}
+function deck(name){ return E.buildDeck(DB.starter_decks[name].list, 2); }
+
+function start(){
+  const names=Object.keys(DB.starter_decks);
+  S = E.createGame({seed, decks:{A:deck(names[0]), B:deck(names[1])}, cards:DB.cards});
+  sel=null; targets=null;
+  $('#log').innerHTML='';
+  $('#seedTag').textContent='seed '+seed;
+  log('New game. You are '+DB.starter_decks[names[0]].faction+'.','t');
+  // auto-resolve mulligans (kept out of scope for the prototype)
+  while(S.phase==='MULLIGAN'){
+    const m=E.legalActions(S).find(a=>a.t==='MULLIGAN');
+    if(!m) break;
+    S=E.applyAction(S,{...m,toss:[]});
+  }
+  render(); tick();
+}
+
+/* ---- drive the AI / awaited decisions ---- */
+function actorNow(){ return S.awaiting ? S.awaiting.player : S.active; }
+async function tick(){
+  if(busy) return; busy=true;
+  try{
+    let guard=0;
+    while(!E.isTerminal(S) && guard++<400){
+      const who=actorNow();
+      if(who===ME && !auto) break;                 // hand control back to the human
+      const a=chooseAction(E,S,who,Math.random);
+      if(!a) break;
+      apply(a,who);
+      render();
+      await new Promise(r=>setTimeout(r, auto?170:330));
+    }
+  } finally { busy=false; render(); }
+}
+
+function describe(a,who){
+  const w = who===ME?'You':'Opponent';
+  const c = a.card ? card(a.card) : null;
+  switch(a.t){
+    case 'PLAY_UNIT':  return [w+' played '+(c?c.name:'a unit'), ''];
+    case 'PLAY_SPELL': return [w+' cast '+(c?c.name:'a spell'), ''];
+    case 'ARM':        return [w+' armed a Response'+(who===ME&&c?' ('+c.name+')':''), 'r'];
+    case 'FIRE':       return [w+' FIRED a Response', 'r'];
+    case 'PASS':       return [w+' declined to respond', 'g'];
+    case 'ATTACK':     return [w+' attacked', 'd'];
+    case 'END_TURN':   return ['— turn '+S.turn+' ends —', 't'];
+    default:           return [w+' '+a.t, ''];
+  }
+}
+function apply(a,who){
+  const [msg,cls]=describe(a,who);
+  S=E.applyAction(S,a);
+  log(msg,cls);
+  if(E.isTerminal(S)){
+    const w=E.winner(S);
+    log(w===ME?'You win.':w?'You lose.':'Draw.', w===ME?'r':'d');
+  }
+}
+
+/* ---- rendering ---- */
+function heroBar(id, who, label){
+  const p=S.players[who], box=$(id); box.innerHTML='';
+  box.classList.remove('tgt');
+  if(targets){
+    const act = who===FOE ? targets.heroFoe : targets.heroMe;
+    if(act){
+      box.classList.add('tgt');
+      box.onclick=()=>{ sel=null;targets=null; apply(act,ME); render(); tick(); };
+    } else box.onclick=null;
+  } else box.onclick=null;
+  box.appendChild(el('div','who',label));
+  const hp=el('div','hp',String(p.hero.health)); box.appendChild(hp);
+  if(p.hero.armor) box.appendChild(pip('Armor',p.hero.armor));
+  box.appendChild(pip('Mana',p.mana+'/'+p.manaMax,'mana'));
+  box.appendChild(pip('Guard',p.guard,'guard'));
+  box.appendChild(pip('Hand',p.hand.length));
+  box.appendChild(pip('Deck',p.deck.length));
+  // The armed indicator is public for BOTH sides -- that is the design.
+  if(p.response){
+    const t=pip('Response','ARMED','armed');
+    t.title = who===ME ? ((armedOf(p)||{}).name || 'armed') : 'Identity hidden by design';
+    box.appendChild(t);
+  }
+  if(p.responseUsedThisTurn) box.appendChild(pip('Response','spent'));
+}
+function pip(k,v,cls){
+  const d=el('div','pip'+(cls?' '+cls:''));
+  d.appendChild(el('span',null,k)); d.appendChild(el('b',null,String(v)));
+  return d;
+}
+function unitEl(u,who){
+  const d=el('div','unit'+(u.summoningSick?' sick':''));
+  d.appendChild(el('div','nm',u.name));
+  const st=el('div','st'); st.appendChild(el('span','a',String(u.attack)));
+  st.appendChild(el('span','h',String(u.health))); d.appendChild(st);
+  d.appendChild(el('div','kw',(u.keywords||[]).join(' ')));
+  if(u.stun) d.appendChild(el('div','badge','STUN'));
+  const legal=E.legalActions(S);
+  if(who===ME && actorNow()===ME && !S.awaiting){
+    const canAtk=legal.some(a=>a.t==='ATTACK'&&a.attacker===u.uid);
+    if(canAtk) d.classList.add('can');
+    if(sel&&sel.kind==='unit'&&sel.uid===u.uid) d.classList.add('sel');
+    if(canAtk) d.onclick=()=>{ sel={kind:'unit',uid:u.uid}; computeTargets(); render(); };
+  }
+  if(targets&&targets.units.has(u.uid)){
+    d.classList.add('tgt');
+    d.onclick=()=>{ const a=targets.byUnit.get(u.uid); sel=null;targets=null; apply(a,ME); render(); tick(); };
+  }
+  return d;
+}
+function computeTargets(){
+  targets=null;
+  if(!sel) return;
+  const legal=E.legalActions(S);
+  const units=new Set(), byUnit=new Map();
+  let heroFoe=null, heroMe=null, noTarget=null;
+  const mine = sel.kind==='unit'
+    ? a=>a.t==='ATTACK' && a.attacker===sel.uid
+    : a=>(a.t==='PLAY_UNIT'||a.t==='PLAY_SPELL') && a.card===sel.card;
+  for(const a of legal){
+    if(!mine(a)) continue;
+    if(typeof a.target==='number'){ units.add(a.target); byUnit.set(a.target,a); continue; }
+    // Hero targets arrive as a string id ('hA'/'hB'). Both sides matter: a heal or
+    // buff can legally point at your OWN hero, and without this the card is
+    // unplayable in the UI even though the engine allows it.
+    if(typeof a.target==='string'){
+      if(a.target.endsWith(FOE)) heroFoe=a; else heroMe=a;
+      continue;
+    }
+    if(a.target==null) noTarget=a;
+  }
+  targets={units,byUnit,heroFoe,heroMe,noTarget};
+}
+function cardEl(id){
+  const c=card(id)||{name:id};
+  const d=el('div','card'+(c.type==='RESPONSE'?' R':''));
+  d.appendChild(el('div','cost',String(c.cost??'–')));
+  d.appendChild(el('div','ty',c.type||''));
+  d.appendChild(el('div','nm',c.name));
+  d.appendChild(el('div','tx',c.text||''));
+  if(c.type==='UNIT'){ const sb=el('div','sb');
+    sb.appendChild(el('span','a',String(c.attack??0))); sb.appendChild(el('span','h',String(c.health??0))); d.appendChild(sb); }
+  const legal=E.legalActions(S);
+  if(actorNow()===ME && !S.awaiting){
+    const plays=legal.filter(a=>(a.t==='PLAY_UNIT'||a.t==='PLAY_SPELL')&&a.card===id);
+    const arm=legal.find(a=>a.t==='ARM'&&a.card===id);
+    if(plays.length){
+      d.classList.add('playable');
+      d.onclick=()=>{
+        const needTarget=plays.some(a=>typeof a.target==='number');
+        if(needTarget && plays.length>1){ sel={kind:'card',card:id}; computeTargets(); render(); }
+        else { sel=null;targets=null; apply(plays[0],ME); render(); tick(); }
+      };
+    } else if(arm){
+      d.classList.add('armable');
+      d.title='Arm this face-down for '+(c.cost??'?')+' Guard. You may fire it on the opponent’s turn.';
+      d.onclick=()=>{ sel=null;targets=null; apply(arm,ME); render(); tick(); };
+    } else if(c.type==='RESPONSE'){
+      // Without this a Response just sits inert in hand and the player never
+      // discovers the mechanic at all -- which is exactly what happened in testing.
+      const need=(c.cost??0)-S.players[ME].guard;
+      const why = armedId(S.players[ME]) ? 'slot already armed'
+                : S.players[ME].responseUsedThisTurn ? 'already used this turn'
+                : need>0 ? 'needs '+need+' more Guard' : 'not armable now';
+      d.classList.add('locked');
+      d.appendChild(el('div','lock',why));
+      d.title='Guard comes from unspent mana at end of turn (2 mana = 1 Guard, cap 3).';
+    }
+    if(sel&&sel.kind==='card'&&sel.card===id) d.classList.add('sel');
+  }
+  return d;
+}
+
+function render(){
+  heroBar('#foeHero',FOE,'Opponent');
+  heroBar('#myHero',ME,'You');
+  const fb=$('#foeBoard'), mb=$('#myBoard');
+  fb.innerHTML=''; mb.innerHTML='';
+  S.players[FOE].board.forEach(u=>fb.appendChild(unitEl(u,FOE)));
+  S.players[ME].board.forEach(u=>mb.appendChild(unitEl(u,ME)));
+  fb.classList.toggle('empty',!S.players[FOE].board.length);
+  mb.classList.toggle('empty',!S.players[ME].board.length);
+  const hand=$('#myHand'); hand.innerHTML='';
+  S.players[ME].hand.forEach(id=>hand.appendChild(cardEl(id)));
+  renderCenter();
+}
+
+function renderCenter(){
+  const c=$('#center'); c.innerHTML='';
+  if(E.isTerminal(S)){
+    const w=E.winner(S);
+    const b=el('div','banner '+(w===ME?'win':'lose'), w===ME?'You win. Press New game.':w?'You lose. Press New game.':'Draw.');
+    c.appendChild(b); return;
+  }
+  const legal=E.legalActions(S);
+
+  // THE moment the whole design exists for
+  if(S.awaiting && S.awaiting.player===ME){
+    const fires=legal.filter(a=>a.t==='FIRE');
+    const armedCard=armedOf(S.players[ME]);
+    const modes=parseModes(armedCard);
+    const box=el('div','prompt');
+    box.appendChild(el('h3','','Fire your Response?'));
+    const win=S.awaiting.window||'';
+    box.appendChild(el('div','sub',
+      'Opponent action in progress ('+win+'). You hold '+S.players[ME].guard+
+      ' Guard. Choose a mode now — this is the decision Hearthstone never lets you make.'));
+    const row=el('div','modes');
+    fires.forEach(a=>{
+      const m=modes[a.mode] || modes[a.mode-1] || null;
+      const b=el('button','resp mode');
+      b.appendChild(el('div','mn',(m?m.name:'Mode '+a.mode)+(armedCard?' — '+armedCard.name:'')));
+      if(m) b.appendChild(el('div','md',humanEff(m.eff)+(m.window&&m.window!=='ANY'?' · '+m.window+' only':'')));
+      b.onclick=()=>{ apply(a,ME); render(); tick(); };
+      row.appendChild(b);
+    });
+    const pass=legal.find(a=>a.t==='PASS');
+    if(pass){
+      const b=el('button','ghost mode');
+      // Not "Hold" -- one of the actual card modes is called Hold, and two buttons
+      // reading Hold on the one screen that must be unambiguous is a bad trade.
+      b.appendChild(el('div','mn',"Don't fire"));
+      b.appendChild(el('div','md','stay armed and keep threatening'));
+      b.onclick=()=>{ apply(pass,ME); render(); tick(); };
+      row.appendChild(b);
+    }
+    box.appendChild(row);
+    c.appendChild(box);
+    return;
+  }
+
+  if(actorNow()!==ME){
+    c.appendChild(el('div','banner','Opponent is thinking…'));
+    return;
+  }
+
+  const b=el('div','banner turn');
+  b.appendChild(el('span',null,'Your turn ('+S.turn+').'+(sel?' Pick a target, or click elsewhere to cancel.':'')));
+  const spacer=el('span'); spacer.style.marginLeft='auto'; b.appendChild(spacer);
+  if(targets&&targets.heroFoe){
+    const hb=el('button','primary', sel&&sel.kind==='unit' ? 'Attack face' : 'Target enemy hero');
+    hb.onclick=()=>{ const a=targets.heroFoe; sel=null;targets=null; apply(a,ME); render(); tick(); };
+    b.appendChild(hb);
+  }
+  if(targets&&targets.noTarget){
+    const nb=el('button','primary','Play with no target');
+    nb.onclick=()=>{ const a=targets.noTarget; sel=null;targets=null; apply(a,ME); render(); tick(); };
+    b.appendChild(nb);
+  }
+  if(sel){
+    const cb=el('button','ghost','Cancel');
+    cb.onclick=()=>{ sel=null;targets=null; render(); };
+    b.appendChild(cb);
+  }
+  const end=legal.find(a=>a.t==='END_TURN');
+  const me=S.players[ME];
+  const gain=Math.min(3-me.guard, Math.floor(me.mana/2));
+  const eb=el('button','primary','End turn'+(gain>0?'  (+'+gain+' Guard)':''));
+  if(gain<=0 && me.mana>=2 && me.guard>=3) eb.title='Guard is capped at 3 — spare mana is lost.';
+  else if(gain>0) eb.title=me.mana+' unspent mana converts to '+gain+' Guard.';
+  eb.disabled=!end;
+  eb.onclick=()=>{ sel=null;targets=null; apply(end,ME); render(); tick(); };
+  b.appendChild(eb);
+  c.appendChild(b);
+}
+
+/* Test hook. The UI re-renders by replacing nodes, so DOM-click harnesses hit
+   stale handles constantly. Exposing the state and the action path lets a test
+   drive the real code deterministically instead of racing the renderer. */
+window.__parry = {
+  get state(){ return S; },
+  engine: E,
+  legal(){ return E.legalActions(S); },
+  act(a){ apply(a, actorNow()); render(); },
+  actorNow, card,
+  setAuto(v){ auto=!!v; if(auto) tick(); },
+  newGame(sd){ if(sd!=null) seed=sd; start(); },
+};
+
+boot().catch(e=>{
+  document.body.innerHTML='<div style="padding:40px;font-family:system-ui;color:#f2f2f2">'+
+    '<h2>Could not start</h2><p style="color:#a9a9a9;margin-top:10px">'+String(e.message||e)+'</p>'+
+    '<p style="color:#6d6d6d;margin-top:14px;font-size:13px">This page loads ES modules and fetches JSON, '+
+    'so it must be served over HTTP — <code>file://</code> is blocked by the browser. '+
+    'Run <code>python3 hearthstone/serve.py</code> and open '+
+    '<code>/hearthstone/prototype/</code>.</p></div>';
+});
+</script>
+</body>
+</html>
