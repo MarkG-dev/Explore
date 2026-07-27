@@ -49,8 +49,20 @@ def load_rewrites():
     return table
 
 
+class Server(socketserver.ThreadingTCPServer):
+    """Threaded on purpose. The page fetches ~12 JSON files in parallel, and a
+    single-threaded server serialises them behind one connection — the browser
+    stalls and never reaches networkidle. daemon_threads lets Ctrl-C exit cleanly."""
+    daemon_threads = True
+    allow_reuse_address = True
+
+
 class Handler(http.server.SimpleHTTPRequestHandler):
     rewrites = {}
+    # Deliberately NOT setting protocol_version = "HTTP/1.1". Keep-alive requires an
+    # accurate Content-Length on every response, and SimpleHTTPRequestHandler omits it
+    # on some error paths, which leaves the browser waiting on a connection that never
+    # closes. Threading already gives us the parallelism; HTTP/1.0 keeps it correct.
 
     def translate_path(self, path):
         clean = path.split("?", 1)[0].split("#", 1)[0].rstrip("/") or "/"
@@ -77,7 +89,6 @@ def main():
 
     Handler.rewrites = load_rewrites()
     handler = functools.partial(Handler, directory=REPO)
-    socketserver.TCPServer.allow_reuse_address = True
 
     missing = [f for f in ("hearthstone/data/cards_lite.json",
                            "hearthstone/data/manifest.json")
@@ -89,7 +100,7 @@ def main():
         print("       run scripts/build_history.py then scripts/extract_cards.py,\n"
               "       or restore them from git.", file=sys.stderr)
 
-    with socketserver.TCPServer((a.host, a.port), handler) as srv:
+    with Server((a.host, a.port), handler) as srv:
         print(f"serving {REPO}")
         print(f"  study     http://{a.host}:{a.port}/hearthstone")
         print(f"  prototype http://{a.host}:{a.port}/hearthstone/prototype/  (once built)")
