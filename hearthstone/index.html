@@ -1422,6 +1422,28 @@ function renderNewGame(){
   p.appendChild(sub);
 
   const io=S.interaction, br=S.brief, pc=S.protoCards;
+
+  // Play link. Only offered when the prototype's own card data loaded, since that
+  // is the same fetch the game itself needs -- a dead link is worse than none.
+  if(pc){
+    const play=el('div','card');
+    play.style.cssText='border-left:2px solid var(--series-3);display:flex;gap:16px;'+
+      'align-items:center;flex-wrap:wrap;margin-bottom:18px';
+    const t=el('div'); t.style.flex='1 1 320px';
+    t.innerHTML='<div style="font-size:15px;font-weight:600;margin-bottom:4px">'+
+      'PARRY \u2014 playable prototype</div>'+
+      '<div style="font-size:12.5px;color:var(--ink-2)">Play a full game against an AI that '+
+      'actually uses the mechanic. Arm a Response face-down, then choose which of its two modes '+
+      'to fire on your opponent\u2019s turn.</div>';
+    play.appendChild(t);
+    const a=el('a'); a.href=BASE+'prototype/';
+    a.style.cssText='text-decoration:none;background:var(--series-3);color:#fff;font-weight:600;'+
+      'font-size:13.5px;padding:10px 20px;border-radius:6px;white-space:nowrap';
+    a.textContent='Play PARRY \u2192';
+    play.appendChild(a);
+    p.appendChild(play);
+  }
+
   if(!io&&!br&&!pc){
     p.appendChild(el('div','loading','The design work is still being assembled \u2014 this section fills in when it lands.'));
     return;
