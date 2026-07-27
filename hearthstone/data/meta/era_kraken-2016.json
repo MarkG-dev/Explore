@@ -1,0 +1,1032 @@
+{
+  "era_key": "kraken-2016",
+  "era_title": "Year of the Kraken - Whispers of the Old Gods, One Night in Karazhan, Mean Streets of Gadgetzan (the first Standard year)",
+  "date_range": "2016-04-26 to 2017-04-05 (Standard 'Year of the Kraken'; ended when Journey to Un'Goro launched 2017-04-06)",
+  "expansions": [
+    {
+      "name": "Whispers of the Old Gods (134 collectible cards: 50 common / 36 rare / 27 epic / 21 legendary per cards.sqlite). Launched simultaneously with the Standard/Wild format split; Curse of Naxxramas and Goblins vs Gnomes left Standard on the same day.",
+      "release_date": "2016-04-26 (Americas; 2016-04-27 EU/Asia). Card data first appears in client build 12574 dated 2016-04-25 (sets_first_seen.json).",
+      "set_enum": "OG"
+    },
+    {
+      "name": "One Night in Karazhan (45 collectible cards: 27 common / 12 rare / 1 epic / 5 legendary per cards.sqlite). An adventure, not a pack expansion - every card was guaranteed to every buyer, which is why its cards hit ladder at ~100% availability.",
+      "release_date": "2016-08-11 (Prologue + wing 1 'The Parlor'); one wing per week thereafter, final wing 2016-09-01. Card data first appears in build 13921 dated 2016-08-09.",
+      "set_enum": "KARA"
+    },
+    {
+      "name": "Mean Streets of Gadgetzan (132 collectible cards: 49 common / 36 rare / 27 epic / 20 legendary per cards.sqlite). Introduced tri-class cards and the three crime-family packages: Grimy Goons (hand buff), Jade Lotus (Jade Golems), Kabal (highlander/potions).",
+      "release_date": "2016-12-01 (Americas; 2016-12-02 EU/Asia). Card data first appears in build 15590 dated 2016-11-29.",
+      "set_enum": "GANGS"
+    }
+  ],
+  "defining_decks": [
+    {
+      "archetype": "Midrange Shaman (Totem Shaman)",
+      "class": "Shaman",
+      "why_it_mattered": "The deck of the year and the single most-complained-about archetype of the Standard era. It had the best turn-1 (Tunnel Trogg), the best turn-2 (Totem Golem), a free 5/5 Taunt on turn 4-5 (Thing from Below), a 4-mana 7/7 (Flamewreathed Faceless), the best cheap removal (Rockbiter, Lightning Bolt, Lightning Storm, Hex), and reach (Bloodlust, Doomhammer, Thunder Bluff Valiant). No single card was obviously broken; the curve as a whole was. Karazhan then handed the same deck Spirit Claws and Maelstrom Portal, which is the point at which most commentators call it the strongest deck in the game. It survived the October 2016 Tuskarr Totemic and Rockbiter nerfs by simply swapping in Karazhan cards, and only really died to the April 2017 rotation that took Tunnel Trogg, Totem Golem and Spirit Claws out of Standard.",
+      "key_cards": [
+        "Tunnel Trogg",
+        "Totem Golem",
+        "Thing from Below",
+        "Flamewreathed Faceless",
+        "Tuskarr Totemic",
+        "Flametongue Totem",
+        "Feral Spirit",
+        "Lightning Storm",
+        "Hex",
+        "Spirit Claws",
+        "Maelstrom Portal",
+        "Thunder Bluff Valiant",
+        "Fire Elemental",
+        "Bloodlust",
+        "Doomhammer"
+      ],
+      "tier": "Tier 1 / S for essentially the whole year; consensus best deck Aug 2016 - Feb 2017",
+      "confidence": "high",
+      "empirical_share": "Labelled 'Midrange Shaman' on 5.94% of ranked HearthPwn decks in the Old Gods era (1,763 / 29,668), 4.90% in Karazhan (677 / 13,811), 5.63% in the post-Yogg-nerf era (996 / 17,686, the top archetype that patch) and 4.16% in Gadgetzan (1,120 / 26,928). Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate.",
+      "playrate_or_winrate": "Vicious Syndicate's Data Reaper reporting from Nov 2016 is widely quoted as putting Midrange Shaman above 30% of the field at legend rank - roughly one archetype in three. I could not open vicioussyndicate.com from this environment (Cloudflare 403), so this is a second-hand citation, medium confidence.",
+      "notable_pilots": [
+        "Pavel (brought Midrange Shaman to the 2016 World Championship at BlizzCon)"
+      ],
+      "representative_decklist": [
+        "2x Tunnel Trogg",
+        "2x Totem Golem",
+        "2x Tuskarr Totemic",
+        "2x Flametongue Totem",
+        "2x Rockbiter Weapon",
+        "2x Lightning Bolt",
+        "2x Feral Spirit",
+        "2x Lightning Storm",
+        "2x Hex",
+        "2x Flamewreathed Faceless",
+        "2x Master of Evolution",
+        "2x Thing from Below",
+        "2x Fire Elemental",
+        "1x Mana Tide Totem",
+        "1x Doomhammer",
+        "1x Thunder Bluff Valiant",
+        "1x Bloodlust"
+      ]
+    },
+    {
+      "archetype": "Aggro Shaman (Pirate/Doomhammer Shaman)",
+      "class": "Shaman",
+      "why_it_mattered": "The faster cousin. After Gadgetzan it absorbed the Pirate package wholesale (Small-Time Buccaneer + Patches + Southsea Deckhand alongside Spirit Claws and Doomhammer), giving Shaman a second tier-1 deck at a different speed - so banning 'Shaman' in tournament Conquest stopped meaning one thing. It is the archetype Blizzard explicitly named when it nerfed Small-Time Buccaneer ('weapon-utilizing classes ... especially Shaman').",
+      "key_cards": [
+        "Tunnel Trogg",
+        "Small-Time Buccaneer",
+        "Patches the Pirate",
+        "Spirit Claws",
+        "Southsea Deckhand",
+        "Flamewreathed Faceless",
+        "Doomhammer",
+        "Rockbiter Weapon",
+        "Jade Claws",
+        "Lava Shock"
+      ],
+      "tier": "Tier 1 in the Gadgetzan meta (Dec 2016 - Feb 2017)",
+      "confidence": "high",
+      "empirical_share": "629 ranked HearthPwn decks in the Gadgetzan era carry the 'Aggro Shaman' label (2.3% of that era's ranked posts). Within them: Tunnel Trogg 82.0%, Flamewreathed Faceless 76.9%, Small-Time Buccaneer 73.8%, Jade Claws 71.1%, Spirit Claws 70.0%, Patches 68.0%, Southsea Deckhand 66.1%. Computed by me from the raw HearthPwn shards, same source as deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [
+        "ShtanUdachi (won the 2017 HCT Winter Championship in March 2017 with a Jade/Pirate hybrid Aggro Shaman that ran Hammer of Twilight in place of Doomhammer)"
+      ],
+      "representative_decklist": []
+    },
+    {
+      "archetype": "Pirate Warrior",
+      "class": "Warrior",
+      "why_it_mattered": "The purest expression of what Gadgetzan did to the game. Patches the Pirate turned every Pirate into a two-for-one and made the deck's opening hands nearly deterministic; Small-Time Buccaneer was a turn-1 3/2 that had to be answered immediately. The deck killed on turn 5-7 through weapon damage and Frothing Berserker/Mortal Strike burn and defined the 'rock' in the Reno/Jade/Pirate rock-paper-scissors of early 2017. It is the deck the February 2017 nerf patch was aimed at.",
+      "key_cards": [
+        "Patches the Pirate",
+        "Small-Time Buccaneer",
+        "N'Zoth's First Mate",
+        "Bloodsail Raider",
+        "Southsea Deckhand",
+        "Bloodsail Cultist",
+        "Upgrade!",
+        "Fiery War Axe",
+        "Arcanite Reaper",
+        "Frothing Berserker",
+        "Mortal Strike",
+        "Heroic Strike",
+        "Kor'kron Elite",
+        "Leeroy Jenkins"
+      ],
+      "tier": "Tier 1 from Dec 2016; still tier 1 after the Feb 2017 nerf",
+      "confidence": "high",
+      "empirical_share": "747 Gadgetzan-era ranked decks labelled 'Pirate Warrior' (2.77% of that era's posts) and 205 in the three-week post-nerf 'Aggro Downfall' window (4.26%, the third-largest archetype). Across ALL Warrior ranked decks in the Gadgetzan era, Patches appears in 41.2% and Small-Time Buccaneer in 45.7%; in the post-nerf window Patches is still in 49.7% of Warrior decks while Small-Time Buccaneer collapses to 16.8% - a clean before/after of the nerf. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my own recomputation from the raw shards.",
+      "playrate_or_winrate": "One retrospective (Out of Games, 'Evolution of Pirate Warrior') states the pre-nerf Small-Time Buccaneer + Patches package appeared in ~50% of all decks at rank 5 and above. Second-hand, medium confidence.",
+      "notable_pilots": [],
+      "representative_decklist": [
+        "2x N'Zoth's First Mate",
+        "1x Patches the Pirate",
+        "2x Small-Time Buccaneer",
+        "2x Southsea Deckhand",
+        "2x Upgrade!",
+        "2x Bloodsail Raider",
+        "2x Fiery War Axe",
+        "2x Heroic Strike",
+        "2x Bloodsail Cultist",
+        "2x Dread Corsair",
+        "2x Frothing Berserker",
+        "1x Southsea Captain",
+        "1x Sir Finley Mrrgglton",
+        "2x Kor'kron Elite",
+        "2x Mortal Strike",
+        "2x Arcanite Reaper",
+        "1x Leeroy Jenkins"
+      ]
+    },
+    {
+      "archetype": "Zoolock (Councilman Zoo)",
+      "class": "Warlock",
+      "why_it_mattered": "The best deck of the first weeks of Old Gods. Possessed Villager and Forbidden Ritual gave Zoo bodies that survived sweepers, and Darkshire Councilman punished every wide board it built. It is the deck that proved the Standard rotation had not slowed the game down: losing Implosion and the GvG package barely mattered. It faded as Shaman's board-clear density rose and as Karazhan gave everyone cheap AoE.",
+      "key_cards": [
+        "Possessed Villager",
+        "Darkshire Councilman",
+        "Forbidden Ritual",
+        "Flame Imp",
+        "Voidwalker",
+        "Dark Peddler",
+        "Knife Juggler",
+        "Imp Gang Boss",
+        "Power Overwhelming",
+        "Defender of Argus",
+        "Sea Giant",
+        "Doomguard"
+      ],
+      "tier": "Tier 1 at Old Gods launch, sliding to tier 2/3 by Karazhan",
+      "confidence": "high",
+      "empirical_share": "4.93% of Old Gods-era ranked HearthPwn decks (1,463 / 29,668), falling to 2.55% in Karazhan (352) and 2.31% in the post-nerf 2017 window. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [],
+      "representative_decklist": [
+        "2x Possessed Villager",
+        "2x Flame Imp",
+        "2x Voidwalker",
+        "1x Argent Squire",
+        "2x Abusive Sergeant",
+        "2x Power Overwhelming",
+        "2x Forbidden Ritual",
+        "2x Dire Wolf Alpha",
+        "2x Knife Juggler",
+        "2x Dark Peddler",
+        "2x Darkshire Councilman",
+        "2x Imp Gang Boss",
+        "1x Dark Iron Dwarf",
+        "2x Defender of Argus",
+        "2x Doomguard",
+        "1x Leeroy Jenkins",
+        "1x Sea Giant"
+      ]
+    },
+    {
+      "archetype": "Tempo Mage (and its Yogg-Saron variant)",
+      "class": "Mage",
+      "why_it_mattered": "The most consistently present non-Shaman deck of the year, and the home of the era's defining controversy. Mana Wyrm / Sorcerer's Apprentice / Flamewaker plus burn was already fine; adding Yogg-Saron as a 10-mana 'undo the game' button meant a Tempo Mage that had spent 8-12 spells could concede the board and still win. Karazhan's Arcane Giant later gave the spell-count shell a second payoff, and Firelands Portal gave it a top end.",
+      "key_cards": [
+        "Mana Wyrm",
+        "Sorcerer's Apprentice",
+        "Flamewaker",
+        "Arcane Blast",
+        "Frostbolt",
+        "Fireball",
+        "Arcane Intellect",
+        "Azure Drake",
+        "Cabalist's Tome",
+        "Yogg-Saron, Hope's End",
+        "Arcane Giant",
+        "Firelands Portal",
+        "Babbling Book"
+      ],
+      "tier": "Tier 1-2 all year",
+      "confidence": "high",
+      "empirical_share": "'Tempo Mage' on 4.61% of Old Gods-era ranked decks (1,369) plus a separate 'Yogg Mage' label on 2.72% (807); in Karazhan 3.90% + 3.32%; post-Yogg-nerf Tempo Mage was the #2 archetype at 4.88% (863). Yogg-Saron itself appeared in 37.0% of ALL Old Gods-era ranked Mage decks and 45.6% of Karazhan-era ones, then fell to 12.6% after the 3 Oct 2016 nerf. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my recomputation from the raw shards.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [
+        "Pavel (Tempo Mage in his BlizzCon 2016 lineup)"
+      ],
+      "representative_decklist": [
+        "2x Arcane Blast",
+        "2x Mana Wyrm",
+        "2x Mirror Image",
+        "2x Arcane Missiles",
+        "2x Sorcerer's Apprentice",
+        "2x Frostbolt",
+        "2x Flamewaker",
+        "2x Arcane Intellect",
+        "2x Cult Sorcerer",
+        "2x Water Elemental",
+        "1x Polymorph",
+        "2x Fireball",
+        "2x Ethereal Conjurer",
+        "2x Azure Drake",
+        "2x Faceless Summoner",
+        "1x Flamestrike"
+      ]
+    },
+    {
+      "archetype": "Control Warrior / C'Thun Warrior",
+      "class": "Warrior",
+      "why_it_mattered": "The most-posted archetype of the Old Gods era and the format's designated 'good stuff' pile. Ravaging Ghoul and Bloodhoof Brave were an unusually strong pair of commons for a control deck (an AoE that triggers your own Enrage/damage synergies, and a taunt that grows when swept), and the C'Thun package let Warrior play a finisher without giving up removal slots. Its slow extinction over 2017 - squeezed between Pirates that killed it before turn 8 and Jade Druid that could not be out-valued - is one of the era's clearest structural stories.",
+      "key_cards": [
+        "Fiery War Axe",
+        "Execute",
+        "Shield Slam",
+        "Brawl",
+        "Ravaging Ghoul",
+        "Bloodhoof Brave",
+        "Justicar Trueheart",
+        "Grommash Hellscream",
+        "Sylvanas Windrunner",
+        "C'Thun",
+        "Ancient Shieldbearer",
+        "Gorehowl",
+        "Acolyte of Pain"
+      ],
+      "tier": "Tier 1 at Old Gods launch; tier 2 by Karazhan; effectively dead by March 2017",
+      "confidence": "high",
+      "empirical_share": "The single most-posted archetype of the Old Gods era at 6.47% (1,920 / 29,668), still 5.11% in Karazhan and 4.81% post-Yogg-nerf, but only 2.58% in Gadgetzan and 2.08% in the March 2017 window. Within Old Gods-era Warrior decks: Fiery War Axe 98.0%, Execute 92.6%, Ravaging Ghoul 66.1%, Brawl 55.7%, C'Thun 30.4%. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my recomputation.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [
+        "Pavel (C'Thun Warrior in his BlizzCon 2016 lineup)"
+      ],
+      "representative_decklist": []
+    },
+    {
+      "archetype": "N'Zoth Paladin (N'Zoth Control Paladin)",
+      "class": "Paladin",
+      "why_it_mattered": "The archetype that proved N'Zoth, the Corruptor was a deckbuilding constraint rather than just a card. Paladin had the best deathrattle bodies (Tirion, Sylvanas, Cairne) and the best board resets (Equality + Wild Pyromancer/Consecration), so it could clear, refuel and then rebuild the whole graveyard on turn 10. It was the premier ladder control deck of the Old Gods months and a tournament staple.",
+      "key_cards": [
+        "N'Zoth, the Corruptor",
+        "Tirion Fordring",
+        "Sylvanas Windrunner",
+        "Cairne Bloodhoof",
+        "Equality",
+        "Wild Pyromancer",
+        "Consecration",
+        "Aldor Peacekeeper",
+        "Truesilver Champion",
+        "Forbidden Healing",
+        "Ragnaros, Lightlord",
+        "Doomsayer",
+        "Keeper of Uldaman"
+      ],
+      "tier": "Tier 1-2 in the Old Gods meta",
+      "confidence": "high",
+      "empirical_share": "4.26% of Old Gods-era ranked decks (1,265), 2.87% in Karazhan. N'Zoth himself appeared in 18.3% of ALL Old Gods-era ranked decks - the highest cross-class legendary penetration of any Old God. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my recomputation.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [],
+      "representative_decklist": []
+    },
+    {
+      "archetype": "C'Thun Druid (and C'Thun decks generally)",
+      "class": "Druid",
+      "why_it_mattered": "Blizzard's attempt to hand players a pre-built archetype: buy the pack, get the deck. C'Thun was in 20.0% of all Old Gods-era ranked decks - the highest single-card legendary penetration of the era - because the design pushed a whole 'cultist' subtheme across every class. It was genuinely tier 2 rather than tier 1, and it evaporated fast: C'Thun's cross-class presence fell from 20.0% to 6.3% the moment Karazhan gave players something else to build.",
+      "key_cards": [
+        "C'Thun",
+        "Beckoner of Evil",
+        "Disciple of C'Thun",
+        "Twilight Elder",
+        "C'Thun's Chosen",
+        "Klaxxi Amber-Weaver",
+        "Dark Arakkoa",
+        "Twin Emperor Vek'lor",
+        "Wild Growth",
+        "Innervate",
+        "Swipe",
+        "Nature's Wrath (Wrath)"
+      ],
+      "tier": "Tier 2 in the Old Gods meta; near-extinct by Karazhan",
+      "confidence": "high",
+      "empirical_share": "'C'Thun Druid' 2.85% of Old Gods-era ranked decks (846); 'C'Thun Priest' 2.30% (681). C'Thun the card: 20.0% of all Old Gods-era ranked decks, 6.3% in Karazhan, 4.5% in Gadgetzan. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my recomputation.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [],
+      "representative_decklist": []
+    },
+    {
+      "archetype": "Midrange Hunter / Call of the Wild Hunter (and Secret Hunter after Karazhan)",
+      "class": "Hunter",
+      "why_it_mattered": "Call of the Wild was the best card Hunter had ever been given - three bodies, removal and reach for 8 mana in a class with no card draw - and it single-handedly gave Hunter a real late game for the first time. Karazhan's Cloaked Huntress spawned Secret Hunter as a second build. The 3 Oct 2016 nerf to 9 mana is one of the cleanest 'we made the class's only good top-end worse rather than fix the class' moments of the era, and Hunter's share collapses in the data right afterwards.",
+      "key_cards": [
+        "Call of the Wild",
+        "Savannah Highmane",
+        "Animal Companion",
+        "Houndmaster",
+        "Kill Command",
+        "Eaglehorn Bow",
+        "Infested Wolf",
+        "Fiery Bat",
+        "Unleash the Hounds",
+        "Cloaked Huntress",
+        "Quick Shot"
+      ],
+      "tier": "Tier 1-2 through Old Gods and Karazhan; tier 3 after Gadgetzan",
+      "confidence": "high",
+      "empirical_share": "'Midrange Hunter' 4.55% of Old Gods-era decks, 4.88% in Karazhan (plus 'Secrets Hunter' 3.66%), 4.06% post-Yogg-nerf, then 2.88% in Gadgetzan. Hunter's overall class share of monthly Standard ranked posts drops from 13.1% (Aug 2016) to 5.9% (Dec 2016) and 6.3% (Jan 2017) - the sharpest class collapse of the year. Call of the Wild was in 10.35% of ALL Karazhan-era ranked decks. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my monthly recomputation from the raw shards.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [],
+      "representative_decklist": []
+    },
+    {
+      "archetype": "Dragon Priest",
+      "class": "Priest",
+      "why_it_mattered": "The Gadgetzan card that fixed Priest was Drakonid Operative: a 4-mana 5/4 that Discovers a copy of a card from your opponent's deck if you are holding a Dragon. Combined with Kabal Talonpriest, Netherspite Historian and Dragonfire Potion it turned Priest from the worst class in the game (the Purify class) into a tier-1 tempo deck with a curve. Priest went from being the punchline of August 2016 to the most-posted class of the Gadgetzan era.",
+      "key_cards": [
+        "Drakonid Operative",
+        "Kabal Talonpriest",
+        "Netherspite Historian",
+        "Twilight Whelp",
+        "Wyrmrest Agent",
+        "Twilight Guardian",
+        "Book Wyrm",
+        "Blackwing Corruptor",
+        "Dragonfire Potion",
+        "Shadow Word: Death",
+        "Shadow Word: Pain",
+        "Power Word: Shield",
+        "Azure Drake"
+      ],
+      "tier": "Tier 1 in the Gadgetzan meta",
+      "confidence": "high",
+      "empirical_share": "4.56% of Gadgetzan-era ranked decks (1,228) - the #2 archetype that patch - and 4.22% in the March 2017 window. Priest overall was the largest class by posting share in the Gadgetzan era at 14.29%. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [],
+      "representative_decklist": [
+        "2x Twilight Whelp",
+        "2x Northshire Cleric",
+        "2x Power Word: Shield",
+        "2x Shadow Word: Pain",
+        "2x Wyrmrest Agent",
+        "2x Netherspite Historian",
+        "2x Kabal Talonpriest",
+        "2x Shadow Word: Death",
+        "2x Twilight Guardian",
+        "2x Drakonid Operative",
+        "1x Brann Bronzebeard",
+        "2x Blackwing Corruptor",
+        "1x Blackwing Technician",
+        "2x Dragonfire Potion",
+        "1x Holy Nova",
+        "2x Azure Drake",
+        "1x Book Wyrm"
+      ]
+    },
+    {
+      "archetype": "Renolock (Reno Kazakus Warlock)",
+      "class": "Warlock",
+      "why_it_mattered": "The most-posted archetype of the Gadgetzan era. Reno Jackson had existed since League of Explorers, but Kazakus is what made the singleton restriction actively good rather than merely tolerable: a 4-mana 3/3 that manufactures a custom 5- or 10-mana spell, doubled by Brann. Add Abyssal Enforcer as a 7-mana board wipe on a body and Renolock became the value ceiling of the format - the deck that beat Pirates and lost to Jade.",
+      "key_cards": [
+        "Reno Jackson",
+        "Kazakus",
+        "Brann Bronzebeard",
+        "Abyssal Enforcer",
+        "Twisting Nether",
+        "Hellfire",
+        "Shadowflame",
+        "Siphon Soul",
+        "Mountain Giant",
+        "Twilight Drake",
+        "Lord Jaraxxus",
+        "Emperor Thaurissan",
+        "Doomsayer",
+        "Leeroy Jenkins",
+        "Faceless Manipulator"
+      ],
+      "tier": "Tier 1 in the Gadgetzan meta",
+      "confidence": "high",
+      "empirical_share": "4.95% of Gadgetzan-era ranked decks (1,334) - the single largest archetype of that patch - and 4.26% in the March 2017 window. Reno Jackson appeared in 61.4% and Kazakus in 54.9% of ALL Gadgetzan-era ranked Warlock decks. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my recomputation.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [],
+      "representative_decklist": [
+        "1x Mortal Coil",
+        "1x Mistress of Mixtures",
+        "1x Acidic Swamp Ooze",
+        "1x Doomsayer",
+        "1x Dark Peddler",
+        "1x Power Overwhelming",
+        "1x Imp Gang Boss",
+        "1x Shadow Bolt",
+        "1x Brann Bronzebeard",
+        "1x Earthen Ring Farseer",
+        "1x Defender of Argus",
+        "1x Sunfury Protector",
+        "1x Twilight Drake",
+        "1x Mountain Giant",
+        "1x Kazakus",
+        "1x Demonwrath",
+        "1x Blastcrystal Potion",
+        "1x Hellfire",
+        "1x Refreshment Vendor",
+        "1x Second-Rate Bruiser",
+        "1x Shadowflame",
+        "1x Emperor Thaurissan",
+        "1x Faceless Manipulator",
+        "1x Leeroy Jenkins",
+        "1x Siphon Soul",
+        "1x Sylvanas Windrunner",
+        "1x Reno Jackson",
+        "1x Abyssal Enforcer",
+        "1x Twisting Nether",
+        "1x Lord Jaraxxus"
+      ]
+    },
+    {
+      "archetype": "Reno Priest (Raza / Kazakus Highlander Priest)",
+      "class": "Priest",
+      "why_it_mattered": "Historically important out of proportion to its 2016 power level. Raza the Chained plus Reno Jackson plus Kazakus made a singleton Priest that healed to full, generated custom removal and hero-powered for free. In this era it was a strong tier-2 deck; one expansion later, when Shadowreaper Anduin arrived, the same Raza line became the most-banned combo of 2018. It is the clearest example of the era planting a card whose real cost was paid later.",
+      "key_cards": [
+        "Reno Jackson",
+        "Raza the Chained",
+        "Kazakus",
+        "Brann Bronzebeard",
+        "Dragonfire Potion",
+        "Drakonid Operative",
+        "Kabal Courier",
+        "Kabal Talonpriest",
+        "Entomb",
+        "Shadow Word: Death",
+        "Shadow Word: Pain",
+        "Potion of Madness",
+        "Excavated Evil",
+        "Ysera"
+      ],
+      "tier": "Tier 2 in the Gadgetzan meta",
+      "confidence": "high",
+      "empirical_share": "4.07% of Gadgetzan-era ranked decks (1,096). Within them Reno Jackson 99.7%, Kazakus 92.6%, Raza the Chained 86.2%. Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my recomputation.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [],
+      "representative_decklist": []
+    },
+    {
+      "archetype": "Jade Druid (Jade Lotus Druid)",
+      "class": "Druid",
+      "why_it_mattered": "The archetype that ended control as a viable strategy. Jade Idol shuffles three more copies of itself into your deck, so a Jade Druid literally cannot be decked and its threats grow forever. In the Kraken era the deck was still a midrange ramp pile with a Jade top end rather than the pure fatigue-proof monster it became in Un'Goro, but the structural consequence was already visible: Control Warrior's posting share fell from 6.5% to 2.1% across the year. It was the 'paper' in the era-ending rock-paper-scissors.",
+      "key_cards": [
+        "Jade Idol",
+        "Jade Blossom",
+        "Jade Spirit",
+        "Jade Behemoth",
+        "Aya Blackpaw",
+        "Fandral Staghelm",
+        "Wild Growth",
+        "Innervate",
+        "Nourish",
+        "Swipe",
+        "Wrath",
+        "Feral Rage",
+        "Gadgetzan Auctioneer",
+        "Brann Bronzebeard",
+        "Azure Drake"
+      ],
+      "tier": "Tier 1-2 late in the Gadgetzan meta; the strongest deck of the March 2017 window",
+      "confidence": "high",
+      "empirical_share": "'Jade Lotus Druid' 3.28% of Gadgetzan-era ranked decks (883), rising to 4.88% (235) in the three-week post-nerf window where it was the #2 archetype behind Jade Shaman. Jade Idol was in 99.1% of Gadgetzan-era Jade Druid lists (the archive records it under its Choose One token name 'Cut from Jade'). Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate. plus my recomputation.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [],
+      "representative_decklist": [
+        "2x Jade Idol",
+        "2x Innervate",
+        "2x Living Roots",
+        "2x Wild Growth",
+        "2x Wrath",
+        "1x Raven Idol",
+        "2x Jade Blossom",
+        "2x Feral Rage",
+        "1x Fandral Staghelm",
+        "2x Swipe",
+        "1x Brann Bronzebeard",
+        "2x Jade Spirit",
+        "2x Nourish",
+        "2x Azure Drake",
+        "2x Jade Behemoth",
+        "1x Gadgetzan Auctioneer",
+        "1x Aya Blackpaw",
+        "1x Ancient of War"
+      ]
+    },
+    {
+      "archetype": "Miracle / Malygos Rogue",
+      "class": "Rogue",
+      "why_it_mattered": "Rogue's only real deck of the year, and a tournament specialist's weapon rather than a ladder pillar. Gadgetzan Auctioneer plus Preparation plus Counterfeit Coin let a Rogue draw half their deck in one turn, and the Malygos variant turned that into a 20+ damage burst from an empty board. It is what Pavel used to win the 2016 World Championship - a deck almost nobody feared on ladder winning the biggest match of the year.",
+      "key_cards": [
+        "Gadgetzan Auctioneer",
+        "Preparation",
+        "Counterfeit Coin",
+        "Backstab",
+        "Eviscerate",
+        "Sap",
+        "Conceal",
+        "Edwin VanCleef",
+        "Cold Blood",
+        "Tomb Pillager",
+        "Swashburglar",
+        "Azure Drake",
+        "Malygos",
+        "Emperor Thaurissan",
+        "Leeroy Jenkins"
+      ],
+      "tier": "Tier 2 on ladder, tier 1 in tournament lineups",
+      "confidence": "high",
+      "empirical_share": "'Miracle Rogue' 2.23% of Old Gods-era ranked decks, 2.26% in Karazhan, 2.56% post-Yogg-nerf, 3.44% in Gadgetzan (927). Source: deck_aggregate.json (HearthPwn user-posted RANKED decks). This is deck-POSTING share, not ladder playrate and not winrate.",
+      "playrate_or_winrate": "",
+      "notable_pilots": [
+        "Pavel - won the 2016 World Championship final 4-2 over DrHippi, closing the deciding game with Malygos Rogue (Sap on an Arcane Giant, then Sinister Strike + SI:7 Agent + Bite for lethal)",
+        "ShtanUdachi - brought Miracle Rogue to the 2017 Winter Championship"
+      ],
+      "representative_decklist": []
+    }
+  ],
+  "defining_cards": [
+    {
+      "card": "Flamewreathed Faceless",
+      "set": "OG",
+      "confidence": "high",
+      "why": "A COMMON 4-mana 7/7 with Overload (2). Verified in cards.sqlite: cost 4, 7/7, text 'Overload: (2)'. Nothing else in Standard could contest it on curve, and because it was a common every Shaman had two on day one. The archetypal 'the rarity is the balance problem' card of the era.",
+      "inclusion_rate": "61.8% of ALL Old Gods-era ranked Shaman decks; 72.4% of lists labelled Midrange Shaman. Falls to 27.8% after the Oct 2016 patch as the deck went slower. (My recomputation from the HearthPwn ranked archive.)",
+      "fate": "Never nerfed. Rotated out of Standard on 2017-04-06."
+    },
+    {
+      "card": "Thing from Below",
+      "set": "OG",
+      "confidence": "high",
+      "why": "6-mana 5/5 Taunt that costs (1) less per Totem summoned. In a class whose hero power summons a Totem every turn for free, this is a 0-2 mana 5/5 Taunt by turn 5. It made Shaman's board unattackable while its hero power did nothing but tick the discount down. Verified: OG, Rare, 6/5/5.",
+      "inclusion_rate": "67.2% of Old Gods-era Shaman decks, 76.0% in Karazhan, 74.7% post-Yogg-nerf - the most stable Shaman card of the year.",
+      "fate": "Never nerfed. Rotated 2017-04-06."
+    },
+    {
+      "card": "Tunnel Trogg",
+      "set": "LOE",
+      "confidence": "high",
+      "why": "Not an era card, but the era does not exist without it. A 1-mana 1/3 that grows for every Overloaded crystal, so Totem Golem on two makes it a 2/3 and Feral Spirit on three makes it a 3/3. It is why Shaman's turn-1 was the best turn-1 in the game for four straight expansions.",
+      "inclusion_rate": "65.4% of Old Gods-era Shaman decks, 56.5% in both the post-Yogg-nerf and Gadgetzan eras.",
+      "fate": "Never nerfed; rotated out of Standard 2017-04-06, which is what finally killed Midrange Shaman."
+    },
+    {
+      "card": "Tuskarr Totemic",
+      "set": "TGT",
+      "confidence": "high",
+      "why": "3-mana 3/2 'Battlecry: Summon ANY random Totem' - meaning it could roll Totem Golem or Flametongue Totem, turning a fair card into a 3-mana 6/6 spread over two bodies roughly a fifth of the time. It is the era's canonical high-variance snowball card and Blizzard's first target in the October patch.",
+      "inclusion_rate": "64.1% of Old Gods-era Shaman decks and 71.0% in Karazhan; collapses to 15.5% immediately after the 3 Oct 2016 nerf.",
+      "fate": "Nerfed 2016-10-03 to 'Summon a random basic Totem' (confirmed in balance_changes, build 14830)."
+    },
+    {
+      "card": "Spirit Claws",
+      "set": "KARA",
+      "confidence": "high",
+      "why": "1-mana 1/3 weapon with '+2 Attack while you have Spell Damage'. With the Shaman hero power rolling Spirit Wisp, or with Bloodmage Thalnos or Azure Drake in play, it was a 1-mana 3/3 weapon - the most efficient early removal engine in the game. An adventure card, so 100% of buyers owned it.",
+      "inclusion_rate": "0.5% of Old Gods-era Shaman decks (it didn't exist), 30.5% in the Karazhan window, 63.9% post-Yogg-nerf, 49.4% in Gadgetzan, then 12.4% in the three weeks after its Feb 2017 nerf.",
+      "fate": "Nerfed 2017-02-28 from 1 to 2 mana (confirmed in balance_changes, build 17720). Reverted to 1 mana in 2021."
+    },
+    {
+      "card": "Maelstrom Portal",
+      "set": "KARA",
+      "confidence": "high",
+      "why": "2-mana 'Deal 1 damage to all enemy minions. Summon a random 1-Cost minion.' A no-Overload sweeper that leaves a body, in the class that already had Lightning Storm. Karazhan handed the best deck in the game its missing anti-aggro tool for free.",
+      "inclusion_rate": "58.3% of Karazhan-era Shaman decks, 74.3% post-Yogg-nerf, 76.5% in Gadgetzan, 80.3% in March 2017 - it only ever went up.",
+      "fate": "Never nerfed. Rotated 2017-04-06."
+    },
+    {
+      "card": "Yogg-Saron, Hope's End",
+      "set": "OG",
+      "confidence": "high",
+      "why": "The most controversial card Blizzard had made to that point, by their own admission. Casting one random spell per spell you had cast that game meant a spell deck that was dead on board could flip the game outright. It broke the implicit contract that a lost position stays lost, and it showed up in tournaments, which is what actually forced the change - Blizzard said 'seeing Yogg in tournaments was not where we originally hoped it would end up'.",
+      "inclusion_rate": "10.1% of ALL Old Gods-era ranked decks and 17.4% of Karazhan-era ones; within Mage specifically, 37.0% (Old Gods) and 45.6% (Karazhan), then 12.6% after the nerf. Overall era penetration fell 17.4% to 5.0% across the 3 Oct 2016 patch line.",
+      "fate": "Behaviourally nerfed 2016-10-03 (patch 6.1.3): stops casting if it is destroyed, silenced, transformed or bounced mid-Battlecry. NOT visible in balance_changes - the card's printed text never changed, so the local DB cannot confirm it."
+    },
+    {
+      "card": "C'Thun",
+      "set": "OG",
+      "confidence": "high",
+      "why": "A free legendary given to every account, with a whole cross-class 'cultist' support suite designed to make deckbuilding decide itself. It is the purest test of the 'ship the archetype pre-assembled' philosophy, and the answer was that players played it heavily for one expansion and abandoned it the moment there was an alternative.",
+      "inclusion_rate": "20.0% of all Old Gods-era ranked decks; 6.3% in Karazhan; 4.5% in Gadgetzan. Support pieces in the Old Gods era: Disciple of C'Thun 18.2%, Beckoner of Evil 17.0%, C'Thun's Chosen 15.5%, Twin Emperor Vek'lor 14.8%, Twilight Elder 13.5% of ALL ranked decks.",
+      "fate": "Never nerfed. Rotated 2017-04-06."
+    },
+    {
+      "card": "N'Zoth, the Corruptor",
+      "set": "OG",
+      "confidence": "high",
+      "why": "The most successful of the four Old Gods as a deckbuilding constraint. 'Summon your Deathrattle minions that died this game' turned every sticky body into a two-part card and created N'Zoth Paladin, N'Zoth Rogue and N'Zoth Hunter simultaneously. Unlike C'Thun it never needed a support package - it just asked you to play good deathrattles.",
+      "inclusion_rate": "18.3% of all Old Gods-era ranked decks, still 14.6% in Karazhan, 14.0% post-Yogg-nerf and 10.7% in Gadgetzan - far more durable than C'Thun.",
+      "fate": "Never nerfed. Rotated 2017-04-06."
+    },
+    {
+      "card": "Call of the Wild",
+      "set": "OG",
+      "confidence": "high",
+      "why": "8-mana 'Summon all three Animal Companions' - a 4/2 Charge, a 2/4 Taunt and a 3/3 that stuns, in a class with no draw and no reach. It gave Hunter a real top end for the first time since Undertaker and immediately became the class's reason to exist.",
+      "inclusion_rate": "88.3% of Old Gods-era Midrange Hunter lists; 10.35% of ALL Karazhan-era ranked decks (i.e. roughly every Hunter deck posted).",
+      "fate": "Nerfed 2016-10-03 from 8 to 9 mana (confirmed in balance_changes, build 14830). Reverted to 8 in 2020."
+    },
+    {
+      "card": "Barnes",
+      "set": "KARA",
+      "confidence": "high",
+      "why": "5-mana 3/4 that summons a 1/1 copy of a random minion from your deck. On its own it is fair; combined with Y'Shaarj, Rage Unbound or with resurrect effects it turned a 5-drop into a 10-drop, and it is the direct ancestor of Big Priest. Being an adventure card, everyone had it the week it launched.",
+      "inclusion_rate": "20.7% of ALL Karazhan-era ranked decks (2,852 of 13,811) - the third most-included card of the patch behind Azure Drake and Sylvanas. Within Priest 32.2%, within Shaman 17.8%.",
+      "fate": "Never nerfed in this era; Charge-style text kept. Rotated to Wild in 2018 and became a defining Wild problem."
+    },
+    {
+      "card": "Arcane Giant",
+      "set": "KARA",
+      "confidence": "high",
+      "why": "12-mana 8/8 that costs (1) less for each spell you've cast this game. It gave every spell-heavy deck - Miracle Rogue, Tempo Mage, Yogg Druid - a free pair of 8/8s as a reward for doing what they were already doing. A whole second win condition attached to no deckbuilding cost.",
+      "inclusion_rate": "10.3% of all Karazhan-era ranked decks.",
+      "fate": "Never nerfed. Rotated 2017-04-06."
+    },
+    {
+      "card": "Patches the Pirate",
+      "set": "GANGS",
+      "confidence": "high",
+      "why": "The most format-warping one-drop ever printed to that date. A 1-mana 1/1 Charge that summons itself from your deck when you play any Pirate: it costs a deckslot but returns a body and a card of tempo, so it effectively made every aggressive deck a 29-card deck. Every class with a cheap Pirate simply added it, which is why Gadgetzan's aggro decks all looked the same.",
+      "inclusion_rate": "13.9% of ALL Gadgetzan-era ranked decks. By class in that era: Warrior 41.2%, Rogue 39.1%, Shaman 22.3%, Paladin 9.5%, Hunter 7.7%. After the Feb 2017 patch it went UP in Warrior (49.7%) because only its partner was nerfed.",
+      "fate": "Untouched in this era. Its Charge was removed on 2018-02-06 (confirmed in balance_changes) and it was Hall-of-Famed later."
+    },
+    {
+      "card": "Small-Time Buccaneer",
+      "set": "GANGS",
+      "confidence": "high",
+      "why": "1-mana 1/2 that is a 3/2 while you hold a weapon. A turn-1 3/2 that must be answered immediately, in classes (Warrior, Shaman, Rogue) whose weapons were already the best cards in their kit. Together with Patches it produced the strongest opening sequence in the game's history to that point.",
+      "inclusion_rate": "14.4% of all Gadgetzan-era ranked decks; 45.7% of Warrior, 41.3% of Rogue, 24.4% of Shaman decks that era. After the nerf: Warrior 16.8%, Rogue 7.6%, Shaman 3.1% - it essentially left the format.",
+      "fate": "Nerfed 2017-02-28 to 1 Health (confirmed in balance_changes, build 17720). Reverted to 2 Health in 2023."
+    },
+    {
+      "card": "Kazakus",
+      "set": "GANGS",
+      "confidence": "high",
+      "why": "The card that made the singleton restriction profitable rather than merely survivable. A 4-mana 3/3 that builds a custom 5- or 10-mana spell (removal, AoE, heal, summon, draw) - and doubles with Brann Bronzebeard. It converted 'Reno decks' from a fun gimmick into three tier-1 archetypes at once (Renolock, Reno Mage, Reno Priest).",
+      "inclusion_rate": "15.5% of all Gadgetzan-era ranked decks; 54.9% of Warlock, 44.5% of Mage, 36.1% of Priest decks in that era.",
+      "fate": "Never nerfed. Rotated to Wild in April 2018."
+    },
+    {
+      "card": "Raza the Chained",
+      "set": "GANGS",
+      "confidence": "high",
+      "why": "'If your deck has no duplicates, your Hero Power costs (0) this game.' In 2016 this was a strong tier-2 enabler. In 2017, paired with Shadowreaper Anduin, it produced the most oppressive combo of the following year and got Hall-of-Famed. It is the era's best illustration that the cost of a card is not always paid in the set it ships in.",
+      "inclusion_rate": "86.2% of Gadgetzan-era Reno Priest lists; 5.9% of all Priest decks that era were 'Reno Priest' labelled.",
+      "fate": "Untouched in this era; moved to the Hall of Fame in 2018 specifically because of the Anduin interaction."
+    },
+    {
+      "card": "Jade Idol",
+      "set": "GANGS",
+      "confidence": "high",
+      "why": "1-mana 'Choose One - Summon a Jade Golem; or Shuffle 3 copies of this card into your deck.' A single card that makes a deck unable to fatigue and unable to run out of ever-larger threats. It removed attrition as a win condition from the format and is the most-cited cause of Control Warrior's extinction.",
+      "inclusion_rate": "99.1% of Gadgetzan-era Jade Lotus Druid lists and 99.6% in March 2017. NOTE: the HearthPwn archive records this card under its Choose One token name 'Cut from Jade' (verified against card_history.json, CFM_602a), which is why a naive query returns 0%.",
+      "fate": "Never nerfed. Remained legal in Standard until April 2018 and became the defining Wild control-killer."
+    },
+    {
+      "card": "Aya Blackpaw",
+      "set": "GANGS",
+      "confidence": "high",
+      "why": "6-mana 5/3 that summons a Jade Golem on Battlecry AND on Deathrattle - three bodies from one card, all scaling with your Jade counter. The glue that made Jade a tri-class package rather than a Druid curiosity, and one of the highest-penetration legendaries of the Gadgetzan era.",
+      "inclusion_rate": "14.6% of all Gadgetzan-era ranked decks (3,935), rising to 53.7% of Shaman decks in the March 2017 window.",
+      "fate": "Never nerfed."
+    },
+    {
+      "card": "Purify",
+      "set": "KARA",
+      "confidence": "high",
+      "why": "Not a powerful card - the opposite. A 2-mana 'Silence a friendly minion. Draw a card' shipped to the weakest class in the game during a set that was supposed to help it. It became the era's design-discourse flashpoint and prompted a Ben Brode 'Designer Insights' video conceding the team had misjudged how the community felt. Verified in cards.sqlite: KARA, Priest, cost 2.",
+      "inclusion_rate": "",
+      "fate": "Never changed. Later banned from Arena."
+    }
+  ],
+  "balance_actions": [
+    {
+      "card_or_change": "Standard format introduced; Curse of Naxxramas and Goblins vs Gnomes moved to Wild",
+      "action": "Format rotation (not a card change)",
+      "date_or_patch": "2016-04-26 (patch 5.0)",
+      "confidence": "high",
+      "confirmed_in_local_db": false,
+      "reason": "The structural change that defines this era. Removed Piloted Shredder, Dr. Boom, Sludge Belcher, Haunted Creeper, Mad Scientist, Death's Bite, Muster for Battle, Shielded Minibot and the entire Mech package from competitive play in one day. sets_first_seen.json confirms the OG data ship date but the DB has no rotation table."
+    },
+    {
+      "card_or_change": "Twelve Basic/Classic cards nerfed simultaneously: Ancient of Lore (draw 2 -> draw 1), Force of Nature (6 -> 5 mana, Treants lose Charge and no longer die), Keeper of the Grove (4 -> 2 Health), Big Game Hunter (3 -> 5 mana), Knife Juggler (3 -> 2 Attack), Leper Gnome (2 -> 1 Attack), Arcane Golem (loses Charge, 2 -> 4 Health), Ironbeak Owl (2 -> 3 mana), Hunter's Mark (0 -> 1 mana), Blade Flurry (2 -> 4 mana, no longer hits face), Master of Disguise (Stealth now temporary), Molten Giant (20 -> 25 mana and moved to Wild)",
+      "action": "Nerf batch",
+      "date_or_patch": "2016-04-26 (patch 5.0; data build 12574 dated 2016-04-25)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "All twelve appear as rows in balance_changes on 2016-04-25/build 12574. The stated goal was to kill the Force of Nature + Savage Roar Druid combo, the Blade Flurry Oil Rogue kill, and the Classic auto-includes (Knife Juggler, BGH, Ironbeak Owl) that were suppressing design space. It was the largest single nerf batch Hearthstone had ever done and it landed on the same day as the first rotation - deliberately, so the format reset once rather than twice."
+    },
+    {
+      "card_or_change": "Bloodsail Cultist: 'If you control a Pirate' -> 'If you control ANOTHER Pirate'",
+      "action": "Functional clarification/nerf",
+      "date_or_patch": "2016-08-09 (build 13921, shipped with Karazhan data)",
+      "confidence": "medium",
+      "confirmed_in_local_db": true,
+      "reason": "Minor but real: it stopped Bloodsail Cultist from buffing off itself. Confirmed as a text row in balance_changes. Relevant because Pirate Warrior later became the era's defining aggro deck."
+    },
+    {
+      "card_or_change": "Yogg-Saron, Hope's End - stops casting spells if it is destroyed, silenced, transformed or returned to hand mid-Battlecry",
+      "action": "Behavioural nerf",
+      "date_or_patch": "2016-10-03 (patch 6.1.3, build 14830)",
+      "confidence": "high",
+      "confirmed_in_local_db": false,
+      "reason": "Blizzard called it 'the most controversial card we've ever made' and said 'seeing Yogg in tournaments was not where we originally hoped it would end up'. The card's PRINTED TEXT was unchanged, so there is no row for it in balance_changes - the only Yogg-Saron row in the local DB is a no-op text row dated 2023-08-16. The effect is nevertheless visible in the deck archive: Yogg's share of all ranked decks fell from 17.4% (Karazhan era) to 5.0% (post-nerf era), and from 45.6% to 12.6% within Mage."
+    },
+    {
+      "card_or_change": "Call of the Wild: 8 -> 9 mana",
+      "action": "Nerf",
+      "date_or_patch": "2016-10-03 (patch 6.1.3, build 14830)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "Hunter's only real top-end card was too efficient for 8, but pushing it to 9 made it uncastable alongside anything else and accelerated Hunter's decline: Hunter's monthly Standard posting share falls from 13.1% in Aug 2016 to 5.9% in Dec 2016."
+    },
+    {
+      "card_or_change": "Execute: 1 -> 2 mana",
+      "action": "Nerf",
+      "date_or_patch": "2016-10-03 (patch 6.1.3, build 14830)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "Aimed at Tempo/Dragon Warrior's ability to remove anything for one mana while developing. Execute's presence in Warrior decks drops from 92.6% (Old Gods era) to 79.5% (post-nerf) to 50.6% (Gadgetzan) as Warrior shifted to Pirates."
+    },
+    {
+      "card_or_change": "Rockbiter Weapon: 1 -> 2 mana",
+      "action": "Nerf",
+      "date_or_patch": "2016-10-03 (patch 6.1.3, build 14830)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "Targeted Aggro Shaman's Doomhammer burst turns. Rockbiter's presence in Shaman decks falls from 70.9% (Old Gods era) to 18.7% (immediately post-nerf) to 11.8% (Gadgetzan) - one of the most decisive nerfs of the era by usage, and yet Shaman's overall share went UP, because Midrange Shaman simply stopped playing the burn plan."
+    },
+    {
+      "card_or_change": "Tuskarr Totemic: 'Summon ANY random Totem' -> 'Summon a random BASIC Totem'",
+      "action": "Nerf",
+      "date_or_patch": "2016-10-03 (patch 6.1.3, build 14830)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "Removed the Totem Golem / Flametongue Totem highroll. Usage in Shaman decks fell 71.0% -> 15.5% -> 4.9%: the card was effectively deleted. Yet Midrange Shaman remained the best deck, which is the clearest evidence that the problem was the whole curve rather than any one card."
+    },
+    {
+      "card_or_change": "Abusive Sergeant: 2 -> 1 Attack",
+      "action": "Nerf",
+      "date_or_patch": "2016-10-03 (patch 6.1.3, build 14830)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "A neutral aggro staple in Zoo, Aggro Shaman and Aggro Paladin. Its era-wide inclusion drops out of the top-40 card list after this patch."
+    },
+    {
+      "card_or_change": "Charge: 3 -> 1 mana, and now reads 'Give a friendly minion Charge. It can't attack heroes this turn.'",
+      "action": "Rework (anti-OTK)",
+      "date_or_patch": "2016-10-03 (patch 6.1.3, build 14830)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "Killed Worgen/Charge Warrior one-turn-kills for good while making the card actually usable as a removal tool. A rare example of a nerf that also improved the card's design."
+    },
+    {
+      "card_or_change": "Small-Time Buccaneer: 2 -> 1 Health",
+      "action": "Nerf",
+      "date_or_patch": "2017-02-28 (patch 7.1, build 17720)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "Blizzard: 'The combination of Small-Time Buccaneer and Patches the Pirate has been showing up too often in the meta ... weapon-utilizing classes have been heavily utilizing this combination, especially Shaman.' Announced 2017-02-14, live 2017-02-28. It worked: STB fell from 45.7% to 16.8% of Warrior decks and 24.4% to 3.1% of Shaman decks. Notably Patches itself was left alone and its Warrior usage went UP."
+    },
+    {
+      "card_or_change": "Spirit Claws: 1 -> 2 mana",
+      "action": "Nerf",
+      "date_or_patch": "2017-02-28 (patch 7.1, build 17720)",
+      "confidence": "high",
+      "confirmed_in_local_db": true,
+      "reason": "Blizzard cited its ability to curve out as extremely efficient removal with Bloodmage Thalnos or the Shaman hero power. Usage in Shaman decks fell 49.4% -> 12.4%. Combined with the STB nerf, this is the patch that finally ended Shaman's year-long reign - Shaman's Midrange build fell from 4.2% to 2.6% of ranked posts while Jade Shaman took over."
+    },
+    {
+      "card_or_change": "Ranked ladder 'floors' added at ranks 15, 10 and 5 (players can no longer fall below a reached floor)",
+      "action": "Systems change",
+      "date_or_patch": "2017-02-28 (patch 7.1)",
+      "confidence": "high",
+      "confirmed_in_local_db": false,
+      "reason": "Shipped in the same patch as the Pirate nerfs and is part of the same story: the ladder had become so aggro-dominated and swingy that Blizzard changed the reward structure, not just the cards. Also in this patch: Arena moved to Standard-only."
+    },
+    {
+      "card_or_change": "Journey to Un'Goro rotation + first Hall of Fame: Blackrock Mountain, The Grand Tournament and League of Explorers leave Standard; Ragnaros the Firelord, Sylvanas Windrunner, Azure Drake, Conceal, Ice Lance and Power Overwhelming move to the Hall of Fame",
+      "action": "Rotation / Hall of Fame",
+      "date_or_patch": "2017-04-06 (end of the Year of the Kraken)",
+      "confidence": "high",
+      "confirmed_in_local_db": false,
+      "reason": "The event that ends this era. It removed Tunnel Trogg, Totem Golem, Emperor Thaurissan, Reno Jackson, Brann Bronzebeard, Justicar Trueheart and Sir Finley in one stroke - i.e. the engine of Midrange Shaman AND the engine of every Reno deck. The local DB has an empty HOF set (those cards are recorded under EXPERT1/LEGACY/VANILLA), so it cannot confirm the Hall of Fame list; sets_first_seen.json does confirm UNGORO data landing 2017-04-04, build 18336. For scale of how dominant these staples were: Azure Drake was in 43.7% and Brann in 31.6% of every ranked deck posted in the Gadgetzan era."
+    }
+  ],
+  "issues": [
+    {
+      "issue": "Power was concentrated in one class's mana curve rather than in one card, so single-card nerfs could not fix it",
+      "evidence": "Shaman had Tunnel Trogg (1), Totem Golem (2), Spirit Claws (1), Maelstrom Portal (2), Tuskarr Totemic (3), Feral Spirit (3), Flamewreathed Faceless (4), Thing from Below (~2-4 effective), Fire Elemental (6). Blizzard nerfed Tuskarr Totemic and Rockbiter Weapon on 2016-10-03; Tuskarr fell from 71.0% to 15.5% of Shaman decks and Rockbiter from 66.4% to 18.7% - and Midrange Shaman still went on to be the single most-posted archetype of that very patch (5.63%). It took the April 2017 rotation to end it.",
+      "design_lesson": "Audit the aggregate quality of a class's curve across sets, not the outlier quality of individual cards. If every slot from 1 to 6 is the best card at that cost, removing two of them changes nothing - the deck just plays the next-best card it already owns."
+    },
+    {
+      "issue": "Efficiency outliers printed at COMMON rarity are more warping than outliers printed at legendary",
+      "evidence": "Flamewreathed Faceless is a 4-mana 7/7 common; Totem Golem a 2-mana 3/4 common; Spirit Claws a 1-mana pseudo-3/3 weapon common; Small-Time Buccaneer a rare. Every player had a playset within days of release. Compare C'Thun, a free legendary with a bespoke support package, which peaked at 20% of decks and then vanished.",
+      "design_lesson": "Rarity is a balance lever. A pushed legendary is a deckbuilding choice; a pushed common is a universal baseline that redefines what every other card at that cost has to beat."
+    },
+    {
+      "issue": "Adventure sets deliver 100% ownership, so their cards need to be balanced more conservatively than pack cards",
+      "evidence": "One Night in Karazhan was only 45 cards but it handed the already-best deck in the game Spirit Claws and Maelstrom Portal, and gave the whole format Barnes (20.7% of all ranked decks that patch) and Arcane Giant (10.3%). Karazhan's own top archetype list shows Midrange Shaman at 4.90% while its class share barely moved - the deck did not get more popular, it got better.",
+      "design_lesson": "Guaranteed-acquisition products remove the randomness that normally staggers a card's adoption. Assume day-one 100% saturation and tune accordingly - or reserve adventures for cards that open archetypes rather than upgrade existing ones."
+    },
+    {
+      "issue": "High-variance 'comeback' cards get adopted by exactly the players the designers did not intend",
+      "evidence": "Yogg-Saron was pitched as a fun card. It reached 37-46% of all Mage decks and was played in HCT tournaments; Blizzard publicly conceded 'Yogg should be for players who want to have a lot of fun, but maybe not the card you see frequently in high-level tournaments'. The October nerf cut its overall presence from 17.4% to 5.0% of ranked decks.",
+      "design_lesson": "If a random effect has positive expected value in a losing position, competitive players will run it regardless of intent, because variance is free when you are already losing. 'Fun, not competitive' is only achievable if the card is genuinely bad, not merely swingy."
+    },
+    {
+      "issue": "Cards that summon themselves from the deck compress deck size and homogenise archetypes",
+      "evidence": "Patches the Pirate was in 41.2% of Warrior, 39.1% of Rogue and 22.3% of Shaman ranked decks in the Gadgetzan era. Every aggressive deck in the format added the same 1-2 Pirates purely to enable it. When Blizzard nerfed its partner (Small-Time Buccaneer) rather than Patches, Patches usage in Warrior went UP, to 49.7%.",
+      "design_lesson": "A card that costs a slot but returns a body plus tempo is effectively negative-cost: it makes your deck smaller and more consistent. These cards should be evaluated as deck-size modifiers, not as 1-drops. Nerfing the enabler around them does not remove the incentive."
+    },
+    {
+      "issue": "Deckbuilding-restriction payoffs must be priced against the real cost of the restriction, and that cost falls as the payoff pool grows",
+      "evidence": "Reno Jackson alone made singleton decks tolerable. Kazakus made them good (54.9% of Gadgetzan Warlock decks, 44.5% of Mage, 36.1% of Priest). Raza the Chained then added a free hero power. Three of the top five Gadgetzan-era archetypes - Renolock (4.95%), Reno Mage (4.55%), Reno Priest (4.07%) - were the same deckbuilding constraint wearing different hats.",
+      "design_lesson": "Each new payoff for a restriction reduces the restriction's effective cost for all previous payoffs. Restriction-based mechanics need a hard cap on how many payoffs will ever exist, decided before the first one ships."
+    },
+    {
+      "issue": "A single card that generates unbounded resources deletes an entire strategic axis",
+      "evidence": "Jade Idol (in 99.1% of Gadgetzan-era Jade Druid lists) makes a deck unfatiguable and its threats unbounded. Control Warrior, the most-posted archetype of the Old Gods era at 6.47%, fell to 2.58% in Gadgetzan and 2.08% by March 2017. With attrition removed as a win condition, the only remaining answers to Jade were burst combo or aggression - which is precisely the rock-paper-scissors meta the era ended on.",
+      "design_lesson": "Infinite value is not a power-level problem, it is a format-structure problem. It removes 'out-resource them' from every other deck's option list at once, and the collateral damage lands on decks that have nothing to do with the card."
+    },
+    {
+      "issue": "Ship a class the help it needs, or say clearly that you are not - the middle option is the worst",
+      "evidence": "Priest was the weakest class in the game entering Karazhan. It received Purify, a 2-mana silence-your-own-minion draw spell, and the reaction was severe enough that Ben Brode released a Designer Insights video acknowledging the team had misjudged community sentiment and would have held the reveal back. Priest's monthly Standard posting share was 15.1% in Aug 2016 - inflated by people trying to make it work - and the class only became genuinely good four months later with Drakonid Operative.",
+      "design_lesson": "The players most attached to a weak class read every card in its set as a verdict on whether you are going to fix it. Intentionally low-power cards are defensible in the abstract but not in the slot where the fix was expected."
+    },
+    {
+      "issue": "A four-month expansion cadence with a two-or-three-patch balance cadence means most of the year is spent in a known-broken meta",
+      "evidence": "Old Gods launched 2016-04-26. The first balance response of the era came 2016-10-03 - five months and one whole expansion later. The Gadgetzan Pirate problem was live from 2016-12-01 and was not patched until 2017-02-28, again three months. In between, Blizzard's only lever was the annual rotation.",
+      "design_lesson": "Balance response time has to be shorter than the archetype's discovery-to-solved time, or the community experiences the correct answer as the entire format. This era is the direct reason later Hearthstone moved to mid-expansion balance patches as routine."
+    },
+    {
+      "issue": "Pre-assembled archetypes shipped as a card do not create deckbuilding, they create a checklist",
+      "evidence": "C'Thun hit 20.0% of all Old Gods-era ranked decks with a support suite spanning every class (Disciple of C'Thun 18.2%, Beckoner of Evil 17.0%, Twilight Elder 13.5% of ALL decks) and then collapsed to 6.3% one set later. N'Zoth, which imposed a constraint but named no specific cards, held 18.3% -> 14.6% -> 14.0% -> 10.7% across the same four windows.",
+      "design_lesson": "Constraints that reward the player's own card evaluation age far better than packages that tell the player which cards to include. The former keeps generating new decks; the latter is solved on day one and abandoned on day ninety."
+    }
+  ],
+  "pro_scene": {
+    "summary": "2016 was the second full year of the Hearthstone Championship Tour and the first played under Standard, which changed tournament preparation fundamentally: for the first time the card pool competitors prepared against was smaller than the card pool that existed. The season's structural problem was Shaman. Midrange Shaman was strong enough and homogeneous enough that in Conquest-with-one-ban formats it functioned as a mandatory ban for most lineups, which quietly shrank the effective format to eight classes and pushed players toward decks that could beat the OTHER seven. The year's signature result - Pavel winning BlizzCon with Malygos Rogue in the deciding game - is a good illustration: the winning deck was a combo deck that ignored the board rather than fought for it. Note on sources: Liquipedia, esportsearnings and every Hearthstone site are Cloudflare-403 from this environment, so all results below come from search-result summaries rather than direct page reads, and I have flagged the ones I could not corroborate twice.",
+    "players": [
+      {
+        "name": "Pavel (Pavel Beltiukov, Russia)",
+        "why_notable": "2016 World Champion. Won the EU Last Call Invitational (defeating RDU) to qualify, then took the BlizzCon title 4-2 over DrHippi for $250,000, becoming the third Hearthstone world champion after Firebat and Ostkaka.",
+        "signature_decks": [
+          "Malygos Rogue",
+          "Midrange Shaman",
+          "C'Thun Warrior",
+          "Tempo Mage",
+          "Malygos Druid"
+        ],
+        "achievements": "2016 Hearthstone World Champion (BlizzCon, Anaheim, 2016-11-05); 2016 HCT Europe Last Call Invitational winner"
+      },
+      {
+        "name": "DrHippi (Artem Kravets, Ukraine)",
+        "why_notable": "The most consistent European of the season: won the HCT Europe Summer Championship and then reached the World Championship final, losing 4-2 to Pavel. His BlizzCon final deck was Malygos Yogg Druid - a deck that was legal only because Yogg's nerf had already landed and it still had a combo kill.",
+        "signature_decks": [
+          "Malygos Yogg Druid"
+        ],
+        "achievements": "2016 HCT Europe Summer Champion (2016-09-24/25, $25,000); 2016 World Championship runner-up"
+      },
+      {
+        "name": "ThijsNL (Thijs Molendijk, Netherlands)",
+        "why_notable": "Widely regarded as the strongest player in the world across 2015-16 and named GosuGamers Hearthstone Player of the Year for both years. Won the HCT Europe Spring Championship in June 2016.",
+        "signature_decks": [],
+        "achievements": "2016 HCT Europe Spring Champion; multiple BlizzCon appearances"
+      },
+      {
+        "name": "Cydonia (Julien Perrault-Harvey, Canada)",
+        "why_notable": "Won the HCT Americas Spring Championship in June 2016 (Hollywood Riviera Studios, Torrance CA) and qualified for BlizzCon.",
+        "signature_decks": [],
+        "achievements": "2016 HCT Americas Spring Champion (2016-06-25/26, $25,000)"
+      },
+      {
+        "name": "HotMEOWTH (Edwin Cook, USA)",
+        "why_notable": "Won the HCT Americas Summer Championship in September 2016.",
+        "signature_decks": [],
+        "achievements": "2016 HCT Americas Summer Champion (2016-09-17/18, $25,000)"
+      },
+      {
+        "name": "Handsomeguy (Il Mook Kang, South Korea)",
+        "why_notable": "Won the HCT Asia-Pacific Summer Championship. One search source additionally credits him with the APAC Spring title; I could not corroborate that second claim, so treat the Spring attribution as unverified.",
+        "signature_decks": [],
+        "achievements": "2016 HCT Asia-Pacific Summer Champion (2016-09-30/10-01)"
+      },
+      {
+        "name": "Che0nsu (Kim Cheon-su, South Korea)",
+        "why_notable": "Won the APAC Last Call Invitational (defeating Tansoku) and finished 3rd-4th at the 2016 World Championship.",
+        "signature_decks": [],
+        "achievements": "2016 HCT Asia-Pacific Last Call winner; BlizzCon 2016 top 4"
+      },
+      {
+        "name": "Amnesiac (Will Barton, USA)",
+        "why_notable": "Became the youngest player ever to win a major Hearthstone championship, taking the HCT Americas Winter Championship on 2016-03-13 at age 15 (beating Nostam 3-1 for $25,000). This win came seven weeks BEFORE Standard launched, so it belongs to the pre-Kraken card pool, but it put him in the BlizzCon 2016 field and made him one of the faces of the year.",
+        "signature_decks": [],
+        "achievements": "2016 HCT Americas Winter Champion; BlizzCon 2016 competitor"
+      },
+      {
+        "name": "ShtanUdachi (Alexey Barsukov, Russia)",
+        "why_notable": "Won the first HCT championship of 2017, played entirely in the Gadgetzan meta, with a Jade/Pirate hybrid Aggro Shaman that swapped Doomhammer for Hammer of Twilight - a build that reads as a summary of everything Gadgetzan did to the game.",
+        "signature_decks": [
+          "Jade/Pirate Aggro Shaman",
+          "Reno Mage",
+          "Miracle Rogue"
+        ],
+        "achievements": "2017 HCT Winter Championship winner (Nassau, Bahamas, 2017-03-23/26), 4-3 over Fr0zen in the final"
+      },
+      {
+        "name": "Mitsuhide",
+        "why_notable": "The dominant open-circuit player of late 2016 outside the HCT system, winning WCA Europe, DreamHack Winter 2016 and SeatStory Cup VII in the same stretch.",
+        "signature_decks": [],
+        "achievements": "DreamHack Winter 2016 champion; SeatStory Cup VII champion; WCA Europe winner"
+      },
+      {
+        "name": "Naiman",
+        "why_notable": "European qualifier and BlizzCon 2016 competitor; named in contemporary write-ups as one of the season's EU regional winners. I could not pin down which specific event, so treat the specifics as unverified.",
+        "signature_decks": [],
+        "achievements": "BlizzCon 2016 competitor"
+      },
+      {
+        "name": "Fr0zen (David Chong, USA)",
+        "why_notable": "Runner-up at the 2017 Winter Championship in a 4-3 final widely described at the time as one of the best HCT finals played.",
+        "signature_decks": [],
+        "achievements": "2017 HCT Winter Championship runner-up"
+      }
+    ],
+    "events": [
+      {
+        "event": "Standard format launch + Whispers of the Old Gods release",
+        "year": "2016-04-26",
+        "winner": "",
+        "notable_decks": "Zoolock, Aggro/Midrange Shaman, C'Thun Warrior, N'Zoth Paladin, Tempo Mage"
+      },
+      {
+        "event": "2016 HCT Spring Championships (Hollywood Riviera Studios, Torrance CA - three consecutive weekends in June; $100,000 per region)",
+        "year": "2016-06",
+        "winner": "Europe: ThijsNL. Americas: Cydonia (2016-06-25/26). Asia-Pacific: winner not verified from available sources.",
+        "notable_decks": "First championship-level Standard/Old Gods lineups; C'Thun and N'Zoth decks alongside Midrange Shaman and Zoo"
+      },
+      {
+        "event": "One Night in Karazhan launch (Prologue + The Parlor)",
+        "year": "2016-08-11",
+        "winner": "",
+        "notable_decks": "Midrange Shaman gains Spirit Claws and Maelstrom Portal; Barnes enters the format"
+      },
+      {
+        "event": "2016 HCT Summer Championships",
+        "year": "2016-09",
+        "winner": "Europe: DrHippi (2016-09-24/25). Americas: HotMEOWTH (2016-09-17/18). Asia-Pacific: Handsomeguy (2016-09-30/10-01).",
+        "notable_decks": "Peak Midrange Shaman; Yogg-Saron still legal in its original form and appearing in tournament Mage and Druid lists"
+      },
+      {
+        "event": "Patch 6.1.3 nerfs (Yogg-Saron, Call of the Wild, Execute, Rockbiter Weapon, Tuskarr Totemic, Abusive Sergeant, Charge)",
+        "year": "2016-10-03",
+        "winner": "",
+        "notable_decks": ""
+      },
+      {
+        "event": "2016 HCT Last Call Invitationals",
+        "year": "2016-10",
+        "winner": "Europe: Pavel (def. RDU). Asia-Pacific: Che0nsu (def. Tansoku).",
+        "notable_decks": "Post-Yogg-nerf lineups; Reno decks beginning to appear"
+      },
+      {
+        "event": "2016 Hearthstone World Championship, BlizzCon, Anaheim CA ($1,000,000 pool, $250,000 first)",
+        "year": "2016-10-26 to 2016-11-05",
+        "winner": "Pavel, 4-2 over DrHippi",
+        "notable_decks": "Pavel: Malygos Rogue, Midrange Shaman, C'Thun Warrior, Tempo Mage, Malygos Druid (across stages). DrHippi: Malygos Yogg Druid. Midrange Shaman was widely reported as an all-but-mandatory ban."
+      },
+      {
+        "event": "DreamHack Winter 2016 (final event of the Hearthstone Grand Prix, $27,500)",
+        "year": "2016-11",
+        "winner": "Mitsuhide",
+        "notable_decks": ""
+      },
+      {
+        "event": "SeatStory Cup VII",
+        "year": "2016",
+        "winner": "Mitsuhide",
+        "notable_decks": ""
+      },
+      {
+        "event": "Mean Streets of Gadgetzan release",
+        "year": "2016-12-01",
+        "winner": "",
+        "notable_decks": "Pirate Warrior, Aggro Shaman, Renolock, Reno Mage, Reno Priest, Dragon Priest, Jade Druid, Jade Shaman"
+      },
+      {
+        "event": "Patch 7.1: Small-Time Buccaneer and Spirit Claws nerfed; ranked floors at 15/10/5 introduced; Arena moved to Standard",
+        "year": "2017-02-28",
+        "winner": "",
+        "notable_decks": ""
+      },
+      {
+        "event": "2017 HCT Winter Championship, Nassau, Bahamas ($250,000)",
+        "year": "2017-03-23 to 2017-03-26",
+        "winner": "ShtanUdachi, 4-3 over Fr0zen",
+        "notable_decks": "ShtanUdachi's Jade/Pirate Aggro Shaman with Hammer of Twilight, Reno Mage, Miracle Rogue. Fr0zen, SamuelTsao and DocPwn also qualified for the World Championship."
+      },
+      {
+        "event": "Journey to Un'Goro launch - Year of the Kraken ends, BRM/TGT/LOE rotate, first Hall of Fame",
+        "year": "2017-04-06",
+        "winner": "",
+        "notable_decks": ""
+      }
+    ]
+  },
+  "narrative": "The Year of the Kraken is the year Hearthstone decided what kind of game it was going to be, and then spent twelve months discovering it had not quite meant it.\n\nIt opened with the most ambitious single day in the game's history. On 26 April 2016, Blizzard simultaneously introduced the Standard/Wild split, rotated Naxxramas and Goblins vs Gnomes out of competitive play, nerfed twelve Basic and Classic cards (all twelve confirmed in the local balance_changes table at build 12574), and shipped a 134-card expansion. The Classic batch is worth dwelling on: Ancient of Lore going from draw-two to draw-one and Force of Nature losing Charge together executed the Druid combo that had defined 2015; Blade Flurry going from 2 to 4 mana and losing face damage ended Oil Rogue; Big Game Hunter at 5 and Knife Juggler at 2 Attack removed two auto-includes that had been silently constraining design for two years. The theory was that a format reset plus a card reset would produce a genuinely new game. It half worked.\n\nWhat actually happened in the Old Gods meta is that the format's centre of gravity moved to fair midrange and value control, which is exactly what the designers wanted, and then Shaman quietly built the best version of it. The HearthPwn ranked archive shows the Old Gods months as unusually diverse by posting share: Control Warrior 6.5%, Control Priest 6.2%, Midrange Shaman 5.9%, Zoolock 4.9%, Tempo Mage 4.6%, Midrange Hunter 4.6%, N'Zoth Paladin 4.3% - seven archetypes within two and a half points of each other, and class shares spread between 9.1% and 14.3%. C'Thun was in a fifth of all decks. N'Zoth was in nearly as many. Yogg-Saron was in 37% of Mage lists. This was a busy, experimental, genuinely interesting format, and it is the part of the year people remember fondly.\n\nThe trouble was structural rather than immediate. Shaman's curve - Tunnel Trogg, Totem Golem, Tuskarr Totemic, Feral Spirit, Flamewreathed Faceless, Thing from Below - was not merely good, it was the best card at every point on the curve simultaneously, and two of those cards (Flamewreathed Faceless at 4 mana for a 7/7, Totem Golem at 2 for a 3/4) were commons. No individual card looked like a mistake. The aggregate was a mistake.\n\nOne Night in Karazhan made it worse in the most avoidable way possible. Adventures deliver every card to every buyer, so a 45-card set has the saturation of a 300-card one. Karazhan handed the best deck in the game Spirit Claws (a one-mana weapon that is a 3/3 whenever you have Spell Damage - and Shaman's hero power can just roll Spell Damage) and Maelstrom Portal (a two-mana sweeper that leaves a body and does not Overload). It also gave the format Barnes, in 20.7% of all ranked decks that patch, and Arcane Giant. And it gave Priest, then the worst class in the game, Purify - a card so pointedly useless in the slot where help was expected that Ben Brode made a video about it. By September the consensus was that Shaman had two tier-one decks and everyone else was choosing which one to lose to.\n\nThe 3 October 2016 patch is where the era's lesson is clearest. Blizzard nerfed Tuskarr Totemic and Rockbiter Weapon, and the local data shows both changes landing hard: Tuskarr fell from 71.0% to 15.5% of Shaman decks, Rockbiter from 66.4% to 18.7%. Two of the deck's most-played cards were effectively deleted. Midrange Shaman then became the single most-posted archetype of the very patch that nerfed it. Because the problem was never Tuskarr Totemic; the problem was that the class's next-best card at every cost was still the format's best card at that cost. The same patch behaviourally nerfed Yogg-Saron - not a text change, so it leaves no row in the local balance_changes table, but the deck archive registers it unmistakably: Yogg's presence in Mage falls from 45.6% to 12.6% overnight, and from 17.4% to 5.0% of all ranked decks. That is what a real nerf looks like in the data. Tuskarr's was too, and it did not matter.\n\nMean Streets of Gadgetzan then reorganised the format around three answers to the same question - how do you win from nowhere - and printed all three at once. The Kabal answer was highlander: Kazakus made Reno decks profitable rather than merely playable, and three of the five most-posted Gadgetzan archetypes (Renolock 5.0%, Reno Mage 4.6%, Reno Priest 4.1%) were the same restriction wearing different masks. The Jade Lotus answer was unbounded value: Jade Idol meant a Druid could not be fatigued and its threats grew forever, which removed attrition from the format entirely and is the proximate cause of Control Warrior's slide from 6.5% of posts in April to 2.1% in March. And the un-signposted answer was the Pirate package. Patches the Pirate and Small-Time Buccaneer together produced the strongest opening in the game's history: Patches appeared in 41.2% of Warrior, 39.1% of Rogue and 22.3% of Shaman ranked decks that era. Everything that could play a cheap Pirate did.\n\nWhat resulted was the most honest rock-paper-scissors Hearthstone has ever had. Pirates beat Jade, Jade outlasted Reno, Reno beat Pirates. Individual games were decided by the pairing more often than by the play, which is a coherent format and a miserable ladder. Blizzard's answer on 28 February 2017 was to nerf Small-Time Buccaneer to 1 Health and Spirit Claws to 2 mana - and, tellingly, to change the ladder itself, adding rank floors at 15, 10 and 5. The card nerfs worked: STB fell from 45.7% to 16.8% of Warrior decks and Spirit Claws from 49.4% to 12.4% of Shaman decks, Midrange Shaman fell from 4.2% to 2.6% of posts, and Jade Shaman and Jade Druid became the two largest archetypes of the final three weeks. But Patches itself was untouched, and its Warrior usage went up to 49.7% - the enabler was punished and the parasite thrived.\n\nThe era did not end because it was solved. It ended because the calendar ended it. On 6 April 2017 Journey to Un'Goro rotated Blackrock, TGT and League of Explorers out, took Tunnel Trogg, Totem Golem, Spirit Claws, Emperor Thaurissan, Reno Jackson and Brann Bronzebeard with them, and Hall-of-Famed Azure Drake, Sylvanas and Ragnaros - three cards that appeared in 43.7%, 18.4% and 17.6% of every ranked deck posted in the final expansion. Shaman's year-long reign, the Reno archetype, and the Classic staples that had propped up every value deck since 2014 all died in the same patch. That is the real verdict on the Year of the Kraken: for twelve months, the most effective balance tool Blizzard had was waiting.",
+  "evidence_notes": "GROUNDED IN LOCAL DATA (high confidence):\n- Set dates, sizes and rarity splits: sets_first_seen.json (OG build 12574 / 2016-04-25; KARA build 13921 / 2016-08-09; GANGS build 15590 / 2016-11-29 - all data-ship dates, days before public release) and cards.sqlite (OG 134 collectible, KARA 45, GANGS 132).\n- Every card name, class, set, cost and statline quoted in this dossier was checked against cards.sqlite. Corrections I made against my own recollection: Bloodsail Cultist is an OG Warrior card, not a Gadgetzan card; Southsea Deckhand, Frothing Berserker, Murloc Warleader and Sea Giant are Classic, not Gadgetzan; Doppelgangster (not 'Dopplegangster') is GANGS; Rockbiter Weapon and Charge in the DB show their POST-nerf text/cost because the DB stores latest state.\n- All balance changes flagged confirmed_in_local_db=true were located as rows in balance_changes with matching build numbers. Caveat: the 2016-04-25 build also contains hundreds of cosmetic 'None -> 0' and template-text rows that are NOT balance changes; I filtered those out.\n- Two important negatives: (1) the Yogg-Saron nerf of 2016-10-03 has NO row in balance_changes because the printed text never changed - the only Yogg row in the DB is a no-op from 2023. (2) The April 2017 Hall of Fame cannot be confirmed locally either: cards.sqlite has an empty HOF set and records Azure Drake / Sylvanas / Ragnaros under EXPERT1.\n\nEMPIRICAL DECK DATA (high confidence for what it measures, with an important caveat):\n- All archetype shares and era-wide card inclusion rates come from deck_aggregate.json, eras 'Old Gods' (29,668 decks), 'Karazhan' (13,811), 'Yogg Nerf' (17,686), 'Gadgetzan' (26,928) and 'Aggro Downfall' (4,814). This measures the share of RANKED decks POSTED on HearthPwn, not ladder playrate and not winrate. In these specific eras ~90% of ranked rows carry a non-Unknown author-entered archetype label (much better than the ~43% all-time figure in the README), so archetype shares here are meaningful, though they are spread across a long tail of labels and so understate any archetype's true share of games.\n- Class-conditional rates ('X% of Shaman decks ran Y'), the monthly class-share table, and the consensus decklists are MY OWN recomputation from the raw shards in research/decks_hearthpwn_shards/ (same underlying archive, same biases). Boundary dates differ slightly from deck_aggregate (I assign 2017-02-28 to Gadgetzan), so my per-era totals are within ~1-5% of the aggregate's.\n- DATA GOTCHA worth recording: the HearthPwn archive stores five Druid Choose One cards under their sub-card token names. Verified against card_history.json: 'Cut from Jade' = Jade Idol (CFM_602a), 'Awakened' = Raven Idol (LOE_115b), \"Nature's Wrath\" = Wrath (EX1_154b), 'Stellar Drift' = Starfall (NEW1_007a), \"Tiger's Fury\" = Mark of Nature (EX1_155a). A naive query for 'Jade Idol' returns 0% in Jade Druid decks; the true figure is 99.1%. No other class shows this substitution.\n- The representative_decklist fields are CONSENSUS lists I computed from the archive (the most-frequent 30 slots among all decks carrying that archetype label in that era), not any individual player's list. I included them only for tight archetypes with n>=750 where the top cards exceed ~75% frequency. They should be read as 'what the average posted list looked like', not as a tournament list.\n\nDIVERGENCE WORTH FLAGGING: the local deck-posting data does NOT reproduce the famous 'Shaman is 30% of the meta' figure. Shaman's monthly share of Standard ranked HearthPwn posts peaks at 16.3% (Jan 2017) and is only 9.6% in Nov 2016, the month vS reported Midrange Shaman above 30% at legend. Both can be true: posting rewards novelty, so a netdeck that everyone queues gets posted once and a brew gets posted repeatedly. Where the two disagree, the vS ladder figure is the better measure of what you FACED and the HearthPwn figure is the better measure of what people BUILT. I have cited each as such.\n\nRECOLLECTION / SECOND-HAND (medium or low confidence, flagged inline):\n- The vS '30% at legend' figure, the 'Patches+STB in ~50% of decks at rank 5+' figure, and all tier placements. vicioussyndicate.com, hsreplay.net, liquipedia, hearthstonetopdecks, hearthpwn and both wikis are Cloudflare-403 from this environment; everything from them arrives via search-result summaries, not direct reads.\n- Tournament results: BlizzCon 2016 (Pavel 4-2 DrHippi), the 2017 Winter Championship (ShtanUdachi 4-3 Fr0zen), Summer 2016 regionals (DrHippi/HotMEOWTH/Handsomeguy) and Spring 2016 regionals (ThijsNL/Cydonia) each appeared in at least two independent search summaries. The APAC Spring 2016 winner and Naiman's specific 2016 title I could NOT corroborate and have marked as unverified rather than guessing. No placement, prize figure or decklist in this dossier is invented; where I could not confirm something I left the field empty or said so."
+}

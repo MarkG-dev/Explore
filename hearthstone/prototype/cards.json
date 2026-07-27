@@ -1,0 +1,336 @@
+{
+  "game": "PARRY",
+  "schema_version": 1,
+  "notes": [
+    "cost means MANA for UNIT and SPELL cards, and GUARD for RESPONSE cards.",
+    "effect is the authoritative machine-readable string. modes[] is a pre-parsed convenience mirror for RESPONSE cards; engines may parse effect and ignore modes.",
+    "There is no neutral pool. Every card is faction-locked. This is deliberate: the study measured Gini 0.736 at peak neutral auto-include concentration."
+  ],
+  "effect_grammar": {
+    "unit_spell": "[<TRIGGER>>]<stmt>[;<stmt>]*",
+    "response": "RESPONSE|<Label>@<WINDOWS>><stmt>[;<stmt>]*|<Label>@<WINDOWS>><stmt>[;<stmt>]*",
+    "triggers": ["ARRIVAL", "FALL", "TURN_END", "FUSE"],
+    "windows": ["CAST", "DEPLOY", "STRIKE", "END", "ANY"],
+    "verbs": [
+      "NONE",
+      "TARGET:<selector>",
+      "DEAL:<n>:<selector>",
+      "HEAL:<n>:<selector>",
+      "ARMOR:<n>",
+      "DRAW:<n>",
+      "SUMMON:<atk>/<hp>:<Name>[:<KW>[,<KW>]]",
+      "BUFF:<atk>/<hp>:<selector>",
+      "GRANT:<KEYWORD>:<selector>",
+      "DESTROY:<selector>",
+      "RETURN:<selector>",
+      "STUN:<selector>",
+      "GAIN_GUARD:<n>",
+      "REFRESH_ATTACKS:<selector>",
+      "COUNTER",
+      "CANCEL_ATTACK"
+    ],
+    "selectors": [
+      "T", "TRIGGER", "SELF",
+      "UNIT", "ALLY_UNIT", "ENEMY_UNIT", "ANY",
+      "ENEMY_HERO", "SELF_HERO",
+      "ALL_UNITS", "ALL_ALLY_UNITS", "ALL_ENEMY_UNITS",
+      "RANDOM_ENEMY_UNIT"
+    ]
+  },
+  "keywords": [
+    {
+      "name": "Bulwark",
+      "rules_text": "Enemy units must attack this first.",
+      "why_it_earns_a_slot": "Without a blocker keyword the STRIKE window is the only defensive tool in the game and combat has no geometry. Bulwark is what makes choosing NOT to fire your Response survivable."
+    },
+    {
+      "name": "Swift",
+      "rules_text": "May attack the turn it arrives. That attack cannot hit the enemy hero.",
+      "why_it_earns_a_slot": "Gives the proactive deck immediate board impact without giving it uninteractive face burst, and it is the main reason the DEPLOY window is worth spending a Response on."
+    },
+    {
+      "name": "Ward",
+      "rules_text": "Ignores the first damage it would take.",
+      "why_it_earns_a_slot": "It is the cheapest tax on small damage Responses. A 2-damage Response mode stops being a free answer, so the defender must choose modes rather than reflex-firing."
+    },
+    {
+      "name": "Sealed",
+      "rules_text": "Playing this opens no response window.",
+      "why_it_earns_a_slot": "The pressure valve. Without an unanswerable subset, a fully armed defender makes every key play a coinflip. Sealed lets the aggressor buy certainty at a stat discount, and it is the single most important counter-lever the attacker has."
+    },
+    {
+      "name": "Fuse",
+      "rules_text": "Resolves at the start of your next turn.",
+      "why_it_earns_a_slot": "Option 7 of the study, shipped as a safety net exactly as recommended. Effects too big to be answered by one card are instead telegraphed a full turn early, so the prototype never needs an unanswerable haymaker."
+    }
+  ],
+  "tokens": [
+    { "name": "Outrider", "attack": 2, "health": 2, "keywords": ["Bulwark"] },
+    { "name": "Sentry", "attack": 3, "health": 3, "keywords": ["Bulwark"] }
+  ],
+  "cards": [
+    {
+      "id": "van_lancer", "name": "Lancer", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 1, "attack": 2, "health": 1, "keywords": ["Swift"],
+      "text": "Swift.", "effect": "NONE"
+    },
+    {
+      "id": "van_emberling", "name": "Emberling", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 1, "attack": 1, "health": 1, "keywords": [],
+      "text": "Arrival: Deal 1 to a unit.", "effect": "ARRIVAL>TARGET:UNIT;DEAL:1:T"
+    },
+    {
+      "id": "van_pikeman", "name": "Pikeman", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 2, "attack": 3, "health": 2, "keywords": [],
+      "text": "", "effect": "NONE"
+    },
+    {
+      "id": "van_flamebearer", "name": "Flamebearer", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 2, "attack": 2, "health": 2, "keywords": ["Swift"],
+      "text": "Swift.", "effect": "NONE"
+    },
+    {
+      "id": "van_runner", "name": "Signal Runner", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 2, "attack": 2, "health": 1, "keywords": [],
+      "text": "Arrival: Draw a card.", "effect": "ARRIVAL>DRAW:1"
+    },
+    {
+      "id": "van_keg", "name": "Powder Keg", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 3, "attack": 3, "health": 3, "keywords": [],
+      "text": "Fall: Deal 2 to all enemy units.", "effect": "FALL>DEAL:2:ALL_ENEMY_UNITS"
+    },
+    {
+      "id": "van_breaker", "name": "Vault Breaker", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 3, "attack": 4, "health": 2, "keywords": ["Sealed"],
+      "text": "Sealed.", "effect": "NONE"
+    },
+    {
+      "id": "van_drillmaster", "name": "Drillmaster", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 3, "attack": 2, "health": 3, "keywords": [],
+      "text": "Arrival: Your units gain +1/+0.", "effect": "ARRIVAL>BUFF:1/0:ALL_ALLY_UNITS"
+    },
+    {
+      "id": "van_siege", "name": "Siegebreaker", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 4, "attack": 5, "health": 3, "keywords": ["Swift"],
+      "text": "Swift.", "effect": "NONE"
+    },
+    {
+      "id": "van_firecaller", "name": "Firecaller", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 4, "attack": 3, "health": 3, "keywords": [],
+      "text": "Arrival: Deal 3 to the enemy hero.", "effect": "ARRIVAL>DEAL:3:ENEMY_HERO"
+    },
+    {
+      "id": "van_warlord", "name": "Warlord", "faction": "VANGUARD", "type": "UNIT",
+      "cost": 5, "attack": 4, "health": 4, "keywords": ["Sealed"],
+      "text": "Sealed. Arrival: Your units may attack again.",
+      "effect": "ARRIVAL>REFRESH_ATTACKS:ALL_ALLY_UNITS"
+    },
+    {
+      "id": "van_arrow", "name": "Loose Arrow", "faction": "VANGUARD", "type": "SPELL",
+      "cost": 1, "keywords": [],
+      "text": "Deal 2 to a unit.", "effect": "TARGET:UNIT;DEAL:2:T"
+    },
+    {
+      "id": "van_cinder", "name": "Cinder", "faction": "VANGUARD", "type": "SPELL",
+      "cost": 2, "keywords": [],
+      "text": "Deal 3 to any target.", "effect": "TARGET:ANY;DEAL:3:T"
+    },
+    {
+      "id": "van_horn", "name": "Charging Horn", "faction": "VANGUARD", "type": "SPELL",
+      "cost": 2, "keywords": [],
+      "text": "Give a unit +2/+0 and Swift.",
+      "effect": "TARGET:ALLY_UNIT;BUFF:2/0:T;GRANT:SWIFT:T"
+    },
+    {
+      "id": "van_warcry", "name": "Warcry", "faction": "VANGUARD", "type": "SPELL",
+      "cost": 3, "keywords": ["Sealed"],
+      "text": "Sealed. Your units gain +1/+1.", "effect": "BUFF:1/1:ALL_ALLY_UNITS"
+    },
+    {
+      "id": "van_detonation", "name": "Detonation", "faction": "VANGUARD", "type": "SPELL",
+      "cost": 4, "keywords": ["Fuse"],
+      "text": "Fuse. Deal 5 to the enemy hero.", "effect": "FUSE>DEAL:5:ENEMY_HERO"
+    },
+    {
+      "id": "van_backswing", "name": "Backswing", "faction": "VANGUARD", "type": "RESPONSE",
+      "cost": 1, "keywords": [],
+      "text": "Deal 2 to an attacker, or 1 to the enemy hero.",
+      "effect": "RESPONSE|Parry@STRIKE>DEAL:2:TRIGGER|Spark@ANY>DEAL:1:ENEMY_HERO",
+      "modes": [
+        { "label": "Parry", "windows": ["STRIKE"], "effect": "DEAL:2:TRIGGER" },
+        { "label": "Spark", "windows": ["ANY"], "effect": "DEAL:1:ENEMY_HERO" }
+      ]
+    },
+    {
+      "id": "van_cutcord", "name": "Cut the Cord", "faction": "VANGUARD", "type": "RESPONSE",
+      "cost": 2, "keywords": [],
+      "text": "Counter a spell, or summon a 2/2 Bulwark.",
+      "effect": "RESPONSE|Counter@CAST>COUNTER|Hold@ANY>SUMMON:2/2:Outrider:BULWARK",
+      "modes": [
+        { "label": "Counter", "windows": ["CAST"], "effect": "COUNTER" },
+        { "label": "Hold", "windows": ["ANY"], "effect": "SUMMON:2/2:Outrider:BULWARK" }
+      ]
+    },
+
+    {
+      "id": "sen_watchling", "name": "Watchling", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 1, "attack": 1, "health": 2, "keywords": [],
+      "text": "Arrival: Gain 1 Guard.", "effect": "ARRIVAL>GAIN_GUARD:1"
+    },
+    {
+      "id": "sen_shield", "name": "Shieldbearer", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 2, "attack": 1, "health": 4, "keywords": ["Bulwark"],
+      "text": "Bulwark.", "effect": "NONE"
+    },
+    {
+      "id": "sen_reefborn", "name": "Reefborn", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 2, "attack": 2, "health": 2, "keywords": [],
+      "text": "Fall: Gain 1 Guard.", "effect": "FALL>GAIN_GUARD:1"
+    },
+    {
+      "id": "sen_tidewalker", "name": "Tidewalker", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 3, "attack": 3, "health": 2, "keywords": ["Ward"],
+      "text": "Ward.", "effect": "NONE"
+    },
+    {
+      "id": "sen_stonewarden", "name": "Stonewarden", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 3, "attack": 2, "health": 4, "keywords": ["Bulwark"],
+      "text": "Bulwark.", "effect": "NONE"
+    },
+    {
+      "id": "sen_beacon", "name": "Beacon", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 4, "attack": 2, "health": 4, "keywords": [],
+      "text": "End of turn: Gain 1 Guard.", "effect": "TURN_END>GAIN_GUARD:1"
+    },
+    {
+      "id": "sen_vigilkeeper", "name": "Vigilkeeper", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 4, "attack": 2, "health": 5, "keywords": ["Bulwark"],
+      "text": "Bulwark. Arrival: Gain 1 Guard.", "effect": "ARRIVAL>GAIN_GUARD:1"
+    },
+    {
+      "id": "sen_oracle", "name": "Wardstone Oracle", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 5, "attack": 4, "health": 4, "keywords": [],
+      "text": "Arrival: Draw 2 cards.", "effect": "ARRIVAL>DRAW:2"
+    },
+    {
+      "id": "sen_colossus", "name": "Sea Colossus", "faction": "SENTINEL", "type": "UNIT",
+      "cost": 6, "attack": 5, "health": 7, "keywords": ["Bulwark"],
+      "text": "Bulwark.", "effect": "NONE"
+    },
+    {
+      "id": "sen_undertow", "name": "Undertow", "faction": "SENTINEL", "type": "SPELL",
+      "cost": 2, "keywords": [],
+      "text": "Return a unit to its owner's hand.", "effect": "TARGET:UNIT;RETURN:T"
+    },
+    {
+      "id": "sen_rite", "name": "Bulwark Rite", "faction": "SENTINEL", "type": "SPELL",
+      "cost": 2, "keywords": [],
+      "text": "Gain 5 Armor and 1 Guard.", "effect": "ARMOR:5;GAIN_GUARD:1"
+    },
+    {
+      "id": "sen_lowtide", "name": "Low Tide", "faction": "SENTINEL", "type": "SPELL",
+      "cost": 3, "keywords": [],
+      "text": "Deal 2 to all enemy units.", "effect": "DEAL:2:ALL_ENEMY_UNITS"
+    },
+    {
+      "id": "sen_current", "name": "Deep Current", "faction": "SENTINEL", "type": "SPELL",
+      "cost": 3, "keywords": [],
+      "text": "Draw 2 cards.", "effect": "DRAW:2"
+    },
+    {
+      "id": "sen_riptide", "name": "Riptide", "faction": "SENTINEL", "type": "SPELL",
+      "cost": 4, "keywords": [],
+      "text": "Destroy a unit.", "effect": "TARGET:UNIT;DESTROY:T"
+    },
+    {
+      "id": "sen_longwatch", "name": "The Long Watch", "faction": "SENTINEL", "type": "SPELL",
+      "cost": 5, "keywords": ["Fuse"],
+      "text": "Fuse. Destroy all units.", "effect": "FUSE>DESTROY:ALL_UNITS"
+    },
+    {
+      "id": "sen_heldbreath", "name": "Held Breath", "faction": "SENTINEL", "type": "RESPONSE",
+      "cost": 1, "keywords": [],
+      "text": "Gain 5 Armor, or heal a unit 4.",
+      "effect": "RESPONSE|Brace@ANY>ARMOR:5|Mend@ANY>TARGET:ALLY_UNIT;HEAL:4:T",
+      "modes": [
+        { "label": "Brace", "windows": ["ANY"], "effect": "ARMOR:5" },
+        { "label": "Mend", "windows": ["ANY"], "effect": "TARGET:ALLY_UNIT;HEAL:4:T" }
+      ]
+    },
+    {
+      "id": "sen_secondthought", "name": "Second Thought", "faction": "SENTINEL", "type": "RESPONSE",
+      "cost": 2, "keywords": [],
+      "text": "Counter a spell, or draw 2.",
+      "effect": "RESPONSE|Counter@CAST>COUNTER|Read@ANY>DRAW:2",
+      "modes": [
+        { "label": "Counter", "windows": ["CAST"], "effect": "COUNTER" },
+        { "label": "Read", "windows": ["ANY"], "effect": "DRAW:2" }
+      ]
+    },
+    {
+      "id": "sen_undercurrent", "name": "Undercurrent", "faction": "SENTINEL", "type": "RESPONSE",
+      "cost": 2, "keywords": [],
+      "text": "Bounce an arriving unit, or hit an attacker for 4.",
+      "effect": "RESPONSE|Sink@DEPLOY>RETURN:TRIGGER|Break@STRIKE>DEAL:4:TRIGGER",
+      "modes": [
+        { "label": "Sink", "windows": ["DEPLOY"], "effect": "RETURN:TRIGGER" },
+        { "label": "Break", "windows": ["STRIKE"], "effect": "DEAL:4:TRIGGER" }
+      ]
+    },
+    {
+      "id": "sen_coldfront", "name": "Cold Front", "faction": "SENTINEL", "type": "RESPONSE",
+      "cost": 2, "keywords": [],
+      "text": "Stop an attack, or deal 3 to an arriving unit.",
+      "effect": "RESPONSE|Freeze@STRIKE>CANCEL_ATTACK;STUN:TRIGGER|Chill@DEPLOY>DEAL:3:TRIGGER",
+      "modes": [
+        { "label": "Freeze", "windows": ["STRIKE"], "effect": "CANCEL_ATTACK;STUN:TRIGGER" },
+        { "label": "Chill", "windows": ["DEPLOY"], "effect": "DEAL:3:TRIGGER" }
+      ]
+    },
+    {
+      "id": "sen_reversal", "name": "Reversal", "faction": "SENTINEL", "type": "RESPONSE",
+      "cost": 3, "keywords": [],
+      "text": "Counter a spell and draw, or summon a 3/3 Bulwark.",
+      "effect": "RESPONSE|Turn@CAST>COUNTER;DRAW:1|Rally@ANY>SUMMON:3/3:Sentry:BULWARK",
+      "modes": [
+        { "label": "Turn", "windows": ["CAST"], "effect": "COUNTER;DRAW:1" },
+        { "label": "Rally", "windows": ["ANY"], "effect": "SUMMON:3/3:Sentry:BULWARK" }
+      ]
+    }
+  ],
+  "starter_decks": {
+    "VANGUARD_RUSH": {
+      "faction": "VANGUARD",
+      "size": 30,
+      "rule": "2 copies of each listed card",
+      "list": [
+        "van_lancer", "van_emberling", "van_arrow",
+        "van_pikeman", "van_flamebearer", "van_runner", "van_cinder",
+        "van_breaker", "van_drillmaster",
+        "van_siege", "van_firecaller", "van_detonation",
+        "van_warlord",
+        "van_backswing", "van_cutcord"
+      ],
+      "mana_curve": { "1": 3, "2": 4, "3": 2, "4": 3, "5": 1 },
+      "guard_cards": 2,
+      "excluded_from_pool": ["van_keg", "van_horn", "van_warcry"]
+    },
+    "SENTINEL_WATCH": {
+      "faction": "SENTINEL",
+      "size": 30,
+      "rule": "2 copies of each listed card",
+      "list": [
+        "sen_watchling",
+        "sen_shield", "sen_undertow",
+        "sen_stonewarden", "sen_lowtide", "sen_current",
+        "sen_beacon", "sen_vigilkeeper", "sen_riptide",
+        "sen_oracle", "sen_longwatch",
+        "sen_colossus",
+        "sen_heldbreath", "sen_secondthought", "sen_undercurrent"
+      ],
+      "mana_curve": { "1": 1, "2": 2, "3": 3, "4": 3, "5": 2, "6": 1 },
+      "guard_cards": 3,
+      "excluded_from_pool": ["sen_reefborn", "sen_tidewalker", "sen_rite", "sen_coldfront", "sen_reversal"]
+    }
+  }
+}

@@ -1,0 +1,469 @@
+{
+  "systemic_summary": "Hearthstone's problems are not a list of bad cards; they are one architectural decision propagating for thirteen years. The game has no response window. A turn is a sealed box: whatever the active player does resolves in full, and the opponent watches. Magic pays for its stack with rules complexity and slow play; Hearthstone bought speed and legibility by deleting interaction entirely, and then spent 2014-2026 printing content that the resulting engine cannot referee. Every other flaw is downstream. Because you cannot respond, the only counterplay to a combo is to kill the opponent first, so 'unanswerable' is a normal design state rather than a bug, and the balance team's only lever is the mana cost of the combo pieces. Because you cannot respond, output randomness (Yogg-Saron, Puzzle Box, Discover) is not a shared gamble but a coin flip resolved entirely inside one player's turn while the other is a spectator. Because you cannot respond, the design team cannot add depth through interaction, so it adds depth through card text instead - and the numbers show exactly that: minion statlines are perfectly flat across thirteen years (stat-per-mana 2.051 in 2013-2015 vs 2.058 in 2025-2026) while average rules text grew 47%, from 48.8 to 71.6 characters, and vanilla minions went from 1.9% of the set to effectively zero. This is COMPLEXITY creep, not power creep, and it is the honest finding. Complexity with no interaction produces solitaire: two players each executing a private engine, with the board as scoreboard rather than battlefield. On top of that engine sits a business model that ships 550+ new cards a year at ~273,000 dust to complete, rotates 75% of the printed card pool out of the legal format, and therefore funnels the non-paying player onto exactly one affordable netdeck per season - which is then re-costed under them: in 2023 alone Blizzard made 390 statline changes across 433 distinct cards on 24 separate patch days, 68% of them buffs. A card's printed numbers are no longer a stable fact about the game. The design brief for a successor should treat the response window as the load-bearing feature, not an optional complexity tax, and should treat every item below as a consequence of not having one.",
+
+  "measured_evidence": [
+    {
+      "claim": "Minion stat efficiency is flat across thirteen years - there is no raw power creep",
+      "number": "AVG((attack+health)/cost) for non-reprint minions cost>=1: 2.051 (2013-2015, Classic through LOE, n=429) vs 2.058 (2025-2026, Emerald Dream through Escape from Violet Hold, n=524). Per-set range across the whole history is 1.778 (Rastakhan/TROLL, 2018-11-30) to 2.205 (Sunken City, 2022-03-12), with no trend.",
+      "source": "cards.sqlite, cards table, is_reprint=0, type='MINION', cost>=1; reprint buckets CORE/LEGACY/VANILLA/PLACEHOLDER_202204 excluded; sets ordered by sets_first_seen.json"
+    },
+    {
+      "claim": "Rules text length rose sharply over the same period - complexity creep, not power creep",
+      "number": "AVG(LENGTH(text)) per set, markup stripped: 47.3 chars (Classic/EXPERT1, 2013-01-13) -> 67.8 (Wild West, 2023-10-03) -> 71.2 (Space, 2024-10-12) -> 77.5 (Cataclysm, 2026-02-09). Era averages: 48.8 (2013-2015) -> 62.6 (2020-2022) -> 71.6 (2025-2026), a 47% increase.",
+      "source": "cards.sqlite, cards.text with <tags>, [x] and newlines normalised; is_reprint=0; reprint buckets excluded"
+    },
+    {
+      "claim": "Cards with no rules text have been eliminated from the game",
+      "number": "Share of new minions (cost>=1) with empty text: 4.9% in Old Gods (2016-04-25), 4.0% in TGT (2015-08-18); 0.0% in every set from Darkmoon Faire (2020-10-17) to Escape from Violet Hold (2026-06-02) except two single cards in 2025. Share of all cards carrying rules text: 96.3% (Old Gods) -> 100.0% (every set 2020 onward).",
+      "source": "cards.sqlite, is_reprint=0, per card_set"
+    },
+    {
+      "claim": "Legendary density is stable as a percentage but rising in absolute terms because sets grew",
+      "number": "Legendary share of a set is flat at 15-19% throughout (13.5% EXPERT1, 17.0% Un'Goro, 16.9% Titans, 18.9% Cataclysm). Absolute legendaries printed per calendar year: 33 (2013), 46 (2016), 69 (2017-2018), 81 (2020), 100 (2023), 95 (2025). Set size grew from 135 cards (Un'Goro 2017 through Dragons 2019) to 170 (Darkmoon Faire 2020) to 183-194 (Lich King 2022 onward).",
+      "source": "cards.sqlite, rarity='LEGENDARY' by card_set and by substr(data_first_seen,1,4)"
+    },
+    {
+      "claim": "Only two cards in Hearthstone's entire history can counter anything an opponent does",
+      "number": "2 of 5,963 unique collectible cards (0.034%): Counterspell (Mage, Classic/EXPERT1, 2013-01-13, 3 mana) and Objection! (Mage, Revendreth, 2022-09-20, 3 mana). Both are Secrets, i.e. paid for and committed on a previous turn.",
+      "source": "cards.sqlite, is_reprint=0, text LIKE '%Counter it%'"
+    },
+    {
+      "claim": "Six of eleven classes have never had any on-opponent's-turn card at all",
+      "number": "75 unique Secrets exist, split Mage 23, Hunter 23, Paladin 15, Rogue 14. Druid, Priest, Shaman, Warlock, Warrior and Death Knight have zero. Only 52 cards in thirteen years even reference the opponent's turn, and every one is an automatic trigger, a passive stat swing (Tar Creeper, Un'Goro 2017-04-04) or a pre-committed Secret. Zero cards give the non-active player a decision.",
+      "source": "cards.sqlite, mechanics LIKE '%SECRET%' grouped by card_class; text LIKE '%opponent%turn%'"
+    },
+    {
+      "claim": "Randomness in card text roughly tripled",
+      "number": "Share of a set's cards whose text contains 'random': 8.2% (Classic/EXPERT1) -> 12.9% (TGT 2015) -> 13.7% (Lich King 2022) -> 20.6% (Space 2024) -> 28.4% (Across the Timeways/TIME_TRAVEL 2025-09-29) -> 21.5% (Escape from Violet Hold 2026-06-02).",
+      "source": "cards.sqlite, text LIKE '%random%' per card_set, is_reprint=0"
+    },
+    {
+      "claim": "Discover went from a League of Explorers experiment to a permanent fixture of every set",
+      "number": "375 cards carry the DISCOVER mechanic. Discover-text share by set: 0% before LOE, 20.0% in LOE itself (2015-11-10, 9 of 45 cards), then a permanent 5-11% of every subsequent expansion, peaking at 11.5% in The Lost City (2025-06-02, 21 cards).",
+      "source": "mechanics_index.json (DISCOVER count=375); cards.sqlite text LIKE '%Discover%' per set"
+    },
+    {
+      "claim": "Deckbuilding was dominated by a tiny neutral package - the Dr. Boom arc",
+      "number": "Dr. Boom (GVG, 2014-12-04, neutral legendary 7-mana 7/7) inclusion rate across HearthPwn ranked deck postings: 26.5% at GvG launch -> 43.8% (Undertaker Nerf era) -> 45.4% (TGT) -> 49.9% (Warsong Nerf era, Oct-Nov 2015) -> 44.6% (Explorers era, n=31,747 decks). At peak, one neutral 7-drop appeared in half of all posted ranked decks across all nine classes.",
+      "source": "deck_aggregate.json - measures deck-POSTING behaviour on HearthPwn, not ladder playrate and not winrate"
+    },
+    {
+      "claim": "Neutral cards crowded class cards out of deckbuilding entirely",
+      "number": "In the Explorers era (2015-11-12 to 2016-04-23, n=31,747 posted ranked decks) the twenty most-included cards were all neutral; the first class card is Frostbolt at rank 21 (12.8%). Across all 19 eras with n>=400, the top ten cards were 10/10 neutral in every single era without exception. The first class card ranks 12th-25th in every era measured.",
+      "source": "deck_aggregate.json cross-joined to cards.sqlite card_class"
+    },
+    {
+      "claim": "Highlander converged three classes onto the same deck",
+      "number": "In the Gadgetzan era (2016-12-01 to 2017-02-28, n=26,928 posted ranked decks), three of the six most-posted archetypes were Highlander decks running near-identical neutral packages: Renolock 4.95%, Reno Mage 4.55%, Reno Priest 4.07% - 13.6% of all posted ranked decks. Brann Bronzebeard hit 31.6% and Reno Jackson 20.7% inclusion in the same era. 22 cards in the game's history key off 'no duplicates'.",
+      "source": "deck_aggregate.json top_archetypes and top_cards; cards.sqlite text LIKE '%no duplicates%'"
+    },
+    {
+      "claim": "Class tools became universal - card draw, Discover and board clears are no longer class identity",
+      "number": "Number of the 11 classes printing each tool in a given release year: card draw 4/11 (2014) -> 11/11 (2022, 2024, 2025); Discover 0/11 (2014) -> 11/11 (2022, 2023, 2025); board clear ('all minions'/'all enemy minions') 3/11 (2014) -> 9/11 (2021-2025); direct damage to the enemy hero 0/11 (2014) -> 7/11 (2025). Hard removal is the one tool that stayed scarce: 1-4 classes per year throughout.",
+      "source": "cards.sqlite, non-neutral non-reprint cards grouped by substr(data_first_seen,1,4) and text predicate"
+    },
+    {
+      "claim": "Oppressive cards stayed live for months, and the median has only recently improved",
+      "number": "Median days from a card's first appearance in the client to its first statline nerf: 2,373 days for cards released 2014-2017 (n=48), 144 days for 2018-2021 (n=112), 111 days for 2022-2026 (n=227). Share nerfed within 30 days: 0% (2014-2017), 13% (2018-2021), 22% (2022-2026). Overall median across 387 nerfed cards: 152 days.",
+      "source": "cards.sqlite balance_changes joined to cards.data_first_seen; a nerf = cost increase or attack/health/durability decrease"
+    },
+    {
+      "claim": "Demon Hunter shipped broken and was patched on day two",
+      "number": "Demon Hunter card data first appears 2020-03-21; Ashes of Outland launched 2020-04-07. First nerf patch 2020-04-09 - two days after launch - hitting Aldrachi Warblades (durability 3->2), Imprisoned Antaen (5->6), Skull of Gul'dan (5->6) and Eye Beam. A second wave followed 2020-04-17 (Altruis the Outcast 3 mana 3/2 -> 4 mana 4/2, Battlefiend 2/2 -> 1/2, Glaivebound Adept 7/4 -> 6/4), then 2020-05-15, 2020-06-18 and 2020-07-08. 13 distinct Demon Hunter cards were changed within 100 days of launch, out of 45 printed.",
+      "source": "cards.sqlite balance_changes filtered to card_class='DEMONHUNTER', 2020; launch date via web (PC Gamer, Blizzard Watch, Hearthstone Top Decks)"
+    },
+    {
+      "claim": "Card values are no longer stable facts - re-costing is now continuous, and mostly upward",
+      "number": "Statline changes per year on unique (non-reprint) cards: 14 in 2014, 15 in 2016, 5 in 2017, 14 in 2018, then 62 (2020), 172 (2021), 118 (2022), 390 (2023), 205 (2024), 177 (2025). Buff share of those changes: 20% (2016), 14% (2018), then 62% (2021), 64% (2022), 68% (2023), 56% (2024), 63% (2026). The single largest patch day in the game's history is 2025-03-18: 251 unique cards changed, 443 events (303 cards / 535 events if reprint printings are counted separately).",
+      "source": "cards.sqlite balance_changes joined to cards, is_reprint=0, field in (cost, atk, health, durability). Note: balance_changes holds 3,432 rows total (3,207 against non-reprint cards) across 1,785 card ids; changelog.json carries a de-duplicated 2,695."
+    },
+    {
+      "claim": "Roughly a third of a modern set gets re-statted during its Standard life",
+      "number": "Share of a set's non-reprint cards later given a statline change: Perils in Paradise/ISLAND_VACATION (2024-06-17) 16.9% buffed + 14.8% nerfed = 31.7%; The Great Dark Beyond/SPACE (2024-10-12) 17.5% + 12.4% = 29.9%; Whizbang's Workshop (2024-02-02) 15.8% + 13.1% = 28.9%. Contrast Rastakhan/TROLL (2018-11-30): 2.2% buffed, 1.5% nerfed.",
+      "source": "cards.sqlite balance_changes grouped by originating card_set"
+    },
+    {
+      "claim": "Some cards are re-costed so many times they have no identity",
+      "number": "Cards changed on 4+ separate patch days since 2016: Runed Mithril Rod (Stormwind 2021-07-21) 5 patch days, cost 3->4->3->4->5; The Demon Seed (Stormwind) 5 patch days, requirement 6->8->6->8->10->12 damage; Reno, Lone Ranger (Wild West 2023-11-02) 5 patch days, cost 8->9->10->8 plus two rules rewrites; Wildpaw Gnoll 5; Mindrender Illucia (Scholomance) 4; Arkonite Defense Crystal (Space) 4. Runed Mithril Rod, The Demon Seed and Mindrender Illucia were all nerfed on 2021-09-15, reverted 2021-09-17, and re-nerfed 2021-09-30.",
+      "source": "cards.sqlite balance_changes, count(distinct date) per card_id"
+    },
+    {
+      "claim": "The annual dust wall more than doubled",
+      "number": "Dust to craft one full playset (2 copies, 1 of each legendary) of a calendar year's new non-reprint cards, at standard craft rates 40/100/400/1600: 106,200 (2013, 246 cards) -> 208,560 (2017, 405 cards) -> 262,240 (2022, 546 cards) -> 285,880 (2023, 583 cards) -> 273,000 (2025, 565 cards). Rarity mix is deliberately stable at ~38% common / 30% rare / 16% epic / 17% legendary, so the cost scales linearly with set count.",
+      "source": "cards.sqlite rarity counts per release year; craft costs are Blizzard's published rates, not from the database"
+    },
+    {
+      "claim": "Standard rotation makes three quarters of the printed game illegal",
+      "number": "5,963 unique collectible cards exist. 4,473 of them (75.0%) were released before 2024-01-01 and are Wild-only as of July 2026. Only 1,252 unique cards first appeared in the last 24 months. The Core set has been re-curated 13 times since 2021-03, re-issuing 289 printings, which is the mechanism by which Blizzard silently reverts old nerfs (e.g. Starving Buzzard reverted 5 mana 3/2 -> 2 mana 2/1 on 2021-03-30; Undertaker's original text restored the same day).",
+      "source": "cards.sqlite, is_reprint=0 by data_first_seen; card_set='CORE' grouped by month"
+    },
+    {
+      "claim": "Balance intervention is heavily concentrated on Priest, and mostly as rescue buffs",
+      "number": "Priest received 65 change events across 44 cards in 2023 alone - more Priest changes than the class saw in 2017-2022 combined (55 events). Of Priest's 123 lifetime statline changes, 72 (59%) are buffs. 2023 Priest buffs include Holy Champion (4 mana 3/5 -> 2 mana 1/4), Holy Nova (4->3 mana), Onyx Bishop (5->4), Lyra the Sunshard (5->4) and Drakonid Operative (5 mana 5/6 -> 4 mana 4/5) - all attempts to re-float a class that had fallen out of the format.",
+      "source": "cards.sqlite balance_changes joined to cards.card_class='PRIEST'"
+    },
+    {
+      "claim": "The mana curve did not get cheaper - the format's speed is not a costing problem",
+      "number": "Average printed mana cost per set has oscillated between 3.27 and 4.35 for thirteen years with no trend: 3.59 (Classic 2013), 3.99 (GvG 2014), 3.42 (Un'Goro 2017), 4.19 (Dalaran 2019), 3.27 (Barrens 2021), 3.73 (Titans 2023), 4.23 (Space 2024), 4.15 (Cataclysm 2026). Share of cards costing 3 or less is stable at 44-61%.",
+      "source": "cards.sqlite, cost per card_set, is_reprint=0"
+    },
+    {
+      "claim": "Class-count inflation outpaced content per class",
+      "number": "Unique cards per class: Priest 428, Paladin 427, Druid 421, Hunter 419, Warlock 418, Mage 418, Warrior 413, Rogue 412, Shaman 408 - all within 5% of each other over 13 years (~32/year each). Demon Hunter has 293 cards in 6 years (~49/year) and Death Knight 213 in 3.5 years (~61/year). 172 multi-class cards exist, 40 of them printed in 2020 alone (Scholomance dual-class) and 84 since 2023 (Tourist).",
+      "source": "cards.sqlite grouped by card_class, is_reprint=0; multi_class=1 by year"
+    }
+  ],
+
+  "issues": [
+    {
+      "title": "There is no response window: a turn is a sealed box",
+      "category": "core-interaction-model",
+      "severity": "critical",
+      "explanation": "Hearthstone has no stack, no priority passing, no instant speed, and no flash. Once the active player's turn begins, every action they take resolves to completion before the opponent regains any agency. The opponent is not a participant in that turn; they are an audience. This is the single decision from which almost every other structural failure in this document follows. Contrast Magic: the Magic stack is expensive - it demands priority rounds, split-second timing rules, a 700-page comprehensive rulebook, judges, and it is the primary reason paper Magic games run long and digital Magic clients feel slow. Hearthstone deliberately bought its 75-second turn timer, its instant readability and its phone-viable format by paying for them with interaction. That was a coherent trade in 2014 for a game of 8-mana minions trading on a 7-slot board. It stopped being coherent the moment the card pool grew combos, engines and 10-mana payoffs, because the engine has no mechanism for a player to say 'no'. Note precisely what a response window buys that Hearthstone cannot buy any other way. First, it converts a resource advantage into a decision: holding a counterspell is a real cost paid in tempo, and choosing when to spend it is skill expression that persists across every card in the format, not just the ones designed with counterplay in mind. Second, it makes bluffing possible - open mana is information, and misreading it is a punishable mistake. Third, and most importantly for game health, it means the design team does not have to anticipate every broken interaction in advance, because the players are the immune system. Hearthstone has no immune system, so Blizzard must be the immune system, by patch, after the fact - which is why the median card sits live for 111-152 days before its first nerf. Fourth, it makes the opponent's turn interesting to watch, which is the difference between a card game and a turn-based puzzle played next to a stranger. The measured evidence that Hearthstone never solved this: exactly two cards in 5,963 can counter anything (Counterspell, 2013; Objection!, 2022), and only 52 cards in thirteen years even reference the opponent's turn, none of which give the non-active player a choice.",
+      "concrete_examples": [
+        "Counterspell (Mage, EXPERT1/Classic, 2013-01-13, 3 mana Secret) and Objection! (Mage, Revendreth, 2022-09-20, 3 mana Secret) are the only two cards in the game's history whose text contains 'Counter it' - and both must be paid for and committed on a prior turn, then fire automatically at whatever comes next",
+        "Tar Creeper (Un'Goro, 2017-04-04, 3 mana 1/5, 'Taunt. Has +2 Attack during your opponent's turn') is representative of the 52 opponent's-turn cards: a passive stat swing, not a decision",
+        "Reno, Lone Ranger (Wild West, 2023-11-02, neutral legendary) currently reads 'Battlecry: If your deck started with no duplicates, remove all enemy minions from the game' - a full, permanent, un-recoverable board wipe with literally no legal way for the opponent to respond; it needed 5 separate balance patches (cost 8->9->10->8) because cost was the only lever available",
+        "Mindrender Illucia (Scholomance, 2020-07-24) takes control of the opponent's hand for a turn; the opponent's only counterplay is to have already played out their hand"
+      ],
+      "blizzard_response": "None, ever. Blizzard has consistently and publicly defended the no-instant-speed model as a deliberate accessibility choice, and the closest they came to a response window is the Secret - a pre-paid, auto-firing trigger. In thirteen years the count of counter-effects went from one to two.",
+      "lesson_for_new_game": "Decide the interaction model first and build the content pipeline around it, not the reverse. A response window does not have to be Magic's full stack: a single 'one held card, playable on the opponent's turn' slot, or a mana bank that only funds reactive plays, or an explicit reaction phase at end of turn, gives 80% of the benefit at 10% of the rules cost. The critical property is that the non-active player must have at least one real choice per opponent turn, because that is what makes the opponent's turn worth watching, makes bluffing possible, and outsources balance policing from the patch team to the playerbase. If you ship without one, accept that you have signed up to be the only immune system your game will ever have."
+    },
+    {
+      "title": "Secrets are a counterfeit response mechanic and they made the problem worse",
+      "category": "core-interaction-model",
+      "severity": "critical",
+      "explanation": "Secrets look like Hearthstone's answer to instant-speed but they are structurally the opposite. A Secret is paid for on your turn, at full mana, before you know what you are answering; it occupies a face-down slot the opponent can see the existence of; its trigger is mandatory and its target is chosen by the rules engine, not by you; and the set of live Secrets in a format is small enough that opponents play around all of them at once. The result is not interaction but a guessing minigame, and it degraded further as the pool grew: with 23 Mage Secrets in the game, a face-down Mage Secret conveys almost no information, so both players default to the statistically safe line and no reading happens. Worse, Secrets are class-locked to four classes, which means the game's only pretend-interaction is unavailable to more than half the roster. Druid, Priest, Shaman, Warlock, Warrior and Death Knight have never had a single card that does anything at the opponent's discretion on the opponent's turn - not once in thirteen years. And because Secrets fire automatically, they are exploitable in the wrong direction: a skilled opponent triggers them deliberately at the cheapest moment, so a well-played Secret is often worse than a blank.",
+      "concrete_examples": [
+        "75 unique Secrets exist in the whole game: Mage 23, Hunter 23, Paladin 15, Rogue 14, and zero for the other six classes",
+        "Ice Block (EXPERT1, 2013-01-13, 3 mana, 'Secret: When your hero takes fatal damage, prevent it and become Immune this turn') was the load-bearing card of Freeze Mage and Quest Mage for years - a mandatory, un-targetable, un-answerable extra turn",
+        "Mirror Entity (EXPERT1, 2013-01-13) has been re-worded or re-costed on 5 separate occasions, more than almost any Secret, because 'automatically copies the next minion' has no skill dial to turn",
+        "Explosive Trap (EXPERT1) has 3 balance changes; Vaporize and Counterspell 2 each - the whole mechanic is chronically hard to cost because the player who owns it makes no decisions with it"
+      ],
+      "blizzard_response": "Iterative: Secrets were given a visible class-coloured indicator, Hunter/Paladin/Rogue Secret pools were expanded, and Ice Block was eventually Hall-of-Famed out of Standard. The mechanic itself was never re-architected.",
+      "lesson_for_new_game": "Do not ship a pre-commitment mechanic as a substitute for a response window. If a card is going to affect the opponent's turn, the owner must choose whether and when it fires; otherwise you have built a random-number generator with extra steps. And if you do have reactive cards, they must be available to every class, or you have permanently divided your roster into classes that play a card game and classes that play solitaire."
+    },
+    {
+      "title": "Unanswerable combo and OTK decks are beatable only by racing, never by responding",
+      "category": "combo-otk",
+      "severity": "critical",
+      "explanation": "In a game with a response window, a combo deck is a deck that must resolve its combo through the opponent's held answers, so it pays for redundancy, protection and timing. In Hearthstone there is nothing to resolve through. If your combo assembles, it resolves; the opponent's entire counterplay budget is spent before your turn begins. This makes 'inevitability' - the guarantee of winning if the game goes long enough - a dominant strategy rather than a risky one, and it collapses the game's strategic triangle into a single axis: clock speed. Control decks do not beat combo decks by holding up answers; they beat them by having a faster clock or by praying. The consequence for the design team is that they cannot print interesting combos, because every combo is either unbeatable or unplayable with nothing in between - the only dial is the mana cost of the pieces. Every named OTK in Hearthstone history was fixed by making a piece cost more or by rotating it, never by giving opponents a tool. The specific pathology to note for a successor: cost-reduction and mana-cheat effects are load-bearing in almost every one of these, because with no response window the only remaining constraint on a combo is the mana curve, so any card that breaks the mana curve breaks the format.",
+      "concrete_examples": [
+        "Emperor Thaurissan (BRM, 2015-03-31, 5 mana 4/4, 'At the end of your turn, reduce the Cost of cards in your hand by (1)') is the single most enabling combo card ever printed; it hit 35.2% inclusion in posted ranked decks in the Blackrock era and was still at 16-25% four eras later - it was cost-nerfed once and otherwise left alone for years",
+        "Aviana (TGT, 2015-08-18, 9 mana, 'Your minions cost (1)') plus Kun the Forgotten King (Gangs, 2016-11-29, 10 mana, 'Choose One - Gain 10 Armor; or Refresh your Mana Crystals') - the classic Malygos Druid engine; Kun has zero balance changes to this day",
+        "Mecha'thun (Boomsday, 2018-08-02, 10 mana neutral legendary, 'Deathrattle: If you have no cards in your deck, hand, and battlefield, destroy the enemy hero') - a card whose entire text is 'you win, and there is no response'; zero balance changes",
+        "Open the Waygate (Un'Goro, 2017-04-04, Mage quest) rewarded Time Warp, an extra turn; the only fix available was raising the requirement from 6 to 8 spells, on 2020-04-17, three years after printing",
+        "Shudderwock (Witchwood, 2018-04-10, 9 mana, 'Repeat all other Battlecries from cards you played this game') - never received a single balance change; it was managed entirely by rotating its enablers",
+        "Wheel of DEATH!!! (Whizbang's Workshop, 2024-03-19, Warlock legendary, 'Destroy your deck. In 5 turns, destroy the enemy hero') - an explicit five-turn timer the opponent cannot interact with at all"
+      ],
+      "blizzard_response": "Consistent and narrow: raise the mana cost of one piece, or let rotation remove it. Force of Nature was changed on 2016-04-25 (Treants lost Charge) to kill the Druid OTK; Sorcerer's Apprentice went 2->4 mana on 2022-01-19 to kill Ignite Mage, then back to 2 mana on 2024-08-29 once the enablers had rotated. The lever is always cost, never counterplay.",
+      "lesson_for_new_game": "Combo decks are healthy only when the opponent can spend resources to fight the combo turn itself. If you will not give players that, you must instead give the designers a hard structural cap - no cost reduction below a floor, no extra turns, no 'destroy the enemy hero' text, no free mana refresh - and enforce it as a printing rule, not a costing judgement. Otherwise the ban-hammer is the only tool and it always arrives months late."
+    },
+    {
+      "title": "Output randomness is far more damaging without a response window than with one",
+      "category": "randomness",
+      "severity": "critical",
+      "explanation": "The standard input/output randomness distinction says input randomness (shuffled decks, opening hands) is good because it creates varied problems the player then solves, while output randomness (random effects resolving after the decision) is bad because it decouples decisions from outcomes. That framing is incomplete, and Hearthstone is the proof. In a game with a response window, output randomness is at least a shared event: when a random effect resolves on the stack, the opponent still holds cards, still has mana, and can often respond to the result. The gamble is jointly experienced and jointly mitigated. In Hearthstone the random effect resolves inside a sealed turn, so its outcome is fully realised before the opponent can act at all. A high-variance card therefore does not create a shared gamble - it creates a private lottery whose result is delivered to the opponent as a finished fact. This is why Yogg-Saron felt uniquely unfair rather than merely swingy: the loser of the coin flip had no turn in which the coin was still in the air. Compounding this, the modern design language has pushed randomness up steadily as a substitute for interaction, from 8.2% of Classic cards mentioning 'random' to 28.4% of Across the Timeways (2025). Discover is the partial defence: it is randomness that a player then makes a choice about, which converts output randomness back into a decision. But Discover has its own cost, covered separately below.",
+      "concrete_examples": [
+        "Yogg-Saron, Hope's End (Old Gods, 2016-04-25, 10 mana 7/5, 'Battlecry: Cast a random spell for each spell you've cast this game (targets chosen randomly)') reached 17.4% inclusion in posted ranked decks in the Karazhan era before being changed; it was the defining card of an entire era of complaint",
+        "Puzzle Box of Yogg-Saron (Uldum, 2019-07-26, Mage epic, 10 mana, 'Cast 10 random spells (targets chosen randomly)') shipped three years after the Yogg backlash with zero balance changes to this day - the lesson was not learned, it was doubled",
+        "Yogg-Saron, Unleashed (Titans, 2023-09-13) was printed at 15 mana, then re-costed to 9, then 10, then 9 again across three patches - the design team could not find a price for a card whose output has no floor",
+        "Yogg-Saron, Master of Fate (Darkmoon Faire, 2020-11-07, 'spin the Wheel of Yogg-Saron') - a literal roulette wheel as a card",
+        "Randomness density: 8.2% of Classic cards mention 'random'; 20.6% of The Great Dark Beyond (2024-10-12); 28.4% of Across the Timeways (2025-09-29)"
+      ],
+      "blizzard_response": "Yogg-Saron, Hope's End was changed in October 2016 so that it stops casting spells if it is removed mid-battlecry, and later moved to Wild. Blizzard has publicly defended high-randomness cards as necessary for the 'story moment' and for streaming appeal, and has kept printing them - Puzzle Box (2019), Master of Fate (2020), Unleashed (2023).",
+      "lesson_for_new_game": "State the rule as: output randomness costs a game one unit of fairness per unit of variance, multiplied by the number of turns before the opponent can respond. In a game with instant-speed answers that multiplier is near zero. In a sealed-turn game it is the full turn. If your game has no response window, cap output variance hard, and prefer the Discover pattern - randomise the options, let the player choose - because a choice restores the decision-outcome link. And never print a card whose variance range spans 'nothing' to 'wins the game'; there is no price for that card."
+    },
+    {
+      "title": "Complexity creep, not power creep - the statlines are flat and the text is not",
+      "category": "power-complexity-creep",
+      "severity": "critical",
+      "explanation": "The community narrative is 'power creep', and the measured data says that narrative is wrong in an interesting way. Minion stat efficiency is genuinely, remarkably flat: (attack+health)/cost averages 2.051 across 2013-2015 and 2.058 across 2025-2026, with per-set variation (1.778 to 2.205) that is noise, not trend. Blizzard has held the raw-stats line with real discipline. What grew is text. Average rules-text length rose 47%, from 48.8 characters per card in the Classic-to-LOE era to 71.6 in 2025-2026, and vanilla minions - cards with no text at all - went from ~2-5% of a set to structurally zero: every set from Darkmoon Faire (2020) onward is 100% rules text. That is complexity creep, and it is a different disease with different symptoms. Power creep makes old cards unplayable; complexity creep makes the board state unreadable, makes each turn longer to compute, makes new-player onboarding harder every year, and - critically for a game with no response window - it front-loads all that computation into one player's private turn while the other watches. The second-order effect is that complexity became the only remaining design lever. Because interaction is off the table and raw stats are held flat, the only way to make card N+1 feel different from card N is to add a clause. So sets grew both wider (135 cards in 2017-2019 -> 194 in The Great Dark Beyond, 2024) and denser (77.5 characters average in Cataclysm, 2026). This is a treadmill with no brake: the text budget can only go up.",
+      "concrete_examples": [
+        "Stat-per-mana by era, non-reprint minions cost>=1: 2.051 (2013-2015, n=429), 1.942 (2016-2017, n=501), 1.872 (2018-2019, n=572), 2.046 (2020-2022, n=722), 2.028 (2022-2024, n=803), 2.058 (2025-2026, n=524) - flat",
+        "Average text length by set: 47.3 (Classic/EXPERT1 2013), 49.7 (Un'Goro 2017), 65.6 (Lich King 2022), 71.2 (Space 2024), 77.5 (Cataclysm 2026)",
+        "Vanilla minion share: 4.9% in Old Gods (2016), 4.0% in TGT (2015), 0.0% in every set from 2020-10-17 to 2026-06-02 bar two single cards",
+        "The Ceaseless Expanse (Space, 2024-10-22, neutral legendary) costs 100 mana and reads 'Costs (1) less for each time a card was drawn, played, or destroyed. Battlecry: Destroy all other minions, cards in hands, and decks' - it was re-statted from 15/15 to 10/10, then re-costed to 125, then back to 100. A card whose printed cost is a three-digit number is the endpoint of the complexity treadmill",
+        "Zilliax Deluxe 3000 (Whizbang's Workshop, 2024-03-19, 0 mana neutral legendary, 'While building your deck, customize your very own Zilliax Deluxe 3000!') - a card that is a deckbuilding subsystem"
+      ],
+      "blizzard_response": "Blizzard has repeatedly and publicly said they are cautious about power creep, and the stat data vindicates that claim. They have not treated text-length growth as a tracked design constraint at all; the Core set re-curation (13 refreshes since 2021) is the only complexity-reduction mechanism, and it operates on the Standard pool, not on new printings.",
+      "lesson_for_new_game": "Budget rules text explicitly, per set, as a hard number, and publish it internally the way you publish a mana curve. Reserve a fixed floor of vanilla and near-vanilla cards in every set - not for power reasons but for board-reading speed and onboarding. And recognise the causal chain: if you delete interaction, complexity becomes your only lever, and the treadmill starts on day one. A response window is also a complexity budget, because interaction generates depth without generating text."
+    },
+    {
+      "title": "A handful of neutral cards ate deckbuilding",
+      "category": "card-concentration",
+      "severity": "critical",
+      "explanation": "Deck diversity in Hearthstone was always partly an illusion produced by class labels. Underneath the nine class shells, the same neutral package was mandatory. The measured concentration is severe and remarkably persistent: across all 19 HearthPwn eras with n>=400, the ten most-included cards were 10/10 neutral in every single era - not once did a class card crack the top ten in four years of data. In the Explorers era (n=31,747 posted ranked decks) the top TWENTY cards were all neutral; the highest class card, Frostbolt, sits at rank 21 with 12.8%. This is the structural failure: neutral cards compete against nine class card pools simultaneously, so any neutral card costed to be merely 'good' is auto-include everywhere, and the deckbuilding decision space collapses to 'which 8-12 flexible slots do I have left'. The Dr. Boom arc is the cleanest single example available: a 7-mana 7/7 neutral legendary that climbed from 26.5% at GvG launch to 49.9% in the Warsong-Nerf era - half of all posted ranked decks, in every class, ran it - and was never nerfed. It only left because Standard rotation removed it. The other clean marker is that the concentration is a floor, not a spike: the top ten cards accounted for 2.9-3.1 of the 30 slots in an average posted deck during 2015-2016, and never dropped below 2.0 in any era.",
+      "concrete_examples": [
+        "Dr. Boom (GVG, 2014-12-04, 7 mana 7/7 neutral legendary): 26.5% -> 43.8% -> 41.4% -> 45.4% -> 49.9% -> 44.6% inclusion across six consecutive eras, zero balance changes to its statline",
+        "Sludge Belcher (Naxxramas, 2014-07-22, 5 mana 3/5 rare): 30.7-41.5% inclusion for seven consecutive eras - a rare, not even a legendary, that every deck ran",
+        "Piloted Shredder (GVG, 4 mana 4/3 common, 'Deathrattle: Summon a random 2-Cost minion'): peaked at 38.9%, never once received a balance change",
+        "Azure Drake (EXPERT1, 5 mana 4/5, 'Spell Damage +1. Battlecry: Draw a card'): present in every one of the 19 measured eras, ranging 10.9% to 43.7%, and the single most durable auto-include in the dataset",
+        "Explorers era (n=31,747): ranks 1-20 are Dr. Boom, Piloted Shredder, Sludge Belcher, Big Game Hunter, Azure Drake, Loatheb, Emperor Thaurissan, Antique Healbot, Ironbeak Owl, Sylvanas Windrunner, Knife Juggler, Defender of Argus, Brann Bronzebeard, Zombie Chow, Haunted Creeper, Reno Jackson, Abusive Sergeant, Acolyte of Pain, Mad Scientist, Justicar Trueheart - all neutral"
+      ],
+      "blizzard_response": "Blizzard's stated solution was Standard rotation (announced 2016) - remove the auto-includes on a two-year timer rather than nerf them. The Classic-card nerf wave of 2016-04-25 and the later Hall of Fame programme retired a handful (Azure Drake was eventually rotated). But the structural cause - a large, always-legal neutral pool competing against nine class pools - was never addressed, and the pattern immediately re-formed around Brann Bronzebeard (31.6% in Gadgetzan) and Reno Jackson.",
+      "lesson_for_new_game": "Neutral/colourless cards must be costed as if they were nine cards, because they are. Either keep the neutral pool deliberately weak and small (support and filler only, never a payoff), or delete the neutral category entirely and give every class its own version of every effect. Track the metric directly: if any card's inclusion rate exceeds ~25% across more than two classes, it is a design failure regardless of its winrate. And measure the top-N inclusion sum per format as a first-class health metric - Hearthstone's sat near 3 of 30 slots for years and nobody treated that as an alarm."
+    },
+    {
+      "title": "Discover homogenises the format it was invented to diversify",
+      "category": "homogenisation",
+      "severity": "major",
+      "explanation": "Discover is Hearthstone's best mechanic and one of its most corrosive. It solves output randomness elegantly - randomise three options, let the player choose, and the decision-outcome link is restored - which is exactly why it spread from a 9-card experiment in League of Explorers (2015) to a permanent 5-11% of every set for the next decade, 375 cards in total. The corrosion is second-order. Discover makes every deck's late game converge, because a Discover effect draws from a class or type pool rather than from your 30 cards, so two different decks in the same class end up playing the same cards from turn 7 onward. It erases the deckbuilding decision retroactively: if you can Discover a board clear, you did not need to include a board clear, so the flexible slots that survived the neutral-package tax get spent on Discover engines instead of on differentiated choices. And it makes matchups less predictable in the wrong direction - not 'my opponent might have X' but 'my opponent will generate a perfect answer from outside their deck', which is unpredictability without information. The Zephrys pattern is the extreme: a card that does not randomise at all but simply computes the correct answer and hands it to you.",
+      "concrete_examples": [
+        "375 cards carry the DISCOVER mechanic; it appears in 5-11% of every set from Un'Goro (2017) onward, peaking at 11.5% in The Lost City (2025-06-02)",
+        "Zephrys the Great (Uldum, 2019-07-26, 2 mana 3/2 neutral legendary, 'Battlecry: If your deck has no duplicates, wish for the perfect card') is Discover with the choice removed and the correctness guaranteed - and it has never received a balance change",
+        "Marin the Manager (Perils in Paradise, 2024-06-17, 7 mana neutral legendary, 'Battlecry: Choose a fantastic treasure. Shuffle the other 3 into your deck') - by 2024 the pattern had escalated from 'discover a card' to 'discover a game-winning treasure'",
+        "Netherspite Historian (Karazhan, 2016-08-09, 2 mana 1/3, 'Battlecry: If you're holding a Dragon, Discover a Dragon') is the archetypal early version: a cheap body that guarantees the deck never runs out of the exact card it needs"
+      ],
+      "blizzard_response": "Blizzard narrowed some Discover pools (e.g. restricting to a class or a tribe rather than all cards) and has occasionally cut Discover cards from Standard, but has continued to print Discover at a steady 5-11% of every set for ten straight years. It is treated as a core evergreen keyword, not a risk.",
+      "lesson_for_new_game": "Discover-style choose-from-random is the right way to make randomness fair, and you should use it - but treat card generation from outside the deck as a scarce, expensive resource with a hard per-set cap, not an evergreen keyword. If a meaningful share of the cards a player plays never came from their deck, the deck stops being the unit of strategic expression, and your deckbuilding game has quietly become a draft game played badly."
+    },
+    {
+      "title": "Highlander is a deckbuilding constraint that produces less deckbuilding",
+      "category": "homogenisation",
+      "severity": "major",
+      "explanation": "Highlander ('if your deck has no duplicates') presents itself as the deepest deckbuilding constraint in the game and delivers the opposite. When singleton is a requirement, the optimal 30 cards are far more determined than in a 2-of format, because there is no redundancy budget to spend on differentiation - you play the single best card at each cost slot and role, and so does everyone else in your class. The empirical result in the only era with deck data is stark: in Gadgetzan (n=26,928 posted ranked decks), three of the six most-posted archetypes were Highlander decks - Renolock 4.95%, Reno Mage 4.55%, Reno Priest 4.07%, together 13.6% of everything posted - and they shared a near-identical neutral core (Brann Bronzebeard at 31.6%, Reno Jackson at 20.7%, Kazakus at 15.5%). Three different classes, one deck. The pattern was not a one-off: Blizzard has returned to Highlander in 2015 (LOE), 2016 (Gangs), 2019 (Uldum, 5 cards), 2019 (Dragons) and 2023-2024 (Wild West, 9 cards) - 22 cards in total - and each return produces the same convergence, because the payoff cards must be enormous to justify the constraint, and enormous neutral payoffs are the concentration problem from the previous item.",
+      "concrete_examples": [
+        "Reno Jackson (LOE, 2015-11-10, 6 mana 4/6, 'Battlecry: If your deck has no duplicates, fully heal your hero') - the original, and effectively an unanswerable full reset of the aggro clock",
+        "Kazakus (Gangs, 2016-11-29, 4 mana 3/3), Raza the Chained (Gangs, Priest), Inkmaster Solia (Gangs, Mage), Krul the Unshackled (Gangs, Warlock) - a whole Highlander cycle shipped at once",
+        "Reno, Lone Ranger (Wild West, 2023-11-02, neutral legendary): the 2023 return of the pattern, needing 5 separate balance patches and two full rules rewrites, ending as 'remove all enemy minions from the game'",
+        "Wild West (2023-10-03) printed 9 'no duplicates' cards in a single set - the largest Highlander push in the game's history"
+      ],
+      "blizzard_response": "Raza the Chained was changed on 2018-02-06 to break the Razakus Priest engine. Reno, Lone Ranger was re-costed four times in fourteen months. Blizzard has never stopped returning to the mechanic; the 2023-2024 Wild West cycle was the largest ever.",
+      "lesson_for_new_game": "Any deckbuilding constraint whose payoff is a single enormous card converges the format rather than diversifying it, because the constraint removes redundancy while the payoff removes choice. If you want singleton play, make it a format with its own ladder, not a card, and make the reward structural (extra starting resources, larger deck) rather than a game-ending battlecry."
+    },
+    {
+      "title": "Balance velocity: oppressive cards stayed live for a median of five months",
+      "category": "balance-velocity",
+      "severity": "major",
+      "explanation": "Because there is no response window, the playerbase cannot police a broken card - only the patch team can. That makes patch latency a first-order property of the game's health rather than an ops metric, and for most of Hearthstone's history the latency was catastrophic. Across all 387 cards that ever received a statline nerf, the median gap from first appearance in the client to first nerf is 152 days. Broken out by release cohort the trend is real and worth crediting: cards released 2014-2017 waited a median 2,373 days (they were mostly fixed by the 2021 Core re-issue or not at all), 2018-2021 cards 144 days, 2022-2026 cards 111 days, and the share nerfed within 30 days went 0% -> 13% -> 22%. So Blizzard genuinely got faster. But 111 days is still an entire mini-set cycle, and the modern cadence has a second problem: the fix arrives so often that the format never settles. There were 390 statline changes in 2023 alone across 24 patch days, and the largest single patch day in history (2025-03-18) touched 251 distinct unique cards.",
+      "concrete_examples": [
+        "Undertaker (Naxxramas, 2014-07-22, 1 mana 1/2) defined an oppressive Hunter meta and was not changed until 2015-01-29 - over six months",
+        "Starving Buzzard went from 2 mana 2/1 to 5 mana 3/2 on 2014-09-22, a nerf so severe the card was unplayable for seven years, then was silently reverted to 2 mana 2/1 in the 2021-03-30 Core re-issue",
+        "Warsong Commander was rewritten four separate times (2013-06-05, 2014-01-16, 2015-10-20, 2021-03-30, 2023-03-28) - the Patron Warrior fix on 2015-10-20 turned it into a different card entirely",
+        "Naga Sea Witch (LOE, 2015-11-10, 'Your cards cost (5)') was nerfed from 5 to 8 mana on 2018-05-22",
+        "Corridor Creeper (Kobolds, 2017-12-06) went from 5 to 2 attack on 2018-02-06 - a 60% stat cut, indicating how far off the original costing was",
+        "Fastest nerfs in the database: Tigress Plushy (Whizbang's Workshop) 8 days; Far Watch Post and Mor'shan Watch Post (Barrens) 9 days; Sword of the Fallen 9 days"
+      ],
+      "blizzard_response": "Genuine improvement. Blizzard moved from twice-yearly balance passes to a roughly monthly cadence, added mid-expansion mini-set balance windows, and now regularly patches within two to three weeks of a set launch. Patch-days per year rose from 6-8 (2013-2015) to 24 (2023) and 22 (2024).",
+      "lesson_for_new_game": "Set an explicit, published service-level target for balance response - e.g. 'no card stays statistically dominant for more than 14 days' - and build the tooling and the release pipeline to hit it before you ship. But treat fast patching as damage control, not as a design strategy: a game that needs 431 statline changes a year has a content-generation problem upstream, and no patch cadence fixes that."
+    },
+    {
+      "title": "Continuous re-costing destroyed card literacy",
+      "category": "balance-velocity",
+      "severity": "major",
+      "explanation": "A card game's cards are supposed to be stable facts. Learning what a card costs and does is the primary form of player knowledge, and that knowledge is what lets a player read an opponent's mana, plan two turns ahead, and feel competent. Hearthstone has abandoned stability. In 2023 there were 390 statline changes and 591 total change events across 433 distinct unique cards, spread over 24 separate patch days; roughly 30% of a modern set gets re-statted during its two-year Standard life. Worse, the majority are now buffs - 69% of 2023's statline changes, 67% in 2022, 63% in 2026 - which means the design team is routinely shipping cards it knows are unplayable and then re-floating them. That is a content-pipeline confession rendered as patch notes. The player-facing effect is that a card's printed numbers are a snapshot, the community's shared vocabulary decays, and returning players cannot trust anything they remember. Some cards have been re-costed so many times they have no stable identity at all, and one case (2021-09-15 nerfs, reverted 2021-09-17, re-applied 2021-09-30) saw the same three cards change three times in fifteen days.",
+      "concrete_examples": [
+        "Runed Mithril Rod (Stormwind, 2021-07-21): cost 3->4 (2021-09-15), 4->3 (2021-09-17, reverted), 3->4 (2021-09-30), 4->5 (2021-12-16), plus a durability-to-health conversion in 2025 - five patch days",
+        "The Demon Seed (Stormwind, 2021-07-21): questline requirement 6->8->6->8->10->12 damage across five patch days from 2021 to 2024-12-17",
+        "Sorcerer's Apprentice (EXPERT1, 2013): 2 mana -> 4 mana (2022-01-19) -> back to 2 mana with a new clause (2024-08-29), plus two attack changes in 2013",
+        "Reno, Lone Ranger: 8 -> 9 (2024-04-25) -> 10 (2024-06-27) -> 8 (2025-03-18) mana, with the battlecry rewritten twice",
+        "Giggling Inventor (Boomsday, 2018-08-02): 5 -> 7 mana (2018-10-18), then 7 -> 6 (2020-03-21), then 6 -> 5 (2026-03-10) - back to its printed cost after eight years",
+        "Darkglare (Ashes of Outland, 2020-03-21): nerfed to 2 mana 2/3 with a weaker effect (2020-09-02), buffed back to 3 mana 3/4 (2021-08-16), rewritten entirely (2024-12-17)",
+        "2025-03-18: 251 distinct unique cards changed in a single patch, 443 events - the largest balance day in the game's history"
+      ],
+      "blizzard_response": "Blizzard explicitly adopted a buff-heavy philosophy from 2021 onward, framing it as 'raising the floor' rather than lowering the ceiling, and the data confirms they meant it: buffs went from 14-20% of statline changes in 2016-2018 to 55-69% from 2021 onward. They also introduced the two-week full-dust-refund window for nerfed cards.",
+      "lesson_for_new_game": "Pick one: either cards are immutable and you fix the format with rotation and bans, or cards are live-service parameters and you say so loudly and design the UI around it (show change history on the card, version the format). Hearthstone does the second while pretending to do the first, and the result is that no player can trust their own memory. If you go live-service, cap the churn: a published maximum of, say, 5% of a set changed per year, so that literacy survives."
+    },
+    {
+      "title": "Class identity collapsed into a shared toolkit",
+      "category": "class-identity",
+      "severity": "major",
+      "explanation": "Hearthstone launched with a genuinely well-defined class pillar system: Warrior had armour and weapons but no card draw, Priest had healing and copy effects but no reach to the face, Warlock had draw at the cost of life, Mage had burn and Secrets, Rogue had cheap spells and tempo, Hunter had no board clear. Those restrictions were the game's best design work, because a restriction is a strategic identity and a deckbuilding constraint at once. The measured collapse is unambiguous. In 2014, four of the eleven classes printed card draw; from 2022 onward it is eleven of eleven. Discover went from zero classes to all eleven. Board clears went from three classes to nine. Direct damage to the enemy hero - the tool that most defines whether a class can close a game without a board - went from zero classes in 2014 to seven in 2025. The only pillar that held is hard removal, still printed to only 1-4 classes per year. Once every class has every tool, class choice becomes a choice of flavour text and hero power, deckbuilding decisions converge, and the matchup matrix flattens - which then requires more randomness and bigger legendaries to generate variety, feeding the complexity treadmill.",
+      "concrete_examples": [
+        "Card draw class-count by release year: 4 (2014), 6 (2015), 6 (2016), 8 (2017), 9 (2018), 10 (2020), 11 (2022, 2024, 2025)",
+        "Discover class-count: 0 (2014), 4 (2015), 8 (2017), 10 (2020), 11 (2022, 2023, 2025)",
+        "Face damage class-count: 0 (2014), 1 (2018), 6 (2021), 7 (2025)",
+        "Mind Blast (Priest, 2 mana, 'Deal 5 damage to the enemy hero') was in the game from launch and is the seed of the Priest identity contradiction - a healing class with the game's most efficient burn spell",
+        "Odyn, Prime Designate (Titans, 2023-07-17, Warrior legendary, 'after your hero gains Armor, they gain that much Attack') converted Warrior's defensive pillar into a burst-damage engine - the pillar inverted rather than merely violated"
+      ],
+      "blizzard_response": "Blizzard has openly moved away from strict class pillars, arguing that rigid restrictions made some classes unfun and that each class should be able to build multiple archetypes. The Core set re-curation is used to hand out or take back baseline tools per class each year.",
+      "lesson_for_new_game": "Write the class restrictions down as a contract, publish it to players, and treat any violation as requiring a design review rather than a costing decision. Restrictions are the cheapest depth in a card game: 'Warrior cannot draw cards' generates a decade of interesting deckbuilding at zero rules-text cost. Audit the contract annually with exactly the query used here - count how many classes printed each tool this year - and treat convergence toward N/N as a fire alarm."
+    },
+    {
+      "title": "The recurring Priest crisis: a class whose pillar and win condition contradict",
+      "category": "class-identity",
+      "severity": "major",
+      "explanation": "Priest is the clearest evidence that Hearthstone's class design has an unresolved structural fault, because Priest breaks in the same way roughly every two years and requires more emergency intervention than any other class. The root cause is that Priest's pillar - healing, stealing, copying, and reactive removal - is defensive, but Hearthstone has no reactive play, so a purely defensive class cannot express itself; it must either find a degenerate infinite value engine or be unplayable. There is no middle. Historically it has oscillated between exactly those two poles: unplayable for long stretches, then briefly the best deck in the game via a combo that a defensive class was never supposed to have. The measured signature is in the balance data: Priest received 65 change events across 44 cards in 2023 alone - more than the class saw in 2017 through 2022 combined - and 59% of Priest's lifetime statline changes are buffs, the fingerprint of a class being repeatedly resuscitated rather than tuned.",
+      "concrete_examples": [
+        "Divine Spirit (2 mana, 'Double a minion's Health') + Inner Fire (1 mana, 'Change a minion's Attack to be equal to its Health'), both from Classic 2013, are the original Priest OTK - a healing class killing you from 30 with two 1-2 mana spells; Inner Fire has 3 balance changes",
+        "Raza the Chained (Gangs, 2016-11-29) + Shadowreaper Anduin (Icecrown, 2017-08-08) produced Razakus Priest, an infinite-value hero-power engine; Raza was changed on 2018-02-06 and again on 2020-03-11",
+        "Mindrender Illucia (Scholomance, 2020-07-24) - 4 balance changes including a nerf 20 days after release and a rewrite that was applied, reverted and re-applied within 15 days in September 2021",
+        "2023 Priest rescue buffs: Holy Champion 4 mana 3/5 -> 2 mana 1/4; Holy Nova 4 -> 3 mana; Drakonid Operative 5 mana 5/6 -> 4 mana 4/5; Onyx Bishop 5 -> 4; Lyra the Sunshard 5 -> 4; Tortollan Shellraiser 4 -> 3",
+        "Topsy Turvy (Boomsday, 2018-08-02, 0 mana, 'Swap a minion's Attack and Health') re-enabled the Inner Fire pattern fifteen years into the game's life"
+      ],
+      "blizzard_response": "Repeated, reactive, and never structural: nerf the combo piece (Raza 2018, 2020; Illucia 2020, 2021), then buff a dozen mid-tier Priest cards when the class falls out of the format (2023 saw six such buffs in a single year). Blizzard has publicly acknowledged Priest as their hardest class to balance on multiple occasions.",
+      "lesson_for_new_game": "Every class must have a legitimate, non-degenerate way to win the game, and 'outlast the opponent' is not one in a format with no response window. If you want a defensive/reactive archetype, you must first build the reactive layer for it to live in. Otherwise a defensive class is a permanent balance liability that will alternate between unplayable and broken forever - which is precisely what thirteen years of Priest data shows."
+    },
+    {
+      "title": "Class-count inflation: new classes as retention products, shipped hot",
+      "category": "class-identity",
+      "severity": "major",
+      "explanation": "Hearthstone added Demon Hunter (April 2020) and Death Knight (December 2022) as marquee retention features, and in both cases the class shipped measurably stronger than the existing roster and required emergency patching. Demon Hunter is the clearest case in the game's history: Ashes of Outland launched 2020-04-07, and the first balance patch landed 2020-04-09 - two days later - hitting four cards. A second wave came eight days after that, and within 100 days of launch 13 of the 45 printed Demon Hunter cards had been changed. The structural cause is not incompetence; it is that a new class is a monetised event with a fixed launch date, so it cannot be delayed for balance, and its cards must feel exciting enough to sell the expansion. The class-count problem also creates permanent debt: each new class must receive roughly 30 cards per set forever, which is why total set size grew from 135 to 194 cards, which feeds the economy problem and the complexity problem simultaneously. And the newer classes are front-loaded relative to the originals - Death Knight has averaged ~61 new cards a year over 3.5 years against ~32 a year for the nine original classes over thirteen.",
+      "concrete_examples": [
+        "Demon Hunter nerf patch 2020-04-09, two days after launch: Aldrachi Warblades durability 3->2, Imprisoned Antaen 5->6 mana, Skull of Gul'dan 5->6 mana, Eye Beam Outcast cost 0->1",
+        "Second wave 2020-04-17: Altruis the Outcast 3 mana 3/2 -> 4 mana 4/2, Battlefiend 2/2 -> 1/2, Glaivebound Adept 7/4 -> 6/4, plus neutral collateral (Kael'thas Sunstrider 6->7)",
+        "Further Demon Hunter patches 2020-05-15 (Crimson Sigil Runner, Priestess of Fury), 2020-06-18 (Twin Slice), 2020-07-08 (Kayn Sunfury, Metamorphosis, Warglaives of Azzinoth) - six patch days touching Demon Hunter in 2020",
+        "Card counts: the nine original classes sit between 408 (Shaman) and 428 (Priest) unique cards after thirteen years; Demon Hunter has 293 in six years, Death Knight 213 in three and a half"
+      ],
+      "blizzard_response": "Blizzard publicly acknowledged Demon Hunter was overtuned and called the day-two patch necessary; the class received five separate balance patches in its first four months. Death Knight's rune system was introduced partly as a self-balancing constraint, and Blizzard has since loosened rune restrictions on several cards.",
+      "lesson_for_new_game": "Do not couple the release of a new playable faction to a paid content launch date. Ship new classes in an off-cycle window with a pre-announced two-week tuning period and a smaller initial card pool, and accept that the marketing beat is worth less than the format's credibility. If a class is a product, it will be tuned like a product - which means tuned to sell."
+    },
+    {
+      "title": "Death Knight runes, dual-class and Tourist: three attempts to add constraints that mostly add blur",
+      "category": "class-identity",
+      "severity": "moderate",
+      "explanation": "Having dissolved class pillars, Blizzard has repeatedly tried to re-introduce structure through bolt-on systems, each of which adds a rules layer without restoring identity. Death Knight runes (Blood/Frost/Unholy, three slots) are a genuine deckbuilding constraint but they operate within one class, so they subdivide Death Knight into three sub-classes rather than differentiating Death Knight from the other ten - and they impose a rules concept that exists nowhere else in the game, on the class that new players are most likely to be sold. Dual-class cards (Scholomance, 2020: 40 multi-class cards in one set) and the Tourist keyword (Perils in Paradise, 2024: 13 cards, each granting access to another class's cards) explicitly delete class boundaries as a feature. Tourist is the most direct: it is a card that says 'this class may now play another class's cards'. The net effect of thirteen years is that classes converged on tools organically, then were formally permitted to share cards, while the one novel constraint (runes) was confined to a single class. 172 multi-class cards now exist, 84 of them printed since 2023.",
+      "concrete_examples": [
+        "Death Knight: 213 unique cards since 2022-11-23, all subject to the rune system, which appears on no other class's cards",
+        "Scholomance Academy (2020-07-24) printed 40 multi-class cards in a single set - the largest dual-class push ever",
+        "Tourist cards, all printed 2024-07-16: Maestra, Mask Merchant (Rogue / Warlock Tourist), Chillin' Vol'jin (Priest / Hunter Tourist), Buttons (Death Knight / Shaman Tourist), Raylla, Sand Sculptor (Mage / Paladin Tourist), Summoner Darkmarrow (Warlock / Death Knight Tourist), Aranna, Thrill Seeker (Demon Hunter / Priest Tourist), Mistah Vistah (Druid / Mage Tourist), Ranger Gilly (Hunter / Warrior Tourist), Sunsapper Lynessa (Paladin / Rogue Tourist), Hamm, the Hungry (Warrior / Druid Tourist), Carefree Cookie (Shaman / Demon Hunter Tourist) - a complete cycle formalising cross-class access",
+        "Multi-class card printings by year: 9 (2016), 40 (2020), 10 (2021), 22 (2023), 22 (2024), 15 (2025), 25 (2026)"
+      ],
+      "blizzard_response": "Runes were presented as a novel deckbuilding axis and have been loosened on individual cards since launch. Tourist was framed as enabling cross-class archetypes without full dual-class sets. Neither has been reversed.",
+      "lesson_for_new_game": "A constraint system must apply uniformly across the roster or it is a special case, and special cases are rules-text cost with no strategic return. If you want a colour-pie-style deckbuilding constraint, make it the foundation of every faction from day one (as Magic does), not a bolt-on for one. And be honest that cross-faction access cards are the opposite of a constraint: they are permission slips, and permission slips homogenise."
+    },
+    {
+      "title": "The dust economy: ~273,000 dust a year to stay current",
+      "category": "economy",
+      "severity": "critical",
+      "explanation": "Hearthstone's crafting economy was designed in 2014 for a game that released roughly 250 new cards a year and has not been re-scaled for a game that releases 550+. Crafting rates are fixed (40 / 100 / 400 / 1,600 dust for common / rare / epic / legendary) and the rarity mix has been held deliberately stable at ~38% common, 30% rare, 16% epic, 17% legendary for a decade, so the cost of completing a year scales linearly with the number of cards printed. It has more than doubled: 106,200 dust for 2013's 246 cards, 208,560 for 2017's 405, 285,880 for 2023's 583, 273,000 for 2025's 565. The disenchant rate is 25% of craft cost, so recycling a collection is a 75% loss, and the pack economy is intentionally lossy in the same direction. Meanwhile the paid path costs $80 per mega-bundle and there are three expansions a year, so $240 annually still does not complete a set. The player-facing consequence is not 'the game is expensive' - it is that the economy converts a deckbuilding game into a deck-selection game, which is the next item.",
+      "concrete_examples": [
+        "Dust to complete one playset of a year's new cards: 106,200 (2013) -> 144,480 (2016) -> 208,560 (2017 and 2018) -> 246,840 (2021) -> 285,880 (2023) -> 273,000 (2025)",
+        "Legendaries printed per year: 33 (2013) -> 69 (2017) -> 100 (2023) -> 95 (2025); at 1,600 dust each, 2023's legendaries alone cost 160,000 dust",
+        "Set size grew from 135 cards (Un'Goro 2017 through Descent of Dragons 2019) to 170 (Darkmoon Faire 2020) to 183-194 (Lich King 2022 onward), with mini-sets on top",
+        "Into the Emerald Dream and Across the Timeways mega pre-purchase bundles (2025) both priced at $80 / 8,000 Runestones for 80 packs plus extras - three per year is $240 and still does not complete the sets"
+      ],
+      "blizzard_response": "Blizzard added the Rewards Track (2020) replacing the old daily-quest gold economy, guaranteed a legendary in a player's first 10 packs of a set, introduced duplicate protection, and periodically hands out free legendaries and pre-built decks. Crafting and disenchant rates have never changed since 2014.",
+      "lesson_for_new_game": "Set the economy from the target completion cost backwards, not from the rarity table forwards, and re-derive it every time you change set size or cadence. Publish the intended time-to-complete for a free player and treat it as a design constraint the content team must live inside. If content volume grows, either acquisition rates grow with it or the format shrinks - shipping more cards at fixed acquisition rates is a stealth price increase applied to the people least able to absorb it."
+    },
+    {
+      "title": "Standard rotation destroys three quarters of a collection",
+      "category": "economy",
+      "severity": "major",
+      "explanation": "Rotation is Blizzard's chosen tool for the card-concentration and complexity problems - remove the auto-includes on a timer instead of nerfing them. It works for those purposes and it is the reason Dr. Boom stopped being in half of all decks. But the cost is borne entirely by the player's collection, and it is enormous: 4,473 of the 5,963 unique collectible cards ever printed (75.0%) are Wild-only as of July 2026, and only 1,252 unique cards - 21% of the printed game - first appeared within the last 24 months. A player who spent 200,000 dust on a 2023 collection owns almost nothing that is legal in 2026, and the disenchant rate means liquidating it recovers 25%. Rotation also interacts badly with the buff-heavy balance philosophy, because a card can be buffed into playability shortly before it rotates. The Core set is a partial compensation - a rotating, free, re-curated set of ~200-300 reprints, refreshed 13 times since 2021 - but Core is also the mechanism by which old nerfs are silently reverted, which means the same card can have three different statlines depending on which printing you own.",
+      "concrete_examples": [
+        "5,963 unique collectible cards exist; 4,473 (75.0%) were first seen before 2024-01-01 and are Wild-only",
+        "Core set re-curations: 2021-03 (86 printings), 2022-04 (25), 2023-03 (19), 2024-03 (24), 2025-03 (47), 2026-03 (65) - thirteen refreshes in total, 289 printings",
+        "Starving Buzzard was nerfed to 5 mana 3/2 in 2014 and silently reverted to its original 2 mana 2/1 in the Core re-issue of 2021-03-30; Undertaker's original '+1/+1' text was restored the same day - seven years after the nerfs that defined those metas",
+        "Fireball exists as three separate database rows (CS2_029 in Legacy, CORE_CS2_029, VAN_CS2_029) - the same card with three identities, which is why sorting by card_set mis-dates thousands of cards"
+      ],
+      "blizzard_response": "Rotation was introduced in 2016 explicitly to control power concentration and complexity; Blizzard added the Wild format so rotated cards remain playable somewhere, the free Core set to guarantee a baseline collection, and occasional full-dust refund windows for Hall-of-Famed cards.",
+      "lesson_for_new_game": "If you rotate, make the ownership contract explicit and generous: full dust value returned on rotation, or a permanent format where the collection retains competitive relevance and receives real support, or rental/loaner access to rotated cards. Silently converting 75% of a paid collection into a museum piece is the single largest source of lapsed-player resentment in this game's history, and it is entirely a policy choice, not a technical one."
+    },
+    {
+      "title": "The economy funnels free players onto exactly one netdeck",
+      "category": "economy",
+      "severity": "major",
+      "explanation": "This is where the economy stops being a monetisation question and becomes a game-design failure. A free-to-play player accumulating a few tens of thousands of dust per year against a ~273,000-dust annual card pool can afford roughly one competitive deck per rotation cycle, and because the neutral package is mandatory and legendaries are 1,600 dust each, that one deck must be the cheapest tier-1 list available. The practical consequence is that for the large majority of the ladder, deckbuilding - the activity a collectible card game is nominally about - does not exist. The player copies a list, plays it until it rotates, and then copies another. Every other structural problem in this document is felt more acutely by that player: they cannot tech against the oppressive deck because teching costs cards they do not have; they cannot switch when their archetype is nerfed; they experience the balance patch as a confiscation rather than a correction. The nerf-refund policy is the one genuine mitigation - a two-week full-dust window on substantially nerfed cards - but it only refunds cards you already crafted, and it does not apply to non-craftable freebies.",
+      "concrete_examples": [
+        "The mandatory neutral package is itself the cost floor: in the Explorers era all twenty most-included cards were neutral, including four legendaries (Dr. Boom, Sylvanas Windrunner, Reno Jackson, Justicar Trueheart) at 1,600 dust each",
+        "Modern equivalents are worse: Zilliax Deluxe 3000 (Whizbang's Workshop, 2024) is a neutral legendary that functions as a deckbuilding module, and The Ceaseless Expanse (Space, 2024) is a neutral legendary finisher - both are effectively required purchases across many classes",
+        "A single year's legendaries cost 160,000 dust at 2023 volumes; a single tier-1 deck typically needs 3-6 of them",
+        "Three $80 mega-bundles a year ($240) still does not complete three 183-194 card sets"
+      ],
+      "blizzard_response": "Rewards Track, first-10-packs legendary guarantee, duplicate protection, free pre-built decks for returning players, periodic free legendary giveaways, and the two-week full-dust refund window on nerfed cards. All of these raise the floor; none change the ratio of acquisition rate to content volume.",
+      "lesson_for_new_game": "Measure and publish the metric that matters: how many distinct competitive decks can a player who spends nothing build after one season? If the answer is one, your game is a deck-selection game wearing a deckbuilding game's clothes. Design the economy so the answer is at least three, because the ability to change decks in response to the meta is the free player's only substitute for the in-game interaction they also do not have."
+    },
+    {
+      "title": "The turn-5 problem: aggro sets the clock and control has no reactive tools",
+      "category": "archetype-balance",
+      "severity": "major",
+      "explanation": "The perennial complaint that games are 'decided by turn 5' is usually blamed on aggro being overtuned, and the mana-curve data says that is wrong: average printed mana cost has oscillated between 3.27 and 4.35 for thirteen years with no downward trend, and the share of cards costing 3 or less has been stable at 44-61%. The game did not get cheaper. What is actually happening is a consequence of the interaction model. In a game with a response window, a control deck's answers are live during the aggro deck's turn - the control player spends resources reactively, at the exact moment of need, which is what makes control viable against a faster clock. In Hearthstone every answer must be played proactively on your own turn, which means a control deck must guess one turn in advance, pay full price, and accept that any answer played into an empty board is wasted. This makes tempo strictly dominant over reaction, and it means the only two viable strategies are 'be faster' and 'have an unanswerable inevitability engine' - which is the aggro/combo polarisation the format has oscillated between for its whole life. The healthy middle, interactive midrange-versus-control games, has no mechanical support. Note the corollary: making aggro cards weaker does not fix this, because the problem is not aggro's power level but reaction's impossibility.",
+      "concrete_examples": [
+        "Average printed mana cost by set shows no trend: 3.59 (Classic 2013), 3.99 (GvG 2014), 3.42 (Un'Goro 2017), 4.19 (Dalaran 2019), 3.27 (Barrens 2021), 3.73 (Titans 2023), 4.23 (Space 2024), 4.15 (Cataclysm 2026)",
+        "Patches the Pirate (Gangs, 2016-11-29, 1 mana 1/1) originally had Charge and summoned itself free from the deck - it made every Pirate deck one card smaller and gave aggro a free turn-1 tempo unit; the Charge was removed on 2018-02-06, fifteen months later",
+        "Small-Time Buccaneer (Gangs, 2016-11-29) received 2 balance changes; Fiery War Axe (Classic Warrior weapon) received 3 - the classic turn-1-and-2 aggro enablers each required multiple interventions",
+        "Doomsayer appears in the top-20 of five separate eras (14.7-19.7% inclusion) - a 2 mana 0/7 that destroys all minions at the start of your next turn, i.e. a board clear that telegraphs itself a full turn in advance, which is what passes for a reactive tool in this game",
+        "Board clears are the only real anti-aggro tool and were restricted to 3 of 11 classes in 2014, expanding to 9 of 11 by 2021 - Blizzard's fix for the turn-5 problem was to give everyone a sweeper, which flattened class identity instead"
+      ],
+      "blizzard_response": "Repeated aggro-targeted nerf waves (Undertaker 2015, Patches/Corridor Creeper 2018-02-06, Small-Time Buccaneer) and steady expansion of board-clear access to more classes. Blizzard has also deliberately printed defensive neutral packages (Sludge Belcher, Antique Healbot, Zombie Chow) in several sets.",
+      "lesson_for_new_game": "If you have no reactive layer, you have structurally decided that tempo beats value and that the only anti-aggro tool is a proactive sweeper. Accept that and design around it - e.g. a resource system that punishes flooding, or a life total that scales, or a mandated defensive floor per class per set. Do not try to fix it by nerfing aggro cards one at a time; thirteen years of data shows that treats the symptom and the disease immediately re-expresses through the next cheap minion."
+    },
+    {
+      "title": "The rope and the solitaire turn: match length is spent watching",
+      "category": "match-experience",
+      "severity": "major",
+      "explanation": "Hearthstone's turn timer is 75 seconds with a burning-rope warning at roughly 20 seconds remaining, which means that in a game where you make no decisions on your opponent's turn, up to half of every match is spent as a spectator. That was tolerable in 2014, when a turn was 'play a 4/5, attack, pass' and resolved in fifteen seconds. It is not tolerable now: average rules text has grown 47%, every card has text, randomness density has tripled, and cards like Puzzle Box (cast 10 random spells) or Sire Denathrius (Infuse, deal N damage amongst enemies) take real wall-clock time to animate and resolve. The result is that the modern game's most complex, highest-variance moments are precisely the ones the opponent has the least involvement in. The rope also creates a griefing surface with no defence: because there is no reason for the non-active player to be attentive, a player can rope every turn to run a 20-minute match against an opponent who is not permitted to do anything, and the client offers no counterplay beyond conceding. Emote squelching exists; rope squelching does not. This is the experiential expression of the no-response-window problem, and it is the one players feel most directly even when they cannot name the cause.",
+      "concrete_examples": [
+        "75-second turn timer, ~20-second rope, unchanged since beta (the alpha timer was 90 seconds); the only adjustment ever made was shortening the first two turns in patch 10.2",
+        "Puzzle Box of Yogg-Saron (Uldum, 2019, 'Cast 10 random spells (targets chosen randomly)') - ten sequential animated resolutions inside one player's turn",
+        "Sire Denathrius (Revendreth, 2022-07-20, 10 mana, 'Lifesteal. Battlecry: Deal 5 damage amongst enemies. Endlessly Infuse: Deal 1 more') - a finisher whose damage total is computed from the whole game's history and resolves in one uninterruptible sequence",
+        "Shudderwock (Witchwood, 2018, 'Repeat all other Battlecries from cards you played this game') became notorious specifically for multi-minute uninterruptible resolution loops",
+        "Average card text rose from 47.3 to 77.5 characters while the turn timer stayed at 75 seconds"
+      ],
+      "blizzard_response": "Shortened the first two turns' timers in patch 10.2, added animation-skip options and faster-resolution settings over time, and capped some looping effects. The turn length and the fundamental one-sided-turn structure are unchanged.",
+      "lesson_for_new_game": "Give the non-active player something to do every single turn - even a small one: a reaction slot, a resource decision, a bidding step, a block declaration. It does not need to be Magic's stack. If a player has nothing to do during 50% of a 12-minute match, they will fill that time with a second screen, and a game that trains its players to look away is a game they will eventually stop returning to. Also: make resolution time a design constraint with a hard budget per card, and treat 'this card takes 40 seconds to animate' as a rejection, not a polish note."
+    },
+    {
+      "title": "The ladder is a time-served grind with opaque matchmaking",
+      "category": "ladder-structure",
+      "severity": "major",
+      "explanation": "Hearthstone's ranked ladder has never been a skill measurement; it is an attendance measurement with a skill filter attached at the very top. The pre-2020 system had 25 ranks and required grinding the whole ladder from scratch every month. The April 2020 rework replaced it with 50 ranks across five leagues plus Legend, and added a star-bonus multiplier (max 11x) so returning players climb back to their previous rank faster. That is a genuine improvement to the grind's length, but it does not change the underlying character: below Legend you climb by accumulating net wins, so rank is a function of games played more than of winrate, and any player with a >50% winrate reaches their ceiling given enough time. Above Legend, ranking is a raw leaderboard position also driven by volume. The system's real matchmaking is a hidden MMR that is never shown to the player, never reset between seasons, and can differ arbitrarily from the displayed rank - so a player in Bronze with high MMR faces Legend-calibre opponents while their badge says Bronze. That is the worst of both worlds: the visible number does not describe your skill, and the invisible number that does is unreadable. Add the volume incentive and you get the bot problem in the next item.",
+      "concrete_examples": [
+        "April 2020 rework: 25 ranks replaced by 50 across Bronze/Silver/Gold/Platinum/Diamond plus Legend, with rank floors at 10 and 5 in each league",
+        "Star bonus multiplier up to 11x, decreasing by 1 at each rank floor, so it is exhausted exactly as you reach your previous season's rank - explicitly a catch-up-to-where-you-were mechanic, not a placement mechanic",
+        "MMR is never displayed, never reset across seasons, and governs matchmaking while the star bonus is active - meaning displayed rank and actual opponent strength are decoupled for the first several hundred stars of every season",
+        "Legend itself is a numbered leaderboard, so the top of the ladder rewards volume as much as skill"
+      ],
+      "blizzard_response": "The 2020 rework was a substantial, well-received redesign that shortened the monthly re-grind considerably and improved early-season matchmaking. MMR remains hidden; Blizzard has said showing it would be confusing.",
+      "lesson_for_new_game": "Separate the two things the ladder is trying to do. Have a visible, honest skill rating that can go down and that describes the opponents you will face, and have a separate, purely additive progression track for time invested and rewards. Conflating them produces a number that means neither. And if you hide the matchmaking rating, you have built a system where the player cannot tell whether they are improving - which is the core loop of a competitive game."
+    },
+    {
+      "title": "Bots occupy the ladder because the ladder rewards volume",
+      "category": "ladder-structure",
+      "severity": "major",
+      "explanation": "Because ranked progression below Legend is a function of games played, and because in-game currency is earned per game, farming the ladder with a script is directly profitable. The result has been a persistent bot infestation that Blizzard has fought with mass bans rather than with structural change: over 284,000 bots banned across 2023, roughly 200,000 in the first two months of 2024 including a single 135,000-account banwave, and over 585,000 more by late March 2024. Regional distribution shows the scale of the distortion - in one reported period the Asia-Pacific server had roughly 165,000 accounts reaching Legend against roughly 30,000 each on NA and EU, because much of the Diamond-to-Legend climb there was against bots. The relevance to a design brief is not the anti-cheat arms race, which every online game fights, but the incentive: a ladder that pays per game played creates demand for automation, and a game with no response window is unusually easy to automate because a bot only ever needs to solve its own turn - there is no opponent-turn decision-making to model. The interaction model and the bot problem are the same problem.",
+      "concrete_examples": [
+        "284,000 bots banned across 2023; ~200,000 in January-February 2024 including a single 135,000-account wave; 585,000+ more by late March 2024",
+        "Asia-Pacific reportedly had ~165,000 accounts reaching Legend in a period where NA and EU each had ~30,000",
+        "Bots migrated from Classic ladder to Wild after Classic mode was retired, following the least-defended format"
+      ],
+      "blizzard_response": "Recurring mass banwaves with public announcements, and retirement of the Classic format partly for this reason. The per-game reward economy and the volume-based ladder that create the incentive are unchanged.",
+      "lesson_for_new_game": "Pay rewards for outcomes and milestones, not for games played, and make ranked progression rating-based rather than net-wins-based so that grinding at a flat winrate does not climb. Note also that a game where the non-active player makes no decisions is trivially botted - adding a response window raises the automation bar substantially, which is an underrated security argument for interaction."
+    },
+    {
+      "title": "Set-size inflation without a corresponding growth in playable design space",
+      "category": "content-cadence",
+      "severity": "moderate",
+      "explanation": "Hearthstone now ships three full expansions plus mini-sets per year - 549 to 583 new collectible cards annually since 2022, up from 152 in 2014 - and individual sets grew from 135 to 183-194 cards. But the design space did not grow proportionally, because the constraints did not change: still 30-card decks, still a 7-slot board, still no interaction, still eleven classes needing roughly equal support, still a flat stat-per-mana budget. The consequence is visible in the balance data as a design-confidence problem: roughly 30% of a modern set gets re-statted during its Standard life, and the majority of those changes are buffs, meaning a large fraction of each set ships knowingly unplayable and is then rescued by patch. Perils in Paradise (2024-06-17) had 16.9% of its cards buffed and 14.8% nerfed; The Great Dark Beyond (2024-10-12) 17.5% and 12.4%. Compare Rastakhan's Rumble (2018-11-30): 2.2% buffed, 1.5% nerfed. Volume is being produced faster than it can be designed to a confident power level.",
+      "concrete_examples": [
+        "New collectible cards per calendar year: 152 (2014), 208 (2015), 311 (2016), 405 (2017 and 2018), 460 (2020), 546 (2022), 583 (2023), 565 (2025)",
+        "Set size: 135 cards (Un'Goro 2017 through Descent of Dragons 2019) -> 170 (Darkmoon Faire 2020 through Revendreth 2022) -> 183-194 (Lich King 2022 onward)",
+        "Share of a set later re-statted: Perils in Paradise 31.7%, The Great Dark Beyond 29.9%, Whizbang's Workshop 28.9%, versus Rastakhan's Rumble 3.7% and The Witchwood 4.4%",
+        "Un'Goro (2017-04-04) is the extreme historical case: 41.5% of its cards were eventually buffed - though much of that came from later Core re-issues rather than launch-window rescues"
+      ],
+      "blizzard_response": "Blizzard increased cadence to three expansions plus mini-sets deliberately, citing player appetite for new content, and simultaneously adopted the buff-heavy balance philosophy that makes shipping uncertain cards survivable.",
+      "lesson_for_new_game": "Set the release cadence from design capacity, not from revenue targets, and instrument it: track the share of each set that requires post-launch re-statting as a direct measure of whether you are shipping faster than you can design. If that number exceeds ~10%, the cadence is wrong. And remember that in this game the cadence, the economy, and the complexity treadmill are one system - increasing volume raises the dust wall and the text budget simultaneously."
+    },
+    {
+      "title": "Nerf-then-refund is a decent policy attached to a bad incentive",
+      "category": "economy",
+      "severity": "moderate",
+      "explanation": "Blizzard's two-week full-dust refund window on substantially nerfed cards is genuinely one of the better player-protection policies in the genre: it converts a confiscation into an option, and because you can also re-craft during the window at no net cost, the rational play is to wait until day thirteen and decide. But the policy has two structural side effects worth naming. First, it makes nerfs cheap for the publisher and expensive to reverse, which biases the balance team toward nerf-and-refund rather than toward getting the costing right - and toward nerfing cards hard enough to trigger the refund threshold rather than tuning them gently, since a small nerf is a pure loss to the player while a large one comes with compensation. Second, it interacts perversely with the buff-heavy era: buffs generate no refund and no compensation, but they do change what the card is, and a player who disenchanted a card into a refund window cannot recover the value if it is later buffed back to playability. The combination - 55-69% of statline changes are buffs, and only nerfs carry compensation - means the player's collection is being continuously re-valued by the publisher with compensation flowing in only one direction.",
+      "concrete_examples": [
+        "Refund policy: two-week window, full dust value instead of the standard 25% disenchant rate, applies to golden and Signature versions at their own higher rates, does not apply to non-craftable free cards",
+        "Sorcerer's Apprentice was nerfed 2->4 mana (2022-01-19), triggering a refund window, then buffed back to 2 mana (2024-08-29) - players who took the refund and did not re-craft lost the card twice over",
+        "Giggling Inventor: nerfed 5->7 (2018-10-18, refund window), buffed 7->6 (2020-03-21, no compensation), buffed 6->5 (2026-03-10, back to printed cost)",
+        "Darkglare was nerfed on three axes at once (3->2 cost, 3->2 attack, 4->3 health, plus a weaker effect) on 2020-09-02 and buffed back on all three axes on 2021-08-16"
+      ],
+      "blizzard_response": "The refund window is the policy; it has been extended to golden and Signature rarities and is searchable in the collection manager via the 'refund' keyword. Buffs have never carried any player-side compensation or notification obligation.",
+      "lesson_for_new_game": "If cards are mutable, make the compensation symmetric and automatic: any change to a card the player owns triggers the same option, in both directions. And measure the incentive the policy creates on your own balance team - a refund window that makes big nerfs cheaper than small ones will produce big nerfs."
+    },
+    {
+      "title": "Wild is a dumping ground, which means rotation solves nothing permanently",
+      "category": "format-structure",
+      "severity": "moderate",
+      "explanation": "Standard rotation is Blizzard's answer to complexity and concentration, and Wild is where the removed cards go. But Wild is not a maintained format - it is a landfill with a ladder attached. Every unresolved design mistake in the game's history accumulates there permanently: every combo that was 'fixed' by rotation rather than by nerf, every mana-cheat card, every unanswerable OTK piece, all in the same legal pool. Because there is still no response window in Wild either, the format's power level is governed entirely by which turn each deck's uninteractive kill lands on, and the answer is a very early one. The practical result is that Wild receives sporadic balance attention (it has been the primary home of the bot problem, and Blizzard has issued Wild-specific nerfs), functions as a graveyard for player collections rather than a genuine alternative, and provides no relief valve for the resentment rotation creates. It also means the game cannot learn from its own history: cards are not fixed, they are relocated.",
+      "concrete_examples": [
+        "4,473 of 5,963 unique cards (75%) are Wild-only as of July 2026",
+        "Shudderwock (Witchwood 2018) has never received a single balance change - it was managed entirely by rotating its enablers into Wild, where they all remain legal together",
+        "Mecha'thun (Boomsday 2018) has never received a balance change; Kun the Forgotten King (Gangs 2016) has never received a balance change - both are permanently legal in Wild alongside every cost-reduction effect ever printed",
+        "Aviana (TGT 2015) plus Kun (Gangs 2016) plus Emperor Thaurissan (BRM 2015) - three cards from three different years, all Wild-legal together forever",
+        "Bots migrated to Wild after Classic mode was retired, indicating Wild is the least-defended format"
+      ],
+      "blizzard_response": "Wild receives occasional targeted nerfs and its own balance notes, and Blizzard runs Wild tournaments and a Wild ladder. It is not a supported competitive format at the level of Standard and receives a small fraction of the balance attention.",
+      "lesson_for_new_game": "Either commit to an eternal format as a first-class product with its own balance budget and its own ban list, or do not have one. A rotating format plus an unmaintained eternal format means every design mistake becomes permanent somewhere, and it tells players that their rotated collection is worth exactly as much attention as the publisher gives the graveyard - which is none."
+    }
+  ]
+}

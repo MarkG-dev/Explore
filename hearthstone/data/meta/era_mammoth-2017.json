@@ -1,0 +1,805 @@
+{
+ "era_key": "mammoth-2017",
+ "era_title": "Year of the Mammoth - Journey to Un'Goro, Knights of the Frozen Throne, Kobolds & Catacombs",
+ "date_range": "2017-04-06 to 2018-04-11 (Standard year). Bounded by the Un'Goro launch/Year of the Mammoth rotation on 2017-04-06 and The Witchwood launch on 2018-04-12, which began the Year of the Raven. Local client-build data brackets it as 2017-04-04 (build 18336, UNGORO data ship) to 2018-04-10 (build 23966, Witchwood pre-patch).",
+ "expansions": [
+  {
+   "name": "Journey to Un'Goro",
+   "set_enum": "UNGORO",
+   "release_date": "2017-04-06 (Americas), 2017-04-07 (EU/Asia). Card data first appears in client build 18336 on 2017-04-04 (sets_first_seen.json), 135 collectible cards - matches the DB exactly (135 non-reprint UNGORO cards, all data_first_seen 2017-04-04). Introduced Quests, Adapt and the Elemental tribe."
+  },
+  {
+   "name": "Knights of the Frozen Throne",
+   "set_enum": "ICECROWN",
+   "release_date": "2017-08-10 (Americas), 2017-08-11 (EU/Asia). Data shipped 2017-08-08 in build 20457 (patch 9.0), 135 collectible cards, all data_first_seen 2017-08-08 in the DB. Introduced Hero cards (Death Knights) and Lifesteal, plus the free Frozen Throne prologue/wing missions."
+  },
+  {
+   "name": "Kobolds & Catacombs",
+   "set_enum": "LOOTAPALOOZA",
+   "release_date": "2017-12-07 (Americas), 2017-12-08 (EU). The DB shows one placeholder LOOTAPALOOZA card on 2017-11-06 (build 22115) and the other 134 on 2017-12-06 (build 22611). Introduced Recruit, Spellstones, Unidentified items, a free class Legendary weapon for every class, and the Dungeon Run single-player mode."
+  }
+ ],
+ "defining_decks": [
+  {
+   "archetype": "Quest Rogue (Crystal Core Rogue)",
+   "class": "Rogue",
+   "tier": "Tier 1 / format-warping, April-July 2017",
+   "why_it_mattered": "The signature deck of early Un'Goro and the only card Blizzard nerfed during the whole Un'Goro cycle. Bounce a Novice Engineer or Stonetusk Boar four times, complete The Caverns Below, and Crystal Core made every minion in hand, deck and board a 5/5 for the rest of the game. The matchup spread was brutally polarised: near-unloseable against anything slower than turn-6 lethal, near-unwinnable against Pirate Warrior and aggressive Hunter. Blizzard's own justification for the nerf was that it 'is uniquely powerful versus several slower, control-oriented decks and is played often enough to push those decks out of play.' Blizzard also publicly noted the deck's raw winrate was close to average - the nerf was driven by polarisation and player experience, not by a winrate outlier.",
+   "key_cards": [
+    "The Caverns Below",
+    "Novice Engineer",
+    "Stonetusk Boar",
+    "Youthful Brewmaster",
+    "Shadowstep",
+    "Gadgetzan Ferryman",
+    "Preparation",
+    "Mimic Pod",
+    "Southsea Deckhand",
+    "Igneous Elemental",
+    "Fire Fly",
+    "Vanish"
+   ],
+   "notable_pilots": [
+    "Frederik 'Hoej' Hoj Nielsen (brought Quest Rogue in his winning 2017 HCT Spring Championship lineup)"
+   ],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Pirate Warrior",
+   "class": "Warrior",
+   "tier": "Tier 1 early Un'Goro, decaying through the year, dead after 2018-02-06",
+   "why_it_mattered": "Carried over from Gadgetzan as the fastest clock in the format and the natural predator of Quest Rogue. Un'Goro shipped an explicit tax on it - Golakka Crawler, a 2-mana 2/3 that eats a Pirate and grows - which is one of the earliest examples of Blizzard printing a targeted hate card instead of nerfing. It survived that, survived the Fiery War Axe nerf (2->3 mana, 2017-09-18), and was only truly ended when Patches the Pirate lost Charge on 2018-02-06.",
+   "key_cards": [
+    "Patches the Pirate",
+    "Small-Time Buccaneer",
+    "Southsea Deckhand",
+    "N'Zoth's First Mate",
+    "Bloodsail Raider",
+    "Bloodsail Cultist",
+    "Frothing Berserker",
+    "Naga Corsair",
+    "Dread Corsair",
+    "Fiery War Axe",
+    "Arcanite Reaper",
+    "Upgrade!",
+    "Heroic Strike",
+    "Mortal Strike",
+    "Kor'kron Elite",
+    "Southsea Captain"
+   ],
+   "notable_pilots": [
+    "Hoej (Aggro Pirate Warrior in his 2017 HCT Spring Championship winning lineup)"
+   ],
+   "empirical_share": "Pre-era only: Pirate Warrior was 4.26% of labelled ranked HearthPwn decks (205 of 4,814) in the 'Aggro Downfall' window 2017-02-28 to 2017-03-19; Patches the Pirate had a 13.92% inclusion rate across ALL ranked decks in that window. pre-era baseline only: deck_aggregate.json's last covered window is 'Aggro Downfall' (2017-02-28 to 2017-03-19, n=4,814 ranked HearthPwn decks). Coverage ENDS 2017-03-19, so it contains nothing from Un'Goro onward.",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Token / Aggro Druid",
+   "class": "Druid",
+   "tier": "Tier 1, Un'Goro through Frozen Throne",
+   "why_it_mattered": "The deck that punished Quest Rogue after the nerf and the reason Innervate was eventually gutted. Living Mana turned your remaining mana crystals into a lethal board, and pre-nerf Innervate (2 mana this turn) made a turn-4 or turn-5 Living Mana + Savage Roar kill routine. Vicious Fledgling on an empty board frequently ended games by itself. Vicious Syndicate described it as having 'a firm grip on the meta' and as the second most popular deck at Legend during the early Frozen Throne period.",
+   "key_cards": [
+    "Living Mana",
+    "Innervate",
+    "Enchanted Raven",
+    "Mark of the Lotus",
+    "Power of the Wild",
+    "Savage Roar",
+    "Vicious Fledgling",
+    "Mark of Y'Shaarj",
+    "Fire Fly",
+    "Spellbreaker",
+    "Bittertide Hydra"
+   ],
+   "notable_pilots": [],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Elemental Shaman",
+   "class": "Shaman",
+   "tier": "Tier 1-2 for most of Un'Goro",
+   "why_it_mattered": "The clean 'good midrange deck' of Un'Goro and proof the Elemental tribe worked. The played-an-Elemental-last-turn condition forced genuine sequencing decisions - the single most interesting new design constraint of the year. Blazecaller as a 6-mana 6/6 that also deals 5 was the payoff; Fire Fly and Glacial Shard made the condition trivially satisfiable on curve. It faded once Frozen Throne handed Druid and Priest bigger engines and once Hex went to 4 mana on 2017-09-18.",
+   "key_cards": [
+    "Fire Fly",
+    "Glacial Shard",
+    "Servant of Kalimos",
+    "Blazecaller",
+    "Fire Plume Phoenix",
+    "Kalimos, Primal Lord",
+    "Hot Spring Guardian",
+    "Tar Creeper",
+    "Jade Claws",
+    "Flametongue Totem",
+    "Maelstrom Portal",
+    "Hex",
+    "Volcano"
+   ],
+   "notable_pilots": [],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Murloc Paladin",
+   "class": "Paladin",
+   "tier": "Tier 1-2, Un'Goro into Frozen Throne",
+   "why_it_mattered": "Gentle Megasaur - Adapt your Murlocs - converted a wide Murloc board into an unanswerable one (Divine Shield or +1/+1 across four bodies), and Murloc Warleader's pre-nerf +2/+1 aura made the whole board survive AoE. It was a genuine tournament staple: both the Spring and Summer HCT champions brought it. Murloc Warleader losing the +1 Health on 2017-09-18 was aimed squarely at this deck.",
+   "key_cards": [
+    "Gentle Megasaur",
+    "Murloc Warleader",
+    "Murloc Tidecaller",
+    "Rockpool Hunter",
+    "Grimscale Chum",
+    "Bluegill Warrior",
+    "Vilefin Inquisitor",
+    "Finja, the Flying Star",
+    "Hydrologist",
+    "Sunkeeper Tarim",
+    "Blessing of Kings",
+    "Divine Favor"
+   ],
+   "notable_pilots": [
+    "Hoej (2017 HCT Spring Championship winning lineup)",
+    "Surrender (Midrange Murloc Paladin at the 2017 HCT Summer Championship, which he won)"
+   ],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Jade Druid",
+   "class": "Druid",
+   "tier": "Tier 1, the single most defining deck of the year (Aug 2017 - Apr 2018)",
+   "why_it_mattered": "Jade Idol from Gadgetzan gave Druid literal infinite value; Frozen Throne then gave it the two cards that fixed every other weakness. Ultimate Infestation is a 10-mana spell that deals 5, draws 5, gains 5 Armor and leaves a 5/5 - reachable on turn 5-6 off ramp - and Spreading Plague answered every wide aggro board for 5 mana. Vicious Syndicate reported it approaching 20% representation at Legend and rising in winrate as the format's dominant deck. It was the deck both finalists brought to the 2017 World Championship, and the final game of that final was a Jade Druid mirror.",
+   "key_cards": [
+    "Jade Idol",
+    "Jade Blossom",
+    "Jade Behemoth",
+    "Aya Blackpaw",
+    "Jade Spirit",
+    "Ultimate Infestation",
+    "Spreading Plague",
+    "Wild Growth",
+    "Nourish",
+    "Innervate",
+    "Wrath",
+    "Swipe",
+    "Malfurion the Pestilent",
+    "Branching Paths",
+    "Oaken Summons"
+   ],
+   "notable_pilots": [
+    "tom60229 (won the 2017 World Championship; the deciding game 5 was a Jade Druid mirror)",
+    "Fr0zen (2017 World Championship runner-up, also brought Druid)",
+    "Orange (Jade Druid at the 2017 HCT Summer Championship final)"
+   ],
+   "empirical_share": "",
+   "playrate_or_winrate": "Vicious Syndicate reported Jade Druid nearing 20% representation at Legend during the Frozen Throne period and rising steadily in winrate (medium confidence - secondary reporting of vS text, the report pages themselves are Cloudflare-blocked from this environment).",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Razakus / Highlander (Kazakus) Priest",
+   "class": "Priest",
+   "tier": "Tier 1, Aug 2017 - Feb 2018",
+   "why_it_mattered": "The purest example of cross-set combo accretion in Hearthstone's history. Raza the Chained (Gadgetzan, Dec 2016) set Hero Power cost to 0 in a no-duplicates deck; Shadowreaper Anduin (Frozen Throne, Aug 2017) changed that Hero Power to 'deal 2 damage' and reset it after every card played. The two together are an unlimited-reach engine that also wipes every 5-attack minion on the board when it lands. Add Prophet Velen and Mind Blast and the deck killed from 20+ out of hand. Vicious Syndicate reported Priest exceeding 20% representation at the bottleneck to Legend. Raza was nerfed to Hero Power cost (1) on 2018-02-06 - 434 days after Raza first shipped, per the local card DB.",
+   "key_cards": [
+    "Raza the Chained",
+    "Shadowreaper Anduin",
+    "Kazakus",
+    "Prophet Velen",
+    "Mind Blast",
+    "Alexstrasza",
+    "Shadow Visions",
+    "Dragonfire Potion",
+    "Holy Nova",
+    "Lyra the Sunshard",
+    "Free From Amber",
+    "Potion of Madness",
+    "Netherspite Historian",
+    "Curious Glimmerroot",
+    "Elise the Trailblazer",
+    "Duskbreaker"
+   ],
+   "notable_pilots": [
+    "Surrender (won the 2017 HCT Summer Championship final on a Highlander Priest mirror against Orange)",
+    "tom60229 and Fr0zen (both brought Priest to the 2017 World Championship final)"
+   ],
+   "empirical_share": "",
+   "playrate_or_winrate": "Vicious Syndicate reported Priest exceeding 20% representation at the bottleneck to Legend late in 2017 (medium confidence, secondary reporting).",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Keleseth Tempo Rogue",
+   "class": "Rogue",
+   "tier": "Tier 1, Aug 2017 - Apr 2018",
+   "why_it_mattered": "Prince Keleseth is a 2-mana 2/2 that gives every minion left in your deck +1/+1 if you run no 2-cost cards. In Rogue that constraint cost almost nothing (Backstab, Preparation and Shadowstep are all 0-mana) and Shadowstep let you replay Keleseth for a second stacking buff. The result was an aggro deck whose entire deck was statistically above rate from turn 2 onward. It is the clearest case in the era of a deckbuilding restriction being no restriction at all. It got even better in Kobolds with Corridor Creeper and Elven Minstrel.",
+   "key_cards": [
+    "Prince Keleseth",
+    "Shadowstep",
+    "Swashburglar",
+    "Fire Fly",
+    "Southsea Deckhand",
+    "Patches the Pirate",
+    "SI:7 Agent",
+    "Edwin VanCleef",
+    "Vilespine Slayer",
+    "Saronite Chain Gang",
+    "Cobalt Scalebane",
+    "Bonemare",
+    "Corridor Creeper",
+    "Elven Minstrel"
+   ],
+   "notable_pilots": [
+    "Surrender (Tempo Rogue in his 2017 HCT Summer Championship winning lineup)",
+    "tom60229 (Rogue in his 2017 World Championship winning lineup; his turn-2 10/10 Edwin VanCleef in game 4 of the final is the most-replayed moment of the era)"
+   ],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Big Priest (Resurrect Priest)",
+   "class": "Priest",
+   "tier": "Tier 1-2 from Oct 2017, and the deck that outlived the era by years",
+   "why_it_mattered": "Frozen Throne gave Priest Shadow Essence (7 mana, summon a 5/5 copy of a random minion in your deck), Eternal Servitude and Obsidian Statue, which turned Barnes + Y'Shaarj, Rage Unbound from a meme into a coherent plan: cheat out a huge minion early, then resurrect it repeatedly. Kobolds added Lesser Diamond Spellstone and Twilight's Call. It is the canonical high-variance deck of the era - a turn-4 Barnes hitting Y'Shaarj wins on the spot; a turn-4 Barnes hitting a 1/1 Doomsayer loses. It became notorious enough to shape Wild for years afterwards.",
+   "key_cards": [
+    "Barnes",
+    "Y'Shaarj, Rage Unbound",
+    "Shadow Essence",
+    "Eternal Servitude",
+    "Obsidian Statue",
+    "Lesser Diamond Spellstone",
+    "Twilight's Call",
+    "Free From Amber",
+    "Shadow Word: Horror",
+    "Psychic Scream",
+    "Doomsayer"
+   ],
+   "notable_pilots": [],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Cubelock (Control / Demon Warlock)",
+   "class": "Warlock",
+   "tier": "Tier 1 and the defining deck of the Kobolds meta (Dec 2017 - May 2018)",
+   "why_it_mattered": "The set's recursion package composed into a deck that could not be out-valued. Voidlord (9 mana, 3/9 Taunt, Deathrattle: three 1/3 Taunts) plus Carnivorous Cube (destroy a friendly minion, Deathrattle: summon 2 copies) plus Dark Pact (1 mana: destroy a friendly minion, heal 8) plus Possessed Lackey and Skull of the Man'ari to cheat it out early, all backed by Bloodreaver Gul'dan to bring every dead Demon back at 10 mana. HearthPwn's own coverage described it as forcing every fast deck to win before turns five and six, and Ben Brode later framed it in terms of emotional impact rather than raw winrate - it made opponents feel powerless. It survived the February 2018 nerf patch untouched and only got hit on 2018-05-22, after this era ended (Dark Pact heal 8->4, Possessed Lackey 5->6).",
+   "key_cards": [
+    "Carnivorous Cube",
+    "Voidlord",
+    "Possessed Lackey",
+    "Dark Pact",
+    "Skull of the Man'ari",
+    "Bloodreaver Gul'dan",
+    "Doomguard",
+    "Defile",
+    "Lesser Amethyst Spellstone",
+    "Kobold Librarian",
+    "Prince Taldaram",
+    "Despicable Dreadlord",
+    "Twisting Nether"
+   ],
+   "notable_pilots": [],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Aggro / Dude Paladin (Call to Arms)",
+   "class": "Paladin",
+   "tier": "Tier 1, Jan - Apr 2018",
+   "why_it_mattered": "Call to Arms - 4 mana, Recruit 3 minions costing (2) or less - was widely called the best 4-drop ever printed: three bodies from the deck AND three cards effectively drawn, for four mana. Paired with Righteous Protector, Argent Squire, Drygulch Jailor, Lost in the Jungle and Level Up!, Paladin got the most efficient snowball opener in the format. It defined the last three months of the Mammoth Standard year and was nerfed to 5 mana on 2018-05-22, after the era closed.",
+   "key_cards": [
+    "Call to Arms",
+    "Righteous Protector",
+    "Argent Squire",
+    "Drygulch Jailor",
+    "Lost in the Jungle",
+    "Level Up!",
+    "Unidentified Maul",
+    "Steward of Darkshire",
+    "Fungalmancer",
+    "Corridor Creeper",
+    "Sunkeeper Tarim",
+    "Val'anyr",
+    "Spikeridged Steed"
+   ],
+   "notable_pilots": [],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "high"
+  },
+  {
+   "archetype": "Secret Mage",
+   "class": "Mage",
+   "tier": "Tier 1-2 across all three sets",
+   "why_it_mattered": "The most consistent 'always playable' deck of the year and a rare aggro shell that never got nerfed. Un'Goro's Arcanologist (2 mana 2/3, draw a Secret) fixed its consistency problem; Kobolds' Explosive Runes and Aluneth turned it into a tempo-burn hybrid with an infinite-refuel button. Fr0zen brought Mage to the 2017 World Championship final.",
+   "key_cards": [
+    "Arcanologist",
+    "Medivh's Valet",
+    "Kirin Tor Mage",
+    "Explosive Runes",
+    "Aluneth",
+    "Primordial Glyph",
+    "Sorcerer's Apprentice",
+    "Kabal Crystal Runner",
+    "Fireball",
+    "Frostbolt",
+    "Ghastly Conjurer",
+    "Arcane Artificer"
+   ],
+   "notable_pilots": [
+    "Fr0zen (Mage in his 2017 World Championship finals lineup)"
+   ],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "medium"
+  },
+  {
+   "archetype": "Spiteful Summoner decks (Spiteful Priest / Spiteful Druid)",
+   "class": "Priest",
+   "tier": "Tier 1-2, Jan - Apr 2018 (and stronger after this era)",
+   "why_it_mattered": "The purest deckbuilding-puzzle deck of the year: build a deck whose only spells cost 8+ (or a single big spell), then Spiteful Summoner and Grand Archivist reliably drop a 4-mana 4/4 that also summons a random 8-cost minion. It rewarded a constraint that cost almost nothing in Dragon Priest, which already wanted Duskbreaker, Twilight Acolyte and Drakonid Operative. It was the archetype that most obviously exposed 'cost-matching random summon' as a mechanic that scales with the ceiling of the whole card pool, not with the card itself. Spiteful Summoner went to 7 mana on 2018-05-22.",
+   "key_cards": [
+    "Spiteful Summoner",
+    "Grand Archivist",
+    "Free From Amber",
+    "Duskbreaker",
+    "Twilight Acolyte",
+    "Drakonid Operative",
+    "Kabal Talonpriest",
+    "Shadow Ascendant",
+    "Netherspite Historian",
+    "Cobalt Scalebane"
+   ],
+   "notable_pilots": [],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "medium"
+  },
+  {
+   "archetype": "Quest Mage (Exodia Mage / Open the Waygate)",
+   "class": "Mage",
+   "tier": "Fringe by playrate, outsized by reputation",
+   "why_it_mattered": "Never a large share of ladder, but the archetype that most shaped how players felt about Quests. Complete Open the Waygate (cast 8 spells that did not start in your deck) for Time Warp - an extra turn - then chain Sorcerer's Apprentice, Molten Reflection and Archmage Antonidas into an unlosable OTK. It was the second half of the community's 'Quests are non-games' complaint alongside Quest Rogue, and it survived every nerf in the era untouched.",
+   "key_cards": [
+    "Open the Waygate",
+    "Sorcerer's Apprentice",
+    "Molten Reflection",
+    "Archmage Antonidas",
+    "Primordial Glyph",
+    "Simulacrum",
+    "Ice Block",
+    "Arcane Artificer",
+    "Aluneth"
+   ],
+   "notable_pilots": [],
+   "empirical_share": "",
+   "playrate_or_winrate": "",
+   "representative_decklist": [],
+   "confidence": "medium"
+  }
+ ],
+ "defining_cards": [
+  {
+   "card": "The Caverns Below",
+   "set": "UNGORO",
+   "why": "1-mana Rogue Quest, originally 'Play four minions with the same name' for Crystal Core (all your minions become 5/5). The only card nerfed during the entire Un'Goro cycle. Verified in balance_changes: text changed from 'four' to 'five' on 2017-07-11 (build 20022, patch 8.4) - 98 days after the card's data first shipped on 2017-04-04.",
+   "fate": "Nerfed 4->5 minions, 2017-07-10 live (patch 8.4). Full-dust disenchant offered until 2017-07-24.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Ultimate Infestation",
+   "set": "ICECROWN",
+   "why": "10-mana Druid Epic: deal 5, draw 5, gain 5 Armor, summon a 5/5. Four cards of value in one spell, reachable turn 5-6 off Wild Growth/Nourish/Innervate ramp. Widely called the most broken card of the year; Blizzard nerfed everything around it (Innervate, Spreading Plague) and never touched the card itself.",
+   "fate": "Never changed - zero rows in balance_changes. Left Standard in the 2019 rotation.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Spreading Plague",
+   "set": "ICECROWN",
+   "why": "Originally 5 mana: summon 1/5 Taunt Scarabs until you match your opponent's board. A single card that invalidated every wide aggro deck against the class that also had the best late game. Verified nerf 5->6 mana on 2017-09-18 - 41 days after the set's data ship, the fastest balance response of the era per the local DB.",
+   "fate": "Nerfed 5 -> 6 mana, 2017-09-18 (patch 9.1).",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Innervate",
+   "set": "LEGACY (Classic/Basic Druid)",
+   "why": "Gain 2 Mana Crystals this turn only. Un'Goro's Living Mana and Frozen Throne's Ultimate Infestation both scaled with it, so a 2013 Basic card ended up the enabler of two separate Tier 1 Druid decks. Verified: text changed from 'Gain 2 Mana Crystals this turn only' to 'Gain 1 Mana Crystal this turn only' on 2017-09-18.",
+   "fate": "Nerfed to 1 mana crystal on 2017-09-18; Hall of Famed in 2018.",
+   "inclusion_rate": "10.35% inclusion across all ranked HearthPwn decks in the pre-era 'Gadgetzan' window (2,786 of 26,928). pre-era baseline only: deck_aggregate.json's last covered window is 'Aggro Downfall' (2017-02-28 to 2017-03-19, n=4,814 ranked HearthPwn decks). Coverage ENDS 2017-03-19, so it contains nothing from Un'Goro onward.",
+   "confidence": "high"
+  },
+  {
+   "card": "Prince Keleseth",
+   "set": "ICECROWN",
+   "why": "2-mana 2/2 Legendary: if your deck has no 2-cost cards, give every minion in your deck +1/+1. The buff is permanent, applies to cards you have not drawn yet, and stacks if you replay him. Rewrote the curve of every aggro and tempo deck in the format - Tempo Rogue, Zoolock, Aggro Paladin, Face Hunter - for eight straight months.",
+   "fate": "Never nerfed. Rotated out in 2019. Its two siblings, Prince Taldaram and Prince Valanar, were near-unplayable by comparison.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Bonemare",
+   "set": "ICECROWN",
+   "why": "A 7-mana COMMON 5/5 that gives a friendly minion +4/+4 and Taunt - a 9/9 of stats plus Taunt across two bodies, playable by every class. The definitive 'neutral auto-include that flattens deckbuilding' card of the era; it appeared in aggro, midrange and tempo lists in nearly every class.",
+   "fate": "Nerfed 7 -> 8 mana on 2018-02-06 (patch 10.2), 182 days after its data ship.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Corridor Creeper",
+   "set": "LOOTAPALOOZA",
+   "why": "Originally a 7-mana 5/5 that cost (1) less each time a minion died while it sat in hand - routinely a 0-mana 5/5 by turn 4 or 5 in any board-trading meta. It slotted straight into Aggro Paladin, Tempo Rogue, Aggro Hunter and Zoo without any deckbuilding cost. Verified nerf: attack 5 -> 2 on 2018-02-06, 62 days after release.",
+   "fate": "Nerfed to 2 attack on 2018-02-06; effectively removed from Constructed.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Raza the Chained",
+   "set": "GANGS (Gadgetzan, but its era is Mammoth)",
+   "why": "Battlecry: if your deck has no duplicates, your Hero Power costs (0) this game. Harmless for eight months, then Shadowreaper Anduin turned the free Hero Power into an unlimited damage engine. The clearest case study in the game's history of a combo assembled across two expansions.",
+   "fate": "Nerfed on 2018-02-06 to Hero Power costs (1) - verified in balance_changes, 434 days after the card first shipped.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Shadowreaper Anduin",
+   "set": "ICECROWN",
+   "why": "8-mana Priest Hero card: destroy all minions with 5 or more attack, then a Hero Power that deals 2 damage and resets after every card you play. On its own a fair board wipe plus reach; with Raza it was a one-card win condition. Also the single best argument that permanent Hero Power replacement is undercosted in a format with no way to remove a hero.",
+   "fate": "Never nerfed - the Raza half was changed instead. Rotated in 2019.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Patches the Pirate",
+   "set": "GANGS",
+   "why": "1-mana 1/1 with Charge that summons itself free from your deck the moment you play any Pirate. Effectively a 29-card deck plus a free charging body, and the reason 'Pirate package' was a phrase. It had already warped the previous year; the Mammoth year is when it was finally addressed.",
+   "fate": "Lost Charge on 2018-02-06 - verified, 434 days after first shipping. Hall of Famed later.",
+   "inclusion_rate": "13.92% of all ranked HearthPwn decks in the pre-era 'Aggro Downfall' window. pre-era baseline only: deck_aggregate.json's last covered window is 'Aggro Downfall' (2017-02-28 to 2017-03-19, n=4,814 ranked HearthPwn decks). Coverage ENDS 2017-03-19, so it contains nothing from Un'Goro onward.",
+   "confidence": "high"
+  },
+  {
+   "card": "Fiery War Axe",
+   "set": "LEGACY (Basic Warrior)",
+   "why": "2-mana 3/2 weapon, the single best turn-2 play in the game since 2014 and the backbone of Pirate Warrior. Its nerf on 2017-09-18 is one of only a handful of times Blizzard has touched a Basic card, and it marked the moment the design team accepted that Classic/Basic cards constrain expansion design.",
+   "fate": "Nerfed 2 -> 3 mana on 2017-09-18. (Reverted to 2 mana in 2019, per the current DB row.)",
+   "inclusion_rate": "10.05% of ranked HearthPwn decks in the pre-era 'Aggro Downfall' window. pre-era baseline only: deck_aggregate.json's last covered window is 'Aggro Downfall' (2017-02-28 to 2017-03-19, n=4,814 ranked HearthPwn decks). Coverage ENDS 2017-03-19, so it contains nothing from Un'Goro onward.",
+   "confidence": "high"
+  },
+  {
+   "card": "Jade Idol",
+   "set": "GANGS",
+   "why": "1-mana: summon a Jade Golem OR shuffle 3 copies of itself into your deck. Deletes fatigue as a win condition and makes Druid's late game literally infinite and always-growing. It is the reason Frozen Throne had to print an anti-card (Skulking Geist) and the reason control mirrors in this era were decided by whoever had Jades.",
+   "fate": "Never nerfed. Rotated out in 2018.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Skulking Geist",
+   "set": "ICECROWN",
+   "why": "6-mana 4/6: destroy all 1-cost spells in both hands and decks. A neutral card printed as an explicit, named answer to Jade Idol. It is the era's best evidence that single-card answers to single-card problems do not fix a format - Jade Druid simply played around it or accepted the loss, and Geist mostly ended up as a tech slot people cut.",
+   "fate": "Never nerfed.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Carnivorous Cube",
+   "set": "LOOTAPALOOZA",
+   "why": "5-mana 4/6: destroy a friendly minion, Deathrattle summon 2 copies of it. Combined with Voidlord and Dark Pact it produced boards that could not be removed and could not be raced, and with Bloodreaver Gul'dan it produced a second copy of that board on turn 10. The engine of Cubelock.",
+   "fate": "Never nerfed; Dark Pact and Possessed Lackey were hit instead, on 2018-05-22 (after this era).",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Voidlord",
+   "set": "LOOTAPALOOZA",
+   "why": "9-mana 3/9 Taunt, Deathrattle: summon three 1/3 Taunts. 12 points of Taunt health and 4 bodies from one card. It defined what 'unraceable' meant for six months and made every aggro deck in Kobolds a race against a clock they usually lost.",
+   "fate": "Never nerfed in this era.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Call to Arms",
+   "set": "LOOTAPALOOZA",
+   "why": "4-mana Paladin Epic: Recruit 3 minions that cost (2) or less. Three bodies from the deck plus three cards' worth of thinning for four mana, with no downside beyond a deckbuilding preference Paladin already had. Widely described at the time as the strongest 4-cost card ever printed.",
+   "fate": "Nerfed 4 -> 5 mana on 2018-05-22 (verified in balance_changes), 167 days after release - just after this Standard year ended.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Living Mana",
+   "set": "UNGORO",
+   "why": "5-mana Druid Epic: turn your mana crystals into 2/2 Treants and get the mana back when they die. The engine of Token Druid: it converts your entire remaining resource base into a lethal board with Savage Roar, and pre-nerf Innervate made it playable a turn early. The most inventive 'break the mana system' card of the year.",
+   "fate": "Never nerfed (only a text clarification on 2018-08-02).",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Sunkeeper Tarim",
+   "set": "UNGORO",
+   "why": "6-mana 3/7 Taunt: set all OTHER minions' attack and health to 3. A single card that is a board wipe against big minions and a mass buff for your own Silver Hand Recruits and Murlocs. It kept Paladin relevant across all three sets and is the best-designed 'symmetric-but-not-really' effect of the year.",
+   "fate": "Never nerfed.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Golakka Crawler",
+   "set": "UNGORO",
+   "why": "2-mana 2/3: destroy a Pirate and gain +1/+1. A neutral hate card printed specifically to tax Patches/Pirate Warrior rather than nerfing them. It is the era's cleanest example of the 'answer card instead of nerf' philosophy, and it demonstrably did not work - Pirate Warrior remained Tier 1 for months and Patches still had to be nerfed ten months later.",
+   "fate": "Never nerfed.",
+   "inclusion_rate": "",
+   "confidence": "high"
+  },
+  {
+   "card": "Barnes",
+   "set": "KARA",
+   "why": "5-mana 3/4: summon a 1/1 copy of a random minion in your deck. Printed in 2016 as a fun card, it became the keystone of Big Priest once Frozen Throne printed Eternal Servitude and Shadow Essence to resurrect the 1/1 Y'Shaarj at full size. The purest example of an old card becoming a problem because of what got printed later.",
+   "fate": "Never nerfed in this era; Hall of Famed much later.",
+   "inclusion_rate": "11.47% of all ranked HearthPwn decks in the pre-era 'Aggro Downfall' window. pre-era baseline only: deck_aggregate.json's last covered window is 'Aggro Downfall' (2017-02-28 to 2017-03-19, n=4,814 ranked HearthPwn decks). Coverage ENDS 2017-03-19, so it contains nothing from Un'Goro onward.",
+   "confidence": "high"
+  }
+ ],
+ "balance_actions": [
+  {
+   "card_or_change": "Small-Time Buccaneer (health 2->1), Spirit Claws (1 -> 2 mana)",
+   "action": "nerf",
+   "date_or_patch": "2017-02-28, build 17720 (patch 7.1)",
+   "reason": "Immediately PRE-era, included as the starting condition: the patch that broke Pirate Warrior's turn-1 and Aggro Shaman's weapon curve going into the Un'Goro rotation. deck_aggregate's final window, 'Aggro Downfall', is exactly the meta this patch created.",
+   "confidence": "high",
+   "confirmed_in_local_db": true
+  },
+  {
+   "card_or_change": "Hall of Fame: Ragnaros the Firelord, Sylvanas Windrunner, Azure Drake, Ice Lance, Conceal, Power Overwhelming moved from Classic to the Wild-only Hall of Fame set",
+   "action": "rotation / Hall of Fame",
+   "date_or_patch": "2017-04-04 announcement/patch, effective with the Un'Goro launch on 2017-04-06",
+   "reason": "First-ever Hall of Fame. Blizzard's stated goal was to free design space occupied by Classic staples that were too strong and too stale. Players received full dust compensation without disenchanting, capped at the max copies playable in a deck. This was arguably the largest single balance action of the era.",
+   "confidence": "high",
+   "confirmed_in_local_db": false
+  },
+  {
+   "card_or_change": "Standard rotation: Blackrock Mountain, The Grand Tournament and League of Explorers leave Standard",
+   "action": "rotation",
+   "date_or_patch": "2017-04-06 (Year of the Mammoth begins)",
+   "reason": "Removed Emperor Thaurissan, Reno Jackson, Sir Finley Mrrgglton, Tunnel Trogg, Djinni/Brann-era Reno shells and the entire Discover-adventure toolkit from Standard. Combined with the Hall of Fame this was the biggest single subtraction from the Standard pool up to that point.",
+   "confidence": "high",
+   "confirmed_in_local_db": false
+  },
+  {
+   "card_or_change": "The Caverns Below: 'Play four minions with the same name' -> 'Play five minions with the same name'",
+   "action": "nerf",
+   "date_or_patch": "Live 2017-07-10 (patch 8.4). Local DB records the data change on 2017-07-11, build 20022.",
+   "reason": "Blizzard: The Caverns Below 'is uniquely powerful versus several slower, control-oriented decks and is played often enough to push those decks out of play.' Notably Blizzard publicly acknowledged the deck's winrate was roughly average and nerfed it for polarisation and player experience. 98 days after the card shipped - the slowest emergency response of the era.",
+   "confidence": "high",
+   "confirmed_in_local_db": true
+  },
+  {
+   "card_or_change": "Patch 9.1: Innervate (2 mana crystals -> 1), Fiery War Axe (2 -> 3 mana), Hex (3 -> 4 mana), Murloc Warleader (+2/+1 aura -> +2 Attack), Spreading Plague (5 -> 6 mana)",
+   "action": "nerf (5 cards)",
+   "date_or_patch": "2017-09-18, build 20970 (patch 9.1)",
+   "reason": "The largest balance patch of the era and the first time Blizzard touched Basic cards (Innervate, Fiery War Axe) for meta reasons. Targets: Druid ramp and Token/Jade Druid (Innervate, Spreading Plague), Pirate Warrior (Fiery War Axe), Murloc Paladin (Murloc Warleader), and Shaman's cheap catch-all answer (Hex). All five verified in balance_changes.",
+   "confidence": "high",
+   "confirmed_in_local_db": true
+  },
+  {
+   "card_or_change": "Death Knight Hero cards removed from the Arena draft pool",
+   "action": "format restriction (Arena only)",
+   "date_or_patch": "2017-11-14",
+   "reason": "Blizzard's stated reason: the hero cards' permanent Hero Power upgrades 'are hard to combat in a format where answers are limited.' Constructed-adjacent because it is the design team publicly conceding that permanent, unremovable Hero Power replacement was mispriced.",
+   "confidence": "medium",
+   "confirmed_in_local_db": false
+  },
+  {
+   "card_or_change": "Patch 10.2: Corridor Creeper (5 -> 2 attack), Bonemare (7 -> 8 mana), Patches the Pirate (loses Charge), Raza the Chained (Hero Power costs (0) -> costs (1))",
+   "action": "nerf (4 cards)",
+   "date_or_patch": "2018-02-06, build 23180 (patch 10.2)",
+   "reason": "The patch that ended three of the era's defining decks in one stroke: Aggro/Tempo Corridor Creeper decks, Razakus Priest, and Pirate Warrior. All four verified in balance_changes. Latencies from the local DB: Corridor Creeper 62 days, Bonemare 182 days, Patches and Raza 434 days each. Conspicuously it did NOT touch Cubelock, which then became the dominant deck of the remaining Mammoth year.",
+   "confidence": "high",
+   "confirmed_in_local_db": true
+  },
+  {
+   "card_or_change": "Year of the Raven rotation: Un'Goro/Frozen Throne/Kobolds stay, Gadgetzan/Karazhan/Old Gods leave; Hall of Fame adds Ice Block, Coldlight Oracle, Molten Giant",
+   "action": "rotation / Hall of Fame",
+   "date_or_patch": "2018-04-10 pre-patch (build 23966); The Witchwood live 2018-04-12",
+   "reason": "Closes the era. Ice Block's removal ended Freeze/Quest Mage in Standard, Coldlight ended mill, and Molten Giant was reverted from 25 mana back to 20 on its way to Wild - the Molten Giant cost change (25 -> 20) IS verified in balance_changes on 2018-04-10; the Hall of Fame moves themselves are not modelled as balance_changes rows.",
+   "confidence": "high",
+   "confirmed_in_local_db": true
+  },
+  {
+   "card_or_change": "Patch 11.1 (post-era epilogue for Kobolds cards): Call to Arms (4 -> 5 mana), Dark Pact (heal 8 -> 4), Possessed Lackey (5 -> 6 mana), Spiteful Summoner (6 -> 7 mana), Naga Sea Witch (5 -> 8 mana)",
+   "action": "nerf (5 cards)",
+   "date_or_patch": "2018-05-22, build 24589 (patch 11.1) - AFTER this Standard year ended",
+   "reason": "Included because four of the five are Kobolds cards whose problems were created in this era and deliberately left alone. Blizzard delayed these changes until the HCT playoffs finished, which drew heavy criticism. 167 days from Kobolds release to the nerf, per the local DB.",
+   "confidence": "high",
+   "confirmed_in_local_db": true
+  }
+ ],
+ "issues": [
+  {
+   "issue": "'Average winrate' is not the same as 'balanced'. Quest Rogue was nerfed for polarisation and emotional impact, not for a winrate outlier.",
+   "evidence": "Blizzard publicly stated Quest Rogue's winrate was close to average while simultaneously arguing it was 'uniquely powerful versus several slower, control-oriented decks and is played often enough to push those decks out of play.' Ben Brode later applied the same reasoning to Cubelock, saying explicitly that with Quest Rogue 'the emotional impact of losing to that deck was so high that we felt like it was worth the nerf.' A community megathread on the deck ran past 3,500 comments.",
+   "design_lesson": "Track the variance of a deck's matchup spread, not just its mean winrate. A 50% deck made of 80/20s deletes more archetypes from the format than a 55% deck made of 55/45s, because the decks it beats stop being playable at all."
+  },
+  {
+   "issue": "A single card can be so central that the designers nerf everything around it rather than the card itself - and the format never actually changes.",
+   "evidence": "Ultimate Infestation (10 mana: deal 5, draw 5, gain 5 Armor, summon a 5/5) has ZERO rows in balance_changes and was never touched. Instead Blizzard nerfed Innervate (2017-09-18) and Spreading Plague (2017-09-18), both enablers/protection for the same deck. Jade Druid stayed a Tier 1 deck from August 2017 until rotation and was the deck both 2017 World Championship finalists brought.",
+   "design_lesson": "If the same deck survives two rounds of collateral nerfs, the problem is the payoff, not the enablers. Nerfing supporting cards moves the deck's curve; nerfing the payoff changes whether the deck exists."
+  },
+  {
+   "issue": "Deckbuilding-restriction payoffs are only balanced if the restriction actually costs something.",
+   "evidence": "Prince Keleseth (no 2-cost cards -> all minions in your deck get +1/+1) was never nerfed and defined every aggro/tempo shell for eight months, because Rogue's best cheap cards (Backstab, Preparation, Shadowstep) cost 0 and Zoo/Paladin had 1-drops to spare. Its siblings Prince Taldaram and Prince Valanar, with identical restrictions at other costs, were near-unplayable. Similarly, Spiteful Summoner's 'only expensive spells' restriction cost Dragon Priest almost nothing.",
+   "design_lesson": "Price a deckbuilding constraint by what the STRONGEST class must give up, not the average one. If any class can satisfy the constraint for free, the payoff must be balanced as if there were no constraint at all."
+  },
+  {
+   "issue": "Combos assemble across expansions, and a card can sit harmless for a year before another set weaponises it.",
+   "evidence": "Raza the Chained shipped in Gadgetzan on 2016-11-29 and was a curiosity. Shadowreaper Anduin shipped 2017-08-08 and turned it into an infinite-reach engine. Raza was finally nerfed on 2018-02-06 - 434 days after it shipped, per the local card DB. The same pattern hit Barnes (Karazhan, 2016) which only became a problem when Frozen Throne printed Eternal Servitude and Shadow Essence, and Jade Idol (Gadgetzan) which only became oppressive once Ultimate Infestation drew into it.",
+   "design_lesson": "Review the whole Standard-legal pool for new combination points every set, not just the new cards against each other. 'This card is fine now' is a statement with an expiry date."
+  },
+  {
+   "issue": "Balance cadence was far too slow for the size of the problems, and it was visibly scheduled around esports rather than around the ladder.",
+   "evidence": "Latencies computed from cards.sqlite: The Caverns Below 98 days from data-ship to nerf; Corridor Creeper 62; Bonemare 182; Patches and Raza 434 each; the Kobolds nerf wave 167 days. deep_analysis.json notes that same-week emergency nerfs (6-8 days) only appear in the data from 2018 onward and did not exist before. Blizzard also publicly deferred the Cubelock/Call to Arms/Quest Rogue changes until after the HCT playoffs at the end of May 2018.",
+   "design_lesson": "A format's health is a function of how long a broken state persists, not just how broken it is. Build a fast-patch pathway and accept the tournament-integrity cost, or accept that a three-month problem is a three-month problem."
+  },
+  {
+   "issue": "Strong neutral cards flatten deckbuilding across the whole format.",
+   "evidence": "Bonemare (a 7-mana COMMON: 5/5 body plus +4/+4 and Taunt on another minion) and Corridor Creeper (routinely a free 5/5 by turn 4) appeared across essentially every class's aggro and tempo lists. Both were nerfed in the same patch on 2018-02-06. Frozen Throne also shipped Saronite Chain Gang, Cobalt Scalebane and Corpsetaker as strong generic neutrals; Kobolds added Fungalmancer and Arcane Tyrant.",
+   "design_lesson": "Neutral power is multiplied by nine. A neutral card at class-card power level is nine class cards, and it makes every class's list converge on the same 8-10 slots. Class identity has to be defended from the neutral pool, not just from other classes."
+  },
+  {
+   "issue": "Printing a named hate card is a much weaker tool than a nerf, and the design team relied on it twice.",
+   "evidence": "Golakka Crawler (Un'Goro) was printed to tax Pirates; Pirate Warrior remained Tier 1 and Patches still needed nerfing 10 months later. Skulking Geist (Frozen Throne) was printed to answer Jade Idol; Jade Druid remained the format's best deck and Geist was frequently cut as a dead tech card in most matchups.",
+   "design_lesson": "A hate card only works if the hated deck cannot ignore it, cannot play around it, and if the hate card is not itself a dead draw in every other matchup. Otherwise you have shipped a tax on the field, not on the target."
+  },
+  {
+   "issue": "Recursion plus a mass-resurrection finisher makes decks that cannot be out-valued, which changes the win condition of the entire format from 'value' to 'clock'.",
+   "evidence": "Cubelock: Voidlord (4 bodies, 12 Taunt health) + Carnivorous Cube (duplicate it) + Dark Pact (1 mana to trigger a Deathrattle AND heal 8) + Bloodreaver Gul'dan (resummon every Demon that died). Contemporary coverage described it as forcing all fast decks to win before turns five and six, and Blizzard's own framing was about opponents feeling powerless. It went untouched in the February 2018 nerf patch and only got hit on 2018-05-22.",
+   "design_lesson": "Cheap Deathrattle-triggering, Deathrattle-copying and mass-resurrection are individually reasonable and jointly unbounded. Audit the product of your recursion effects, not each one in isolation."
+  },
+  {
+   "issue": "Permanent, unremovable Hero Power replacement was mispriced, and the design team admitted it in the one format where it could be measured cleanly.",
+   "evidence": "Death Knight hero cards were pulled from the Arena draft pool on 2017-11-14, with Blizzard citing that their 'permanent Hero Power upgrades are hard to combat in a format where answers are limited.' In Constructed, Shadowreaper Anduin, Bloodreaver Gul'dan, Frost Lich Jaina, Deathstalker Rexxar and Malfurion the Pestilent all became the top-end of their class's best deck.",
+   "design_lesson": "Effects that change the game state permanently and cannot be interacted with should be priced as if the opponent has no answer, because they do not. 'Hard to combat where answers are limited' is true of every format eventually."
+  },
+  {
+   "issue": "Infinite scaling resources delete fatigue as a win condition and hollow out control mirrors.",
+   "evidence": "Jade Idol shuffles three copies of itself into the deck; Jade Golems grow forever. Every control mirror in the era resolved to 'does one player have Jades?' Frozen Throne's Skulking Geist was a designed answer and did not fix it. The 2017 World Championship's deciding game was a Jade Druid mirror.",
+   "design_lesson": "Fatigue is the format's structural clock. Any card that removes it must be treated as changing the rules of every long game, not as one more value card."
+  }
+ ],
+ "pro_scene": {
+  "summary": "The Mammoth year is the high-water mark of the old HCT circuit: three seasonal championships plus the inaugural Hearthstone Global Games, all feeding a 16-player World Championship. Competitively it was a conquest-with-ban format that rewarded lineup construction, and its two most quoted moments both came from the 2017 World Championship final in Amsterdam. Deck lineups across the year track the ladder metas closely: Spring 2017 was Quest Rogue / Pirate Warrior / Murloc Paladin / Evolve Shaman, Summer 2017 was Tempo Rogue / Murloc Paladin / Highlander Priest / Jade Druid, and the World Championship in January 2018 was Priest and Druid on both sides with Warlock banned by both finalists - a fair summary of how narrow the Kobolds meta had become.",
+  "players": [
+   {
+    "name": "Chen 'tom60229' Wei-Lin",
+    "why_notable": "2017 HCT World Champion. Won the final in Amsterdam on 2018-01-21, coming back from 0-2 down to beat Fr0zen 3-2 for $250,000.",
+    "signature_decks": [
+     "Jade Druid",
+     "Rogue (Edwin/tempo)",
+     "Highlander Priest"
+    ],
+    "achievements": "1st, 2017 HCT World Championship (Amsterdam, 18-21 Jan 2018), $250,000. His turn-2 10/10 Edwin VanCleef in game 4 and the game-5 Jade Druid mirror win are the era's most-replayed moments."
+   },
+   {
+    "name": "Frank 'Fr0zen' Zhang",
+    "why_notable": "2017 HCT World Championship runner-up; representing the Americas. Led the final 2-0 before being reverse-swept.",
+    "signature_decks": [
+     "Mage",
+     "Priest",
+     "Druid"
+    ],
+    "achievements": "2nd, 2017 HCT World Championship."
+   },
+   {
+    "name": "Kim 'Surrender' Jung-soo",
+    "why_notable": "2017 HCT Summer Champion. Beat Orange 3-2 in a five-game final at the Blizzard Arena in Burbank, closing it out in a Highlander Priest mirror.",
+    "signature_decks": [
+     "Tempo Rogue",
+     "Midrange Murloc Paladin",
+     "Highlander (Razakus) Priest",
+     "Jade Druid"
+    ],
+    "achievements": "1st, 2017 HCT Summer Championship (13-15 Oct 2017), $60,000, plus a World Championship berth."
+   },
+   {
+    "name": "Sebastian 'Orange' Dziubinski",
+    "why_notable": "2017 HCT Summer Championship runner-up; took Surrender to five games with Evolve Shaman and Jade Druid.",
+    "signature_decks": [
+     "Evolve Shaman",
+     "Jade Druid",
+     "Highlander Priest"
+    ],
+    "achievements": "2nd, 2017 HCT Summer Championship."
+   },
+   {
+    "name": "Frederik 'Hoej' Hoj Nielsen",
+    "why_notable": "2017 HCT Spring Champion, in the peak Un'Goro meta. Reported as going 5-1 across the tournament.",
+    "signature_decks": [
+     "Quest Rogue",
+     "Aggro Pirate Warrior",
+     "Murloc Paladin",
+     "Evolve Token Shaman"
+    ],
+    "achievements": "1st, 2017 HCT Spring Championship (Shanghai, 7-9 Jul 2017), $60,000."
+   },
+   {
+    "name": "'ShtanUdachi'",
+    "why_notable": "Won the 2017 HCT Winter Championship, the first international HCT title of 2017. Played in the pre-era Gadgetzan Standard, so his result marks the boundary rather than the era itself.",
+    "signature_decks": [],
+    "achievements": "1st, 2017 HCT Winter Championship (Bahamas, March 2017)."
+   },
+   {
+    "name": "Stanislav 'StanCifka' Cifka",
+    "why_notable": "Led the Czech Republic to the inaugural Hearthstone Global Games title at gamescom 2017; long regarded as one of the strongest deckbuilders in the game.",
+    "signature_decks": [],
+    "achievements": "1st, 2017 Hearthstone Global Games (team event), with the Czech Republic."
+   },
+   {
+    "name": "Aleksandr 'Kolento' Malsh",
+    "why_notable": "Part of Ukraine's Global Games final-four team alongside Neirea, DrHippi and NickChipper; one of the most respected ladder innovators of the period.",
+    "signature_decks": [],
+    "achievements": "Top 4, 2017 Hearthstone Global Games (Ukraine)."
+   },
+   {
+    "name": "Brian Kibler",
+    "why_notable": "Not a competitor result but the loudest and most influential design critic of the era. His ~15-minute video breaking down why Quest Rogue was a problem is widely credited with pushing the conversation that led to the Caverns Below nerf, and his April 2017 Forbes column ('Un'Goro Has Created Hearthstone's Best Metagame In Years') is the canonical statement of the early-Un'Goro consensus.",
+    "signature_decks": [],
+    "achievements": "Design commentary; Forbes columnist during this period."
+   }
+  ],
+  "events": [
+   {
+    "event": "2017 HCT Winter Championship",
+    "year": "March 2017 (Bahamas)",
+    "winner": "ShtanUdachi",
+    "notable_decks": "Played in Gadgetzan Standard, immediately BEFORE this era. Included here only as the boundary marker."
+   },
+   {
+    "event": "2017 HCT Spring Championship",
+    "year": "7-9 July 2017 (Shanghai)",
+    "winner": "Frederik 'Hoej' Hoj Nielsen ($60,000)",
+    "notable_decks": "Hoej's winning lineup: Quest Rogue, Aggro Pirate Warrior, Murloc Paladin, Evolve Token Shaman. Held three days BEFORE the Caverns Below nerf went live on 10 July, so it is the last major tournament of the pre-nerf Quest Rogue meta."
+   },
+   {
+    "event": "2017 Hearthstone Global Games (inaugural)",
+    "year": "Group stage from June 2017; LAN finals 25-26 August 2017 at gamescom, Cologne",
+    "winner": "Czech Republic (StanCifka's team)",
+    "notable_decks": "Final four were Czech Republic, USA, South Korea and Ukraine (Kolento, Neirea, DrHippi, NickChipper). Played in the Un'Goro meta, just after Knights of the Frozen Throne launched."
+   },
+   {
+    "event": "2017 HCT Summer Championship",
+    "year": "13-15 October 2017 (Blizzard Arena, Burbank)",
+    "winner": "Surrender, def. Orange 3-2 ($60,000)",
+    "notable_decks": "Reported game order: Orange's Evolve Shaman beat Surrender's Tempo Rogue; Surrender's Tempo Rogue beat Orange's Jade Druid; Surrender's Murloc Paladin put him ahead; Orange's Jade Druid equalised; Surrender won a Highlander Priest mirror in game 5. A clean snapshot of the post-9.1 Frozen Throne meta."
+   },
+   {
+    "event": "2017 HCT World Championship",
+    "year": "18-21 January 2018, Beurs van Berlage, Amsterdam",
+    "winner": "Chen 'tom60229' Wei-Lin, def. Fr0zen 3-2 ($250,000)",
+    "notable_decks": "16 players. Both finalists brought Priest and Druid; Fr0zen added Mage, tom60229 added Rogue; both banned the other's Warlock, which is itself the clearest evidence of how feared Cubelock was six weeks into Kobolds. Game 4: a turn-2 10/10 Edwin VanCleef. Game 5: a Jade Druid mirror."
+   }
+  ]
+ },
+ "narrative": "The Year of the Mammoth is the year Hearthstone stopped being a game about Classic cards and immediately discovered what happens when expansion cards are the only thing that matters.\n\nIt opened with the largest single subtraction in the game's history to that point. Un'Goro's data shipped on 2017-04-04 in client build 18336, the expansion went live on 6 April, and with it Blackrock Mountain, The Grand Tournament and League of Explorers left Standard - taking Emperor Thaurissan, Reno Jackson, Sir Finley and Tunnel Trogg with them. On the same day Blizzard invented the Hall of Fame and used it to pull six Classic cards out of Standard: Ragnaros the Firelord, Sylvanas Windrunner, Azure Drake, Ice Lance, Conceal and Power Overwhelming. The local deck archive shows exactly how big a hole that was. In its final covered window ('Aggro Downfall', 4,814 ranked HearthPwn decks between 2017-02-28 and 2017-03-19), Azure Drake appeared in 43.7% of all posted ranked decks across every class, Ragnaros in 15.7% and Sylvanas in 15.4%. Whatever else Un'Goro did, it inherited a Standard pool with its three most universal neutral cards deleted.\n\nWhat replaced them was the densest stat set of the era. Computed from the local card database, Un'Goro averages 2.17 stats per mana at an average cost of 3.42 - the highest stats-per-mana and the lowest curve of any set in this three-set year, and comfortably above Old Gods (1.92), Karazhan (2.00) and Gadgetzan (1.98). Frozen Throne (1.80) and Kobolds (1.79) went the other way entirely. That single number is the year in miniature: Un'Goro was fast, cheap and board-centric; the two sets that followed were slow, text-heavy and full of recursion. The meta arc of the Mammoth year is the arc between those numbers.\n\nEarly Un'Goro is still remembered as one of the best metagames Hearthstone ever had, and the contemporary evidence supports the memory: Brian Kibler wrote it up in Forbes as 'Hearthstone's Best Metagame In Years' two weeks in, and HSReplay's own diversity tracking found Un'Goro consistently more diverse than Gadgetzan despite a smaller card pool. Elemental Shaman, Murloc Paladin, Token Druid, Pirate Warrior, Midrange Hunter, Taunt Warrior, Secret Mage and multiple Priest builds were all real. Quests gave every class a build-around that at least looked plausible.\n\nThen Quest Rogue solved it. Bounce a Novice Engineer four times, flip Crystal Core, and every minion you own becomes a 5/5. The problem was not the winrate - Blizzard said publicly it was near average - it was the shape of the matchup spread. Quest Rogue essentially could not lose to anything slower than a turn-six clock and essentially could not beat Pirate Warrior. The result was a two-deck format wearing a diverse costume: control decks stopped existing because they were 20% underdogs to a top-tier deck, and everything else had to be fast enough to race. Blizzard's own nerf justification was explicitly about pushing slower decks out of play. The fix - four minions to five - landed on 10 July, 98 days after the card shipped. Hoej won the Spring Championship with Quest Rogue in his lineup three days before it went live.\n\nFrozen Throne inverted the format. Ultimate Infestation is the card of the year and it was never touched: 10 mana for 5 damage, 5 cards, 5 armour and a 5/5, castable on turn five off ramp. Spreading Plague answered every wide board Un'Goro had created. Together they made Jade Druid - which already had literally infinite late-game resources thanks to Jade Idol - the best deck in the game for eight months. Simultaneously, Shadowreaper Anduin retroactively broke Raza the Chained, a Gadgetzan card that had sat harmless for eight months, into an unlimited-reach engine. Prince Keleseth handed every aggro deck a free +1/+1 on its entire remaining deck for a restriction Rogue and Zoo were happy to accept. Bonemare - a 7-mana common - appeared in nearly every class. The September 9.1 patch (Innervate, Fiery War Axe, Hex, Murloc Warleader, Spreading Plague) is the largest of the era and the first time Blizzard touched Basic cards for meta reasons, and it changed the format's speed without changing who was on top: Jade Druid and Razakus Priest were reported by Vicious Syndicate as approaching and exceeding 20% representation respectively at Legend.\n\nKobolds & Catacombs then poured recursion on top of a value format. Cubelock is the deck the year is remembered for at the end: Voidlord into Carnivorous Cube, Dark Pact to trigger it for one mana while healing eight, Possessed Lackey and Skull of the Man'ari to do it early, and Bloodreaver Gul'dan to do all of it again at ten. Nothing could out-value it and almost nothing could race it. Alongside it, Call to Arms gave Paladin the strongest four-drop ever printed, Corridor Creeper gave every board-trading deck a free 5/5, and Big Priest turned a 2016 novelty into a permanent fixture.\n\nThe era ends with the 2018-02-06 patch, which killed three defining decks in one stroke - Corridor Creeper to 2 attack, Patches losing Charge, Raza to a 1-mana Hero Power, Bonemare to 8 - and pointedly did not touch Cubelock, which then owned the last two months of the Standard year. The nerf latencies computed from the local database tell the real story of the year: 98 days for Caverns Below, 62 for Corridor Creeper, 182 for Bonemare, 434 each for Patches and Raza, and 167 more before the Kobolds cards were finally addressed on 2018-05-22 - deliberately deferred until after the HCT playoffs. Mammoth produced the best-loved meta of the decade in April 2017 and one of the most complained-about in March 2018, from the same design philosophy. What changed was not the ambition of the sets. It was how long the design team was willing to let a solved format sit.",
+ "evidence_notes": "GROUNDED IN LOCAL DATA (high confidence): (1) All card names, sets, costs, statlines and rules text in this dossier were verified against /home/user/Explore/hearthstone/data/cards.sqlite. Cards I could not find there were dropped. Note that cards.cards.text holds the CURRENT text, not the era-accurate one, so era-accurate values were taken from balance_changes.old_value. (2) Set data-ship dates come from sets_first_seen.json / build_index.json: UNGORO build 18336 on 2017-04-04 (135 cards), ICECROWN build 20457 on 2017-08-08 (135 cards), LOOTAPALOOZA 1 card in build 22115 on 2017-11-06 and 134 in build 22611 on 2017-12-06. These are data-ship dates and precede public release by 2-3 days; public release dates were confirmed by web search. (3) Every balance action marked confirmed_in_local_db=true was read directly out of the balance_changes table with its build number: 2017-02-28/17720, 2017-07-11/20022, 2017-09-18/20970, 2018-02-06/23180, 2018-04-10/23966, 2018-05-22/24589. (4) Nerf latencies (98/62/182/434/167 days) were computed by me from data_first_seen minus balance_changes.date - they are exact against the local DB but measure from DATA SHIP, so they run 2-3 days longer than 'days from public release'. (5) Set power statistics (Un'Goro 2.17 stats/mana at avg cost 3.42; ICECROWN 1.80; LOOTAPALOOZA 1.79; OG 1.92; KARA 2.00; GANGS 1.98) come from deep_analysis.json card_pool_by_set. (6) The 'same-week emergency nerfs (6-8 days) exist from 2018 onward and did not before' claim is quoted from deep_analysis.json's own caveats.\n\nDECK DATA GAP (important): deck_aggregate.json DOES NOT COVER THIS ERA. Its coverage ends 2017-03-19, two and a half weeks before Un'Goro launched. Every empirical_share field for this era's decks is therefore deliberately EMPTY. The only deck_aggregate numbers I have used are explicitly labelled pre-era baselines from the final covered window ('Aggro Downfall', 2017-02-28 to 2017-03-19, n=4,814 ranked HearthPwn decks): Azure Drake 43.69% inclusion, Patches the Pirate 13.92%, Ragnaros 15.72%, Sylvanas 15.35%, Barnes 11.47%, Fiery War Axe 10.05%, Innervate 10.76%, Pirate Warrior 4.26% of labelled archetypes. These measure DECK-POSTING BEHAVIOUR ON HEARTHPWN, not ladder playrate and not winrate, and they describe the meta immediately BEFORE this era.\n\nWEB-SOURCED, SECONDARY (medium-high confidence): public release dates; patch numbers (8.4, 9.0, 9.1, 10.2, 11.1); the Hall of Fame contents and the Standard rotation contents (NOT verifiable in the local DB - the HOF card_set enum exists but contains zero rows, and HoF'd cards still sit under EXPERT1/LEGACY); Blizzard's stated nerf reasoning for The Caverns Below; the Death Knight Arena removal on 2017-11-14; all tournament results, dates, venues and prize amounts. Liquipedia, Fandom, HSReplay and Vicious Syndicate are all Cloudflare-403 from this environment, so tournament facts rest on search-result summaries of those pages plus mainstream press (Shacknews, PC Gamer, Blizzard Watch, Red Bull, Metabomb, Forbes).\n\nRECOLLECTION / QUALITATIVE (flagged, not hard data): tier placements; the specific card lists inside each archetype (every individual card is DB-verified, but the exact 30 was not sourced, which is why representative_decklist is empty everywhere); the Vicious Syndicate representation figures for Jade Druid (~20% at Legend) and Priest (>20% at the bottleneck to Legend), which I could only obtain as secondary quotations of vS report text and not from the reports themselves. NOTHING in the pro_scene section is invented: where I could not confirm a placement, lineup or a player's nationality, I left the field out rather than guess. ShtanUdachi's Winter Championship win is medium confidence (single-source) and is pre-era anyway."
+}
